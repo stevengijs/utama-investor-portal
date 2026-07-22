@@ -25,8 +25,6 @@
     <div class="links">
       <a href="/" data-t="navProjects">Projecten</a>
       <a href="#calc" data-t="navReturns">Rendement</a>
-      <a href="#how" data-t="navHow">Zo werkt het</a>
-      <a href="#location" data-t="navLocation">Locatie</a>
       <a href="#contact" data-t="navContact">Contact</a>
     </div>
     <div class="lang">
@@ -62,8 +60,8 @@
           <div><h2>The Maison</h2><div class="loc">Pererenan, Bali</div><div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="pill" id="pill"></span><span class="momentum" id="momentum"></span></div></div>
           <div class="d-price"><div class="p" id="dprice">vanaf €210.000</div><div class="a" data-t="mStatus">In verkoop · oplevering april 2027</div></div>
         </div>
-        <div class="facts" id="facts"></div>
         <div class="hl" id="hl"></div>
+        <button type="button" class="btn" style="margin-top:22px" onclick="openBrochure()" data-t="mHeroCta2">Bekijk volledige brochure</button>
       </div>
     </div>
   </div>
@@ -138,54 +136,6 @@
   </div>
 </section>
 
-<section id="how">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="eyebrow" data-t="howEyebrow">Volledige ontzorging</div>
-      <h2 data-t="howTitle">Jij bezit het. Wij runnen het.</h2>
-      <p data-t="howSub">Eerlijk en transparant, van contract tot maandelijkse cashflow.</p>
-    </div>
-    <div class="how steps4">
-      <div class="hcard"><div class="n">01</div><h4 data-t="h1t">Je grond, juridisch waterdicht</h4><ul>
-        <li data-t="h1li1">Je least de grond (Hak Sewa), in een apart leasecontract los van de bouw</li>
-        <li data-t="h1li2">Standaard 30 jaar, met contractueel gegarandeerde verlenging van nog 30 jaar</li>
-        <li data-t="h1li3">Waterdicht vastgelegd in de notariële akte via een bevoegde PPAT</li>
-      </ul></div>
-      <div class="hcard"><div class="n">02</div><h4 data-t="hBuildT">Wij begeleiden, jij kijkt mee</h4><ul>
-        <li data-t="hBuildLi1">Wij ontwikkelen het project en selecteren een ervaren, onafhankelijke aannemer voor de uitvoering</li>
-        <li data-t="hBuildLi2">Wij bewaken kwaliteit, planning en budget gedurende de hele bouw</li>
-        <li data-t="hBuildLi3">Los bouwcontract, gescheiden van je leasecontract voor de grond</li>
-        <li data-t="hBuildLi4">Jij volgt elke fase op afstand mee met foto's en video's</li>
-      </ul></div>
-      <div class="hcard"><div class="n">03</div><h4 data-t="h2t">Betalen per bouwmijlpaal</h4><ul>
-        <li data-t="h2li1">Gespreide betaling in euro's, gekoppeld aan bouwmijlpalen</li>
-        <li data-t="h2li2">Meestal 30 + 30 + 30 + 10%, de laatste 10% bij sleuteloverdracht</li>
-        <li data-t="h2li3">Elke termijn pas gefactureerd na een voltooide bouwfase</li>
-        <li data-t="h2li4">Altijd aangetoond met foto- en videoverslag</li>
-      </ul></div>
-      <div class="hcard"><div class="n">04</div><h4 data-t="h3t">Wij beheren, jij ontvangt</h4><ul>
-        <li data-t="h3li1">Na oplevering regelt rental management (House of Reservations, 250+ villa's) listing, boekingen en gasten</li>
-        <li data-t="h3li2">Ook schoonmaak, onderhoud en belasting geregeld, jij hoeft nergens naar om te kijken</li>
-        <li data-t="h3li3">Jij ontvangt maandelijks inkomsten en rapportage, zonder gedoe</li>
-      </ul></div>
-    </div>
-  </div>
-</section>
-
-<section id="location">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="eyebrow" data-t="locEyebrow">Locatie</div>
-      <h2 data-t="locTitle">3 minuten van Pererenan Beach</h2>
-      <p data-t="locSub">The Maison ligt in het hart van Pererenan, omringd door rijstvelden en op korte afstand van de cafés, restaurants en surfspots van de westkust.</p>
-    </div>
-    <div class="loc-map">
-      <iframe src="https://maps.google.com/maps?q=-8.641934,115.130826&z=15&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Locatie van The Maison, Pererenan"></iframe>
-    </div>
-    <a class="btn ghost loc-btn" href="https://maps.app.goo.gl/cWGrCgHWLDVpgCcW8" target="_blank" rel="noopener" data-t="locBtn">Bekijk op Google Maps →</a>
-  </div>
-</section>
-
 <section id="contact">
   <div class="wrap">
     <div class="cta">
@@ -225,16 +175,6 @@ const MAISON = {
     {v:225000, l:{nl:"Vanaf 15 aug",en:"From Aug 15"}, s:{nl:"prijs stijgt",en:"price rises"}}
   ],
   unitsTotal:6, unitsSold:2, recentSold:2,
-  facts:[
-    {l:{nl:"Type",en:"Type"}, v:{nl:"2 ensuite slaapkamers · 2 badkamers",en:"2 ensuite bedrooms · 2 bathrooms"}},
-    {l:{nl:"Woonoppervlak",en:"Living space"}, v:{nl:"115 m² (incl. 40 m² rooftop)",en:"115 m² (incl. 40 m² rooftop)"}},
-    {l:{nl:"Zwembad",en:"Pool"}, v:{nl:"Privé plunge pool",en:"Private plunge pool"}},
-    {l:{nl:"Extra",en:"Extra"}, v:{nl:"Rooftop lounge · outdoor kitchen",en:"Rooftop lounge · outdoor kitchen"}},
-    {l:{nl:"Start bouw",en:"Construction start"}, v:{nl:"Mei 2026",en:"May 2026"}},
-    {l:{nl:"Oplevering",en:"Completion"}, v:{nl:"April 2027",en:"April 2027"}},
-    {l:{nl:"Leasehold",en:"Leasehold"}, v:{nl:"30 + 30 jaar (gegarandeerd)",en:"30 + 30 years (guaranteed)"}},
-    {l:{nl:"Bouwgarantie",en:"Build warranty"}, v:{nl:"10 jaar",en:"10 years"}}
-  ],
   highlights:{
     nl:["Privé plunge pool en 40 m² rooftop lounge met jungle-uitzicht","Volledig gemeubileerd en direct verhuurklaar",
         "Gated community van 6 villa's, 3 min van Pererenan Beach","2 ensuite slaapkamers, outdoor kitchen, open living",
@@ -254,7 +194,7 @@ const SCENARIOS=[
 ];
 
 const T={
- nl:{navProjects:"Projecten",navReturns:"Rendement",navHow:"Zo werkt het",navLocation:"Locatie",navContact:"Contact",back:"Projecten",
+ nl:{navProjects:"Projecten",navReturns:"Rendement",navContact:"Contact",back:"Projecten",
   mHeroSub:"Zes design-villa's met 2 slaapkamers, privé plunge pool en rooftop lounge, in het hart van Pererenan. Jij bezit de villa, wij ontwikkelen, beheren en verhuren hem voor je.",
   mHeroCta1:"Bereken je rendement",mHeroCta2:"Bekijk volledige brochure",mt1:"richtprijs, nu in verkoop",mt2:"netto rendement (realistisch)",mt3:"al verkocht",mStatus:"In verkoop · oplevering april 2027",
   calcEyebrow:"Rendement",calcTitle:"Bereken je rendement",calcSub:"De aannames zijn gebaseerd op reële cijfers voor The Maison. Pas ze aan naar jouw scenario. Eerlijk, geen opgeblazen beloftes.",
@@ -267,15 +207,6 @@ const T={
   a2:"Netto = bruto minus alle kosten: beheer, marketing, OTA-fees, schoonmaak, onderhoud, personeel en lokale belasting.",
   a3:"Cijfers zijn gebaseerd op het rendementsmodel van The Maison (House of Reservations, met deels directe boekingen).",
   a4:"Verkoopwaarde bij aanhouden gebruikt een vaste jaarlijkse waardegroei van 5%, gebaseerd op marktdata voor vergelijkbare locaties aan de westkust van Bali. Bij leasehold hangt de waarde ook af van de resterende looptijd. Indicatie, geen garantie.",
-  howEyebrow:"Volledige ontzorging",howTitle:"Jij bezit het. Wij runnen het.",howSub:"Eerlijk en transparant, van contract tot maandelijkse cashflow.",
-  h1t:"Je grond, juridisch waterdicht",
-  h1li1:"Je least de grond (Hak Sewa), in een apart leasecontract los van de bouw",h1li2:"Standaard 30 jaar, met contractueel gegarandeerde verlenging van nog 30 jaar",h1li3:"Waterdicht vastgelegd in de notariële akte via een bevoegde PPAT",
-  hBuildT:"Wij begeleiden, jij kijkt mee",
-  hBuildLi1:"Wij ontwikkelen het project en selecteren een ervaren, onafhankelijke aannemer voor de uitvoering",hBuildLi2:"Wij bewaken kwaliteit, planning en budget gedurende de hele bouw",hBuildLi3:"Los bouwcontract, gescheiden van je leasecontract voor de grond",hBuildLi4:"Jij volgt elke fase op afstand mee met foto's en video's",
-  h2t:"Betalen per bouwmijlpaal",
-  h2li1:"Gespreide betaling in euro's, gekoppeld aan bouwmijlpalen",h2li2:"Meestal 30 + 30 + 30 + 10%, de laatste 10% bij sleuteloverdracht",h2li3:"Elke termijn pas gefactureerd na een voltooide bouwfase",h2li4:"Altijd aangetoond met foto- en videoverslag",
-  h3t:"Wij beheren, jij ontvangt",
-  h3li1:"Na oplevering regelt rental management (House of Reservations, 250+ villa's) listing, boekingen en gasten",h3li2:"Ook schoonmaak, onderhoud en belasting geregeld, jij hoeft nergens naar om te kijken",h3li3:"Jij ontvangt maandelijks inkomsten en rapportage, zonder gedoe",
   ctaTitle:"Klaar voor de volgende stap?",ctaSub:"Bekijk de volledige digitale brochure met alle renders, plattegronden, exacte prijzen en het rendementsmodel, of stel je vraag direct aan Ashley.",
   ctaWa:"Praat met Ashley via WhatsApp",agentRole:"Sales Manager, UTAMA",
   ctaBtn:"Verstuur via WhatsApp",ctaEmail:"Of per e-mail",ctaCall:"Plan een gesprek",name:"Je naam",phone:"Je WhatsApp-nummer",email:"Je e-mailadres",
@@ -287,9 +218,8 @@ const T={
   recentSold:"{x} verkocht",
   scenH:"Drie scenario's voor The Maison",scenNote:"Nettorendement per jaar, exclusief verkoopwinst. Schattingen, geen garanties. Klik op een scenario om de rekentool hierboven aan te passen.",
   scOcc:"bezetting",scNight:"nacht",scPay:"Terugverdiend in",
-  calcCtaTitle:"Wil je deze cijfers naast plattegronden en exacte specificaties zien?",calcCtaSub:"De volledige digitale brochure bevat alle renders, plattegronden, het betaalschema en het complete rendementsmodel.",calcCtaBtn:"Bekijk de volledige brochure →",
-  locEyebrow:"Locatie",locTitle:"3 minuten van Pererenan Beach",locSub:"The Maison ligt in het hart van Pererenan, omringd door rijstvelden en op korte afstand van de cafés, restaurants en surfspots van de westkust.",locBtn:"Bekijk op Google Maps →"},
- en:{navProjects:"Projects",navReturns:"Returns",navHow:"How it works",navLocation:"Location",navContact:"Contact",back:"Projects",
+  calcCtaTitle:"Wil je deze cijfers naast plattegronden en exacte specificaties zien?",calcCtaSub:"De volledige digitale brochure bevat alle renders, plattegronden, het betaalschema en het complete rendementsmodel.",calcCtaBtn:"Bekijk de volledige brochure →"},
+ en:{navProjects:"Projects",navReturns:"Returns",navContact:"Contact",back:"Projects",
   mHeroSub:"Six design villas with 2 bedrooms, a private plunge pool and rooftop lounge, in the heart of Pererenan. You own the villa, we develop, manage and rent it out for you.",
   mHeroCta1:"Calculate your return",mHeroCta2:"View full brochure",mt1:"guide price, selling now",mt2:"net yield (realistic)",mt3:"already sold",mStatus:"Selling now · completion April 2027",
   calcEyebrow:"Returns",calcTitle:"Calculate your return",calcSub:"The assumptions are based on real figures for The Maison. Adjust them to your scenario. Honest, no inflated promises.",
@@ -302,15 +232,6 @@ const T={
   a2:"Net = gross minus all costs: management, marketing, OTA fees, cleaning, maintenance, staff and local tax.",
   a3:"Figures are based on The Maison's return model (House of Reservations, partly direct bookings).",
   a4:"Resale value on holding uses a fixed annual value growth of 5%, based on market data for comparable locations on Bali's west coast. For leasehold, value also depends on the remaining term. Indicative, not a guarantee.",
-  howEyebrow:"Fully hands-off",howTitle:"You own it. We run it.",howSub:"Honest and transparent, from contract to monthly cashflow.",
-  h1t:"Your land, watertight in law",
-  h1li1:"You lease the land (Hak Sewa), under a separate contract from the construction",h1li2:"Standard 30 years, with a contractually guaranteed 30-year extension",h1li3:"Watertight in the notarial deed via an authorised PPAT",
-  hBuildT:"We oversee, you watch it happen",
-  hBuildLi1:"We develop the project and select an experienced, independent contractor to carry out construction",hBuildLi2:"We monitor quality, schedule and budget throughout the build",hBuildLi3:"A separate construction contract, apart from your land lease contract",hBuildLi4:"You follow every phase remotely with photos and videos",
-  h2t:"Pay per construction milestone",
-  h2li1:"Staged payment in euros, tied to construction milestones",h2li2:"Usually 30 + 30 + 30 + 10%, the final 10% at key handover",h2li3:"Each instalment only invoiced once that phase is complete",h2li4:"Always shown with photo and video proof",
-  h3t:"We manage, you receive",
-  h3li1:"After handover, rental management (House of Reservations, 250+ villas) handles listing, bookings and guests",h3li2:"Cleaning, maintenance and tax are covered too, you never have to chase anything",h3li3:"You receive monthly income and reporting, without the hassle",
   ctaTitle:"Ready for the next step?",ctaSub:"View the full digital brochure with all renders, floor plans, exact prices and the return model, or ask Ashley directly.",
   ctaWa:"Chat with Ashley on WhatsApp",agentRole:"Sales Manager, UTAMA",
   ctaBtn:"Send via WhatsApp",ctaEmail:"Or by email",ctaCall:"Book a call",name:"Your name",phone:"Your WhatsApp number",email:"Your email",
@@ -322,8 +243,7 @@ const T={
   recentSold:"{x} sold",
   scenH:"Three scenarios for The Maison",scenNote:"Net yield per year, excluding resale profit. Estimates, not guarantees. Click a scenario to update the calculator above.",
   scOcc:"occupancy",scNight:"night",scPay:"Paid back in",
-  calcCtaTitle:"Want to see these figures alongside floor plans and exact specifications?",calcCtaSub:"The full digital brochure includes all renders, floor plans, the payment schedule and the complete return model.",calcCtaBtn:"View the full brochure →",
-  locEyebrow:"Location",locTitle:"3 minutes from Pererenan Beach",locSub:"The Maison sits in the heart of Pererenan, surrounded by rice fields and a short ride from the west coast's cafés, restaurants and surf spots.",locBtn:"View on Google Maps →"}
+  calcCtaTitle:"Want to see these figures alongside floor plans and exact specifications?",calcCtaSub:"The full digital brochure includes all renders, floor plans, the payment schedule and the complete return model.",calcCtaBtn:"View the full brochure →"}
 };
 let lang="nl", selPrice=210000;
 const el=id=>document.getElementById(id);
@@ -337,8 +257,7 @@ function renderStatic(){
   el('gallery').innerHTML = (MAISON.images&&MAISON.images.length)
     ? `<div class="g big" style="background-image:url('${MAISON.images[0]}');background-size:cover;background-position:center" onclick="openLb(0)"></div>`+[1,2,3,4].map(i=>MAISON.images[i]?`<div class="g" style="background-image:url('${MAISON.images[i]}');background-size:cover;background-position:center" onclick="openLb(${i})"></div>`:imgBlock('','')).join("")
     : imgBlock('big',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render);
-  el('facts').innerHTML=MAISON.facts.map(f=>`<div class="fact"><div class="l">${f.l[lang]}</div><div class="v">${f.v[lang]}</div></div>`).join("");
-  el('hl').innerHTML=MAISON.highlights[lang].map(x=>`<div>${x}</div>`).join("");
+  el('hl').innerHTML=MAISON.highlights[lang].slice(0,3).map(x=>`<div>${x}</div>`).join("");
   el('pill').textContent=tr(T[lang].available,{x:avail,y:MAISON.unitsTotal,sold:MAISON.unitsSold});
   el('momentum').textContent = MAISON.recentSold ? tr(T[lang].recentSold,{x:MAISON.recentSold}) : '';
   el('mAvail').textContent=tr(T[lang].availShort,{x:MAISON.unitsSold,y:MAISON.unitsTotal});
@@ -521,10 +440,6 @@ setLang('nl');
   .lb .prev{left:16px}.lb .next{right:16px}
   .lb .cap{position:absolute;bottom:16px;left:0;right:0;text-align:center;color:#eee;font-size:13px;opacity:.8}
   @media(max-width:600px){ .lb .nav{width:42px;height:42px} }
-  .loc-map{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin-bottom:18px}
-  .loc-map iframe{width:100%;height:380px;border:0;display:block}
-  .loc-btn{display:inline-flex}
-  @media(max-width:600px){.loc-map iframe{height:280px}}
 </style>
 <div class="modal-ov" id="broModal" onclick="if(event.target===this)closeBrochure()">
   <div class="modal" role="dialog" aria-modal="true">
