@@ -12,6 +12,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="/images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png">
+<link rel="apple-touch-icon" href="/images/favicon-180.png">
 <link rel="stylesheet" href="/styles.css">
 <style>
   .founder-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:34px;display:grid;grid-template-columns:180px 1fr;gap:30px;align-items:start}
@@ -28,6 +31,37 @@
   .pcard.soon .soon-content{position:relative;z-index:1;text-align:center;padding:0 30px}
   .pcard.soon .soon-tag{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#f0c9a8;margin-bottom:10px}
   .pcard.soon .soon-text{font-family:'Fraunces',serif;font-size:21px;font-weight:600;line-height:1.3}
+  .pcard.soon{cursor:pointer}
+  .pcard .avail{text-align:right}
+  .pcard .avail .avail-sold{color:var(--terra);font-weight:700;font-size:13px}
+  .pcard .avail .avail-left{color:var(--muted);font-weight:500;font-size:11.5px}
+  .modal-ov{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(33,30,24,.4);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+  .modal-ov.open{display:flex}
+  .modal{background:var(--paper);border:1px solid var(--line);border-radius:18px;max-width:470px;width:100%;padding:30px 30px 26px;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.32);max-height:92vh;overflow:auto}
+  .modal .x{position:absolute;top:12px;right:15px;background:none;border:none;font-size:24px;line-height:1;color:var(--muted);cursor:pointer}
+  .modal .x:hover{color:var(--ink)}
+  .modal .eb{color:var(--terra);font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
+  .modal h3{font-size:24px;margin-bottom:6px;font-family:'Fraunces',serif;font-weight:600}
+  .modal .msub{color:var(--muted);font-size:14px;margin-bottom:18px}
+  .mfield{margin-bottom:12px}
+  .mfield label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:5px}
+  .mfield input,.mfield select{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-family:inherit;font-size:15px;background:var(--paper);color:var(--ink)}
+  .mfield input:focus,.mfield select:focus{outline:none;border-color:var(--green)}
+  .mrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .merr{color:#b5462b;font-size:13px;margin:3px 0 0;display:none}
+  .mtrust{margin-top:12px;font-size:12px;color:var(--muted)}
+  @media(max-width:520px){ .mrow{grid-template-columns:1fr} }
+  .msuccess{text-align:center;padding:16px 6px 8px}
+  .checkwrap{width:82px;height:82px;margin:4px auto 14px;animation:pop .45s ease}
+  .chk{width:82px;height:82px}
+  .chk circle{fill:none;stroke:var(--ok);stroke-width:3;opacity:.22}
+  .chk path{fill:none;stroke:var(--ok);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:60;stroke-dashoffset:60;animation:draw .5s .18s ease forwards}
+  .msuccess h3{font-family:'Fraunces',serif;font-weight:600;font-size:26px;margin-bottom:6px}
+  .msuccess p{color:var(--muted);font-size:14.5px;margin:0 auto;max-width:330px}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes pop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+  .confetti{position:absolute;top:-12px;border-radius:2px;opacity:.9;z-index:1;animation-name:cfall;animation-timing-function:cubic-bezier(.3,.6,.4,1);animation-fill-mode:forwards}
+  @keyframes cfall{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(105vh) rotate(680deg);opacity:.85}}
   @media(max-width:700px){
     .founder-card{grid-template-columns:1fr;text-align:center;padding:26px}
     .founder-photo img{margin:0 auto}
@@ -140,6 +174,47 @@
   </div>
 </footer>
 
+<div class="modal-ov" id="eaModal" onclick="if(event.target===this)closeEarlyAccess()">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="x" onclick="closeEarlyAccess()" aria-label="Sluiten">&times;</button>
+    <div class="eb" data-t="eaEb">Vroegtijdige toegang</div>
+    <h3 data-t="eaTitle">Meld je alvast aan voor het volgende project</h3>
+    <div class="msub" data-t="eaSub">Laat je gegevens achter, dan ben je een van de eersten die de details en pre-sale prijzen ontvangt zodra het project onthuld wordt.</div>
+    <form onsubmit="return submitEarlyAccess(event)">
+      <div class="mfield"><label data-t="name">Je naam</label><input id="eaName" type="text" data-tp="name" placeholder="Je volledige naam" required></div>
+      <div class="mrow">
+        <div class="mfield"><label data-t="phone">Je WhatsApp-nummer</label><input id="eaPhone" type="tel" placeholder="+31 6 ..." required></div>
+        <div class="mfield"><label data-t="email">Je e-mailadres</label><input id="eaEmail" type="email" placeholder="jij@voorbeeld.com" required></div>
+      </div>
+      <div class="mrow">
+        <div class="mfield"><label data-t="eaBudget">Budget</label>
+          <select id="eaBudget" required>
+            <option value="" disabled selected data-t="eaBudget">Kies je budget</option>
+            <option>Tot &euro;200.000</option>
+            <option>&euro;200.000 - &euro;250.000</option>
+            <option>&euro;250.000 - &euro;350.000</option>
+            <option>&euro;350.000 of meer</option>
+            <option>Nog niet zeker</option>
+          </select>
+        </div>
+        <div class="mfield"><label data-t="eaWhen">Wanneer wil je kopen?</label>
+          <select id="eaWhen" required>
+            <option value="" disabled selected>Kies je horizon</option>
+            <option>Zo snel mogelijk</option>
+            <option>Binnen 3 maanden</option>
+            <option>3 tot 6 maanden</option>
+            <option>6 tot 12 maanden</option>
+            <option>Ik ori&euml;nteer me nog</option>
+          </select>
+        </div>
+      </div>
+      <div class="merr" id="eaErr" data-t="eaErr">Vul je naam, WhatsApp-nummer en e-mailadres in.</div>
+      <button class="btn" style="width:100%;justify-content:center;margin-top:6px" type="submit" data-t="eaBtn">Meld je aan</button>
+      <div class="mtrust" data-t="eaTrust">Geen spam. We gebruiken je gegevens alleen om je op de hoogte te houden van dit project.</div>
+    </form>
+  </div>
+</div>
+
 <script>
 const CONFIG = { whatsapp:"31624845014", email:"steven@utamabali.com", calendly:"", locale:"nl-NL", currency:"EUR" };
 
@@ -174,8 +249,11 @@ const T={
   ctaTitle:"Ontvang de digitale brochure via WhatsApp",ctaSub:"Laat je gegevens achter, dan sturen we je de brochure direct via WhatsApp en bellen we je kort om je vragen te beantwoorden. Een aanbetaling van €5.000 reserveert een unit. Geen spam.",
   ctaBtn:"Verstuur via WhatsApp",ctaEmail:"Of per e-mail",ctaCall:"Plan een gesprek",name:"Je naam",phone:"Je WhatsApp-nummer",email:"Je e-mailadres",
   footer:"Investeren in Bali-vastgoed, transparant en zorgeloos.",
-  from:"vanaf",available:"{sold} van {y} verkocht · nog {x} beschikbaar",soldOutLine:"Volledig uitverkocht ({y} van {y})",recentSold:"{x} verkocht in de {p}",more:"Bekijk project en rendement →",soon:"Volgend project wordt binnenkort onthuld",soonTag:"Binnenkort · nieuw project",
-  fill:"Vul je naam en je WhatsApp of e-mail in.",okMsg:"Bedankt! We nemen snel contact met je op. Je ontvangt de brochure via WhatsApp."},
+  from:"vanaf",soldPart:"{sold} van {y} verkocht",leftPart:"nog {x} beschikbaar",soldOutLine:"Volledig uitverkocht ({y} van {y})",recentSold:"{x} verkocht in de {p}",more:"Bekijk project en rendement →",soon:"Volgend project wordt binnenkort onthuld",soonTag:"Binnenkort · nieuw project",
+  fill:"Vul je naam en je WhatsApp of e-mail in.",okMsg:"Bedankt! We nemen snel contact met je op. Je ontvangt de brochure via WhatsApp.",
+  eaEb:"Vroegtijdige toegang",eaTitle:"Meld je alvast aan voor het volgende project",eaSub:"Laat je gegevens achter, dan ben je een van de eersten die de details en pre-sale prijzen ontvangt zodra het project onthuld wordt.",
+  eaBudget:"Budget",eaWhen:"Wanneer wil je kopen?",eaErr:"Vul je naam, WhatsApp-nummer en e-mailadres in.",eaBtn:"Meld je aan",
+  eaOkTitle:"Aangemeld!",eaOkP:"We houden je op de hoogte zodra dit project onthuld wordt. Je hoort als eerste van ons.",eaTrust:"Geen spam. We gebruiken je gegevens alleen om je op de hoogte te houden van dit project."},
  en:{navProjects:"Projects",navHow:"How it works",navContact:"Contact",
   heroEyebrow:"Off-plan villas in Bali",heroTitle:"Invest in Bali real estate, transparent and hassle-free",
   heroSub:"Premium villas with strong rental returns, fully built and managed. From purchase to monthly rental income, we handle everything.",
@@ -192,8 +270,11 @@ const T={
   ctaTitle:"Get the digital brochure via WhatsApp",ctaSub:"Leave your details and we'll send the brochure straight to your WhatsApp and give you a quick call to answer your questions. A €5,000 deposit reserves a unit. No spam.",
   ctaBtn:"Send via WhatsApp",ctaEmail:"Or by email",ctaCall:"Book a call",name:"Your name",phone:"Your WhatsApp number",email:"Your email",
   footer:"Investing in Bali real estate, transparent and hassle-free.",
-  from:"from",available:"{sold} of {y} sold · {x} left",soldOutLine:"Fully sold out ({y} of {y})",recentSold:"{x} sold in the {p}",more:"View project and returns →",soon:"Next project to be revealed soon",soonTag:"Coming soon · new project",
-  fill:"Please enter your name and WhatsApp or email.",okMsg:"Thanks! We'll be in touch shortly. You'll receive the brochure via WhatsApp."}
+  from:"from",soldPart:"{sold} of {y} sold",leftPart:"{x} left",soldOutLine:"Fully sold out ({y} of {y})",recentSold:"{x} sold in the {p}",more:"View project and returns →",soon:"Next project to be revealed soon",soonTag:"Coming soon · new project",
+  fill:"Please enter your name and WhatsApp or email.",okMsg:"Thanks! We'll be in touch shortly. You'll receive the brochure via WhatsApp.",
+  eaEb:"Early access",eaTitle:"Register your interest for the next project",eaSub:"Leave your details and you'll be one of the first to receive the details and pre-sale prices once the project is revealed.",
+  eaBudget:"Budget",eaWhen:"When do you want to buy?",eaErr:"Please enter your name, WhatsApp number and email.",eaBtn:"Register interest",
+  eaOkTitle:"You're on the list!",eaOkP:"We'll keep you posted as soon as this project is revealed. You'll be among the first to hear from us.",eaTrust:"No spam. We'll only use your details to keep you posted about this project."}
 };
 let lang="nl";
 const el=id=>document.getElementById(id);
@@ -210,12 +291,12 @@ function renderCards(){
       <div class="${imgCls}" style="${imgStyle}"><span class="badge">${p.status[lang]}</span></div>
       <div class="pinfo">
         <h3>${p.name}</h3><div class="loc">${p.loc[lang]}</div>
-        <div class="prow"><div class="price">${T[lang].from} ${money(p.priceFrom)}</div><div class="avail">${avail>0?tr(T[lang].available,{x:avail,y:p.unitsTotal,sold:p.unitsSold}):tr(T[lang].soldOutLine,{y:p.unitsTotal})}</div></div>
+        <div class="prow"><div class="price">${T[lang].from} ${money(p.priceFrom)}</div><div class="avail">${avail>0?`<b class="avail-sold">${tr(T[lang].soldPart,{sold:p.unitsSold,y:p.unitsTotal})}</b><span class="avail-left"> · ${tr(T[lang].leftPart,{x:avail})}</span>`:`<b class="avail-sold">${tr(T[lang].soldOutLine,{y:p.unitsTotal})}</b>`}</div></div>
         ${p.recentSold?`<div class="momentum">${tr(T[lang].recentSold,{x:p.recentSold,p:p.recentPeriod[lang]})}</div>`:''}
         <div class="more">${T[lang].more}</div>
       </div></a>`;
   });
-  h+=`<div class="pcard soon">
+  h+=`<div class="pcard soon" onclick="openEarlyAccess()">
     <div class="soon-bg" style="background-image:url('/images/steven-site-generic.jpg')"></div>
     <div class="soon-overlay"></div>
     <div class="soon-content">
@@ -244,6 +325,43 @@ function sendLead(via){
 }
 function openCal(){ if(CONFIG.calendly){window.open(CONFIG.calendly,"_blank");} else {sendLead('wa');} }
 function waDirect(){ const msg=(lang==='nl'?"Hi! Ik heb interesse in jullie Bali-villa's.":"Hi! I'm interested in your Bali villas."); window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg),"_blank"); }
+function openEarlyAccess(){ el('eaModal').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeEarlyAccess(){ el('eaModal').classList.remove('open'); document.body.style.overflow=''; }
+function submitEarlyAccess(e){
+  e.preventDefault();
+  const name=el('eaName').value.trim(), phone=el('eaPhone').value.trim(), email=el('eaEmail').value.trim();
+  const budget=el('eaBudget').value, when=el('eaWhen').value;
+  if(!name||!phone||!email||!budget||!when){ el('eaErr').style.display='block'; return false; }
+  const lead={ project:"Volgend project (early access)", name, phone, email, budget, when };
+  if(CONFIG.leadEndpoint){ try{ fetch(CONFIG.leadEndpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(lead)}); }catch(err){} }
+  showEarlySuccess(name);
+  return false;
+}
+function showEarlySuccess(name){
+  const m=document.querySelector('#eaModal .modal'); if(!m) return;
+  const first=name?name.split(' ')[0]:'';
+  m.innerHTML='<div class="msuccess">'+
+    '<div class="checkwrap"><svg viewBox="0 0 52 52" class="chk"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg></div>'+
+    '<h3>'+T[lang].eaOkTitle+(first?', '+first:'')+'</h3>'+
+    '<p>'+T[lang].eaOkP+'</p>'+
+    '</div>';
+  launchConfetti('eaModal');
+}
+function launchConfetti(hostId){
+  const host=el(hostId); if(!host) return;
+  const colors=['#243F35','#C06B3A','#B0873E','#2E7D5B','#EFE7D8'];
+  for(let i=0;i<80;i++){
+    const c=document.createElement('div'); c.className='confetti';
+    c.style.left=(Math.random()*100)+'%';
+    c.style.background=colors[i%colors.length];
+    c.style.width=(6+Math.random()*6)+'px';
+    c.style.height=(9+Math.random()*9)+'px';
+    c.style.animationDuration=(1.1+Math.random()*1.3)+'s';
+    c.style.animationDelay=(Math.random()*0.3)+'s';
+    host.appendChild(c);
+  }
+}
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeEarlyAccess(); });
 setLang('nl');
 </script>
 </body>
