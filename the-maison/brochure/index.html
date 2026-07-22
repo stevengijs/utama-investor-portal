@@ -72,10 +72,17 @@
   .ret .r .rv{font-family:'Fraunces',serif;font-size:25px;font-weight:600;color:var(--green)}
   .ret .r.hl2 .rv{color:var(--terra)}
   .ret .r .rl{font-size:12.5px;color:var(--muted);margin-top:3px}
-  table.pay{width:100%;border-collapse:collapse;font-size:14px;margin-top:4px}
-  table.pay th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600;padding:0 8px 10px;border-bottom:1px solid var(--line)}
-  table.pay td{padding:12px 8px;border-bottom:1px solid var(--line)}
-  table.pay tr:last-child td{border-bottom:none}
+  .paybar{display:flex;border-radius:14px;overflow:hidden;margin-top:16px;box-shadow:var(--shadow)}
+  .payseg{padding:22px 20px;position:relative}
+  .payseg+.payseg{border-left:1px solid rgba(255,255,255,.22)}
+  .payseg:nth-child(1){background:var(--terra);color:#fff;flex:3}
+  .payseg:nth-child(2){background:#CC8A63;color:#fff;flex:3}
+  .payseg:nth-child(3){background:#DBAC8B;color:#3a2416;flex:3}
+  .payseg:nth-child(4){background:#F1E1D2;color:var(--ink);flex:1}
+  .payseg .pp{font-family:'Fraunces',serif;font-size:27px;font-weight:600;line-height:1}
+  .payseg .pl{font-size:13px;font-weight:600;margin-top:9px}
+  .payseg .pa{font-size:12.5px;margin-top:5px;opacity:.85}
+  @media(max-width:640px){.paybar{flex-direction:column}.payseg{flex:none !important}.payseg+.payseg{border-left:none;border-top:1px solid rgba(255,255,255,.22)}}
   .bcta{background:var(--green);color:#eee4d4;border-radius:18px;padding:32px;text-align:center;margin-top:40px}
   .bcta h2{color:#fff;font-size:26px;margin-bottom:8px}
   .bcta p{opacity:.9;margin:0 auto 18px;max-width:520px;font-size:14.5px}
@@ -349,15 +356,13 @@
 
   <div class="sec">
     <h2>Betaling per bouwmijlpaal</h2>
-    <table class="pay">
-      <thead><tr><th>Termijn</th><th>Deel</th><th>Bedrag (bij €210.000)</th></tr></thead>
-      <tbody>
-        <tr><td>Bij contract</td><td>30%</td><td>€63.000</td></tr>
-        <tr><td>Bij casco</td><td>30%</td><td>€63.000</td></tr>
-        <tr><td>Bij afbouw</td><td>30%</td><td>€63.000</td></tr>
-        <tr><td>Bij sleuteloverdracht</td><td>10%</td><td>€21.000</td></tr>
-      </tbody>
-    </table>
+    <div class="paybar">
+      <div class="payseg"><div class="pp">30%</div><div class="pl">Bij contract</div><div class="pa">€63.000</div></div>
+      <div class="payseg"><div class="pp">30%</div><div class="pl">Bij casco</div><div class="pa">€63.000</div></div>
+      <div class="payseg"><div class="pp">30%</div><div class="pl">Bij afbouw</div><div class="pa">€63.000</div></div>
+      <div class="payseg"><div class="pp">10%</div><div class="pl">Bij sleuteloverdracht</div><div class="pa">€21.000</div></div>
+    </div>
+    <p class="note" style="margin-top:12px">Bedragen bij een richtprijs van €210.000. Elke termijn wordt pas gefactureerd nadat de bijbehorende bouwfase is voltooid en met foto- en videoverslag is aangetoond.</p>
     <p class="note">Je least de grond (Hak Sewa) en bezit de villa. Standaard 30 jaar met contractueel gegarandeerde verlenging van 30 jaar, vastgelegd in de notariële akte via een bevoegde PPAT.</p>
   </div>
 

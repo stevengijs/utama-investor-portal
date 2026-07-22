@@ -38,8 +38,8 @@
     <h1>The Maison</h1>
     <p data-t="mHeroSub">Zes design-villa's met 2 slaapkamers, privé plunge pool en rooftop lounge, in het hart van Pererenan. Volledig gemeubileerd en beheerd, gebouwd voor sterk verhuurrendement.</p>
     <div class="btns">
-      <a href="#calc" class="btn" data-t="mHeroCta1">Bereken je rendement</a>
-      <button type="button" class="btn ghost" onclick="openBrochure()" data-t="mHeroCta2">Bekijk volledige brochure</button>
+      <button type="button" class="btn" onclick="openBrochure()" data-t="mHeroCta2">Bekijk volledige brochure</button>
+      <a href="#calc" class="btn ghost" data-t="mHeroCta1">Bereken je rendement</a>
     </div>
     <div class="trustrow">
       <div><b>vanaf €210.000</b><span data-t="mt1">richtprijs, nu in verkoop</span></div>
@@ -122,6 +122,13 @@
       <div class="scen-h" data-t="scenH">Drie scenario's uit de brochure van The Maison</div>
       <div class="scen" id="scenGrid"></div>
       <p class="note" data-t="scenNote">Nettorendement per jaar, exclusief verkoopwinst. Schattingen uit de brochure, geen garanties.</p>
+    </div>
+    <div class="calc-cta">
+      <div>
+        <h3 data-t="calcCtaTitle">Wil je deze cijfers naast plattegronden en exacte specificaties zien?</h3>
+        <p data-t="calcCtaSub">De volledige digitale brochure bevat alle renders, plattegronden, het betaalschema en het complete rendementsmodel.</p>
+      </div>
+      <button type="button" class="btn" onclick="openBrochure()" data-t="calcCtaBtn">Bekijk de volledige brochure →</button>
     </div>
   </div>
 </section>
@@ -207,7 +214,7 @@ const SCENARIOS=[
 const T={
  nl:{navProjects:"Projecten",navReturns:"Rendement",navHow:"Zo werkt het",navContact:"Contact",back:"Projecten",
   mHeroSub:"Zes design-villa's met 2 slaapkamers, privé plunge pool en rooftop lounge, in het hart van Pererenan. Volledig gemeubileerd en beheerd, gebouwd voor sterk verhuurrendement.",
-  mHeroCta1:"Bereken je rendement",mHeroCta2:"Bekijk volledige brochure",mt1:"richtprijs, nu in verkoop",mt2:"netto rendement (realistisch)",mt3:"nog beschikbaar",mStatus:"In verkoop · oplevering april 2027",
+  mHeroCta1:"Bereken je rendement",mHeroCta2:"Bekijk volledige brochure",mt1:"richtprijs, nu in verkoop",mt2:"netto rendement (realistisch)",mt3:"al verkocht",mStatus:"In verkoop · oplevering april 2027",
   calcEyebrow:"Rendement",calcTitle:"Bereken je rendement",calcSub:"De aannames volgen de cijfers uit onze brochure. Pas ze aan naar jouw scenario. Eerlijk, geen opgeblazen beloftes.",
   assumpH:"Aannames",assumpSub:"Voorgevuld op de brochure van The Maison.",fPrice:"Prijs (vast)",fNightly:"Gem. nachtprijs",fOcc:"Bezettingsgraad",fCosts:"Kosten & beheer",fHold:"Aanhoudperiode",fGrowth:"Geschatte waardegroei / jaar",
   expected:"Verwacht rendement",perYear:"Op jaarbasis, netto na alle kosten en beheer.",netYield:"netto rendement / jaar",netMonth:"Netto huur / maand",netYear:"Netto huur / jaar",
@@ -226,15 +233,16 @@ const T={
   ctaBtn:"Verstuur via WhatsApp",ctaEmail:"Of per e-mail",ctaCall:"Plan een gesprek",name:"Je naam",phone:"Je WhatsApp-nummer",email:"Je e-mailadres",
   footer:"Investeren in Bali-vastgoed, transparant en zorgeloos.",
   disc:"Deze site geeft indicatieve informatie en geen fiscaal of juridisch advies. Rendementen zijn schattingen, geen garanties. Laat contracten altijd controleren door een bevoegde notaris (PPAT) en je eigen adviseur.",
-  yrs:"jaar",payback:"Terugverdiend in ± {x} jaar (alleen uit huur).",available:"Nog {x} van {y} beschikbaar",availShort:"{x} van {y}",render:"Render: voeg je beeld toe",
+  yrs:"jaar",payback:"Terugverdiend in ± {x} jaar (alleen uit huur).",available:"{sold} van {y} verkocht · nog {x} beschikbaar",availShort:"{x} van {y}",render:"Render: voeg je beeld toe",
   holdH:"Over {x} jaar aanhouden (bij {g}% waardegroei/jaar):",ext:"Leasehold 30 jaar met gegarandeerde verlenging van 30 jaar. Verlengen na 30 jaar kost ± 20% van de aankoopprijs (± {x}). Je kunt de villa ook eerder verkopen.",
   fill:"Vul je naam en je WhatsApp of e-mail in.",okMsg:"Bedankt! We nemen snel contact met je op. Je ontvangt de brochure via WhatsApp.",roiLbl:"ROI",
   recentSold:"{x} verkocht in de afgelopen maand",
   scenH:"Drie scenario's uit de brochure van The Maison",scenNote:"Nettorendement per jaar, exclusief verkoopwinst. Schattingen uit de brochure, geen garanties.",
-  scOcc:"bezetting",scNight:"nacht",scPay:"Terugverdiend in"},
+  scOcc:"bezetting",scNight:"nacht",scPay:"Terugverdiend in",
+  calcCtaTitle:"Wil je deze cijfers naast plattegronden en exacte specificaties zien?",calcCtaSub:"De volledige digitale brochure bevat alle renders, plattegronden, het betaalschema en het complete rendementsmodel.",calcCtaBtn:"Bekijk de volledige brochure →"},
  en:{navProjects:"Projects",navReturns:"Returns",navHow:"How it works",navContact:"Contact",back:"Projects",
   mHeroSub:"Six design villas with 2 bedrooms, a private plunge pool and rooftop lounge, in the heart of Pererenan. Fully furnished and managed, built for strong rental returns.",
-  mHeroCta1:"Calculate your return",mHeroCta2:"View full brochure",mt1:"guide price, selling now",mt2:"net yield (realistic)",mt3:"still available",mStatus:"Selling now · completion April 2027",
+  mHeroCta1:"Calculate your return",mHeroCta2:"View full brochure",mt1:"guide price, selling now",mt2:"net yield (realistic)",mt3:"already sold",mStatus:"Selling now · completion April 2027",
   calcEyebrow:"Returns",calcTitle:"Calculate your return",calcSub:"The assumptions follow the figures from our brochure. Adjust them to your scenario. Honest, no inflated promises.",
   assumpH:"Assumptions",assumpSub:"Pre-filled from The Maison brochure.",fPrice:"Price (fixed)",fNightly:"Avg. nightly rate",fOcc:"Occupancy rate",fCosts:"Costs & management",fHold:"Holding period",fGrowth:"Estimated value growth / year",
   expected:"Expected return",perYear:"Per year, net of all costs and management.",netYield:"net yield / year",netMonth:"Net rent / month",netYear:"Net rent / year",
@@ -253,18 +261,19 @@ const T={
   ctaBtn:"Send via WhatsApp",ctaEmail:"Or by email",ctaCall:"Book a call",name:"Your name",phone:"Your WhatsApp number",email:"Your email",
   footer:"Investing in Bali real estate, transparent and hassle-free.",
   disc:"This site provides indicative information and no tax or legal advice. Returns are estimates, not guarantees. Always have contracts checked by an authorised notary (PPAT) and your own adviser.",
-  yrs:"years",payback:"Paid back in ± {x} years (from rent alone).",available:"{x} of {y} still available",availShort:"{x} of {y}",render:"Render: add your image",
+  yrs:"years",payback:"Paid back in ± {x} years (from rent alone).",available:"{sold} of {y} sold · {x} left",availShort:"{x} of {y}",render:"Render: add your image",
   holdH:"Hold for {x} years (at {g}% value growth/year):",ext:"Leasehold 30 years with guaranteed 30-year extension. Extending after 30 years costs ± 20% of the purchase price (± {x}). You can also sell the villa earlier.",
   fill:"Please enter your name and WhatsApp or email.",okMsg:"Thanks! We'll be in touch shortly. You'll receive the brochure via WhatsApp.",roiLbl:"ROI",
   recentSold:"{x} sold in the past month",
   scenH:"Three scenarios from The Maison brochure",scenNote:"Net yield per year, excluding resale profit. Brochure estimates, not guarantees.",
-  scOcc:"occupancy",scNight:"night",scPay:"Paid back in"}
+  scOcc:"occupancy",scNight:"night",scPay:"Paid back in",
+  calcCtaTitle:"Want to see these figures alongside floor plans and exact specifications?",calcCtaSub:"The full digital brochure includes all renders, floor plans, the payment schedule and the complete return model.",calcCtaBtn:"View the full brochure →"}
 };
 let lang="nl", selPrice=210000;
 const el=id=>document.getElementById(id);
 function money(v){return new Intl.NumberFormat(CONFIG.locale,{style:"currency",currency:CONFIG.currency,maximumFractionDigits:0}).format(Math.round(v));}
 function pct(v){return new Intl.NumberFormat(CONFIG.locale,{style:"percent",minimumFractionDigits:1,maximumFractionDigits:1}).format(v);}
-function tr(s,o){let r=s;for(const k in o)r=r.replace("{"+k+"}",o[k]);return r;}
+function tr(s,o){let r=s;for(const k in o)r=r.split("{"+k+"}").join(o[k]);return r;}
 function imgBlock(cls,label){return `<div class="g ${cls} ph-img ${cls==='big'?'':'alt'}"><span class="ph-tag">${label}</span></div>`;}
 
 function renderStatic(){
@@ -274,9 +283,9 @@ function renderStatic(){
     : imgBlock('big',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render);
   el('facts').innerHTML=MAISON.facts.map(f=>`<div class="fact"><div class="l">${f.l[lang]}</div><div class="v">${f.v[lang]}</div></div>`).join("");
   el('hl').innerHTML=MAISON.highlights[lang].map(x=>`<div>${x}</div>`).join("");
-  el('pill').textContent=tr(T[lang].available,{x:avail,y:MAISON.unitsTotal});
+  el('pill').textContent=tr(T[lang].available,{x:avail,y:MAISON.unitsTotal,sold:MAISON.unitsSold});
   el('momentum').textContent = MAISON.recentSold ? tr(T[lang].recentSold,{x:MAISON.recentSold}) : '';
-  el('mAvail').textContent=tr(T[lang].availShort,{x:avail,y:MAISON.unitsTotal});
+  el('mAvail').textContent=tr(T[lang].availShort,{x:MAISON.unitsSold,y:MAISON.unitsTotal});
   el('pricesel').innerHTML=MAISON.prices.map(pr=>`<div class="pbtn ${pr.v===selPrice?'on':''}" onclick="setPrice(${pr.v})"><span class="pv">${money(pr.v)}</span><span class="ps">${pr.l[lang]} · ${pr.s[lang]}</span></div>`).join("");
 }
 function setPrice(v){ selPrice=v; el('dprice').textContent=(lang==='nl'?"vanaf ":"from ")+money(v); renderStatic(); calc(); }
@@ -424,6 +433,11 @@ setLang('nl');
   .scs{font-size:12.5px;color:var(--muted);margin-top:4px}
   .scb{font-size:12px;color:var(--ink);margin-top:8px;font-weight:600}
   @media(max-width:820px){.scen{grid-template-columns:1fr}}
+  .calc-cta{margin-top:26px;background:#FBF1E9;border:1px solid var(--line);border-radius:16px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .calc-cta h3{font-size:18px;margin-bottom:6px;max-width:46ch;font-family:'Fraunces',serif;font-weight:600}
+  .calc-cta p{color:var(--muted);font-size:13.5px;margin:0;max-width:50ch}
+  .calc-cta .btn{flex:none;white-space:nowrap}
+  @media(max-width:640px){.calc-cta{flex-direction:column;align-items:flex-start}.calc-cta .btn{width:100%;text-align:center}}
   .lb{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(20,18,14,.93);padding:24px}
   .lb.open{display:flex}
   .lb img{max-width:94vw;max-height:90vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5);object-fit:contain}

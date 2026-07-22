@@ -49,6 +49,23 @@
   @keyframes pop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
   .confetti{position:absolute;top:-12px;border-radius:2px;opacity:.9;z-index:1;animation-name:cfall;animation-timing-function:cubic-bezier(.3,.6,.4,1);animation-fill-mode:forwards}
   @keyframes cfall{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(105vh) rotate(680deg);opacity:.85}}
+  .gallery .g.photo{cursor:zoom-in;transition:transform .15s,box-shadow .15s}
+  .gallery .g.photo:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.16)}
+  .lb{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(20,18,14,.93);padding:24px}
+  .lb.open{display:flex}
+  .lb img{max-width:94vw;max-height:90vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5);object-fit:contain}
+  .lb .x{position:absolute;top:16px;right:22px;background:none;border:none;color:#fff;font-size:36px;line-height:1;cursor:pointer;opacity:.85}
+  .lb .x:hover{opacity:1}
+  .lb .nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.14);border:none;color:#fff;width:50px;height:50px;border-radius:50%;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .lb .nav:hover{background:rgba(255,255,255,.28)}
+  .lb .prev{left:16px}.lb .next{right:16px}
+  .lb .cap{position:absolute;bottom:16px;left:0;right:0;text-align:center;color:#eee;font-size:13px;opacity:.8}
+  @media(max-width:600px){ .lb .nav{width:42px;height:42px} }
+  .calc-cta{margin-top:26px;background:#FBF1E9;border:1px solid var(--line);border-radius:16px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .calc-cta h3{font-size:18px;margin-bottom:6px;max-width:46ch;font-family:'Fraunces',serif;font-weight:600}
+  .calc-cta p{color:var(--muted);font-size:13.5px;margin:0;max-width:50ch}
+  .calc-cta .btn{flex:none;white-space:nowrap}
+  @media(max-width:640px){.calc-cta{flex-direction:column;align-items:flex-start}.calc-cta .btn{width:100%;text-align:center}}
 </style>
 </head>
 <body>
@@ -75,11 +92,11 @@
     <h1>MOKA</h1>
     <p data-t="heroSub">Boutique community met eigen café, wellness club en rooftop pool lounge, 600 meter van het strand in Kedungu. Drie woningtypes in één project, volledig gemeubileerd en beheerd.</p>
     <div class="btns">
-      <a href="#calc" class="btn" data-t="heroCta1">Bereken je rendement</a>
-      <button type="button" class="btn ghost" onclick="openBrochure()" data-t="heroCta2">Vraag de laatste unit aan</button>
+      <button type="button" class="btn" onclick="openBrochure()" data-t="heroCta2">Vraag de laatste unit aan</button>
+      <a href="#calc" class="btn ghost" data-t="heroCta1">Bereken je rendement</a>
     </div>
     <div class="trustrow">
-      <div><b id="tAvail">1 van 15</b><span data-t="t1">units nog beschikbaar</span></div>
+      <div><b id="tAvail">14 van 15</b><span data-t="t1">units al verkocht</span></div>
       <div><b>vanaf €325.000</b><span data-t="t2">laatste beschikbare unit</span></div>
       <div><b>±14-17%</b><span data-t="t3">netto rendement (realistisch)</span></div>
     </div>
@@ -196,6 +213,13 @@
       <div class="scen" id="scenGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px"></div>
       <p class="note" data-t="scenNote" style="font-size:12.5px;color:var(--muted);margin-top:14px">Nettorendement per jaar, exclusief verkoopwinst. Schattingen uit de brochure, geen garanties.</p>
     </div>
+    <div class="calc-cta">
+      <div>
+        <h3 data-t="calcCtaTitle">Wil je deze cijfers naast plattegronden en exacte specificaties zien?</h3>
+        <p data-t="calcCtaSub">Vraag de laatste beschikbare Signature Villa aan en ontvang alle renders, plattegronden en het complete rendementsmodel via Ashley.</p>
+      </div>
+      <button type="button" class="btn" onclick="openBrochure()" data-t="calcCtaBtn">Vraag de laatste unit aan →</button>
+    </div>
   </div>
 </section>
 
@@ -279,6 +303,13 @@
     </form>
   </div>
 </div>
+<div class="lb" id="lb" onclick="if(event.target===this)closeLb()">
+  <button class="x" onclick="closeLb()" aria-label="Sluiten">&times;</button>
+  <button class="nav prev" onclick="stepLb(-1)" aria-label="Vorige">&#8249;</button>
+  <img id="lbImg" src="" alt="MOKA render">
+  <button class="nav next" onclick="stepLb(1)" aria-label="Volgende">&#8250;</button>
+  <div class="cap" id="lbCap"></div>
+</div>
 
 <script>
 const CONFIG = { whatsapp:"31624845014", email:"steven@utamabali.com", locale:"nl-NL", currency:"EUR", leadEndpoint:"" };
@@ -289,6 +320,13 @@ const UNITS = [
     name:{nl:"Signature Villa",en:"Signature Villa"},
     sub:{nl:"3 slaapkamers · pool villa",en:"3-bedroom pool villa"},
     price:325000, unitsTotal:7, unitsSold:6,
+    images:[
+      {src:"/images/moka/villa3-exterior.jpg", cap:{nl:"Doorsnede aanzicht: privé zwembad, tuin en dubbelhoge living",en:"Cutaway view: private pool, garden and double-height living area"}},
+      {src:"/images/moka/villa3-rooftop.jpg", cap:{nl:"Rooftop (55 m²): jacuzzi, loungers en overdekte pergola",en:"Rooftop (55 m²): jacuzzi, loungers and covered pergola"}},
+      {src:"/images/moka/villa3-groundfloor.jpg", cap:{nl:"Begane grond: open living, keuken en ensuite slaapkamer",en:"Ground floor: open living, kitchen and ensuite bedroom"}},
+      {src:"/images/moka/villa3-firstfloor.jpg", cap:{nl:"Eerste verdieping: twee ensuite slaapkamers boven de living",en:"First floor: two ensuite bedrooms above the living area"}},
+      {src:"/images/moka/villa3-floorplan.jpg", cap:{nl:"Plattegrond begane grond met maatvoering",en:"Ground floor plan with dimensions"}}
+    ],
     facts:[
       {l:{nl:"Type",en:"Type"}, v:{nl:"3 ensuite slaapkamers · 3,5 badkamers",en:"3 ensuite bedrooms · 3.5 bathrooms"}},
       {l:{nl:"Woonoppervlak",en:"Living space"}, v:{nl:"162 m² + 55 m² rooftop (217 m² totaal)",en:"162 m² + 55 m² rooftop (217 m² total)"}},
@@ -359,7 +397,7 @@ const T={
  nl:{navProjects:"Projecten",navReturns:"Rendement",navHow:"Zo werkt het",navContact:"Contact",back:"Projecten",
   heroSub:"Boutique community met eigen café, wellness club en rooftop pool lounge, 600 meter van het strand in Kedungu. Drie woningtypes in één project, volledig gemeubileerd en beheerd.",
   heroCta1:"Bereken je rendement",heroCta2:"Vraag de laatste unit aan",
-  t1:"units nog beschikbaar",t2:"laatste beschikbare unit",t3:"netto rendement (realistisch)",
+  t1:"units al verkocht",t2:"laatste beschikbare unit",t3:"netto rendement (realistisch)",
   unitsEyebrow:"Woningtypes",unitsTitle:"15 units, drie manieren om in MOKA te investeren",unitsSub:"MOKA telt 7 Signature Villa's, 4 Boutique Villa's en 4 Boutique Appartementen. Kies een type voor de details en het rendement.",
   lifeEyebrow:"MOKA leefstijl",lifeTitle:"Meer dan een woning, een boutique community",lifeSub:"Alle eigenaren en gasten hebben gratis toegang tot de gedeelde voorzieningen op het terrein.",
   l1n:"01",l1t:"MOKA House Café",l1p:"Een levendig café op het terrein, de ontmoetingsplek voor bewoners en gasten.",
@@ -379,6 +417,7 @@ const T={
   a3:"Cijfers per woningtype zijn gebaseerd op de brochure van MOKA.",
   a4:"Verkoopwaarde bij aanhouden gebruikt de gekozen jaarlijkse waardegroei, bewust conservatief ingeschat. Indicatie, geen garantie.",
   scenH:"Drie scenario's uit de MOKA-brochure",scenNote:"Nettorendement per jaar, exclusief verkoopwinst. Schattingen uit de brochure, geen garanties.",
+  calcCtaTitle:"Wil je deze cijfers naast plattegronden en exacte specificaties zien?",calcCtaSub:"Vraag de laatste beschikbare Signature Villa aan en ontvang alle renders, plattegronden en het complete rendementsmodel via Ashley.",calcCtaBtn:"Vraag de laatste unit aan →",
   howEyebrow:"Zo werkt het",howTitle:"Veilig investeren op afstand",howSub:"Eerlijk en transparant, van contract tot verhuur.",
   h1t:"Leasehold, goed geregeld",h1p:"Je least de grond en bezit de villa of het appartement. 30 jaar met contractueel gegarandeerde verlenging van 30 jaar.",
   h2t:"Betalen in 4 termijnen",h2p:"60% bij de notariële ondertekening, 20% na 3 maanden, 10% na 6 maanden en 10% bij sleuteloverdracht. Een aanbetaling van €5.000 reserveert een unit.",
@@ -388,13 +427,13 @@ const T={
   ctaWa:"Praat met Ashley via WhatsApp",
   footer:"Investeren in Bali-vastgoed, transparant en zorgeloos.",
   disc:"Deze site geeft indicatieve informatie en geen fiscaal of juridisch advies. Rendementen zijn schattingen, geen garanties. Laat contracten altijd controleren door een bevoegde notaris (PPAT) en je eigen adviseur.",
-  yrs:"jaar",payback:"Terugverdiend in ± {x} jaar (alleen uit huur).",lastUnit:"Laatste unit",soldOut:"Uitverkocht",available:"Nog {x} van {y} beschikbaar",render:"Render volgt",
+  yrs:"jaar",payback:"Terugverdiend in ± {x} jaar (alleen uit huur).",lastUnit:"Laatste unit",soldOut:"Uitverkocht",available:"{sold} van {y} verkocht · nog {x} beschikbaar",soldOutLine:"Volledig uitverkocht ({y} van {y} verkocht)",render:"Render volgt",
   holdH:"Over {x} jaar aanhouden (bij {g}% waardegroei/jaar):",ext:"Leasehold 30 jaar met gegarandeerde verlenging van 30 jaar. Verlengen na 30 jaar kost ± 20% van de aankoopprijs (± {x}). Je kunt de villa ook eerder verkopen.",
   fill:"Vul je naam, WhatsApp-nummer en e-mailadres in."},
  en:{navProjects:"Projects",navReturns:"Returns",navHow:"How it works",navContact:"Contact",back:"Projects",
   heroSub:"Boutique community with its own café, wellness club and rooftop pool lounge, 600 metres from the beach in Kedungu. Three home types in one project, fully furnished and managed.",
   heroCta1:"Calculate your return",heroCta2:"Ask about the last unit",
-  t1:"units still available",t2:"last available unit",t3:"net yield (realistic)",
+  t1:"units already sold",t2:"last available unit",t3:"net yield (realistic)",
   unitsEyebrow:"Home types",unitsTitle:"15 units, three ways to invest in MOKA",unitsSub:"MOKA has 7 Signature Villas, 4 Boutique Villas and 4 Boutique Apartments. Pick a type for the details and the return.",
   lifeEyebrow:"MOKA lifestyle",lifeTitle:"More than a home, a boutique community",lifeSub:"All owners and guests get free access to the shared facilities on site.",
   l1n:"01",l1t:"MOKA House Café",l1p:"A lively café on site, the meeting place for residents and guests.",
@@ -414,6 +453,7 @@ const T={
   a3:"Figures per home type are based on the MOKA brochure.",
   a4:"Resale value on holding uses the chosen annual value growth, deliberately conservative. Indicative, not a guarantee.",
   scenH:"Three scenarios from the MOKA brochure",scenNote:"Net yield per year, excluding resale profit. Brochure estimates, not guarantees.",
+  calcCtaTitle:"Want to see these figures alongside floor plans and exact specifications?",calcCtaSub:"Ask about the last available Signature Villa and get all renders, floor plans and the complete return model from Ashley.",calcCtaBtn:"Ask about the last unit →",
   howEyebrow:"How it works",howTitle:"Invest safely, remotely",howSub:"Honest and transparent, from contract to rental.",
   h1t:"Leasehold, properly structured",h1p:"You lease the land and own the villa or apartment. 30 years with a contractually guaranteed 30-year extension.",
   h2t:"Pay in 4 instalments",h2p:"60% at notary signing, 20% after 3 months, 10% after 6 months and 10% at key handover. A €5,000 deposit reserves a unit.",
@@ -423,7 +463,7 @@ const T={
   ctaWa:"Chat with Ashley on WhatsApp",
   footer:"Investing in Bali real estate, transparent and hassle-free.",
   disc:"This site provides indicative information and no tax or legal advice. Returns are estimates, not guarantees. Always have contracts checked by an authorised notary (PPAT) and your own adviser.",
-  yrs:"years",payback:"Paid back in ± {x} years (from rent alone).",lastUnit:"Last unit",soldOut:"Sold out",available:"{x} of {y} still available",render:"Render coming soon",
+  yrs:"years",payback:"Paid back in ± {x} years (from rent alone).",lastUnit:"Last unit",soldOut:"Sold out",available:"{sold} of {y} sold · {x} left",soldOutLine:"Fully sold out ({y} of {y} sold)",render:"Render coming soon",
   holdH:"Hold for {x} years (at {g}% value growth/year):",ext:"Leasehold 30 years with guaranteed 30-year extension. Extending after 30 years costs ± 20% of the purchase price (± {x}). You can also sell earlier.",
   fill:"Please enter your name, WhatsApp number and email."}
 };
@@ -431,31 +471,40 @@ let lang="nl", selUnit="villa3";
 const el=id=>document.getElementById(id);
 function money(v){return new Intl.NumberFormat(CONFIG.locale,{style:"currency",currency:CONFIG.currency,maximumFractionDigits:0}).format(Math.round(v));}
 function pct(v){return new Intl.NumberFormat(CONFIG.locale,{style:"percent",minimumFractionDigits:1,maximumFractionDigits:1}).format(v);}
-function tr(s,o){let r=s;for(const k in o)r=r.replace("{"+k+"}",o[k]);return r;}
+function tr(s,o){let r=s;for(const k in o)r=r.split("{"+k+"}").join(o[k]);return r;}
 function currentUnit(){ return UNITS.find(u=>u.key===selUnit); }
 function imgBlock(cls){return `<div class="g ${cls} ph-img ${cls==='big'?'':'alt'}"><span class="ph-tag">${T[lang].render}</span></div>`;}
+function renderGallery(){
+  const u=currentUnit();
+  if(u.images&&u.images.length){
+    el('gallery').innerHTML = `<div class="g big photo" style="background-image:url('${u.images[0].src}');background-size:cover;background-position:center" onclick="openLb(0)"></div>`+
+      [1,2,3,4].map(i=>u.images[i]?`<div class="g photo" style="background-image:url('${u.images[i].src}');background-size:cover;background-position:center" onclick="openLb(${i})"></div>`:imgBlock('')).join("");
+  } else {
+    el('gallery').innerHTML = imgBlock('big')+imgBlock('')+imgBlock('')+imgBlock('')+imgBlock('');
+  }
+}
 
 function renderUnitSel(){
   el('unitSel').innerHTML = UNITS.map(u=>{
     const avail=u.unitsTotal-u.unitsSold;
     const tagCls = avail>0 ? 'last' : 'sold';
     const tag = avail>0 ? T[lang].lastUnit : T[lang].soldOut;
-    return `<div class="pbtn ${u.key===selUnit?'on':''}" onclick="selectUnit('${u.key}')"><span class="pv">${u.name[lang]}</span><span class="ps ${tagCls}">${tag} · ${u.unitsTotal} units</span></div>`;
+    return `<div class="pbtn ${u.key===selUnit?'on':''}" onclick="selectUnit('${u.key}')"><span class="pv">${u.name[lang]}</span><span class="ps ${tagCls}">${tag} · ${u.unitsSold}/${u.unitsTotal} ${lang==='nl'?'verkocht':'sold'}</span></div>`;
   }).join("");
 }
 function selectUnit(key){ selUnit=key; renderUnit(); }
 function renderUnit(){
   const u=currentUnit();
   const avail=u.unitsTotal-u.unitsSold;
-  el('gallery').innerHTML = imgBlock('big')+imgBlock('')+imgBlock('')+imgBlock('')+imgBlock('');
+  renderGallery();
   el('uName').textContent=u.name[lang];
   el('uSub').textContent=u.sub[lang];
   el('dprice').textContent=money(u.price);
-  el('dstatus').textContent = avail>0 ? tr(T[lang].available,{x:avail,y:u.unitsTotal}) : T[lang].soldOut;
+  el('dstatus').textContent = avail>0 ? tr(T[lang].available,{x:avail,y:u.unitsTotal,sold:u.unitsSold}) : tr(T[lang].soldOutLine,{y:u.unitsTotal});
   el('pill').textContent = avail>0 ? T[lang].lastUnit : T[lang].soldOut;
   el('facts').innerHTML=u.facts.map(f=>`<div class="fact"><div class="l">${f.l[lang]}</div><div class="v">${f.v[lang]}</div></div>`).join("");
   el('hl').innerHTML=u.highlights[lang].map(x=>`<div>${x}</div>`).join("");
-  el('tAvail').textContent = tr(lang==='nl'?"{x} van 15":"{x} of 15",{x: UNITS.reduce((s,x)=>s+(x.unitsTotal-x.unitsSold),0)});
+  el('tAvail').textContent = tr(lang==='nl'?"{x} van 15":"{x} of 15",{x: UNITS.reduce((s,x)=>s+x.unitsSold,0)});
   renderUnitSel();
   // sync calculator ranges/defaults to this unit
   el('nightly').min=u.roi.nightly.min; el('nightly').max=u.roi.nightly.max; el('nightly').value=u.roi.nightly.def;
@@ -553,6 +602,11 @@ function launchConfetti(){
 }
 function waDirect(){ const msg=(lang==='nl'?"Hi! Ik heb interesse in MOKA in Kedungu.":"Hi! I'm interested in MOKA in Kedungu."); window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg),"_blank"); }
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeBrochure(); });
+let lbIdx=0;
+function openLb(i){ const u=currentUnit(); if(!u.images||!u.images[i]) return; lbIdx=i; el('lbImg').src=u.images[i].src; el('lbCap').textContent=u.images[i].cap[lang]+' ('+(i+1)+'/'+u.images.length+')'; el('lb').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeLb(){ el('lb').classList.remove('open'); document.body.style.overflow=''; }
+function stepLb(d){ const u=currentUnit(); if(!u.images) return; const n=u.images.length; lbIdx=(lbIdx+d+n)%n; el('lbImg').src=u.images[lbIdx].src; el('lbCap').textContent=u.images[lbIdx].cap[lang]+' ('+(lbIdx+1)+'/'+n+')'; }
+document.addEventListener('keydown',function(e){ const lb=el('lb'); if(!lb||!lb.classList.contains('open'))return; if(e.key==='Escape')closeLb(); if(e.key==='ArrowRight')stepLb(1); if(e.key==='ArrowLeft')stepLb(-1); });
 setLang('nl');
 </script>
 </body>
