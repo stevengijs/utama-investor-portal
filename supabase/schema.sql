@@ -114,12 +114,19 @@ alter table public.contacts enable row level security;
 alter table public.leads enable row level security;
 alter table public.purchases enable row level security;
 
+-- Policies are dropped-then-created (create policy has no "if not exists")
+-- so this whole file stays safe to run again in full, e.g. after a change
+-- further down - without erroring out on "policy already exists" the way
+-- a second run of the original version did.
+
 -- A logged-in portal user may read their own contact row.
+drop policy if exists "self read contacts" on public.contacts;
 create policy "self read contacts" on public.contacts
   for select to authenticated
   using (user_id = auth.uid());
 
 -- A logged-in portal user may read their own leads (matched via contacts.user_id).
+drop policy if exists "self read leads" on public.leads;
 create policy "self read leads" on public.leads
   for select to authenticated
   using (
@@ -128,6 +135,7 @@ create policy "self read leads" on public.leads
 
 -- A logged-in portal user may read their own purchases - this is what a
 -- future dashboard page ("your units") would query.
+drop policy if exists "self read purchases" on public.purchases;
 create policy "self read purchases" on public.purchases
   for select to authenticated
   using (
