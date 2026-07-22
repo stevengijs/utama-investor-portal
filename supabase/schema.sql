@@ -244,7 +244,9 @@ create trigger on_auth_user_created_link_contact
 -- appending at the end is allowed. Safe to drop: it's a read-only view,
 -- nothing references it, and it's rebuilt on the next line.
 drop view if exists public.contacts_overview;
-create view public.contacts_overview as
+create view public.contacts_overview
+with (security_invoker = true)
+as
 select
   c.id,
   c.email,
@@ -265,3 +267,13 @@ left join public.leads l on l.contact_id = c.id
 left join public.purchases pu on pu.contact_id = c.id
 group by c.id
 order by c.last_activity_at desc;
+
+-- This view is for YOU (SQL Editor / Table Editor), never for the public
+-- site. Views are not gated by the RLS you enabled on contacts/leads/
+-- purchases - by default a view runs with its owner's privileges, not the
+-- calling role's, so without the fixes below anyone holding the site's
+-- public anon key could call this view over the API and read every
+-- contact's email, phone, and full lead/purchase history in one request.
+-- security_invoker (set above) makes the view respect each table's RLS
+-- instead of bypassing it; the REVOKE below is the actual lock on the door.
+revoke all on public.contacts_overview from anon, authenticated;
