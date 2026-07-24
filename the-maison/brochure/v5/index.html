@@ -139,11 +139,12 @@
   .deal-card .row.price .rv{font-size:20px}
   .deal-card .row.yield .rv{color:var(--opt-deep)}
   .deal-card .price-note{font-size:11px;color:var(--muted);text-align:right;margin-top:-4px}
-  .avail-wrap{padding:12px 0;border-top:1px solid var(--line)}
-  .avail-wrap .al{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
-  .avail-wrap .al b{color:var(--ink);font-weight:700}
+  .avail-wrap,.build-wrap{padding:12px 0;border-top:1px solid var(--line)}
+  .avail-wrap .al,.build-wrap .al{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+  .avail-wrap .al b,.build-wrap .al b{color:var(--ink);font-weight:700}
   .avail-bar{height:6px;border-radius:999px;background:var(--line);overflow:hidden}
-  .avail-bar span{display:block;height:100%;background:var(--ink);border-radius:999px}
+  .avail-bar span{display:block;height:100%;background:var(--ink);border-radius:999px;transition:width .6s ease}
+  .build-dates{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);margin-top:5px}
   .deal-cta{padding:16px 20px 20px;display:flex;flex-direction:column;gap:9px;border-top:1px solid var(--line)}
   .rail-note{font-size:11.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.5}
   .rail-note a{color:var(--ink)}
@@ -265,17 +266,21 @@
   .pc .pl{font-size:12.5px;font-weight:700;margin-top:4px}
   .pc .ps{font-size:11.5px;color:var(--muted)}
 
-  .paybar{display:flex;border-radius:13px;overflow:hidden;margin-top:14px;box-shadow:var(--shadow);border:1px solid var(--line)}
-  .payseg{padding:16px 16px;position:relative;color:var(--ink)}
-  .payseg+.payseg{border-left:1px solid var(--line)}
-  .payseg:nth-child(1){background:var(--line);flex:3}
-  .payseg:nth-child(2){background:var(--real);flex:3}
-  .payseg:nth-child(3){background:var(--sand-2);flex:3}
-  .payseg:nth-child(4){background:var(--paper);flex:1}
-  .payseg .pp{font-family:'Inter',sans-serif;font-size:21px;font-weight:800;line-height:1}
-  .payseg .pl{font-size:12px;font-weight:600;margin-top:7px}
-  .payseg .pa{font-size:11.5px;margin-top:4px;color:var(--muted)}
-  @media(max-width:640px){.paybar{flex-direction:column}.payseg{flex:none !important}.payseg+.payseg{border-left:none;border-top:1px solid var(--line)}}
+  .paybar{display:flex;border-radius:16px;overflow:hidden;margin-top:6px;box-shadow:0 6px 20px rgba(23,20,15,.07);border:1px solid var(--line)}
+  .payseg{padding:20px 18px;position:relative;color:var(--ink)}
+  .payseg+.payseg{border-left:1px solid rgba(23,20,15,.08)}
+  .payseg:nth-child(1){background:rgba(23,20,15,.045);flex:3}
+  .payseg:nth-child(2){background:rgba(23,20,15,.09);flex:3}
+  .payseg:nth-child(3){background:rgba(23,20,15,.15);flex:3}
+  .payseg.final{background:var(--ink);color:#fff;flex:1.6}
+  .payseg .step{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;opacity:.5;margin-bottom:12px}
+  .payseg .pp{font-family:'Inter',sans-serif;font-size:27px;font-weight:800;line-height:1}
+  .payseg .pl{font-size:13px;font-weight:700;margin-top:8px}
+  .payseg .pd{display:inline-block;font-size:10.5px;font-weight:700;margin-top:9px;padding:4px 9px;border-radius:999px;background:rgba(23,20,15,.08)}
+  .payseg .pa{font-size:12px;margin-top:11px;color:var(--muted);font-weight:600}
+  .payseg.final .pd{background:rgba(255,255,255,.16)}
+  .payseg.final .pa{color:rgba(239,231,216,.8)}
+  @media(max-width:640px){.paybar{flex-direction:column}.payseg{flex:none !important}.payseg+.payseg{border-left:none;border-top:1px solid rgba(23,20,15,.08)}}
 
   .vtl{position:relative;margin-top:4px}
   .vitem{display:flex;gap:14px;padding-bottom:20px;position:relative}
@@ -352,11 +357,11 @@
 
   .contact-row{display:grid;grid-template-columns:1fr;gap:10px;margin-top:16px}
   @media(min-width:560px){.contact-row{grid-template-columns:1fr 1fr}}
-  .cperson{display:flex;gap:12px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:13px 15px}
-  .cperson img{width:42px;height:42px;border-radius:50%;object-fit:cover;flex:none}
-  .cperson .cn{font-size:13px;font-weight:700;color:var(--ink)}
-  .cperson .cr{font-size:11px;color:var(--muted);margin:1px 0 5px}
-  .cperson a{display:block;font-size:11.5px;color:var(--ink);text-decoration:none}
+  .cperson{display:flex;gap:15px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:16px 18px}
+  .cperson img{width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none}
+  .cperson .cn{font-size:16px;font-weight:700;color:var(--ink)}
+  .cperson .cr{font-size:12px;color:var(--muted);margin:2px 0 6px}
+  .cperson a{display:block;font-size:12.5px;color:var(--ink);text-decoration:none}
   .cperson a:hover{text-decoration:underline}
 
   .legal-note{text-align:center;padding:18px 20px 0;max-width:720px;margin:0 auto;font-size:11px;color:var(--muted);line-height:1.6}
@@ -400,7 +405,7 @@
     <div class="gcard">
       <div class="eb">Investeerdersportaal</div>
       <h1>Eén laatste stap</h1>
-      <div class="sub">Laat hieronder je gegevens achter. Dan ontvang je direct toegang tot het volledige dealoverzicht van The Maison. Ashley neemt daarna contact met je op om eventuele vragen te beantwoorden.</div>
+      <div class="sub">Laat hieronder je gegevens achter. Dan ontvang je direct toegang tot het volledige dealoverzicht van The Maison. Wij nemen daarna contact met je op om eventuele vragen te beantwoorden.</div>
       <form id="gform" onsubmit="return unlock(event)">
         <div class="gfield">
           <label for="qName">Naam</label>
@@ -471,6 +476,12 @@
         <div class="row"><div class="rl">Leaseperiode</div><div class="rv">30+30 jr</div></div>
         <div class="row"><div class="rl">Aantal villa's</div><div class="rv">6</div></div>
 
+        <div class="build-wrap">
+          <div class="al">Bouwvoortgang <b id="buildPct">–</b></div>
+          <div class="avail-bar"><span id="buildBar" style="width:0%"></span></div>
+          <div class="build-dates"><span>Start 15 mei 2026</span><span>Oplevering 15 april 2027</span></div>
+        </div>
+
         <div class="avail-wrap">
           <div class="al">Beschikbaarheid <b>4 van de 6</b></div>
           <div class="avail-bar"><span style="width:66%"></span></div>
@@ -489,8 +500,8 @@
     <div class="tabs-wrap">
       <div class="tabs-nav" id="tabsNav">
         <button data-tab="project" class="active"><span class="tn">01</span>Het project</button>
-        <button data-tab="rendement"><span class="tn">02</span>Rendement</button>
-        <button data-tab="planning"><span class="tn">03</span>Prijs &amp; planning</button>
+        <button data-tab="rendement"><span class="tn">02</span>Rendement &amp; prijs</button>
+        <button data-tab="planning"><span class="tn">03</span>Planning</button>
         <button data-tab="team"><span class="tn">04</span>Team &amp; beheer</button>
         <button data-tab="vertrouwen"><span class="tn">05</span>Vertrouwen &amp; risico's</button>
         <button data-tab="vragen"><span class="tn">06</span>Vragen</button>
@@ -541,12 +552,28 @@
         </div>
       </div>
 
-      <!-- 02 · RENDEMENT -->
+      <!-- 02 · RENDEMENT & PRIJS -->
       <div class="tab-pane" id="pane-rendement">
-        <div class="pane-kicker">02 · Rendement</div>
-        <h2 class="pane-h">Bereken je rendement</h2>
-        <p class="pane-lead">Pas de aannames aan naar jouw eigen scenario. Eerlijk berekend, geen opgeblazen beloftes.</p>
+        <div class="pane-kicker">02 · Rendement &amp; prijs</div>
+        <h2 class="pane-h">Instappen vanaf €195.000, bereken je rendement</h2>
+        <p class="pane-lead">Alle prijzen zijn turnkey: volledig afgewerkt, ingericht en klaar voor verhuur. Geen verborgen kosten achteraf. Pas hieronder de aannames aan naar jouw eigen scenario — eerlijk berekend, geen opgeblazen beloftes.</p>
 
+        <div class="prices">
+          <div class="pc"><div class="pv">€195.000</div><div class="pl">Pre-sale</div><div class="ps">eerdere fase</div></div>
+          <div class="pc cur"><div class="pv">€210.000</div><div class="pl">Nu</div><div class="ps">huidige prijs</div></div>
+          <div class="pc"><div class="pv">€225.000</div><div class="pl">Vanaf 15 aug</div><div class="ps">prijs stijgt</div></div>
+        </div>
+        <div class="subhead">Betaalschema, gekoppeld aan de bouwfases</div>
+        <p class="pane-lead" style="margin-bottom:12px">Je betaalt in vier stappen, elk gekoppeld aan een zichtbare bouwmijlpaal — nooit alles vooraf.</p>
+        <div class="paybar">
+          <div class="payseg"><div class="step">Fase 1</div><div class="pp">30%</div><div class="pl">Bij contract</div><div class="pd">15 mei 2026</div><div class="pa">€63.000</div></div>
+          <div class="payseg"><div class="step">Fase 2</div><div class="pp">30%</div><div class="pl">Bij casco</div><div class="pd">Q4 2026</div><div class="pa">€63.000</div></div>
+          <div class="payseg"><div class="step">Fase 3</div><div class="pp">30%</div><div class="pl">Bij afbouw</div><div class="pd">Q1 2027</div><div class="pa">€63.000</div></div>
+          <div class="payseg final"><div class="step">Fase 4</div><div class="pp">10%</div><div class="pl">Bij sleuteloverdracht</div><div class="pd">April 2027</div><div class="pa">€21.000</div></div>
+        </div>
+        <a class="wa" id="waAvailable" target="_blank" rel="noopener" style="margin-top:16px"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg>Bekijk de beschikbare units</a>
+
+        <div class="subhead">Bereken je rendement</div>
         <div class="calc">
           <div class="card">
             <h3>Aannames</h3>
@@ -610,24 +637,20 @@
         </div>
       </div>
 
-      <!-- 03 · PRIJS & PLANNING -->
+      <!-- 03 · PLANNING -->
       <div class="tab-pane" id="pane-planning">
-        <div class="pane-kicker">03 · Prijs &amp; planning</div>
-        <h2 class="pane-h">Instappen vanaf €195.000, turnkey</h2>
-        <p class="pane-lead">Alle prijzen zijn turnkey: volledig afgewerkt, ingericht en klaar voor verhuur. Geen verborgen kosten achteraf.</p>
+        <div class="pane-kicker">03 · Planning</div>
+        <h2 class="pane-h">Van reservering tot sleuteloverdracht</h2>
+        <p class="pane-lead">Je hoeft niet in Bali te zijn. Het hele traject verloopt op afstand, met heldere stappen en een vaste bouwplanning.</p>
 
-        <div class="prices">
-          <div class="pc"><div class="pv">€195.000</div><div class="pl">Pre-sale</div><div class="ps">eerdere fase</div></div>
-          <div class="pc cur"><div class="pv">€210.000</div><div class="pl">Nu</div><div class="ps">huidige prijs</div></div>
-          <div class="pc"><div class="pv">€225.000</div><div class="pl">Vanaf 15 aug</div><div class="ps">prijs stijgt</div></div>
+        <div class="subhead">Zo koop je, volledig op afstand</div>
+        <div class="num-list">
+          <div class="num-item"><div class="nn">01</div><div class="nc"><h4>Reserveren</h4><p>Je tekent een intentieverklaring en maakt een aanbetaling van €5.000 over. Volledig verrekend bij aankoop.</p></div></div>
+          <div class="num-item"><div class="nn">02</div><div class="nc"><h4>Due diligence &amp; contracten</h4><p>Je komt in een gezamenlijke WhatsApp-groep met de notaris en UTAMA. Hierin ontvang je de volledige due diligence van het project, waarna de contracten worden opgesteld. Er wordt pas getekend nadat jij de stukken hebt goedgekeurd — dit traject duurt gemiddeld 2 tot 3 weken.</p></div></div>
+          <div class="num-item"><div class="nn">03</div><div class="nc"><h4>Notarieel vastgelegd</h4><p>Met een volmacht (Power of Attorney) machtig je de notaris om namens jou te tekenen, volledig op afstand.</p></div></div>
+          <div class="num-item"><div class="nn">04</div><div class="nc"><h4>Doorlopend op de hoogte</h4><p>Elke twee weken foto- en video-updates, plus live meekijken via de bouwcamera.</p></div></div>
+          <div class="num-item"><div class="nn">05</div><div class="nc"><h4>Oplevering</h4><p>Je villa wordt turnkey overgedragen en de verhuur gaat direct van start.</p></div></div>
         </div>
-        <div class="paybar">
-          <div class="payseg"><div class="pp">30%</div><div class="pl">Bij contract</div><div class="pa">€63.000</div></div>
-          <div class="payseg"><div class="pp">30%</div><div class="pl">Bij casco</div><div class="pa">€63.000</div></div>
-          <div class="payseg"><div class="pp">30%</div><div class="pl">Bij afbouw</div><div class="pa">€63.000</div></div>
-          <div class="payseg"><div class="pp">10%</div><div class="pl">Bij sleuteloverdracht</div><div class="pa">€21.000</div></div>
-        </div>
-        <a class="wa" id="waAvailable" target="_blank" rel="noopener" style="margin-top:16px"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg>Bekijk de beschikbare units</a>
 
         <div class="subhead">Van start bouw tot eerste gast</div>
         <div class="vtl">
@@ -637,14 +660,6 @@
           <div class="vitem"><div class="vmark"><span class="vdot"></span></div><div class="vc"><div class="vtag">April 2027</div><h4>Oplevering &amp; start verhuur</h4><p>Turnkey sleuteloverdracht; listings live en eerste boekingen.</p></div></div>
         </div>
 
-        <div class="subhead">Zo koop je, volledig op afstand</div>
-        <p class="pane-lead" style="margin-bottom:12px">Je hoeft niet in Bali te zijn. Het hele traject verloopt op afstand, met heldere stappen.</p>
-        <div class="num-list">
-          <div class="num-item"><div class="nn">01</div><div class="nc"><h4>Reserveren</h4><p>Je tekent een intentieverklaring en maakt een aanbetaling van €5.000 over. Volledig verrekend bij aankoop.</p></div></div>
-          <div class="num-item"><div class="nn">02</div><div class="nc"><h4>Notarieel vastgelegd</h4><p>Met een volmacht (Power of Attorney) machtig je de notaris om namens jou te tekenen, volledig op afstand.</p></div></div>
-          <div class="num-item"><div class="nn">03</div><div class="nc"><h4>Doorlopend op de hoogte</h4><p>Elke twee weken foto- en video-updates, plus live meekijken via de bouwcamera.</p></div></div>
-          <div class="num-item"><div class="nn">04</div><div class="nc"><h4>Oplevering</h4><p>Je villa wordt turnkey overgedragen en de verhuur gaat direct van start.</p></div></div>
-        </div>
         <p class="note" style="font-size:12px;color:var(--muted);margin-top:10px">Notariskosten bedragen 1% van de transactiewaarde, voor rekening van de koper. Afrekenen kan in euro's, USD, IDR of BTC.</p>
       </div>
 
@@ -742,7 +757,7 @@
           <div class="sr"><div class="sv">8</div><div class="sl">Investeerders ontvangen nú maandelijks huur</div></div>
           <div class="sr"><div class="sv">±40</div><div class="sl">Woningen dit jaar in ontwikkeling</div></div>
         </div>
-        <div class="dark-cta">Geen projecties, maar uitbetalingen die vandaag op bankrekeningen binnenkomen. Wil je het uit eerste hand horen? Ashley brengt je graag in contact met een bestaande investeerder.</div>
+        <div class="dark-cta">Geen projecties, maar uitbetalingen die vandaag op bankrekeningen binnenkomen. Wil je het uit eerste hand horen? Wij brengen je graag in contact met een bestaande investeerder.</div>
         <div class="big-stats">
           <div class="bstat"><div class="bv">12–17<sup>%</sup></div><div class="bl">Verwacht rendement per jaar</div></div>
           <div class="bstat"><div class="bv">70–85<sup>%</sup></div><div class="bl">Verwachte bezettingsgraad</div></div>
@@ -764,7 +779,7 @@
       <div class="tab-pane" id="pane-vragen">
         <div class="pane-kicker">06 · Vragen</div>
         <h2 class="pane-h">Veelgestelde vragen</h2>
-        <p class="pane-lead">Staat je vraag er niet bij? Ashley beantwoordt hem persoonlijk via WhatsApp.</p>
+        <p class="pane-lead">Staat je vraag er niet bij? Stuur ons een appje, we beantwoorden hem persoonlijk via WhatsApp.</p>
         <div class="faq">
           <details>
             <summary>Moet ik zelf iets regelen rond verhuur?</summary>
@@ -860,6 +875,16 @@ const CONFIG = { whatsapp:"31624845014", email:"steven@utamabali.com" };
 const el = id => document.getElementById(id);
 if(el('bbCam')) el('bbCam').href="https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent("Hi Ashley! Mag ik de link naar de live bouwcamera van The Maison?");
 
+// Bouwvoortgang: percentage tussen start bouw en oplevering, berekend op basis van vandaag
+(function(){
+  const buildStart = new Date(2026, 4, 15); /* 15 mei 2026 */
+  const buildEnd = new Date(2027, 3, 15); /* 15 april 2027 */
+  const now = new Date();
+  const pct = Math.round(Math.max(0, Math.min(1, (now - buildStart) / (buildEnd - buildStart))) * 100);
+  if(el('buildBar')) el('buildBar').style.width = pct + "%";
+  if(el('buildPct')) el('buildPct').textContent = pct + "%";
+})();
+
 function buildWa(l){
   const msg="Hi Ashley! Ik heb net het investeerdersportaal van The Maison bekeken en wil graag meer weten.%0A%0A"+
     "Naam: "+encodeURIComponent(l.name||'-')+"%0A"+
@@ -903,7 +928,15 @@ function showTab(id, skipHash){
   document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.toggle('active', p.id==='pane-'+id); });
   document.querySelectorAll('#tabsNav button').forEach(function(b){ b.classList.toggle('active', b.dataset.tab===id); });
   if(!skipHash){ try{ history.replaceState(null,'','#'+id); }catch(e){} }
-  document.querySelector('.workspace').scrollIntoView({behavior:'smooth', block:'start'});
+  /* scrollIntoView({block:'start'}) zou de workspace-top exact op y=0 leggen, maar de sticky
+     bnav + tabs-wrap liggen daar bovenop — dan verdwijnt de paneelkop erachter. Reken de hoogte
+     van beide sticky balken mee zodat de kop er altijd nét onder landt. */
+  const ws = document.querySelector('.workspace');
+  const bnavEl = document.querySelector('.bnav');
+  const tabsWrapEl = document.querySelector('.tabs-wrap');
+  const stickyOffset = (bnavEl ? bnavEl.offsetHeight : 0) + (tabsWrapEl ? tabsWrapEl.offsetHeight : 0);
+  const targetY = ws.getBoundingClientRect().top + window.scrollY - stickyOffset - 8;
+  window.scrollTo({top: Math.max(0, targetY), behavior:'smooth'});
   /* het rendement-paneel (met de slider-pins) heeft width 0 zolang het display:none is,
      dus zodra het zichtbaar wordt moeten de pins/scenario's opnieuw gerenderd worden */
   if(id==='rendement' && typeof bRenderScenarios==='function'){
