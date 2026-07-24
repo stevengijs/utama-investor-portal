@@ -289,13 +289,17 @@
   .scb{font-size:11.5px;margin-top:7px;font-weight:600;opacity:.9}
 
   .prices{display:grid;grid-template-columns:1fr;gap:9px;margin-top:6px}
-  @media(min-width:640px){.prices{grid-template-columns:repeat(3,1fr)}}
+  @media(min-width:640px){.prices{grid-template-columns:1fr 1fr}}
   .pc{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:16px 18px;text-align:center}
   .pc.cur{border-color:var(--opt);background:var(--sage-tint)}
   .pc .pv{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:var(--ink)}
   .pc.cur .pv{color:var(--opt-deep)}
+  .pc.hero{padding:20px 18px}
+  .pc.hero .pv{font-size:30px}
+  .pc.next .pv{color:var(--ink)}
   .pc .pl{font-size:12.5px;font-weight:700;margin-top:4px}
   .pc .ps{font-size:11.5px;color:var(--muted)}
+  .price-trend{font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.5}
 
   .paybar{display:flex;border-radius:16px;overflow:hidden;margin-top:6px;box-shadow:0 6px 20px rgba(23,20,15,.07);border:1px solid var(--line)}
   .payseg{padding:20px 18px;position:relative;color:var(--ink)}
@@ -325,6 +329,17 @@
   .vc .vtag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--ink)}
   .vc h4{font-size:14px;margin:3px 0 3px;font-weight:800;color:var(--ink)}
   .vc p{font-size:13px;color:var(--muted);margin:0;line-height:1.5}
+
+  /* bouwvoortgang op de tijdlijn: afgeronde mijlpalen groen afgevinkt, huidige mijlpaal pulseert */
+  .vitem.done .vdot{background:var(--opt-deep);border-color:var(--paper);position:relative}
+  .vitem.done .vdot::after{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");background-size:7px;background-repeat:no-repeat;background-position:center}
+  .vitem.done .vline{background:var(--opt)}
+  .vitem.done .vc .vtag{color:var(--opt-deep)}
+  .vitem.current .vdot{background:var(--opt-deep);border-color:var(--paper);animation:vpulse 2s ease-out infinite}
+  .vitem.current .vc .vtag{color:var(--opt-deep)}
+  .vitem.current .vc .vnow{display:inline-block;margin-left:8px;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;background:var(--opt-deep);color:#fff;padding:2px 7px;border-radius:999px;vertical-align:middle}
+  @keyframes vpulse{0%{box-shadow:0 0 0 0 rgba(91,106,69,.5)}70%{box-shadow:0 0 0 7px rgba(91,106,69,0)}100%{box-shadow:0 0 0 0 rgba(91,106,69,0)}}
+  @media(prefers-reduced-motion:reduce){.vitem.current .vdot{animation:none}}
 
   .team{display:grid;grid-template-columns:1fr;gap:12px;margin-top:6px}
   @media(min-width:640px){.team{grid-template-columns:repeat(3,1fr)}}
@@ -375,6 +390,10 @@
   .commission-bar .cnum{font-size:24px;font-weight:800;color:var(--opt-deep);flex:none}
   .commission-bar p{margin:0;font-size:13px;color:var(--muted);line-height:1.45}
   .commission-bar p b{color:var(--ink)}
+
+  .faq-lead{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+  .faq-lead .faq-photo{width:52px;height:52px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--line)}
+  @media(max-width:560px){.faq-lead .faq-photo{width:44px;height:44px}}
 
   .faq details{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-bottom:8px}
   .faq summary{cursor:pointer;font-weight:700;font-size:14px;list-style:none;color:var(--ink)}
@@ -682,14 +701,14 @@
       <!-- 02 · RENDEMENT & PRIJS -->
       <div class="tab-pane" id="pane-rendement">
         <div class="pane-kicker">02 · Rendement &amp; prijs</div>
-        <h2 class="pane-h">Instappen vanaf €195.000, bereken je rendement</h2>
+        <h2 class="pane-h">Instappen vanaf €210.000, bereken je rendement</h2>
         <p class="pane-lead">Alle prijzen zijn turnkey: volledig afgewerkt, ingericht en klaar voor verhuur. Geen verborgen kosten achteraf. Pas hieronder de aannames aan naar jouw eigen scenario — eerlijk berekend, geen opgeblazen beloftes.</p>
 
         <div class="prices">
-          <div class="pc"><div class="pv">€195.000</div><div class="pl">Pre-sale</div><div class="ps">eerdere fase</div></div>
-          <div class="pc cur"><div class="pv">€210.000</div><div class="pl">Nu</div><div class="ps">huidige prijs</div></div>
-          <div class="pc"><div class="pv">€225.000</div><div class="pl">Vanaf 15 aug</div><div class="ps">prijs stijgt</div></div>
+          <div class="pc cur hero"><div class="pv">€210.000</div><div class="pl">Huidige prijs</div><div class="ps">Beschikbaar om nu te reserveren</div></div>
+          <div class="pc next"><div class="pv">€225.000</div><div class="pl">Vanaf 15 augustus</div><div class="ps">+€15.000 na de stijging</div></div>
         </div>
+        <p class="price-trend">Ter referentie: de pre-sale ging van start op €195.000. De prijs is sindsdien al met €15.000 gestegen, en loopt door naarmate de bouw vordert.</p>
 
         <div class="subhead">Bereken je rendement</div>
         <div class="calc">
@@ -785,11 +804,11 @@
 
         <div class="plan-block">
           <div class="subhead">Van start bouw tot eerste gast</div>
-          <div class="vtl">
-            <div class="vitem"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag">15 mei 2026</div><h4>Start bouw</h4><p>Grondwerk en fundering; notariële vastlegging is dan afgerond.</p></div></div>
-            <div class="vitem"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag">Q4 2026</div><h4>Casco gereed</h4><p>Hoofdconstructie en dak gereed, start afbouw.</p></div></div>
-            <div class="vitem"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag">Q1 2027</div><h4>Afbouw &amp; inrichting</h4><p>Afwerking, interieur, styling en branded details.</p></div></div>
-            <div class="vitem"><div class="vmark"><span class="vdot"></span></div><div class="vc"><div class="vtag">April 2027</div><h4>Oplevering &amp; start verhuur</h4><p>Turnkey sleuteloverdracht; listings live en eerste boekingen.</p></div></div>
+          <div class="vtl" id="buildTl">
+            <div class="vitem" data-milestone="2026-05-15"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag">15 mei 2026</div><h4>Start bouw</h4><p>Grondwerk en fundering; notariële vastlegging is dan afgerond.</p></div></div>
+            <div class="vitem" data-milestone="2026-12-31"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag">Q4 2026</div><h4>Casco gereed</h4><p>Hoofdconstructie en dak gereed, start afbouw.</p></div></div>
+            <div class="vitem" data-milestone="2027-03-31"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag">Q1 2027</div><h4>Afbouw &amp; inrichting</h4><p>Afwerking, interieur, styling en branded details.</p></div></div>
+            <div class="vitem" data-milestone="2027-04-15"><div class="vmark"><span class="vdot"></span></div><div class="vc"><div class="vtag">April 2027</div><h4>Oplevering &amp; start verhuur</h4><p>Turnkey sleuteloverdracht; listings live en eerste boekingen.</p></div></div>
           </div>
           <p class="note" style="font-size:12px;color:var(--muted);margin-top:14px">Notariskosten bedragen 1% van de transactiewaarde, voor rekening van de koper. Afrekenen kan in euro's, USD, IDR of BTC.</p>
         </div>
@@ -942,7 +961,10 @@
       <div class="tab-pane" id="pane-vragen">
         <div class="pane-kicker">07 · Vragen</div>
         <h2 class="pane-h">Veelgestelde vragen</h2>
-        <p class="pane-lead">Staat je vraag er niet bij? Stuur ons een appje, we beantwoorden hem persoonlijk via WhatsApp.</p>
+        <div class="faq-lead">
+          <img class="faq-photo" src="/images/steven.jpg" alt="Steven Gijsman" onerror="this.style.display='none'">
+          <p class="pane-lead" style="margin:0">Staat je vraag er niet bij? Stuur ons een appje, we beantwoorden hem persoonlijk via WhatsApp.</p>
+        </div>
         <div class="faq">
           <details>
             <summary>Moet ik zelf iets regelen rond verhuur?</summary>
@@ -1118,6 +1140,31 @@ if(el('bbCam')) el('bbCam').href="https://wa.me/"+CONFIG.whatsapp+"?text="+encod
   if(el('buildPct')) el('buildPct').textContent = pct + "%";
 })();
 
+// Bouwtijdlijn: mijlpalen in het verleden krijgen een vinkje, de eerstvolgende mijlpaal pulseert als "nu"
+(function(){
+  const tl = el('buildTl');
+  if(!tl) return;
+  const now = new Date();
+  const items = Array.from(tl.querySelectorAll('.vitem[data-milestone]'));
+  let currentSet = false;
+  items.forEach(function(item){
+    const d = new Date(item.dataset.milestone + "T00:00:00");
+    if(d <= now){
+      item.classList.add('done');
+    } else if(!currentSet){
+      item.classList.add('current');
+      currentSet = true;
+      const tag = item.querySelector('.vtag');
+      if(tag && !tag.querySelector('.vnow')){
+        const badge = document.createElement('span');
+        badge.className = 'vnow';
+        badge.textContent = 'Nu';
+        tag.appendChild(badge);
+      }
+    }
+  });
+})();
+
 function buildWa(l){
   const msg="Hi Ashley! Ik heb net het investeerdersportaal van The Maison bekeken en wil graag meer weten.%0A%0A"+
     "Naam: "+encodeURIComponent(l.name||'-')+"%0A"+
@@ -1183,7 +1230,6 @@ document.querySelectorAll('#tabsNav button').forEach(function(b){ b.addEventList
 // ROI-calculator
 const GROWTH_RATE = 0.05; /* vaste jaarlijkse waardegroei-aanname, o.b.v. marktdata voor Pererenan/west-Bali (niet instelbaar) */
 const BPRICES=[
-  {v:195000, l:"Pre-sale", s:"eerdere fase"},
   {v:210000, l:"Nu", s:"huidige prijs", current:true},
   {v:225000, l:"Vanaf 15 aug", s:"prijs stijgt"}
 ];
