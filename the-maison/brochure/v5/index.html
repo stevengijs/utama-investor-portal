@@ -823,6 +823,19 @@
             <div class="field"><label><span>Kosten &amp; beheer</span> <span class="val" id="bVCosts"></span></label><input type="range" id="bCosts" min="35" max="55" step="1" value="45" oninput="bcalc()"></div>
             <div class="field"><label><span>Aanhoudperiode</span> <span class="val" id="bVHold"></span></label><input type="range" id="bHold" min="1" max="30" step="1" value="5" oninput="bcalc()"></div>
             <div class="field"><label><span>Geschatte waardegroei / jaar</span> <span class="val" id="bVGrowth"></span></label><div class="field-note">Vast, gebaseerd op marktdata voor deze regio</div></div>
+
+            <div class="hold-block">
+              <div class="hb-h" id="bOHoldH"></div>
+              <div class="hrow"><span>Netto huurinkomsten</span><b id="bORent">–</b></div>
+              <div class="hrow"><span>Geschatte verkoopwinst</span><b id="bOResale">–</b></div>
+              <div class="hrow big"><span>Totaal rendement</span><b id="bOTotalRet">–</b></div>
+            </div>
+            <div class="breakdown">
+              <div class="brow"><span>Bruto huurinkomsten / jaar</span><b id="bOGross">–</b></div>
+              <div class="brow"><span>Af: kosten &amp; beheer</span><b id="bOCostAmt">–</b></div>
+              <div class="brow"><span>Totale investering</span><b id="bOInv">–</b></div>
+            </div>
+            <div class="note-ext" id="bOExt"></div>
           </div>
           <div class="card results">
             <h3>Verwacht rendement</h3>
@@ -841,18 +854,6 @@
               <div class="stat"><div class="s-l">Netto huur / maand</div><div class="s-v" id="bOMonth">–</div><div class="s-sub">Bruto: <span id="bOMonthGross">–</span></div></div>
               <div class="stat"><div class="s-l">Netto huur / jaar</div><div class="s-v" id="bOYear">–</div><div class="s-sub">Bruto: <span id="bOYearGross">–</span></div></div>
             </div>
-            <div class="hold-block">
-              <div class="hb-h" id="bOHoldH"></div>
-              <div class="hrow"><span>Netto huurinkomsten</span><b id="bORent">–</b></div>
-              <div class="hrow"><span>Geschatte verkoopwinst</span><b id="bOResale">–</b></div>
-              <div class="hrow big"><span>Totaal rendement</span><b id="bOTotalRet">–</b></div>
-            </div>
-            <div class="breakdown">
-              <div class="brow"><span>Bruto huurinkomsten / jaar</span><b id="bOGross">–</b></div>
-              <div class="brow"><span>Af: kosten &amp; beheer</span><b id="bOCostAmt">–</b></div>
-              <div class="brow"><span>Totale investering</span><b id="bOInv">–</b></div>
-            </div>
-            <div class="note-ext" id="bOExt"></div>
           </div>
         </div>
         <details class="assump">
