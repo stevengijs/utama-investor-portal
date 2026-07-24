@@ -15,18 +15,25 @@
 <style>
   /* ---------------------------------------------------------------------
      V3 — geïnspireerd op de UTAMA-investeerdersintroductie (PDF-sjabloon):
-     full-bleed donkere fotoblokken, grote bold koppen, terracotta als enige
-     accentkleur, genummerde items met dunne scheidingslijnen, donkere
-     "inbegrepen"-blokken met vinkjes. Zelfde functionele basis als v1/v2:
-     lead-gate, rendementscalculator (calc-shared.js) en WhatsApp-CTA's.
+     full-bleed donkere fotoblokken, grote bold koppen, genummerde items met
+     dunne scheidingslijnen, donkere "inbegrepen"-blokken met vinkjes. Kleuren
+     bijgewerkt naar de echte UTAMA-brochure: zwart/inkt voor knoppen en grote
+     vlakken, een ingehouden kleitint als klein accent (kickers/vinkjes), en
+     het gedempte drieluik-paneelsysteem (blauwgrijs/crème/olijf) voor de
+     pessimistisch/realistisch/optimistisch scenario's. Layout/typografie
+     ongewijzigd. Zelfde functionele basis als v1/v2: lead-gate, rendements-
+     calculator (calc-shared.js) en WhatsApp-CTA's.
   --------------------------------------------------------------------- */
   :root{
+    --terra:#8B5A3C;
     --sand:#FAF5EA; --sand-2:#F1E9DB; --paper:#FEFBF6;
     --ink:#17140F; --muted:#5B564C; --line:#E7DECD;
-    --green:#17140F; --green-2:#17140F; --gold:#C06B3A; --ok:#17140F;
+    --green:#17140F; --green-2:#17140F; --gold:#8B5A3C; --ok:#17140F;
     --shadow:0 1px 2px rgba(23,20,15,.04);
     --radius:14px;
     --dark:#100E0A; --dark-2:#1B1811; --cream:#EFE7D8; --line-dk:rgba(239,231,216,.14);
+    /* drieluik-paneelsysteem, direct overgenomen uit de echte brochure */
+    --pess:#AEBFC7; --pess-ink:#2c3236; --real:#ECE3D2; --real-ink:#17140F; --opt:#9CA47C; --opt-ink:#fff;
   }
   h1,h2,h3{font-family:'Inter',system-ui,-apple-system,sans-serif !important;font-weight:800;letter-spacing:-.015em}
   .big-yield .num,.pbtn .pv,.field label .val,.stat .s-v,.hrow.big b{font-family:'Inter',system-ui,sans-serif !important;font-weight:800 !important}
@@ -111,8 +118,8 @@
   .impact .status-bar .stxt{color:#fff}
 
   .hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
-  .btn-terra{display:inline-flex;align-items:center;gap:8px;background:var(--terra);color:#fff;border:none;font-family:inherit;font-weight:700;font-size:14.5px;border-radius:10px;padding:13px 22px;cursor:pointer;text-decoration:none}
-  .btn-terra:hover{background:#A8592E}
+  .btn-terra{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border:none;font-family:inherit;font-weight:700;font-size:14.5px;border-radius:10px;padding:13px 22px;cursor:pointer;text-decoration:none}
+  .btn-terra:hover{background:#000}
   .btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--ink);border:1px solid var(--line);font-family:inherit;font-weight:700;font-size:14.5px;border-radius:10px;padding:13px 22px;cursor:pointer;text-decoration:none}
   .btn-outline:hover{border-color:var(--ink)}
   .impact .btn-outline{color:#fff;border-color:var(--line-dk)}
@@ -165,7 +172,7 @@
   /* stat rows (track record etc, dark) */
   .stat-row{display:grid;grid-template-columns:1fr 1fr;gap:22px 16px}
   @media(min-width:640px){.stat-row{grid-template-columns:repeat(4,1fr)}}
-  .stat-row .sr .sv{font-size:clamp(28px,6vw,38px);font-weight:800;color:var(--terra);letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
+  .stat-row .sr .sv{font-size:clamp(28px,6vw,38px);font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
   .stat-row .sr .sl{font-size:12.5px;margin-top:7px;color:rgba(239,231,216,.75);line-height:1.35;max-width:180px}
 
   /* grote cijfertegels ("In cijfers") */
@@ -195,7 +202,7 @@
   .hl{display:grid;grid-template-columns:1fr;gap:10px;margin-top:6px}
   @media(min-width:640px){.hl{grid-template-columns:1fr 1fr}}
   .hl div{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:13.5px;line-height:1.5;display:flex;gap:12px;align-items:center}
-  .hl div::before{content:"";position:static;top:auto;left:auto;width:18px;height:18px;flex:none;border-radius:50%;background-color:var(--sand-2);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C06B3A' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");background-size:11px;background-repeat:no-repeat;background-position:center}
+  .hl div::before{content:"";position:static;top:auto;left:auto;width:18px;height:18px;flex:none;border-radius:50%;background-color:var(--sand-2);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238B5A3C' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");background-size:11px;background-repeat:no-repeat;background-position:center}
 
   /* yield cards */
   .yield-cards{display:grid;gap:8px;margin-bottom:18px}
@@ -206,26 +213,29 @@
   .yc .yv{font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;font-size:14.5px}
   .yc.tot .yv{color:var(--terra);font-size:16px}
 
-  /* scenario grid (voorzichtig/realistisch/optimistisch) */
+  /* scenario grid (voorzichtig/realistisch/optimistisch) — gedempt drieluik-
+     paneelsysteem rechtstreeks overgenomen uit de echte UTAMA-brochure
+     (blauwgrijs/crème/olijf), zelfde kaart-layout als voorheen */
   .scen-wrap{margin-top:26px}
   .scen-h{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:10px}
   .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
   @media(max-width:820px){.scen{grid-template-columns:1fr}}
-  .scc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 18px;text-align:center;cursor:pointer;transition:border-color .15s,box-shadow .15s}
-  .scc:hover{border-color:var(--terra)}
-  .scc.cur{border-color:var(--terra);box-shadow:0 6px 20px rgba(192,107,58,.12)}
-  .scl{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
-  .scc.cur .scl{color:var(--terra)}
-  .scv{font-family:'Inter',sans-serif;font-size:24px;font-weight:800;color:var(--ink);margin-top:5px}
-  .scc.cur .scv{color:var(--terra)}
-  .scs{font-size:12.5px;color:var(--muted);margin-top:4px}
-  .scb{font-size:12px;color:var(--ink);margin-top:8px;font-weight:600}
+  .scc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 18px;text-align:center;cursor:pointer;transition:filter .15s,box-shadow .15s}
+  .scc:hover{filter:brightness(0.97)}
+  .scc.pess{background:var(--pess);color:var(--pess-ink);border-color:var(--pess)}
+  .scc.real{background:var(--real);color:var(--real-ink);border-color:var(--real)}
+  .scc.opt{background:var(--opt);color:var(--opt-ink);border-color:var(--opt)}
+  .scc.cur{box-shadow:inset 0 0 0 2px var(--ink)}
+  .scl{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;opacity:.85}
+  .scv{font-family:'Inter',sans-serif;font-size:24px;font-weight:800;margin-top:5px}
+  .scs{font-size:12.5px;margin-top:4px;opacity:.8}
+  .scb{font-size:12px;margin-top:8px;font-weight:600;opacity:.9}
 
   /* prices */
   .prices{display:grid;grid-template-columns:1fr;gap:10px}
   @media(min-width:640px){.prices{grid-template-columns:repeat(3,1fr)}}
   .pc{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 20px;text-align:center}
-  .pc.cur{border-color:var(--terra)}
+  .pc.cur{border-color:var(--ink)}
   .pc .pv{font-family:'Inter',sans-serif;font-size:25px;font-weight:800;color:var(--ink)}
   .pc.cur .pv{color:var(--terra)}
   .pc .pl{font-size:13px;font-weight:700;margin-top:4px}
@@ -236,10 +246,10 @@
   .paybar{display:flex;border-radius:14px;overflow:hidden;margin-top:16px;box-shadow:var(--shadow)}
   .payseg{padding:22px 20px;position:relative}
   .payseg+.payseg{border-left:1px solid rgba(255,255,255,.22)}
-  .payseg:nth-child(1){background:var(--terra);color:#fff;flex:3}
-  .payseg:nth-child(2){background:#CC8A63;color:#fff;flex:3}
-  .payseg:nth-child(3){background:#DBAC8B;color:#3a2416;flex:3}
-  .payseg:nth-child(4){background:#F1E1D2;color:var(--ink);flex:1}
+  .payseg:nth-child(1){background:var(--ink);color:#fff;flex:3}
+  .payseg:nth-child(2){background:#4A453D;color:#fff;flex:3}
+  .payseg:nth-child(3){background:#8B8477;color:#fff;flex:3}
+  .payseg:nth-child(4){background:var(--sand-2);color:var(--ink);flex:1}
   .payseg .pp{font-family:'Inter',sans-serif;font-size:27px;font-weight:800;line-height:1}
   .payseg .pl{font-size:13px;font-weight:600;margin-top:9px}
   .payseg .pa{font-size:12.5px;margin-top:5px;opacity:.85}
@@ -284,7 +294,7 @@
   /* 2-tone "veelgekozen route"-balk (leasehold) */
   .route-bar{display:flex;flex-wrap:wrap;border-radius:14px;overflow:hidden;margin:20px 0 8px}
   .route-a,.route-b{flex:1;min-width:220px;padding:18px 20px}
-  .route-a{background:#2A2016}
+  .route-a{background:#241F19}
   .route-b{background:var(--terra)}
   .route-bar .rlbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;opacity:.8;margin-bottom:5px;color:#fff}
   .route-bar .rtxt{font-size:13.5px;color:#fff;line-height:1.4}
@@ -303,7 +313,7 @@
 
   /* exit */
   .exit-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:24px}
-  .exit-num{font-size:clamp(30px,7vw,44px);font-weight:800;color:var(--terra);letter-spacing:-.02em;line-height:1}
+  .exit-num{font-size:clamp(30px,7vw,44px);font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1}
   .exit-lbl{font-size:13px;color:var(--muted);margin-top:6px}
   .exit-break{display:flex;gap:22px;flex-wrap:wrap;margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
   .exit-break .eb-i{font-size:13px}
@@ -316,7 +326,7 @@
   .exit2 .ec li{display:flex;gap:8px;font-size:13.5px;color:var(--muted);align-items:flex-start}
   .exit2 .ec li .ck2{flex:none;color:var(--terra);font-weight:800}
   .commission-bar{display:flex;align-items:center;gap:16px;background:var(--dark);color:#fff;border-radius:14px;padding:18px 22px;margin-top:16px;flex-wrap:wrap}
-  .commission-bar .cnum{font-size:28px;font-weight:800;color:var(--terra);flex:none}
+  .commission-bar .cnum{font-size:28px;font-weight:800;color:#fff;flex:none}
   .commission-bar p{margin:0;font-size:13.5px;color:rgba(239,231,216,.9);line-height:1.5}
   .commission-bar p b{color:#fff}
 
@@ -956,12 +966,13 @@ function bApplyScenario(i){
   el('bOcc').value=s.occ;
   bcalc();
 }
+const SCEN_TONE=['pess','real','opt']; /* drieluik-paneelsysteem: voorzichtig/realistisch/optimistisch */
 function bRenderScenarios(){
   const price=bSelPrice, costs=+el('bCosts').value/100;
   el('bScenGrid').innerHTML = BSCENARIOS.map(function(s,i){
     const r=roiCalc(price, s.nightly, s.occ/100, costs);
     return `
-    <div class="scc ${i===bSelScenario?'cur':''}" onclick="bApplyScenario(${i})">
+    <div class="scc ${SCEN_TONE[i]||''} ${i===bSelScenario?'cur':''}" onclick="bApplyScenario(${i})">
       <div class="scl">${s.label}</div>
       <div class="scv">${r.roi.toFixed(1).replace('.',',')}%</div>
       <div class="scs">${s.occ}% bezetting · €${s.nightly}/nacht</div>
