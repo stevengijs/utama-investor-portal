@@ -484,11 +484,9 @@
 
   .faq-cats{display:flex;gap:9px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;margin-bottom:16px}
   .faq-cats::-webkit-scrollbar{display:none}
-  .faq-cat{flex:none;display:flex;align-items:center;gap:9px;padding:6px 16px 6px 6px;border-radius:999px;border:1px solid var(--line);background:var(--paper);cursor:pointer;transition:all .15s;font-family:inherit}
+  .faq-cat{flex:none;display:flex;align-items:center;padding:9px 17px;border-radius:999px;border:1px solid var(--line);background:var(--paper);cursor:pointer;transition:all .15s;font-family:inherit}
   .faq-cat:hover{border-color:var(--opt-deep)}
   .faq-cat.active{border-color:var(--opt-deep);background:var(--sage-tint)}
-  .faq-cat .fc-icon{flex:none;width:32px;height:32px;border-radius:50%;background:var(--opt);display:flex;align-items:center;justify-content:center}
-  .faq-cat .fc-icon svg{width:16px;height:16px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   .faq-cat .fc-lbl{font-family:'Fraunces','Georgia',serif;font-weight:600;font-size:14.5px;color:var(--ink);white-space:nowrap}
 
   .faq details{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-bottom:8px}
@@ -668,7 +666,7 @@
 
         <div class="row price"><div class="rl">Huidige prijs</div><div class="rv">€210.000</div></div>
         <div class="price-note">Stijgt naar €225.000 op 15 augustus</div>
-        <div class="row yield"><div class="rl">Verwacht rendement</div><div class="rv">11–18%/jr</div></div>
+        <div class="row yield"><div class="rl">Verwacht rendement</div><div class="rv">12–17%/jr</div></div>
         <div class="row"><div class="rl">Leaseperiode</div><div class="rv">30+30 jr</div></div>
         <div class="row"><div class="rl">Aantal villa's</div><div class="rv">6</div></div>
 
@@ -1158,7 +1156,7 @@
         </div>
         <div class="dark-cta">Geen projecties, maar uitbetalingen die vandaag op bankrekeningen binnenkomen. Wil je het uit eerste hand horen? Wij brengen je graag in contact met een bestaande investeerder.</div>
         <div class="big-stats">
-          <div class="bstat"><div class="bv">11–18<sup>%</sup></div><div class="bl">Verwacht rendement per jaar</div></div>
+          <div class="bstat"><div class="bv">12–17<sup>%</sup></div><div class="bl">Verwacht rendement per jaar</div></div>
           <div class="bstat"><div class="bv">70–85<sup>%</sup></div><div class="bl">Verwachte bezettingsgraad</div></div>
           <div class="bstat"><div class="bv">60<sup style="font-size:.4em">jr</sup></div><div class="bl">Lease (30+30), notarieel vastgelegd</div></div>
           <div class="bstat"><div class="bv">€195k–225k</div><div class="bl">Investering per villa, in euro's</div></div>
@@ -1199,27 +1197,21 @@
         </div>
         <div class="faq-cats" id="faqCats">
           <button class="faq-cat active" data-cat="all" onclick="filterFaq('all',this)">
-            <span class="fc-icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg></span>
             <span class="fc-lbl">Alle</span>
           </button>
           <button class="faq-cat" data-cat="uitkering" onclick="filterFaq('uitkering',this)">
-            <span class="fc-icon"><svg viewBox="0 0 24 24"><path d="M4 7h11a4 4 0 0 1 0 8H8"/><path d="M11 12l-3 3 3 3"/><path d="M20 17H9a4 4 0 0 1 0-8h7"/><path d="M13 12l3-3-3-3"/></svg></span>
             <span class="fc-lbl">Uitkering</span>
           </button>
           <button class="faq-cat" data-cat="eigendom" onclick="filterFaq('eigendom',this)">
-            <span class="fc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M9 13.5 7 22l5-3 5 3-2-8.5"/></svg></span>
             <span class="fc-lbl">Eigendom</span>
           </button>
           <button class="faq-cat" data-cat="beheer" onclick="filterFaq('beheer',this)">
-            <span class="fc-icon"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 9h8M8 13h5"/><circle cx="16.5" cy="15.5" r="2"/></svg></span>
             <span class="fc-lbl">Verhuur &amp; kosten</span>
           </button>
           <button class="faq-cat" data-cat="belasting" onclick="filterFaq('belasting',this)">
-            <span class="fc-icon"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M9.5 13.5h5M9.5 16.5h5"/></svg></span>
             <span class="fc-lbl">Belasting</span>
           </button>
           <button class="faq-cat" data-cat="juridisch" onclick="filterFaq('juridisch',this)">
-            <span class="fc-icon"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
             <span class="fc-lbl">Juridisch</span>
           </button>
         </div>
@@ -1250,7 +1242,7 @@
           </details>
           <details data-cat="uitkering">
             <summary>Hoe ontvang ik mijn rendement?</summary>
-            <p>Je ontvangt maandelijks je aandeel in de verhuuropbrengsten, uitgekeerd in euro's, met een rapportage van omzet, kosten, bezetting en netto-opbrengst. Het verwachte nettorendement ligt tussen 11% en 18% per jaar.</p>
+            <p>Je ontvangt maandelijks je aandeel in de verhuuropbrengsten, uitgekeerd in euro's, met een rapportage van omzet, kosten, bezetting en netto-opbrengst. Het verwachte nettorendement ligt tussen 12% en 17% per jaar.</p>
           </details>
           <details data-cat="beheer">
             <summary>Welke jaarlijkse kosten zijn er?</summary>
@@ -1544,9 +1536,9 @@ const BPRICES=[
 ];
 let bSelPrice=210000;
 const BSCENARIOS=[
-  {label:"Voorzichtig", occ:70, nightly:165},
+  {label:"Voorzichtig", occ:76, nightly:165},
   {label:"Realistisch", occ:85, nightly:175, current:true},
-  {label:"Optimistisch", occ:90, nightly:205}
+  {label:"Optimistisch", occ:87, nightly:205}
 ];
 let bSelScenario=BSCENARIOS.findIndex(function(s){return s.current;});
 function bMoney(v){ return new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(Math.round(v)); }
