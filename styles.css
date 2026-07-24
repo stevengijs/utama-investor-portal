@@ -1,8 +1,20 @@
 :root{
-  --sand:#F6F1E8; --sand-2:#EFE7D8; --paper:#FFFFFF;
-  --ink:#211E18; --muted:#6C6353; --line:#E4D9C6;
-  --green:#243F35; --green-2:#2F5546; --terra:#C06B3A; --gold:#B0873E; --ok:#2E7D5B;
-  --shadow:0 1px 2px rgba(33,30,24,.04),0 10px 30px rgba(33,30,24,.07);
+  /* UTAMA-huisstijl, platformbreed - overgenomen van de standaard brochurepagina
+     (the-maison/brochure/): warmer ivoor/zand als basis, inkt voor primaire
+     acties/tekst, terracotta als enige warme accent. Olijf (--opt/--opt-deep)
+     voor rendement/groei en blauwgrijs (--pess/--pess-ink) voor vertrouwen/
+     structuur zijn hier ook beschikbaar zodat elke pagina hetzelfde
+     semantische kleursysteem kan gebruiken.
+     --ok blijft bewust een eigen, herkenbaar groen (i.p.v. mee te inkten met
+     --green): op de portal/dashboard, referral- en MOKA-pagina's markeert
+     --ok echte statussen (betaald, voltooid, gelukt) die los van de inkt-
+     merkkleur herkenbaar moeten blijven. */
+  --sand:#FAF5EA; --sand-2:#F1E9DB; --paper:#FEFBF6;
+  --ink:#17140F; --muted:#5B564C; --line:#E7DECD;
+  --green:#17140F; --green-2:#17140F; --gold:#8B5A3C; --ok:#2E7D5B; --terra:#8B5A3C;
+  --pess:#AEBFC7; --pess-ink:#2c3236; --real:#ECE3D2; --real-ink:#17140F;
+  --opt:#9CA47C; --opt-ink:#fff; --opt-deep:#5B6A45; --sage-tint:#EEF0E2;
+  --shadow:0 1px 2px rgba(23,20,15,.04),0 10px 30px rgba(23,20,15,.07);
   --radius:16px;
 }
 *{box-sizing:border-box}

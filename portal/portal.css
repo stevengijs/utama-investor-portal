@@ -1,8 +1,13 @@
-/* UTAMA Investor Portal - prototype styles */
+/* UTAMA Investor Portal - prototype styles
+   Huisstijl-tokens gesynchroniseerd met de standaard brochurepagina
+   (the-maison/brochure/) en het gedeelde /styles.css: warmer ivoor/zand,
+   inkt voor merk/navigatie, terracotta als warme accent. --ok blijft een
+   eigen, herkenbaar groen (los van --green) omdat het hier echte
+   statussen markeert: voltooide tijdlijn-stappen en betaalde termijnen. */
 :root{
-  --sand:#F6F1E8; --sand-2:#EFE7D8; --paper:#FFFFFF;
-  --ink:#211E18; --muted:#6C6353; --line:#E4D9C6;
-  --green:#243F35; --green-2:#2F5546; --terra:#C06B3A; --gold:#B0873E; --ok:#2E7D5B;
+  --sand:#FAF5EA; --sand-2:#F1E9DB; --paper:#FEFBF6;
+  --ink:#17140F; --muted:#5B564C; --line:#E7DECD;
+  --green:#17140F; --green-2:#17140F; --terra:#8B5A3C; --gold:#8B5A3C; --ok:#2E7D5B;
   --warn:#B9791F;
 }
 *{box-sizing:border-box}
