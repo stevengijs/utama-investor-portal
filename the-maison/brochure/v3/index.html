@@ -35,6 +35,17 @@
     --dark:#100E0A; --dark-2:#1B1811; --cream:#EFE7D8; --line-dk:rgba(239,231,216,.14);
     /* drieluik-paneelsysteem, direct overgenomen uit de echte brochure */
     --pess:#AEBFC7; --pess-ink:#2c3236; --real:#ECE3D2; --real-ink:#17140F; --opt:#9CA47C; --opt-ink:#fff;
+    /* semantische accenten, afgeleid van het drieluik — geen nieuwe kleuren,
+       wel een bewuste, herkenbare toepassing per soort inhoud:
+       - olijf (--opt/--opt-deep) = rendement & groei (cijfers, calculator, exit)
+       - blauwgrijs (--pess/--pess-ink) = vertrouwen & structuur (legal, risico, team)
+       - sage-tint = achtergrond voor "bewijs"-secties (track record, in cijfers,
+         leasehold, bouwteam, beheer, risico's) — apart van de neutrale
+         paper/sand-2 afwisseling van de vertellende secties
+       - inkt = primaire acties + de allerlaatste sectie (de "vraag om actie"),
+         als enige bewust donkere blok op de pagina */
+    --sage-tint:#EEF0E2;
+    --opt-deep:#5B6A45;
   }
   h1,h2,h3{font-family:'Inter',system-ui,-apple-system,sans-serif !important;font-weight:800;letter-spacing:-.015em}
   .big-yield .num,.pbtn .pv,.field label .val,.stat .s-v,.hrow.big b{font-family:'Inter',system-ui,sans-serif !important;font-weight:800 !important}
@@ -51,23 +62,26 @@
   .slider-pins .pin.cur{background:var(--ink);border-color:var(--ink)}
   input[type=range]::-webkit-slider-thumb{background:var(--ink)}
   input[type=range]::-moz-range-thumb{background:var(--ink)}
-  .results{background:var(--paper);color:var(--ink);border-color:var(--line)}
-  .results h3{color:var(--ink)}
+  /* "Verwacht rendement" krijgt het olijf-accent (rendement/groei) zodat hij
+     duidelijk anders oogt dan de neutrale "Aannames"-kaart ernaast */
+  .results{background:var(--sage-tint);color:var(--ink);border:1px solid var(--opt)}
+  .results h3{color:var(--opt-deep)}
   .results .csub{color:var(--muted)}
-  .big-yield .num{color:var(--ink)}
+  .big-yield .num{color:var(--opt-deep)}
   .big-yield .lbl{color:var(--ink)}
   .payback{color:var(--muted)}
-  .stat{background:var(--sand-2);border-color:var(--line)}
+  .stat{background:var(--paper);border-color:var(--line)}
   .stat .s-l{color:var(--muted)}
   .stat .s-v{color:var(--ink)}
   .hrow{color:var(--ink)}
   .hrow b{color:var(--ink)}
-  .hrow.big{border-top-color:var(--line)}
+  .hrow.big{border-top-color:var(--opt)}
+  .hrow.big b{color:var(--opt-deep)}
   .breakdown{border-top-color:var(--line);color:var(--muted)}
   .breakdown .brow b{color:var(--ink)}
   .note-ext{color:var(--muted)}
   .hold-block{border-top-color:var(--line)}
-  .hold-block .hb-h{color:var(--ink)}
+  .hold-block .hb-h{color:var(--opt-deep)}
 
   .bnav{display:flex;align-items:center;justify-content:space-between;padding:16px 5vw;border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:120}
   .bnav a.back{color:var(--muted);text-decoration:none;font-size:13.5px}
@@ -102,8 +116,15 @@
   /* LAYOUT: full-bleed alternating sections, inner max-width container */
   .lite{background:var(--paper)}
   .lite.tint{background:var(--sand-2)}
-  .impact{background:var(--sand-2);color:var(--ink);--accent-ink:var(--ink)}
+  .impact{background:var(--sage-tint);color:var(--ink);--accent-ink:var(--ink)}
   .impact .muted-on-dark{color:var(--muted)}
+  /* de allerlaatste sectie ("Klaar voor een discovery call?") is bewust het
+     enige echt donkere blok op de pagina — de afsluitende, dwingende noot,
+     zodat hij nooit met de FAQ (lite tint) of de andere bewijs-secties
+     (sage-tint) verward kan worden */
+  .impact.cta-final{background:var(--ink);color:var(--cream)}
+  .impact.cta-final .sec-h{color:#fff}
+  .impact.cta-final .sec-lead{color:rgba(239,231,216,.85)}
   .inner{max-width:1040px;margin:0 auto;padding:52px 20px}
   @media(min-width:640px){.inner{padding:64px 24px}}
 
@@ -164,6 +185,8 @@
   .feature-cols{display:grid;grid-template-columns:1fr 1fr;gap:20px 16px;margin-top:24px}
   @media(min-width:640px){.feature-cols{grid-template-columns:repeat(4,1fr)}}
   .fcol{border-top:2px solid var(--ink);padding-top:13px}
+  .feature-cols .fcol:nth-child(2){border-top-color:var(--opt)}
+  .feature-cols .fcol:nth-child(3){border-top-color:var(--pess)}
   .fcol h4{font-size:14.5px;margin:0 0 5px}
   .fcol p{font-size:13px;color:var(--muted);margin:0;line-height:1.5}
 
@@ -187,7 +210,9 @@
   .trust-list{margin-top:6px}
   .trust-item{display:flex;gap:14px;padding:15px 0;border-top:1px solid var(--line);align-items:flex-start}
   .trust-item:first-child{border-top:none;padding-top:4px}
-  .trust-item .tick{flex:none;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;margin-top:1px}
+  /* blauwgrijs (vertrouwen/structuur) i.p.v. zwart, om deze vinkjes thematisch
+     te onderscheiden van de algemene checklist-vinkjes */
+  .trust-item .tick{flex:none;width:26px;height:26px;border-radius:50%;background:var(--pess);color:var(--pess-ink);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;margin-top:1px}
   .trust-item p{margin:0;font-size:14px;line-height:1.55;color:var(--ink)}
   .trust-item p b{color:var(--ink)}
 
@@ -207,7 +232,7 @@
   .bstat .bl{font-size:13px;color:var(--muted);margin-top:6px}
 
   /* CTA-blok in track record (licht) */
-  .dark-cta{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:22px;font-size:13.5px;color:var(--ink);line-height:1.6}
+  .dark-cta{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--opt);border-radius:14px;padding:18px 20px;margin-top:22px;font-size:13.5px;color:var(--ink);line-height:1.6}
 
   /* nearby / location */
   .nearby-group{margin-bottom:18px}
@@ -257,9 +282,9 @@
   .prices{display:grid;grid-template-columns:1fr;gap:10px}
   @media(min-width:640px){.prices{grid-template-columns:repeat(3,1fr)}}
   .pc{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 20px;text-align:center}
-  .pc.cur{border-color:var(--ink)}
+  .pc.cur{border-color:var(--opt);background:var(--sage-tint)}
   .pc .pv{font-family:'Inter',sans-serif;font-size:25px;font-weight:800;color:var(--ink)}
-  .pc.cur .pv{color:var(--ink)}
+  .pc.cur .pv{color:var(--opt-deep)}
   .pc .pl{font-size:13px;font-weight:700;margin-top:4px}
   .pc .ps{font-size:12px;color:var(--muted)}
   .price-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
@@ -304,33 +329,34 @@
   .role-grid{display:grid;grid-template-columns:1fr;gap:9px;margin-top:20px}
   @media(min-width:560px){.role-grid{grid-template-columns:1fr 1fr}}
   .role{display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:12px 15px;font-size:13.5px;color:var(--ink)}
-  .role .rdot{flex:none;width:6px;height:6px;border-radius:50%;background:var(--ink)}
+  .role .rdot{flex:none;width:6px;height:6px;border-radius:50%;background:var(--pess-ink)}
 
   /* 2-tone "veelgekozen route"-balk (leasehold) — licht, met de olijf-tint
      uit het drieluiksysteem als enige kleuraccent op de aanbevolen route */
   .route-bar{display:flex;flex-wrap:wrap;border-radius:14px;overflow:hidden;margin:20px 0 8px;border:1px solid var(--line)}
   .route-a,.route-b{flex:1;min-width:220px;padding:18px 20px}
-  .route-a{background:var(--paper)}
+  .route-a{background:var(--pess)}
   .route-b{background:var(--opt)}
   .route-bar .rlbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;opacity:.8;margin-bottom:5px;color:var(--ink)}
   .route-bar .rtxt{font-size:13.5px;color:var(--ink);line-height:1.4}
-  .route-b .rlbl,.route-b .rtxt{color:#fff}
+  .route-a .rlbl,.route-a .rtxt{color:var(--pess-ink)}
+  .route-b .rlbl,.route-b .rtxt{color:var(--ink)}
   .route-foot{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted)}
 
   /* risicokaarten ("de realiteit" + oplossing-tags), licht */
   .risk2-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:8px}
-  .risk2{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:19px 21px}
+  .risk2{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--pess);border-radius:14px;padding:19px 21px}
   .risk2 h4{font-size:15px;margin:0 0 8px;color:var(--ink)}
-  .risk2 h4 .rn{color:var(--ink);margin-right:6px}
+  .risk2 h4 .rn{color:var(--pess-ink);margin-right:6px}
   .risk2 .real{font-size:13px;color:var(--muted);margin:0 0 11px;line-height:1.55}
   .risk2 .real b{color:var(--ink);font-weight:700}
-  .risk2 .rsol{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ink);margin-bottom:9px;display:flex;align-items:center;gap:6px}
+  .risk2 .rsol{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--pess-ink);margin-bottom:9px;display:flex;align-items:center;gap:6px}
   .risk2 .rtags{display:flex;flex-wrap:wrap;gap:8px}
-  .rtag{background:var(--sand-2);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12px;color:var(--ink)}
+  .rtag{background:var(--pess);border:1px solid var(--pess);border-radius:999px;padding:6px 12px;font-size:12px;color:var(--pess-ink);font-weight:600}
 
   /* exit */
   .exit-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:24px}
-  .exit-num{font-size:clamp(30px,7vw,44px);font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1}
+  .exit-num{font-size:clamp(30px,7vw,44px);font-weight:800;color:var(--opt-deep);letter-spacing:-.02em;line-height:1}
   .exit-lbl{font-size:13px;color:var(--muted);margin-top:6px}
   .exit-break{display:flex;gap:22px;flex-wrap:wrap;margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
   .exit-break .eb-i{font-size:13px}
@@ -341,9 +367,9 @@
   .exit2 .ec h4{font-size:15px;margin:0 0 10px}
   .exit2 .ec ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
   .exit2 .ec li{display:flex;gap:8px;font-size:13.5px;color:var(--muted);align-items:flex-start}
-  .exit2 .ec li .ck2{flex:none;color:var(--ink);font-weight:800}
-  .commission-bar{display:flex;align-items:center;gap:16px;background:var(--sand-2);border:1px solid var(--line);color:var(--ink);border-radius:14px;padding:18px 22px;margin-top:16px;flex-wrap:wrap}
-  .commission-bar .cnum{font-size:28px;font-weight:800;color:var(--ink);flex:none}
+  .exit2 .ec li .ck2{flex:none;color:var(--opt-deep);font-weight:800}
+  .commission-bar{display:flex;align-items:center;gap:16px;background:var(--sage-tint);border:1px solid var(--opt);color:var(--ink);border-radius:14px;padding:18px 22px;margin-top:16px;flex-wrap:wrap}
+  .commission-bar .cnum{font-size:28px;font-weight:800;color:var(--opt-deep);flex:none}
   .commission-bar p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.5}
   .commission-bar p b{color:var(--ink)}
 
@@ -357,17 +383,17 @@
   /* bottom CTA (twee contactpersonen) */
   .contact-row{display:grid;grid-template-columns:1fr;gap:14px;max-width:560px;margin:0 auto 22px;text-align:left}
   @media(min-width:560px){.contact-row{grid-template-columns:1fr 1fr}}
-  .cperson{display:flex;gap:12px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .cperson{display:flex;gap:12px;align-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(239,231,216,.18);border-radius:14px;padding:14px 16px}
   .cperson img{width:46px;height:46px;border-radius:50%;object-fit:cover;flex:none}
-  .cperson .cn{font-size:13.5px;font-weight:700;color:var(--ink)}
-  .cperson .cr{font-size:11px;color:var(--muted);margin:1px 0 6px}
-  .cperson a{display:block;font-size:12px;color:var(--ink);text-decoration:none}
-  .cperson a:hover{color:#000;text-decoration:underline}
+  .cperson .cn{font-size:13.5px;font-weight:700;color:#fff}
+  .cperson .cr{font-size:11px;color:rgba(239,231,216,.65);margin:1px 0 6px}
+  .cperson a{display:block;font-size:12px;color:rgba(239,231,216,.85);text-decoration:none}
+  .cperson a:hover{color:#fff;text-decoration:underline}
   .bcta-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px}
   .wa{display:inline-flex;align-items:center;gap:9px;background:#25D366;color:#fff;border:none;font-family:inherit;font-weight:700;font-size:14.5px;border-radius:10px;padding:13px 20px;cursor:pointer;text-decoration:none}
   .wa svg{width:17px;height:17px;fill:#fff}
-  .wa.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
-  .wa.ghost svg{fill:var(--ink)}
+  .wa.ghost{background:transparent;border:1px solid rgba(239,231,216,.35);color:#fff}
+  .wa.ghost svg{fill:#fff}
 
   .note{font-size:12px;color:var(--muted);margin-top:16px;line-height:1.5}
   .legal-note{text-align:center;padding:24px 20px 100px;max-width:720px;margin:0 auto;font-size:11.5px;color:var(--muted);line-height:1.6}
@@ -874,7 +900,7 @@
   </div></div>
 
   <!-- 19 CONTACT -->
-  <div class="impact"><div class="inner" style="text-align:center">
+  <div class="impact cta-final"><div class="inner" style="text-align:center">
     <div class="sec-num">De volgende stap</div>
     <h2 class="sec-h">Klaar voor een korte discovery call?</h2>
     <p class="sec-lead" style="margin:0 auto 22px">In een vrijblijvend gesprek van zo'n 15 minuten kijken we samen welk project het beste bij je past.</p>
