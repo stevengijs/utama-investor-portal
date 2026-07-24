@@ -393,6 +393,8 @@
 
   .faq-lead{display:flex;align-items:center;gap:14px;margin-bottom:20px}
   .faq-lead .faq-photo{width:52px;height:52px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--line)}
+  .faq-name{font-family:'Inter',sans-serif;font-weight:800;font-size:14.5px;color:var(--ink);margin-bottom:2px}
+  .faq-name span{font-weight:500;color:var(--muted);font-size:13px}
   @media(max-width:560px){.faq-lead .faq-photo{width:44px;height:44px}}
 
   .faq details{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-bottom:8px}
@@ -805,7 +807,7 @@
         <div class="plan-block">
           <div class="subhead">Van start bouw tot eerste gast</div>
           <div class="vtl" id="buildTl">
-            <div class="vitem" data-milestone="2026-05-15"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag">15 mei 2026</div><h4>Start bouw</h4><p>Grondwerk en fundering; notariële vastlegging is dan afgerond.</p></div></div>
+            <div class="vitem" data-milestone="2026-05-15"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag">15 mei 2026</div><h4>Start bouw</h4><p>Grondwerk en fundering.</p></div></div>
             <div class="vitem" data-milestone="2026-12-31"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag">Q4 2026</div><h4>Casco gereed</h4><p>Hoofdconstructie en dak gereed, start afbouw.</p></div></div>
             <div class="vitem" data-milestone="2027-03-31"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag">Q1 2027</div><h4>Afbouw &amp; inrichting</h4><p>Afwerking, interieur, styling en branded details.</p></div></div>
             <div class="vitem" data-milestone="2027-04-15"><div class="vmark"><span class="vdot"></span></div><div class="vc"><div class="vtag">April 2027</div><h4>Oplevering &amp; start verhuur</h4><p>Turnkey sleuteloverdracht; listings live en eerste boekingen.</p></div></div>
@@ -963,7 +965,10 @@
         <h2 class="pane-h">Veelgestelde vragen</h2>
         <div class="faq-lead">
           <img class="faq-photo" src="/images/steven.jpg" alt="Steven Gijsman" onerror="this.style.display='none'">
-          <p class="pane-lead" style="margin:0">Staat je vraag er niet bij? Stuur ons een appje, we beantwoorden hem persoonlijk via WhatsApp.</p>
+          <div>
+            <div class="faq-name">Steven Gijsman <span>· Director UTAMA</span></div>
+            <p class="pane-lead" style="margin:0">Staat je vraag er niet bij? Stuur ons een appje, we beantwoorden hem persoonlijk via WhatsApp.</p>
+          </div>
         </div>
         <div class="faq">
           <details>
@@ -1154,12 +1159,12 @@ if(el('bbCam')) el('bbCam').href="https://wa.me/"+CONFIG.whatsapp+"?text="+encod
     } else if(!currentSet){
       item.classList.add('current');
       currentSet = true;
-      const tag = item.querySelector('.vtag');
-      if(tag && !tag.querySelector('.vnow')){
+      const h4 = item.querySelector('h4');
+      if(h4 && !h4.querySelector('.vnow')){
         const badge = document.createElement('span');
         badge.className = 'vnow';
-        badge.textContent = 'Nu';
-        tag.appendChild(badge);
+        badge.textContent = 'Nu bezig';
+        h4.appendChild(badge);
       }
     }
   });
