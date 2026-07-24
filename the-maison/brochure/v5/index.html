@@ -179,6 +179,9 @@
   .tab-pane.active{display:block;animation:fadein .2s ease}
   @keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
   .pane-kicker{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+  .pk-row{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  .pk-icon{flex:none;width:34px;height:34px;border-radius:50%;background:var(--opt);display:flex;align-items:center;justify-content:center}
+  .pk-icon svg{width:17px;height:17px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   .pane-h{font-size:clamp(21px,3.6vw,28px);margin:6px 0 10px;line-height:1.15}
   .pane-lead{font-size:15px;line-height:1.6;max-width:640px;margin:0 0 20px;color:var(--ink)}
   .subhead{font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:30px 0 12px;display:flex;align-items:center;gap:8px}
@@ -706,7 +709,7 @@
 
       <!-- 01 · HET PROJECT -->
       <div class="tab-pane active" id="pane-project">
-        <div class="pane-kicker">01 · Het project</div>
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><path d="M4 11l8-6 8 6"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg></span><div class="pane-kicker">01 · Het project</div></div>
         <h2 class="pane-h">Een boutique villa, geen vakantiehuis</h2>
         <p class="pane-lead">Zes designvilla's binnen één gestroomlijnd concept: privé plunge pool, twee ensuite slaapkamers en een rooftop lounge van 40 m², volledig gemeubileerd en direct klaar voor verhuur via Airbnb en Booking.com.</p>
 
@@ -801,7 +804,7 @@
 
       <!-- 02 · RENDEMENT & PRIJS -->
       <div class="tab-pane" id="pane-rendement">
-        <div class="pane-kicker">02 · Rendement &amp; prijs</div>
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><path d="M4 16l5-5 4 3 6-7"/><path d="M15 6h4v4"/></svg></span><div class="pane-kicker">02 · Rendement &amp; prijs</div></div>
         <h2 class="pane-h">Instappen vanaf €210.000, bereken je rendement</h2>
         <p class="pane-lead">Alle prijzen zijn turnkey: volledig afgewerkt, ingericht en klaar voor verhuur. Geen verborgen kosten achteraf. Pas hieronder de aannames aan naar jouw eigen scenario - eerlijk berekend, geen opgeblazen beloftes.</p>
 
@@ -879,7 +882,7 @@
           </div>
           <div class="fee-card">
             <div class="fee-h"><span class="fee-pct">~15%</span><h4>Operationeel beheer</h4></div>
-            <p class="fee-sub">Circa €680 per maand in het realistische scenario - houdt de villa draaiende.</p>
+            <p class="fee-sub">Houdt de villa draaiende - alles om de dagelijkse operatie soepel te laten lopen.</p>
             <ul class="fee-list">
               <li>Housekeeping, tuin- en zwembadonderhoud</li>
               <li>Elektra, water, wifi en banjar-bijdrage</li>
@@ -903,7 +906,7 @@
         <div class="scen-wrap">
           <div class="scen-h">Drie scenario's voor The Maison</div>
           <div class="scen" id="bScenGrid"></div>
-          <p class="note" style="font-size:12px;color:var(--muted);margin-top:10px">Nettorendement per jaar, incl. beheer en kosten. Schattingen, geen garanties.</p>
+          <p class="note" style="font-size:12px;color:var(--muted);margin-top:10px">Nettorendement per jaar, incl. beheer en kosten. Aan de hand van omgevingsdata.</p>
         </div>
 
         <div class="subhead">Niet alleen een instap, ook een uitstap</div>
@@ -932,7 +935,7 @@
 
       <!-- 03 · PLANNING -->
       <div class="tab-pane" id="pane-planning">
-        <div class="pane-kicker">03 · Planning</div>
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></span><div class="pane-kicker">03 · Planning</div></div>
         <h2 class="pane-h">Van reservering tot sleuteloverdracht</h2>
         <p class="pane-lead">Je hoeft niet in Bali te zijn: tekenen kan volledig digitaal, op afstand. Ben je toch op locatie, dan kan dat net zo goed op kantoor bij de notaris in Bali - jij kiest. Het hele traject verloopt met heldere stappen en een vaste bouwplanning.</p>
 
@@ -961,7 +964,7 @@
 
       <!-- 04 · BOUWMANAGEMENT -->
       <div class="tab-pane" id="pane-team">
-        <div class="pane-kicker">04 · Bouwmanagement</div>
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><path d="M4 15a8 8 0 0 1 16 0"/><path d="M3 15h18"/><path d="M12 7v3"/></svg></span><div class="pane-kicker">04 · Bouwmanagement</div></div>
         <h2 class="pane-h">Vaste partners, één aanspreekpunt</h2>
         <p class="pane-lead">Bij veel Bali-projecten wisselen aannemer, architect en projectmanager per project, vaak los van elkaar ingehuurd en zonder centrale coördinatie. Wij werken al jarenlang met dezelfde vaste partners, elk met hun eigen specialisme, gecoördineerd door UTAMA als jouw vaste aanspreekpunt.</p>
 
@@ -988,7 +991,7 @@
 
       <!-- 05 · BEHEER -->
       <div class="tab-pane" id="pane-beheer">
-        <div class="pane-kicker">05 · Beheer</div>
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 9h8M8 13h5"/><circle cx="16.5" cy="15.5" r="2"/></svg></span><div class="pane-kicker">05 · Beheer</div></div>
         <h2 class="pane-h">Wij runnen alles. Jij blijft hands-off.</h2>
         <p class="pane-lead">Na oplevering neemt House of Reservations het volledige verhuur- en operationeel beheer over. Jij bezit de villa, wij zorgen dat hij verhuurd wordt - met maandelijkse rapportage en volledige kostentransparantie.</p>
 
@@ -1106,7 +1109,7 @@
 
       <!-- 06 · VERTROUWEN & RISICO'S -->
       <div class="tab-pane" id="pane-vertrouwen">
-        <div class="pane-kicker">06 · Vertrouwen &amp; risico's</div>
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><div class="pane-kicker">06 · Vertrouwen &amp; risico's</div></div>
         <h2 class="pane-h">Vertrouw de structuur, niet de belofte</h2>
         <p class="pane-lead">Je rechten als investeerder rusten niet op een persoonlijke toezegging, maar op juridische overeenkomsten die onafhankelijk worden vastgelegd en gecontroleerd.</p>
 
@@ -1185,7 +1188,7 @@
 
       <!-- 07 · VRAGEN -->
       <div class="tab-pane" id="pane-vragen">
-        <div class="pane-kicker">07 · Vragen</div>
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 2-2.5 2-2.5 4"/><path d="M12 17h.01"/></svg></span><div class="pane-kicker">07 · Vragen</div></div>
         <h2 class="pane-h">Veelgestelde vragen</h2>
         <div class="faq-lead">
           <img class="faq-photo" src="/images/steven.jpg" alt="Steven Gijsman" onerror="this.style.display='none'">
