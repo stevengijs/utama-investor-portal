@@ -451,6 +451,17 @@
   .exit-break .eb-i{font-size:12.5px}
   .exit-break .eb-i b{display:block;font-size:15px;color:var(--ink)}
   .exit2{display:grid;grid-template-columns:1fr;gap:12px;margin-top:6px}
+
+  .fee-cards{display:grid;grid-template-columns:1fr;gap:14px;margin-top:16px}
+  @media(min-width:760px){.fee-cards{grid-template-columns:repeat(3,1fr)}}
+  .fee-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:19px 20px}
+  .fee-card .fee-h{display:flex;align-items:center;gap:11px;margin-bottom:9px}
+  .fee-card .fee-pct{flex:none;font-family:'Inter',sans-serif;font-weight:800;font-size:17px;color:var(--opt-deep);background:var(--sage-tint);border-radius:9px;padding:5px 10px;letter-spacing:-.01em}
+  .fee-card h4{margin:0;font-size:15px;letter-spacing:-.01em}
+  .fee-card .fee-sub{font-size:12px;color:var(--muted);margin:0 0 12px;line-height:1.45}
+  .fee-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+  .fee-list li{font-size:12.5px;color:var(--ink);padding-left:15px;position:relative;line-height:1.4}
+  .fee-list li::before{content:"";position:absolute;left:0;top:6px;width:5px;height:5px;border-radius:50%;background:var(--opt-deep)}
   @media(min-width:640px){.exit2{grid-template-columns:1fr 1fr}}
   .exit2 .ec{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:17px 19px}
   .exit2 .ec h4{font-size:14px;margin:0 0 9px}
@@ -852,6 +863,42 @@
             <li>Waardegroei: vaste aanname van 5% per jaar, op basis van marktdata voor de westkust van Bali. Indicatie, geen garantie.</li>
           </ul>
         </details>
+
+        <div class="subhead">Waar bestaat "Kosten &amp; beheer" precies uit?</div>
+        <p class="pane-lead" style="margin-bottom:4px">De schuifregelaar hierboven telt op tot 45%. Dat is geen los percentage, maar drie vaste onderdelen van elk ongeveer 15% van de netto huuropbrengst - hieronder zie je waar elk deel voor staat.</p>
+        <div class="fee-cards">
+          <div class="fee-card">
+            <div class="fee-h"><span class="fee-pct">15%</span><h4>Verhuurbeheer</h4></div>
+            <p class="fee-sub">De verhuurmotor: House of Reservations zorgt dat de villa daadwerkelijk geboekt wordt.</p>
+            <ul class="fee-list">
+              <li>Listings op Airbnb, Booking.com, Agoda en Vrbo</li>
+              <li>Dynamische prijsstrategie per seizoen en bezetting</li>
+              <li>Gastcommunicatie en support, dag en nacht</li>
+              <li>Eigen kanalen (Instagram, influencers) om platformfees te vermijden</li>
+            </ul>
+          </div>
+          <div class="fee-card">
+            <div class="fee-h"><span class="fee-pct">~15%</span><h4>Operationeel beheer</h4></div>
+            <p class="fee-sub">Circa €680 per maand in het realistische scenario - houdt de villa draaiende.</p>
+            <ul class="fee-list">
+              <li>Housekeeping, tuin- en zwembadonderhoud</li>
+              <li>Elektra, water, wifi en banjar-bijdrage</li>
+              <li>Onderhoud &amp; reparaties (airco, sanitair e.d.)</li>
+              <li>Vaste area manager en lokaal personeel</li>
+            </ul>
+          </div>
+          <div class="fee-card">
+            <div class="fee-h"><span class="fee-pct">~15%</span><h4>Overige kosten &amp; belasting</h4></div>
+            <p class="fee-sub">Wat er verder bij een verhuurde villa in Bali komt kijken.</p>
+            <ul class="fee-list">
+              <li>Lokale toeristenbelasting over de verhuuromzet</li>
+              <li>All-risk verzekering van de villa</li>
+              <li>Bank- en betalingskosten</li>
+              <li>Reserve voor onvoorziene kosten</li>
+            </ul>
+          </div>
+        </div>
+        <p class="note" style="font-size:12px;color:var(--muted);margin-top:12px">Alle drie zijn al verwerkt in de rendementsberekening hierboven - geen verborgen kosten achteraf.</p>
 
         <div class="scen-wrap">
           <div class="scen-h">Drie scenario's voor The Maison</div>
