@@ -292,14 +292,22 @@
   .cal-wrap{overflow-x:auto;margin:16px 0 6px}
   .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;min-width:490px}
   .cal-dow{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);text-align:center;padding-bottom:2px}
-  .cal-cell{border-radius:10px;padding:8px 6px;min-height:62px}
+  .cal-cell{position:relative;border-radius:10px;padding:8px 6px;min-height:62px}
   .cal-cell.booked{background:var(--sage-tint);border:1px solid var(--opt)}
   .cal-cell.open{background:var(--paper);border:1px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center}
   .cal-d{font-size:11px;font-weight:800;color:var(--ink);margin-bottom:3px}
   .cal-cell.open .cal-d{margin-bottom:2px;color:var(--muted)}
   .cal-g{font-size:11px;font-weight:700;color:var(--opt-deep);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .cal-r{font-size:10px;color:var(--muted);margin-top:2px}
+  .cal-n{display:block;color:var(--opt-deep);font-weight:800}
   .cal-open-lbl{font-size:10px;color:var(--muted)}
+  /* Meerdaagse boekingen visueel als 1 doorlopend blok, i.p.v. losse dagen die toevallig dezelfde naam delen */
+  .cal-cell.stay-start{border-radius:10px 0 0 10px}
+  .cal-cell.stay-mid{border-radius:0}
+  .cal-cell.stay-end{border-radius:0 10px 10px 0}
+  .cal-cell.stay-mid::before,.cal-cell.stay-end::before{content:"";position:absolute;left:-6px;top:-1px;bottom:-1px;width:6px;background:var(--sage-tint);border-top:1px solid var(--opt);border-bottom:1px solid var(--opt)}
+  .cal-cell.stay-mid,.cal-cell.stay-end{display:flex;align-items:center;justify-content:center}
+  .cal-cell.stay-mid .cal-d,.cal-cell.stay-end .cal-d{margin-bottom:0;color:var(--opt-deep);opacity:.55}
 
   /* Maandelijkse rapportage mockup */
   .report-card{border:1px solid var(--line);border-radius:16px;background:var(--paper);padding:20px 20px 22px;margin:16px 0 6px}
@@ -974,34 +982,34 @@
           <p class="note" style="font-size:12px;color:var(--muted);margin-top:2px">Voorbeeldweergave. Ook gelist op Agoda, Expedia en Vrbo.</p>
 
           <div class="subhead" style="margin-top:26px">Hoe een goede periode eruitziet</div>
-          <p class="pane-lead" style="margin-bottom:12px">Ter illustratie: dit is hoe de agenda van een vergelijkbare, al verhuurde House of Reservations-villa eruitziet in een sterke periode. Namen en boekingen zijn ter illustratie, geen weergave van een specifieke, huidige boeking.</p>
+          <p class="pane-lead" style="margin-bottom:12px">Ter illustratie: dit is hoe de agenda van een vergelijkbare, al verhuurde House of Reservations-villa eruitziet in een sterke periode. Een doorlopend blok is één boeking van meerdere nachten achter elkaar. Namen en boekingen zijn ter illustratie, geen weergave van een specifieke, huidige boeking.</p>
           <div class="cal-wrap">
             <div class="cal-grid">
               <div class="cal-dow">Ma</div><div class="cal-dow">Di</div><div class="cal-dow">Wo</div><div class="cal-dow">Do</div><div class="cal-dow">Vr</div><div class="cal-dow">Za</div><div class="cal-dow">Zo</div>
-              <div class="cal-cell booked"><div class="cal-d">3</div><div class="cal-g">Emma</div><div class="cal-r">€175</div></div>
-              <div class="cal-cell booked"><div class="cal-d">4</div><div class="cal-g">Emma</div><div class="cal-r">€175</div></div>
-              <div class="cal-cell booked"><div class="cal-d">5</div><div class="cal-g">Lars</div><div class="cal-r">€195</div></div>
-              <div class="cal-cell booked"><div class="cal-d">6</div><div class="cal-g">Lars</div><div class="cal-r">€195</div></div>
-              <div class="cal-cell booked"><div class="cal-d">7</div><div class="cal-g">Lars</div><div class="cal-r">€215</div></div>
-              <div class="cal-cell booked"><div class="cal-d">8</div><div class="cal-g">Sophie</div><div class="cal-r">€215</div></div>
-              <div class="cal-cell booked"><div class="cal-d">9</div><div class="cal-g">Sophie</div><div class="cal-r">€215</div></div>
-              <div class="cal-cell booked"><div class="cal-d">10</div><div class="cal-g">Sophie</div><div class="cal-r">€185</div></div>
+              <div class="cal-cell booked stay-start"><div class="cal-d">3</div><div class="cal-g">Emma</div><div class="cal-r">€175 <span class="cal-n">· 2 nachten</span></div></div>
+              <div class="cal-cell booked stay-end"><div class="cal-d">4</div></div>
+              <div class="cal-cell booked stay-start"><div class="cal-d">5</div><div class="cal-g">Lars</div><div class="cal-r">€195 <span class="cal-n">· 3 nachten</span></div></div>
+              <div class="cal-cell booked stay-mid"><div class="cal-d">6</div></div>
+              <div class="cal-cell booked stay-end"><div class="cal-d">7</div></div>
+              <div class="cal-cell booked stay-start"><div class="cal-d">8</div><div class="cal-g">Sophie</div><div class="cal-r">€215 <span class="cal-n">· 2 nachten</span></div></div>
+              <div class="cal-cell booked stay-end"><div class="cal-d">9</div></div>
+              <div class="cal-cell booked"><div class="cal-d">10</div><div class="cal-g">Mila</div><div class="cal-r">€185</div></div>
               <div class="cal-cell open"><div class="cal-d">11</div><div class="cal-open-lbl">Vrij</div></div>
-              <div class="cal-cell booked"><div class="cal-d">12</div><div class="cal-g">Noah</div><div class="cal-r">€165</div></div>
-              <div class="cal-cell booked"><div class="cal-d">13</div><div class="cal-g">Noah</div><div class="cal-r">€165</div></div>
-              <div class="cal-cell booked"><div class="cal-d">14</div><div class="cal-g">Chloé</div><div class="cal-r">€205</div></div>
-              <div class="cal-cell booked"><div class="cal-d">15</div><div class="cal-g">Chloé</div><div class="cal-r">€205</div></div>
-              <div class="cal-cell booked"><div class="cal-d">16</div><div class="cal-g">Chloé</div><div class="cal-r">€205</div></div>
+              <div class="cal-cell booked stay-start"><div class="cal-d">12</div><div class="cal-g">Noah</div><div class="cal-r">€165 <span class="cal-n">· 2 nachten</span></div></div>
+              <div class="cal-cell booked stay-end"><div class="cal-d">13</div></div>
+              <div class="cal-cell booked stay-start"><div class="cal-d">14</div><div class="cal-g">Chloé</div><div class="cal-r">€205 <span class="cal-n">· 3 nachten</span></div></div>
+              <div class="cal-cell booked stay-mid"><div class="cal-d">15</div></div>
+              <div class="cal-cell booked stay-end"><div class="cal-d">16</div></div>
             </div>
           </div>
 
           <div class="subhead" style="margin-top:26px">Je maandelijkse rapportage</div>
           <p class="pane-lead" style="margin-bottom:12px">Elke maand ontvang je een overzicht zoals hieronder: je verdiensten in euro's met de omrekening in IDR erbij, en het verloop van de afgelopen maanden.</p>
           <div class="report-card">
-            <div class="report-tag">Voorbeeldrapportage · augustus 2027</div>
+            <div class="report-tag">Voorbeeldrapportage · <span id="repMonth">–</span></div>
             <div class="report-main">
               <div class="report-eur">€2.582</div>
-              <div class="report-idr">≈ Rp 43.900.000</div>
+              <div class="report-idr" id="repIdr">≈ Rp –</div>
               <div class="report-lbl">Netto uitkering deze maand, realistisch scenario (85% bezetting, €175 nachtprijs)</div>
             </div>
             <div class="report-lines">
@@ -1011,15 +1019,15 @@
               <div class="rp-line"><span>Overige kosten &amp; belasting</span><b>-€679</b></div>
               <div class="rp-line total"><span>Netto uitkering</span><b>€2.582</b></div>
             </div>
-            <div class="report-chart">
-              <div class="rc-col"><div class="rc-v">€1.720</div><div class="rc-bar" style="--h:65%"></div><div class="rc-m">Mei</div></div>
-              <div class="rc-col"><div class="rc-v">€2.050</div><div class="rc-bar" style="--h:77%"></div><div class="rc-m">Jun</div></div>
-              <div class="rc-col"><div class="rc-v">€2.320</div><div class="rc-bar" style="--h:88%"></div><div class="rc-m">Jul</div></div>
-              <div class="rc-col cur"><div class="rc-v">€2.582</div><div class="rc-bar" style="--h:97%"></div><div class="rc-m">Aug</div></div>
-              <div class="rc-col"><div class="rc-v">€2.610</div><div class="rc-bar" style="--h:98%"></div><div class="rc-m">Sep</div></div>
-              <div class="rc-col"><div class="rc-v">€2.650</div><div class="rc-bar" style="--h:100%"></div><div class="rc-m">Okt</div></div>
+            <div class="report-chart" id="repChart">
+              <div class="rc-col"><div class="rc-v">€1.720</div><div class="rc-bar" style="--h:65%"></div><div class="rc-m"></div></div>
+              <div class="rc-col"><div class="rc-v">€2.050</div><div class="rc-bar" style="--h:77%"></div><div class="rc-m"></div></div>
+              <div class="rc-col"><div class="rc-v">€2.320</div><div class="rc-bar" style="--h:88%"></div><div class="rc-m"></div></div>
+              <div class="rc-col"><div class="rc-v">€2.582</div><div class="rc-bar" style="--h:97%"></div><div class="rc-m"></div></div>
+              <div class="rc-col"><div class="rc-v">€2.610</div><div class="rc-bar" style="--h:98%"></div><div class="rc-m"></div></div>
+              <div class="rc-col cur"><div class="rc-v">€2.650</div><div class="rc-bar" style="--h:100%"></div><div class="rc-m"></div></div>
             </div>
-            <p class="note" style="font-size:11.5px;color:var(--muted);margin-top:14px">Voorbeeldcijfers ter illustratie van een realistische opbouw na oplevering (mei 2027). Wisselkoers indicatief, circa Rp 17.000 per €1. Je eigen rapportage volgt de daadwerkelijke bezetting en omzet van jouw villa.</p>
+            <p class="note" style="font-size:11.5px;color:var(--muted);margin-top:14px">Voorbeeldcijfers ter illustratie van een realistische opbouw in de eerste maanden na oplevering. Wisselkoers <span id="repRateNote">indicatief</span>. Je eigen rapportage volgt de daadwerkelijke bezetting, omzet en actuele wisselkoers van jouw villa.</p>
           </div>
 
           <div class="subhead" style="margin-top:26px">En dit is geen prognose</div>
@@ -1328,6 +1336,52 @@ if(el('bbCam')) el('bbCam').href="https://wa.me/"+CONFIG.whatsapp+"?text="+encod
       h4.appendChild(badge);
     }
   }
+})();
+
+// Voorbeeldrapportage (Beheer-tab): maandlabel is altijd "vorige maand" t.o.v. vandaag, zodat het
+// voorbeeld nooit een gedateerde toekomstige maand toont. Wisselkoers wordt live opgehaald (ECB-data
+// via de Frankfurter API, geen key nodig); lukt dat niet (geen netwerk, API down), dan valt hij terug
+// op een handmatig bijgewerkte indicatie zodat er nooit een lege of foutieve koers verschijnt.
+(function(){
+  const MONTHS_NL = ['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+  const MONTHS_SHORT_NL = ['Jan','Feb','Mrt','Apr','Mei','Jun','Jul','Aug','Sep','Okt','Nov','Dec'];
+  const now = new Date();
+  const prevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+
+  const repMonthEl = el('repMonth');
+  if(repMonthEl) repMonthEl.textContent = MONTHS_NL[prevMonth.getMonth()] + ' ' + prevMonth.getFullYear();
+
+  const chart = el('repChart');
+  if(chart){
+    const cols = chart.querySelectorAll('.rc-col');
+    cols.forEach(function(col, i){
+      const offset = cols.length - 1 - i; // laatste kolom = vorige maand, daarvoor teruggerekend
+      const d = new Date(prevMonth.getFullYear(), prevMonth.getMonth() - offset, 1);
+      const mEl = col.querySelector('.rc-m');
+      if(mEl) mEl.textContent = MONTHS_SHORT_NL[d.getMonth()];
+    });
+  }
+
+  const NETTO_EUR = 2582; // vaste voorbeeldwaarde, zelfde bedrag als in de kostenopbouw hierboven
+  let fxRate = 20700; // fallback-koers, handmatig bijgewerkt (juli 2026); wordt live overschreven indien beschikbaar
+
+  function renderIdr(rate){
+    const idrEl = el('repIdr');
+    if(idrEl){
+      const idr = Math.round(NETTO_EUR * rate / 100000) * 100000;
+      idrEl.textContent = '≈ Rp ' + new Intl.NumberFormat('nl-NL').format(idr);
+    }
+    const noteEl = el('repRateNote');
+    if(noteEl) noteEl.textContent = 'circa Rp ' + new Intl.NumberFormat('nl-NL').format(Math.round(rate)) + ' per €1';
+  }
+  renderIdr(fxRate);
+
+  fetch('https://api.frankfurter.dev/v1/latest?base=EUR&symbols=IDR')
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(data){
+      if(data && data.rates && data.rates.IDR){ fxRate = data.rates.IDR; renderIdr(fxRate); }
+    })
+    .catch(function(){ /* fallback-koers staat al gerenderd */ });
 })();
 
 function buildWa(l){
