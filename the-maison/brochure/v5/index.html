@@ -59,6 +59,7 @@
   .stat{background:var(--paper);border-color:var(--line)}
   .stat .s-l{color:var(--muted)}
   .stat .s-v{color:var(--ink)}
+  .stat .s-sub{font-size:11.5px;color:var(--muted);margin-top:5px}
   .hrow{color:var(--ink)}
   .passive-hero{background:var(--opt-deep);border-radius:14px;padding:18px 20px 20px;margin:2px 0 18px}
   .ph-eyebrow{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.75)}
@@ -642,7 +643,7 @@
 
         <div class="row price"><div class="rl">Huidige prijs</div><div class="rv">€210.000</div></div>
         <div class="price-note">Stijgt naar €225.000 op 15 augustus</div>
-        <div class="row yield"><div class="rl">Verwacht rendement</div><div class="rv">12–17%/jr</div></div>
+        <div class="row yield"><div class="rl">Verwacht rendement</div><div class="rv">11–18%/jr</div></div>
         <div class="row"><div class="rl">Leaseperiode</div><div class="rv">30+30 jr</div></div>
         <div class="row"><div class="rl">Aantal villa's</div><div class="rv">6</div></div>
 
@@ -796,7 +797,7 @@
             <div class="field"><label>Prijs (vast)</label><div class="pricesel" id="bPricesel"></div></div>
             <div class="field"><label><span>Gem. nachtprijs</span> <span class="val" id="bVNightly"></span></label><div class="slider-wrap"><input type="range" id="bNightly" min="150" max="220" step="5" value="175" oninput="bcalc()"><div class="slider-pins" id="bNightlyPins"></div></div></div>
             <div class="field"><label><span>Bezettingsgraad</span> <span class="val" id="bVOcc"></span></label><input type="range" id="bOcc" min="60" max="100" step="1" value="85" oninput="bcalc()"></div>
-            <div class="field"><label><span>Kosten &amp; beheer</span> <span class="val" id="bVCosts"></span></label><input type="range" id="bCosts" min="35" max="55" step="1" value="43" oninput="bcalc()"></div>
+            <div class="field"><label><span>Kosten &amp; beheer</span> <span class="val" id="bVCosts"></span></label><input type="range" id="bCosts" min="35" max="55" step="1" value="45" oninput="bcalc()"></div>
             <div class="field"><label><span>Aanhoudperiode</span> <span class="val" id="bVHold"></span></label><input type="range" id="bHold" min="1" max="30" step="1" value="5" oninput="bcalc()"></div>
             <div class="field"><label><span>Geschatte waardegroei / jaar</span> <span class="val" id="bVGrowth"></span></label><div class="field-note">Vast, gebaseerd op marktdata voor deze regio</div></div>
           </div>
@@ -813,8 +814,8 @@
             </div>
 
             <div class="stat-grid">
-              <div class="stat"><div class="s-l">Netto huur / maand</div><div class="s-v" id="bOMonth">–</div></div>
-              <div class="stat"><div class="s-l">Netto huur / jaar</div><div class="s-v" id="bOYear">–</div></div>
+              <div class="stat"><div class="s-l">Netto huur / maand</div><div class="s-v" id="bOMonth">–</div><div class="s-sub">Bruto: <span id="bOMonthGross">–</span></div></div>
+              <div class="stat"><div class="s-l">Netto huur / jaar</div><div class="s-v" id="bOYear">–</div><div class="s-sub">Bruto: <span id="bOYearGross">–</span></div></div>
             </div>
             <div class="hold-block">
               <div class="hb-h" id="bOHoldH"></div>
@@ -874,10 +875,10 @@
       <div class="tab-pane" id="pane-planning">
         <div class="pane-kicker">03 · Planning</div>
         <h2 class="pane-h">Van reservering tot sleuteloverdracht</h2>
-        <p class="pane-lead">Je hoeft niet in Bali te zijn. Het hele traject verloopt op afstand, met heldere stappen en een vaste bouwplanning.</p>
+        <p class="pane-lead">Je hoeft niet in Bali te zijn: tekenen kan volledig digitaal, op afstand. Ben je toch op locatie, dan kan dat net zo goed op kantoor bij de notaris in Bali - jij kiest. Het hele traject verloopt met heldere stappen en een vaste bouwplanning.</p>
 
         <div class="plan-block">
-          <div class="subhead">Zo koop je, volledig op afstand</div>
+          <div class="subhead">Zo koop je, in Bali of volledig op afstand</div>
           <div class="num-list">
             <div class="num-item"><div class="nn">01</div><div class="nc"><h4>Reserveren</h4><p>Je tekent een intentieverklaring en maakt een aanbetaling van €5.000 over. Volledig verrekend bij aankoop.</p></div></div>
             <div class="num-item"><div class="nn">02</div><div class="nc"><h4>Due diligence &amp; contracten</h4><p>Je komt in een gezamenlijke WhatsApp-groep met de notaris en UTAMA. Hierin ontvang je de volledige due diligence van het project, waarna de contracten worden opgesteld. Er wordt pas getekend nadat jij de stukken hebt goedgekeurd - dit traject duurt gemiddeld 2 tot 3 weken.</p></div></div>
@@ -937,7 +938,7 @@
           <div class="tcard"><div class="n">Operationeel beheer</div><p style="margin-top:6px">Dagelijkse housekeeping, tuin- en poolonderhoud, technisch onderhoud en maandelijkse financiële rapportage.</p></div>
         </div>
         <div class="checklist-dark">
-          <div class="ch-item" style="font-size:13px"><span class="ck">✓</span>Verhuurbeheer 15% en operationeel beheer circa 13% van de netto verhuuropbrengst. Na belasting en overige kosten is de rest voor jou. Geen verborgen kosten.</div>
+          <div class="ch-item" style="font-size:13px"><span class="ck">✓</span>Verhuurbeheer 15% en operationeel beheer circa 15% van de netto verhuuropbrengst. Na belasting en overige kosten is de rest voor jou. Geen verborgen kosten.</div>
         </div>
 
         <div class="plan-block">
@@ -956,7 +957,7 @@
             <div class="num-item"><div class="nn">02</div><div class="nc"><h4>Dynamische prijsstrategie</h4><p>Nachtprijzen worden doorlopend bijgesteld op vraag, seizoen en lokale evenementen. Niet de hoogste prijs, maar de prijs die bezetting én opbrengst samen maximaliseert.</p></div></div>
             <div class="num-item"><div class="nn">03</div><div class="nc"><h4>Gastbeleving die boekingen aanjaagt</h4><p>Het gastenteam is tot 20 uur per dag bereikbaar, van eerste vraag tot check-out. Snelle reacties leiden tot betere reviews, betere reviews naar een hogere positie op de platforms - en dat weer naar meer boekingen.</p></div></div>
             <div class="num-item"><div class="nn">04</div><div class="nc"><h4>Onderhoud dat je investering beschermt</h4><p>Dagelijkse housekeeping, tuin- en zwembadonderhoud en technisch onderhoud houden de villa op niveau. Dat beschermt niet alleen de gastervaring, maar ook de waarde van je villa.</p></div></div>
-            <div class="num-item"><div class="nn">05</div><div class="nc"><h4>Transparante maandelijkse uitkering</h4><p>Elke maand ontvang je een overzicht van bezetting, omzet en kosten, met je aandeel direct op je rekening. Verhuurbeheer 15% en operationeel beheer circa 13% van de netto-opbrengst - vooraf bekend, geen verrassingen achteraf.</p></div></div>
+            <div class="num-item"><div class="nn">05</div><div class="nc"><h4>Transparante maandelijkse uitkering</h4><p>Elke maand ontvang je een overzicht van bezetting, omzet en kosten, met je aandeel direct op je rekening. Verhuurbeheer 15% en operationeel beheer circa 15% van de netto-opbrengst - vooraf bekend, geen verrassingen achteraf.</p></div></div>
           </div>
 
           <div class="subhead" style="margin-top:26px">Zo ziet dat er in de praktijk uit</div>
@@ -1009,24 +1010,24 @@
           <div class="report-card">
             <div class="report-tag">Voorbeeldrapportage · <span id="repMonth">–</span></div>
             <div class="report-main">
-              <div class="report-eur">€2.582</div>
+              <div class="report-eur">€2.491</div>
               <div class="report-idr" id="repIdr">≈ Rp –</div>
               <div class="report-lbl">Netto uitkering deze maand, realistisch scenario (85% bezetting, €175 nachtprijs)</div>
             </div>
             <div class="report-lines">
               <div class="rp-line"><span>Bruto huurinkomsten</span><b>€4.530</b></div>
               <div class="rp-line"><span>Verhuurbeheer (15%)</span><b>-€680</b></div>
-              <div class="rp-line"><span>Operationeel beheer (13%)</span><b>-€589</b></div>
+              <div class="rp-line"><span>Operationeel beheer (15%)</span><b>-€680</b></div>
               <div class="rp-line"><span>Overige kosten &amp; belasting</span><b>-€679</b></div>
-              <div class="rp-line total"><span>Netto uitkering</span><b>€2.582</b></div>
+              <div class="rp-line total"><span>Netto uitkering</span><b>€2.491</b></div>
             </div>
             <div class="report-chart" id="repChart">
-              <div class="rc-col"><div class="rc-v">€1.720</div><div class="rc-bar" style="--h:65%"></div><div class="rc-m"></div></div>
-              <div class="rc-col"><div class="rc-v">€2.050</div><div class="rc-bar" style="--h:77%"></div><div class="rc-m"></div></div>
-              <div class="rc-col"><div class="rc-v">€2.320</div><div class="rc-bar" style="--h:88%"></div><div class="rc-m"></div></div>
-              <div class="rc-col"><div class="rc-v">€2.582</div><div class="rc-bar" style="--h:97%"></div><div class="rc-m"></div></div>
-              <div class="rc-col"><div class="rc-v">€2.610</div><div class="rc-bar" style="--h:98%"></div><div class="rc-m"></div></div>
-              <div class="rc-col cur"><div class="rc-v">€2.650</div><div class="rc-bar" style="--h:100%"></div><div class="rc-m"></div></div>
+              <div class="rc-col"><div class="rc-v">€1.650</div><div class="rc-bar" style="--h:66%"></div><div class="rc-m"></div></div>
+              <div class="rc-col"><div class="rc-v">€1.950</div><div class="rc-bar" style="--h:78%"></div><div class="rc-m"></div></div>
+              <div class="rc-col"><div class="rc-v">€2.180</div><div class="rc-bar" style="--h:88%"></div><div class="rc-m"></div></div>
+              <div class="rc-col"><div class="rc-v">€2.350</div><div class="rc-bar" style="--h:94%"></div><div class="rc-m"></div></div>
+              <div class="rc-col"><div class="rc-v">€2.450</div><div class="rc-bar" style="--h:98%"></div><div class="rc-m"></div></div>
+              <div class="rc-col cur"><div class="rc-v">€2.491</div><div class="rc-bar" style="--h:100%"></div><div class="rc-m"></div></div>
             </div>
             <p class="note" style="font-size:11.5px;color:var(--muted);margin-top:14px">Voorbeeldcijfers ter illustratie van een realistische opbouw in de eerste maanden na oplevering. Wisselkoers <span id="repRateNote">indicatief</span>. Je eigen rapportage volgt de daadwerkelijke bezetting, omzet en actuele wisselkoers van jouw villa.</p>
           </div>
@@ -1095,7 +1096,7 @@
         </div>
         <div class="dark-cta">Geen projecties, maar uitbetalingen die vandaag op bankrekeningen binnenkomen. Wil je het uit eerste hand horen? Wij brengen je graag in contact met een bestaande investeerder.</div>
         <div class="big-stats">
-          <div class="bstat"><div class="bv">12–17<sup>%</sup></div><div class="bl">Verwacht rendement per jaar</div></div>
+          <div class="bstat"><div class="bv">11–18<sup>%</sup></div><div class="bl">Verwacht rendement per jaar</div></div>
           <div class="bstat"><div class="bv">70–85<sup>%</sup></div><div class="bl">Verwachte bezettingsgraad</div></div>
           <div class="bstat"><div class="bv">60<sup style="font-size:.4em">jr</sup></div><div class="bl">Lease (30+30), notarieel vastgelegd</div></div>
           <div class="bstat"><div class="bv">€195k–225k</div><div class="bl">Investering per villa, in euro's</div></div>
@@ -1161,11 +1162,11 @@
           </details>
           <details>
             <summary>Hoe ontvang ik mijn rendement?</summary>
-            <p>Je ontvangt maandelijks je aandeel in de verhuuropbrengsten, uitgekeerd in euro's, met een rapportage van omzet, kosten, bezetting en netto-opbrengst. Het verwachte nettorendement ligt tussen 12% en 17% per jaar.</p>
+            <p>Je ontvangt maandelijks je aandeel in de verhuuropbrengsten, uitgekeerd in euro's, met een rapportage van omzet, kosten, bezetting en netto-opbrengst. Het verwachte nettorendement ligt tussen 11% en 18% per jaar.</p>
           </details>
           <details>
             <summary>Welke jaarlijkse kosten zijn er?</summary>
-            <p>Verhuurbeheer (15%) en operationeel beheer (circa 13%) van de netto verhuuropbrengst, plus lokale belasting. Dit is al verwerkt in de rendementsberekening - geen verborgen kosten.</p>
+            <p>Verhuurbeheer (15%) en operationeel beheer (circa 15%) van de netto verhuuropbrengst, plus lokale belasting. Dit is al verwerkt in de rendementsberekening - geen verborgen kosten.</p>
           </details>
           <details>
             <summary>Wat als het rendement lager uitvalt?</summary>
@@ -1363,7 +1364,7 @@ if(el('bbCam')) el('bbCam').href="https://wa.me/"+CONFIG.whatsapp+"?text="+encod
     });
   }
 
-  const NETTO_EUR = 2582; // vaste voorbeeldwaarde, zelfde bedrag als in de kostenopbouw hierboven
+  const NETTO_EUR = 2491; // vaste voorbeeldwaarde, zelfde bedrag als in de kostenopbouw hierboven
   let fxRate = 20700; // fallback-koers, handmatig bijgewerkt (juli 2026); wordt live overschreven indien beschikbaar
 
   function renderIdr(rate){
@@ -1503,6 +1504,8 @@ function bcalc(){
   el('bOMonth').textContent=bMoney(month);
   if(el('bOMonth2')) el('bOMonth2').innerHTML=bMoney(month)+' <span class="ph-unit">/ maand</span>';
   el('bOYear').textContent=bMoney(net);
+  if(el('bOMonthGross')) el('bOMonthGross').textContent=bMoney(gross/12);
+  if(el('bOYearGross')) el('bOYearGross').textContent=bMoney(gross);
   el('bOGross').textContent=bMoney(gross);
   el('bOCostAmt').textContent=bMoney(costAmt);
   el('bOInv').textContent=bMoney(price);
