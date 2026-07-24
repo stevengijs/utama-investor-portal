@@ -103,6 +103,9 @@
   .btn-ink{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border:none;font-family:inherit;font-weight:700;font-size:14.5px;border-radius:10px;padding:13px 22px;cursor:pointer;text-decoration:none}
   .btn-ink:hover{background:#000}
   .btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--ink);border:1px solid var(--line);font-family:inherit;font-weight:700;font-size:14.5px;border-radius:10px;padding:13px 22px;cursor:pointer;text-decoration:none}
+  .btn-reserve{display:inline-flex;align-items:center;gap:8px;background:var(--opt-deep);color:#fff;border:none;font-family:inherit;font-weight:700;font-size:14.5px;border-radius:10px;padding:13px 22px;cursor:pointer;text-decoration:none}
+  .btn-reserve:hover{background:#48542f}
+  .btn-reserve.block{width:100%;justify-content:center}
   .btn-outline:hover{border-color:var(--ink)}
   .wa{display:inline-flex;align-items:center;gap:9px;background:#075E54;color:#fff;border:none;font-family:inherit;font-weight:700;font-size:14.5px;border-radius:10px;padding:13px 20px;cursor:pointer;text-decoration:none}
   .wa svg{width:17px;height:17px;fill:#fff}
@@ -185,6 +188,9 @@
   .footer-cta .fc-ctas{display:flex;gap:10px;flex-wrap:wrap}
   .footer-cta .wa.ghost{border-color:rgba(239,231,216,.35);color:#fff}
   .footer-cta .wa.ghost svg{fill:#fff}
+  .footer-cta .fc-agent{display:flex;align-items:center;gap:16px}
+  .footer-cta .fc-photo{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none;border:2px solid rgba(239,231,216,.25)}
+  @media(max-width:560px){.footer-cta .fc-agent{gap:12px}.footer-cta .fc-photo{width:44px;height:44px}}
 
   /* ============ shared content components (zelfde als V3) ============ */
   .bgal{display:grid;grid-template-columns:2fr 1fr 1fr;grid-auto-rows:130px;gap:8px;margin:18px 0 0}
@@ -283,6 +289,7 @@
   .payseg .pl{font-size:13px;font-weight:700;margin-top:8px}
   .payseg .pd{display:inline-block;font-size:10.5px;font-weight:700;margin-top:9px;padding:4px 9px;border-radius:999px;background:rgba(23,20,15,.08)}
   .payseg .pa{font-size:12px;margin-top:11px;color:var(--muted);font-weight:600}
+  .payseg .pnote{font-size:10px;margin-top:4px;color:var(--muted);font-style:italic;line-height:1.3}
   .payseg.final .pd{background:rgba(255,255,255,.16)}
   .payseg.final .pa{color:rgba(239,231,216,.8)}
   @media(max-width:640px){.paybar{flex-direction:column}.payseg{flex:none !important}.payseg+.payseg{border-left:none;border-top:1px solid rgba(23,20,15,.08)}}
@@ -386,6 +393,45 @@
   .lb .nav:hover{background:rgba(255,255,255,.28)}
   .lb .prev{left:14px}.lb .next{right:14px}
   .lb .cap{position:absolute;bottom:16px;left:0;right:0;text-align:center;color:#eee;font-size:12.5px;opacity:.8}
+
+  /* --- reserveringsmodule (popup) --- */
+  .rmodal{position:fixed;inset:0;z-index:210;display:none;align-items:flex-start;justify-content:center;background:rgba(15,13,9,.6);padding:24px;overflow-y:auto}
+  .rmodal.open{display:flex}
+  .rmodal-box{background:var(--paper);border-radius:20px;max-width:600px;width:100%;margin:26px auto;padding:30px 28px 28px;position:relative;box-shadow:0 24px 60px rgba(0,0,0,.28)}
+  .rmodal-box .x{position:absolute;top:14px;right:16px;background:none;border:none;font-size:26px;line-height:1;cursor:pointer;color:var(--muted)}
+  .rmodal-box .x:hover{color:var(--ink)}
+  .rmodal-box .eb{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--opt-deep)}
+  .rmodal-box h3{font-family:'Fraunces','Georgia',serif;font-weight:600;font-size:23px;margin:4px 0 6px}
+  .rmodal-box .rm-lead{font-size:13.5px;color:var(--muted);line-height:1.5;margin:0 0 16px}
+
+  .spwrap{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);margin-bottom:10px}
+  .spwrap img{display:block;width:100%;height:auto}
+  .sp-hot{position:absolute;top:18%;height:48%;cursor:pointer;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6%;transition:background .15s}
+  .sp-hot .spn{width:26px;height:26px;border-radius:50%;background:rgba(254,251,246,.95);border:2px solid var(--ink);color:var(--ink);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+  .sp-hot:hover{background:rgba(91,106,69,.16)}
+  .sp-hot.sel{background:rgba(91,106,69,.22)}
+  .sp-hot.sel .spn{background:var(--opt-deep);border-color:var(--opt-deep);color:#fff}
+  .sp-hot.sold{cursor:not-allowed}
+  .sp-hot.sold .spn{background:rgba(23,20,15,.7);border-color:rgba(23,20,15,.7);color:#fff}
+  .sp-hot.sold:hover{background:transparent}
+  .sp-hot .sold-lbl{display:none;position:absolute;top:8%;left:50%;transform:translateX(-50%);font-size:8px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:rgba(23,20,15,.78);padding:2px 7px;border-radius:999px;white-space:nowrap}
+  .sp-hot.sold .sold-lbl{display:block}
+
+  .sp-legend{display:flex;flex-wrap:wrap;gap:14px;font-size:11px;color:var(--muted);margin:0 0 16px}
+  .sp-legend span{display:inline-flex;align-items:center;gap:6px}
+  .sp-legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .sp-legend .d-av{background:var(--paper);border:2px solid var(--ink)}
+  .sp-legend .d-sel{background:var(--opt-deep)}
+  .sp-legend .d-sold{background:rgba(23,20,15,.7)}
+
+  .sp-pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+  .sp-pill{padding:8px 15px;border-radius:999px;border:1px solid var(--line);background:var(--paper);font-family:inherit;font-size:12.5px;font-weight:700;color:var(--ink);cursor:pointer}
+  .sp-pill.sold{background:rgba(23,20,15,.05);color:var(--muted);cursor:not-allowed;text-decoration:line-through}
+  .sp-pill.sel{background:var(--opt-deep);color:#fff;border-color:var(--opt-deep)}
+
+  .rm-selected{font-size:13px;font-weight:700;margin-bottom:14px;padding:11px 14px;border-radius:10px;background:var(--sage-tint);color:var(--opt-deep)}
+  .rm-selected.empty{background:var(--sand-2);color:var(--muted);font-weight:600}
+  @media(max-width:560px){.rmodal-box{padding:24px 18px 22px;border-radius:16px}}
 
   @media print{ body{display:none !important} }
 </style>
@@ -494,7 +540,7 @@
       </div>
       <div class="deal-cta">
         <a class="wa block" id="waRailWa" target="_blank" rel="noopener"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg>WhatsApp Ashley</a>
-        <a class="btn-outline block" id="waRailReserve" target="_blank" rel="noopener">Reserveer een unit</a>
+        <button class="btn-outline block" id="waRailReserve" type="button" onclick="openReserveModal()">Reserveer een unit</button>
       </div>
     </div>
     <div class="rail-note">Live bouwstatus bekijken? <a id="bbCam" target="_blank" rel="noopener">Open de bouwcamera →</a></div>
@@ -574,15 +620,6 @@
           <div class="pc cur"><div class="pv">€210.000</div><div class="pl">Nu</div><div class="ps">huidige prijs</div></div>
           <div class="pc"><div class="pv">€225.000</div><div class="pl">Vanaf 15 aug</div><div class="ps">prijs stijgt</div></div>
         </div>
-        <div class="subhead">Betaalschema, gekoppeld aan de bouwfases</div>
-        <p class="pane-lead" style="margin-bottom:12px">Je betaalt in vier stappen, elk gekoppeld aan een zichtbare bouwmijlpaal — nooit alles vooraf.</p>
-        <div class="paybar">
-          <div class="payseg"><div class="step">Fase 1</div><div class="pp">30%</div><div class="pl">Bij contract</div><div class="pd">15 mei 2026</div><div class="pa">€63.000</div></div>
-          <div class="payseg"><div class="step">Fase 2</div><div class="pp">30%</div><div class="pl">Bij casco</div><div class="pd">Q4 2026</div><div class="pa">€63.000</div></div>
-          <div class="payseg"><div class="step">Fase 3</div><div class="pp">30%</div><div class="pl">Bij afbouw</div><div class="pd">Q1 2027</div><div class="pa">€63.000</div></div>
-          <div class="payseg final"><div class="step">Fase 4</div><div class="pp">10%</div><div class="pl">Bij sleuteloverdracht</div><div class="pd">April 2027</div><div class="pa">€21.000</div></div>
-        </div>
-        <a class="wa" id="waAvailable" target="_blank" rel="noopener" style="margin-top:16px"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg>Bekijk de beschikbare units</a>
 
         <div class="subhead">Bereken je rendement</div>
         <div class="calc">
@@ -646,6 +683,17 @@
             <div class="eb-i"><b>€212.756</b>Totaal geschat rendement</div>
           </div>
         </div>
+
+        <div class="subhead">Betaalschema, gekoppeld aan de bouwfases</div>
+        <p class="pane-lead" style="margin-bottom:12px">Je betaalt in vier stappen, elk gekoppeld aan een zichtbare bouwmijlpaal — nooit alles vooraf.</p>
+        <div class="paybar">
+          <div class="payseg"><div class="step">Fase 1</div><div class="pp">30%</div><div class="pl">Bij contract</div><div class="pd">15 mei 2026</div><div class="pa">€63.000</div><div class="pnote">Incl. €5.000 aanbetaling</div></div>
+          <div class="payseg"><div class="step">Fase 2</div><div class="pp">30%</div><div class="pl">Bij casco</div><div class="pd">Q4 2026</div><div class="pa">€63.000</div></div>
+          <div class="payseg"><div class="step">Fase 3</div><div class="pp">30%</div><div class="pl">Bij afbouw</div><div class="pd">Q1 2027</div><div class="pa">€63.000</div></div>
+          <div class="payseg final"><div class="step">Fase 4</div><div class="pp">10%</div><div class="pl">Bij sleuteloverdracht</div><div class="pd">April 2027</div><div class="pa">€21.000</div></div>
+        </div>
+        <p class="note" style="font-size:12px;color:var(--muted);margin-top:10px">De €5.000 aanbetaling bij reservering (zie stap 1 in "Zo koop je") wordt volledig verrekend met de eerste betaaltermijn — je betaalt nooit dubbel.</p>
+        <button class="btn-reserve" id="waAvailable" type="button" onclick="openReserveModal()" style="margin-top:14px">Bekijk de beschikbare units</button>
       </div>
 
       <!-- 03 · PLANNING -->
@@ -851,13 +899,16 @@
 
     <!-- persistente CTA-strip, blijft zichtbaar ongeacht welk tabblad open staat -->
     <div class="footer-cta">
-      <div>
-        <h3>Klaar voor een korte discovery call?</h3>
-        <p>In een vrijblijvend gesprek van zo'n 15 minuten kijken we samen of The Maison bij je past.</p>
+      <div class="fc-agent">
+        <img class="fc-photo" src="/images/ashley.jpg" alt="Ashley Vermoten">
+        <div>
+          <h3>Klaar voor een korte discovery call?</h3>
+          <p>In een vrijblijvend gesprek van zo'n 15 minuten kijken we samen of The Maison bij je past.</p>
+        </div>
       </div>
       <div class="fc-ctas">
         <a class="wa" id="waFooterWa" target="_blank" rel="noopener"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg>WhatsApp Ashley</a>
-        <a class="wa ghost" id="waFooterReserve" target="_blank" rel="noopener">Reserveer een unit</a>
+        <button class="wa ghost" id="waFooterReserve" type="button" onclick="openReserveModal()">Reserveer een unit</button>
       </div>
     </div>
 
@@ -867,7 +918,7 @@
   <!-- sticky mobile CTA -->
   <div class="sticky-cta">
     <a class="wa" id="waSticky" target="_blank" rel="noopener" style="flex:2"><svg viewBox="0 0 32 32" width="16" height="16"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg>WhatsApp Ashley</a>
-    <a class="btn-outline" id="waStickyReserve" target="_blank" rel="noopener" style="flex:1;display:flex">Reserveren</a>
+    <button class="btn-outline" id="waStickyReserve" type="button" style="flex:1;display:flex" onclick="openReserveModal()">Reserveren</button>
   </div>
 </main>
 
@@ -878,6 +929,72 @@
   <button class="nav next" onclick="stepLb(1)" aria-label="Volgende">&#8250;</button>
   <div class="cap" id="lbCap"></div>
 </div>
+
+<!-- RESERVERINGSMODULE: interactieve siteplan + gegevens voor de intentieverklaring -->
+<div class="rmodal" id="rmodal" onclick="if(event.target===this)closeReserveModal()">
+  <div class="rmodal-box">
+    <button class="x" onclick="closeReserveModal()" aria-label="Sluiten">&times;</button>
+
+    <div id="rmStep1">
+      <div class="eb">Reserveren</div>
+      <h3>Kies je unit</h3>
+      <p class="rm-lead">Unit 1 en 6 zijn inmiddels verkocht. Kies een beschikbare unit op het siteplan of uit de lijst.</p>
+
+      <div class="spwrap">
+        <img src="/the-maison/images/site-plan.jpg" alt="Siteplan The Maison, 6 villa's">
+        <div class="sp-hot sold" data-unit="1" style="left:12.7%;width:13.46%" onclick="selectUnit(1)"><span class="spn">1</span><span class="sold-lbl">Verkocht</span></div>
+        <div class="sp-hot" data-unit="2" style="left:26.16%;width:13.46%" onclick="selectUnit(2)"><span class="spn">2</span></div>
+        <div class="sp-hot" data-unit="3" style="left:39.62%;width:13.46%" onclick="selectUnit(3)"><span class="spn">3</span></div>
+        <div class="sp-hot" data-unit="4" style="left:53.08%;width:13.46%" onclick="selectUnit(4)"><span class="spn">4</span></div>
+        <div class="sp-hot" data-unit="5" style="left:66.54%;width:13.46%" onclick="selectUnit(5)"><span class="spn">5</span></div>
+        <div class="sp-hot sold" data-unit="6" style="left:80%;width:13.5%" onclick="selectUnit(6)"><span class="spn">6</span><span class="sold-lbl">Verkocht</span></div>
+      </div>
+      <div class="sp-legend">
+        <span><i class="d-av"></i>Beschikbaar</span>
+        <span><i class="d-sel"></i>Geselecteerd</span>
+        <span><i class="d-sold"></i>Verkocht</span>
+      </div>
+
+      <div class="sp-pills" id="spPills"></div>
+
+      <div class="rm-selected empty" id="rmSelected">Nog geen unit geselecteerd</div>
+      <button class="btn-reserve block" id="rmNext" onclick="rmGoStep2()" disabled>Volgende stap</button>
+    </div>
+
+    <div id="rmStep2" style="display:none">
+      <div class="eb">Reserveren</div>
+      <h3>Bijna klaar</h3>
+      <p class="rm-lead" id="rmStep2Lead">Laat je gegevens achter, dan sturen we de intentieverklaring voor jouw unit toe.</p>
+      <form id="rmForm" onsubmit="return rmSubmit(event)">
+        <div class="gfield">
+          <label for="rName">Naam</label>
+          <input id="rName" type="text" placeholder="Je volledige naam" required>
+        </div>
+        <div class="grow">
+          <div class="gfield">
+            <label for="rPhone">WhatsApp-nummer</label>
+            <input id="rPhone" type="tel" placeholder="+31 6 ..." required>
+          </div>
+          <div class="gfield">
+            <label for="rEmail">E-mailadres</label>
+            <input id="rEmail" type="email" placeholder="jij@voorbeeld.com" required>
+          </div>
+        </div>
+        <div class="gerr" id="rErr">Vul je naam, WhatsApp-nummer en e-mailadres in.</div>
+        <button class="btn-reserve block" type="submit">Vraag de intentieverklaring aan</button>
+        <button class="btn-outline block" type="button" style="margin-top:9px" onclick="rmBackStep1()">← Andere unit kiezen</button>
+      </form>
+    </div>
+
+    <div id="rmStep3" style="display:none;text-align:center">
+      <div class="eb">Reserveren</div>
+      <h3 id="rmDoneTitle">Aanvraag ontvangen</h3>
+      <p class="rm-lead" id="rmDoneLead">We sturen je de intentieverklaring voor jouw unit toe. Ashley neemt ook persoonlijk contact op om de vervolgstappen te bespreken.</p>
+      <a class="wa block" id="rmWaFollow" target="_blank" rel="noopener" style="margin-top:6px"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg>Alvast WhatsApp Ashley</a>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="/supabase-client.js"></script>
 <script src="/calc-shared.js"></script>
@@ -908,10 +1025,7 @@ function buildWa(l){
 function reveal(l){
   l=l||{};
   const wa=buildWa(l);
-  ['waRailWa','waFooterWa','waSticky','waAvailable'].forEach(function(id){ if(el(id)) el(id).href=wa; });
-  const reserveMsg="Hi Ashley! Ik wil graag een unit van The Maison reserveren. Kun je me de volgende stappen sturen?";
-  const waReserve="https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(reserveMsg);
-  ['waRailReserve','waFooterReserve','waStickyReserve'].forEach(function(id){ if(el(id)) el(id).href=waReserve; });
+  ['waRailWa','waFooterWa','waSticky'].forEach(function(id){ if(el(id)) el(id).href=wa; });
   el('gate').style.display='none';
   el('portal').hidden=false;
   window.scrollTo({top:0,behavior:'instant'});
@@ -1041,6 +1155,88 @@ function openLb(i){ lbIdx=i; el('lbImg').src=GIMG[i]; el('lbCap').textContent=(i
 function closeLb(){ el('lb').classList.remove('open'); document.body.style.overflow=''; }
 function stepLb(d){ lbIdx=(lbIdx+d+GIMG.length)%GIMG.length; el('lbImg').src=GIMG[lbIdx]; el('lbCap').textContent=(lbIdx+1)+' / '+GIMG.length; }
 document.addEventListener('keydown',function(e){ if(!el('lb').classList.contains('open'))return; if(e.key==='Escape')closeLb(); if(e.key==='ArrowRight')stepLb(1); if(e.key==='ArrowLeft')stepLb(-1); });
+
+// ---- reserveringsmodule: siteplan-unitkeuze + gegevens voor de intentieverklaring ----
+/* Unit-beschikbaarheid is nu hardcoded (unit 1 en 6 verkocht). Als er straks een live
+   voorraadsysteem is, vervang je TOTAL_UNITS/SOLD_UNITS door een API-call. */
+const TOTAL_UNITS = 6;
+const SOLD_UNITS = [1, 6];
+let rmSelectedUnit = null;
+
+function rmUnitLabel(n){ return "Unit " + n; }
+
+function renderSpPills(){
+  const pillsEl = el('spPills');
+  if(!pillsEl) return;
+  let html = "";
+  for(let n = 1; n <= TOTAL_UNITS; n++){
+    const sold = SOLD_UNITS.indexOf(n) !== -1;
+    const sel = rmSelectedUnit === n;
+    html += '<button type="button" class="sp-pill' + (sold ? ' sold' : '') + (sel ? ' sel' : '') + '"' +
+      (sold ? ' disabled' : ' onclick="selectUnit(' + n + ')"') + '>' + rmUnitLabel(n) + (sold ? ' · verkocht' : '') + '</button>';
+  }
+  pillsEl.innerHTML = html;
+}
+
+function selectUnit(n){
+  if(SOLD_UNITS.indexOf(n) !== -1) return;
+  rmSelectedUnit = n;
+  document.querySelectorAll('.sp-hot').forEach(function(h){ h.classList.toggle('sel', +h.dataset.unit === n); });
+  renderSpPills();
+  const sel = el('rmSelected');
+  if(sel){ sel.textContent = rmUnitLabel(n) + " geselecteerd"; sel.classList.remove('empty'); }
+  const next = el('rmNext');
+  if(next) next.disabled = false;
+}
+
+function openReserveModal(){
+  rmSelectedUnit = null;
+  document.querySelectorAll('.sp-hot').forEach(function(h){
+    h.classList.remove('sel');
+    h.classList.toggle('sold', SOLD_UNITS.indexOf(+h.dataset.unit) !== -1);
+  });
+  renderSpPills();
+  const sel = el('rmSelected');
+  if(sel){ sel.textContent = "Nog geen unit geselecteerd"; sel.classList.add('empty'); }
+  const next = el('rmNext');
+  if(next) next.disabled = true;
+  el('rmStep1').style.display = '';
+  el('rmStep2').style.display = 'none';
+  el('rmStep3').style.display = 'none';
+  el('rmodal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeReserveModal(){
+  el('rmodal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function rmGoStep2(){
+  if(!rmSelectedUnit) return;
+  el('rmStep2Lead').textContent = "Je vraagt de intentieverklaring aan voor " + rmUnitLabel(rmSelectedUnit).toLowerCase() + ". Laat je gegevens achter, dan sturen we deze toe.";
+  el('rmStep1').style.display = 'none';
+  el('rmStep2').style.display = '';
+}
+function rmBackStep1(){
+  el('rmStep2').style.display = 'none';
+  el('rmStep1').style.display = '';
+}
+function rmSubmit(e){
+  e.preventDefault();
+  const name = el('rName').value.trim(), phone = el('rPhone').value.trim(), email = el('rEmail').value.trim();
+  if(!name || !phone || !email){ el('rErr').style.display = 'block'; return false; }
+  const lead = { project: "The Maison", name, phone, email, unit: rmSelectedUnit, type: "reservation" };
+  submitLead({ ...lead, lang: "nl" }).catch(function(){});
+  const waMsg = "Hi Ashley! Ik wil graag " + rmUnitLabel(rmSelectedUnit).toLowerCase() + " van The Maison reserveren en de intentieverklaring ontvangen.%0A%0A" +
+    "Naam: " + encodeURIComponent(name) + "%0A" +
+    "WhatsApp: " + encodeURIComponent(phone) + "%0A" +
+    "E-mail: " + encodeURIComponent(email);
+  el('rmWaFollow').href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + waMsg;
+  el('rmDoneTitle').textContent = "Aanvraag voor " + rmUnitLabel(rmSelectedUnit).toLowerCase() + " ontvangen";
+  el('rmStep2').style.display = 'none';
+  el('rmStep3').style.display = '';
+  return false;
+}
+document.addEventListener('keydown', function(e){ if(el('rmodal').classList.contains('open') && e.key === 'Escape') closeReserveModal(); });
 </script>
 </body>
 </html>
