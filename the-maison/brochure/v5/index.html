@@ -60,6 +60,11 @@
   .stat .s-l{color:var(--muted)}
   .stat .s-v{color:var(--ink)}
   .hrow{color:var(--ink)}
+  .passive-hero{background:var(--opt-deep);border-radius:14px;padding:18px 20px 20px;margin:2px 0 18px}
+  .ph-eyebrow{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+  .ph-val{font-family:'Inter',system-ui,sans-serif;font-weight:800;font-size:clamp(30px,7vw,40px);color:#fff;letter-spacing:-.02em;line-height:1.1;margin-top:5px}
+  .ph-val .ph-unit{font-size:15px;font-weight:700;color:rgba(255,255,255,.75);margin-left:5px}
+  .ph-note{font-size:12.5px;color:rgba(255,255,255,.75);margin-top:7px;line-height:1.45}
   .hrow b{color:var(--ink)}
   .hrow.big{border-top-color:var(--opt)}
   .hrow.big b{color:var(--opt-deep)}
@@ -791,6 +796,13 @@
             <div class="csub">Op jaarbasis, netto na alle kosten en beheer.</div>
             <div class="big-yield"><div class="num" id="bOYield">–</div><div class="lbl">netto rendement / jaar</div></div>
             <div class="payback" id="bOPayback"></div>
+
+            <div class="passive-hero">
+              <div class="ph-eyebrow">Passief inkomen, elke maand</div>
+              <div class="ph-val" id="bOMonth2">–</div>
+              <div class="ph-note">Netto op je rekening, zonder dat je er iets voor doet - wij runnen de verhuur.</div>
+            </div>
+
             <div class="stat-grid">
               <div class="stat"><div class="s-l">Netto huur / maand</div><div class="s-v" id="bOMonth">–</div></div>
               <div class="stat"><div class="s-l">Netto huur / jaar</div><div class="s-v" id="bOYear">–</div></div>
@@ -1434,6 +1446,7 @@ function bcalc(){
   const y=roi/100, month=net/12;
   el('bOYield').textContent=bPct(y);
   el('bOMonth').textContent=bMoney(month);
+  if(el('bOMonth2')) el('bOMonth2').innerHTML=bMoney(month)+' <span class="ph-unit">/ maand</span>';
   el('bOYear').textContent=bMoney(net);
   el('bOGross').textContent=bMoney(gross);
   el('bOCostAmt').textContent=bMoney(costAmt);
