@@ -221,6 +221,9 @@
   .ch-item{display:flex;gap:9px;align-items:flex-start;font-size:13px;line-height:1.4}
   .ch-item .ck{flex:none;width:18px;height:18px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;margin-top:1px}
 
+  .loc-map{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:14px}
+  .loc-map iframe{width:100%;height:280px;border:0;display:block}
+
   .trust-list{margin-top:4px}
   .trust-item{display:flex;gap:12px;padding:13px 0;border-top:1px solid var(--line);align-items:flex-start}
   .trust-item:first-child{border-top:none;padding-top:2px}
@@ -530,7 +533,7 @@
         <div class="row"><div class="rl">Aantal villa's</div><div class="rv">6</div></div>
 
         <div class="build-wrap">
-          <div class="al">Bouwvoortgang <b id="buildPct">–</b></div>
+          <div class="al">Bouwvoortgang</div>
           <div class="avail-bar"><span id="buildBar" style="width:0%"></span></div>
           <div class="build-dates"><span>Start 15 mei 2026</span><span>Oplevering 15 april 2027</span></div>
         </div>
@@ -609,6 +612,13 @@
             <div class="ch-item"><span class="ck">✓</span>Fotografie &amp; listing-optimalisatie</div>
           </div>
         </div>
+
+        <div class="subhead">Locatie</div>
+        <p class="pane-lead" style="margin-bottom:14px">The Maison ligt in Pererenan — 3 minuten van Pererenan Beach en enkele minuten van Canggu, in de legaal vergunde Orange C2-zone voor short-stay verhuur.</p>
+        <div class="loc-map">
+          <iframe src="https://maps.google.com/maps?q=-8.641934,115.130826&z=15&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Locatie van The Maison, Pererenan"></iframe>
+        </div>
+        <a class="btn-outline" href="https://maps.app.goo.gl/cWGrCgHWLDVpgCcW8" target="_blank" rel="noopener">Bekijk op Google Maps →</a>
       </div>
 
       <!-- 02 · RENDEMENT & PRIJS -->
