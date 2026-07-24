@@ -60,7 +60,6 @@
   .stat .s-l{color:var(--muted)}
   .stat .s-v{color:var(--ink)}
   .stat .s-sub{font-size:11.5px;color:var(--muted);margin-top:5px}
-  .hrow{color:var(--ink)}
   .passive-hero{background:var(--opt-deep);border-radius:14px;padding:18px 20px 20px;margin:2px 0 18px}
   .ph-eyebrow{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.75)}
   .ph-val{font-family:'Inter',system-ui,sans-serif;font-weight:800;font-size:clamp(30px,7vw,40px);color:#fff;letter-spacing:-.02em;line-height:1.1;margin-top:5px}
@@ -68,14 +67,16 @@
   .ph-note{font-size:12.5px;color:rgba(255,255,255,.75);margin-top:7px;line-height:1.45}
   .ph-gross{font-size:12px;color:rgba(255,255,255,.65);margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.18)}
   .ph-gross b{color:rgba(255,255,255,.9);font-weight:700}
-  .hrow b{color:var(--ink)}
-  .hrow.big{border-top-color:var(--opt)}
-  .hrow.big b{color:var(--opt-deep)}
-  .breakdown{border-top-color:var(--line);color:var(--muted)}
-  .breakdown .brow b{color:var(--ink)}
   .note-ext{color:var(--muted)}
-  .hold-block{border-top-color:var(--line)}
-  .hold-block .hb-h{color:var(--opt-deep)}
+
+  .hold-panel{background:var(--paper);border:1px solid var(--line);border-radius:15px;padding:20px 22px;margin-top:18px}
+  .hold-panel .hb-h{font-size:12px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--opt-deep);margin-bottom:14px}
+  .hold-row{display:flex;flex-wrap:wrap;gap:20px 32px}
+  .hold-row.sub{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+  .hp-i{flex:1;min-width:160px}
+  .hp-i b{display:block;font-family:'Inter',sans-serif;font-weight:800;font-size:19px;color:var(--ink);letter-spacing:-.01em}
+  .hp-i span{font-size:12.5px;color:var(--muted)}
+  .hp-i.big b{font-size:25px;color:var(--opt-deep)}
 
   /* ============ TOP NAV ============ */
   .bnav{display:flex;align-items:center;justify-content:space-between;padding:16px 5vw;border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:120}
@@ -823,19 +824,6 @@
             <div class="field"><label><span>Kosten &amp; beheer</span> <span class="val" id="bVCosts"></span></label><input type="range" id="bCosts" min="35" max="55" step="1" value="45" oninput="bcalc()"></div>
             <div class="field"><label><span>Aanhoudperiode</span> <span class="val" id="bVHold"></span></label><input type="range" id="bHold" min="1" max="30" step="1" value="5" oninput="bcalc()"></div>
             <div class="field"><label><span>Geschatte waardegroei / jaar</span> <span class="val" id="bVGrowth"></span></label><div class="field-note">Vast, gebaseerd op marktdata voor deze regio</div></div>
-
-            <div class="hold-block">
-              <div class="hb-h" id="bOHoldH"></div>
-              <div class="hrow"><span>Netto huurinkomsten</span><b id="bORent">–</b></div>
-              <div class="hrow"><span>Geschatte verkoopwinst</span><b id="bOResale">–</b></div>
-              <div class="hrow big"><span>Totaal rendement</span><b id="bOTotalRet">–</b></div>
-            </div>
-            <div class="breakdown">
-              <div class="brow"><span>Bruto huurinkomsten / jaar</span><b id="bOGross">–</b></div>
-              <div class="brow"><span>Af: kosten &amp; beheer</span><b id="bOCostAmt">–</b></div>
-              <div class="brow"><span>Totale investering</span><b id="bOInv">–</b></div>
-            </div>
-            <div class="note-ext" id="bOExt"></div>
           </div>
           <div class="card results">
             <h3>Verwacht rendement</h3>
@@ -856,6 +844,22 @@
             </div>
           </div>
         </div>
+
+        <div class="hold-panel">
+          <div class="hb-h" id="bOHoldH"></div>
+          <div class="hold-row">
+            <div class="hp-i"><b id="bORent">–</b><span>Netto huurinkomsten</span></div>
+            <div class="hp-i"><b id="bOResale">–</b><span>Geschatte verkoopwinst</span></div>
+            <div class="hp-i big"><b id="bOTotalRet">–</b><span>Totaal rendement</span></div>
+          </div>
+          <div class="hold-row sub">
+            <div class="hp-i"><b id="bOGross">–</b><span>Bruto huurinkomsten / jaar</span></div>
+            <div class="hp-i"><b id="bOCostAmt">–</b><span>Af: kosten &amp; beheer</span></div>
+            <div class="hp-i"><b id="bOInv">–</b><span>Totale investering</span></div>
+          </div>
+          <div class="note-ext" id="bOExt"></div>
+        </div>
+
         <details class="assump">
           <summary>Aannames &amp; transparantie</summary>
           <ul>
