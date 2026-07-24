@@ -90,6 +90,15 @@
   .impact .muted-on-dark{color:rgba(239,231,216,.72)}
   .inner{max-width:1040px;margin:0 auto;padding:52px 20px}
   @media(min-width:640px){.inner{padding:64px 24px}}
+
+  /* "blokken"-layout: elke genummerde sectie (01 t/m 16) als los, niet-full-
+     width kaartje op de zandkleurige paginabodem i.p.v. een full-bleed band.
+     Hero/Kernfeiten, de thanks-banner, FAQ en de contact-CTA blijven full-bleed. */
+  .sec-block{max-width:1040px;margin:20px 20px;border-radius:20px;overflow:hidden;border:1px solid var(--line);box-shadow:0 1px 2px rgba(23,20,15,.04)}
+  .sec-block.impact{border-color:var(--line-dk)}
+  .sec-block .inner{max-width:none}
+  @media(min-width:1080px){.sec-block{margin-left:auto;margin-right:auto}}
+  @media(max-width:560px){.sec-block{margin:14px 12px;border-radius:14px}}
   .sec-num{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:8px}
   .sec-h{font-size:clamp(22px,4.2vw,32px);margin:0 0 14px;line-height:1.1}
   .impact .sec-h{color:#fff}
@@ -506,7 +515,7 @@
   </div></div>
 
   <!-- 02 HET PROJECT -->
-  <div class="lite tint"><div class="inner">
+  <div class="lite tint sec-block"><div class="inner">
     <div class="sec-num">01 · Het project</div>
     <h2 class="sec-h">Een boutique villa, geen vakantiehuis</h2>
     <p class="sec-lead">Zes designvilla's binnen één gestroomlijnd concept: privé plunge pool, twee ensuite slaapkamers en een rooftop lounge van 40 m², volledig gemeubileerd en direct klaar voor verhuur via Airbnb en Booking.com.</p>
@@ -520,7 +529,7 @@
   </div></div>
 
   <!-- 03 AANPAK & SCOPE -->
-  <div class="lite"><div class="inner">
+  <div class="lite sec-block"><div class="inner">
     <div class="sec-num">02 · Aanpak &amp; scope</div>
     <h2 class="sec-h">Wat dit project omvat</h2>
     <p class="sec-lead">Van grondcontract tot eerste gast: UTAMA ontwikkelt, bouwt en beheert het volledige project, met een vast lokaal netwerk van aannemers, architecten, juristen en hospitality-partners.</p>
@@ -544,7 +553,7 @@
   </div></div>
 
   <!-- 04 PLANNING -->
-  <div class="lite"><div class="inner">
+  <div class="lite sec-block"><div class="inner">
     <div class="sec-num">03 · Planning</div>
     <h2 class="sec-h">Van start bouw tot eerste gast</h2>
     <p class="sec-lead">Het hele traject verloopt op afstand, met heldere stappen. Je ontvangt elke twee weken foto- en video-updates en kunt live meekijken via de camera op de bouwplaats.</p>
@@ -558,7 +567,7 @@
   </div></div>
 
   <!-- 05 PRIJZEN -->
-  <div class="lite tint"><div class="inner">
+  <div class="lite tint sec-block"><div class="inner">
     <div class="sec-num">04 · Prijzen &amp; investering</div>
     <h2 class="sec-h">Instappen vanaf €195.000, turnkey</h2>
     <p class="sec-lead">Alle prijzen zijn turnkey: volledig afgewerkt, ingericht en klaar voor verhuur. Geen verborgen kosten achteraf.</p>
@@ -583,7 +592,7 @@
   </div></div>
 
   <!-- 06 RENDEMENTSCALCULATOR -->
-  <div class="lite" id="calc"><div class="inner">
+  <div class="lite sec-block" id="calc"><div class="inner">
     <div class="sec-num">05 · Rendement</div>
     <h2 class="sec-h">Bereken je rendement</h2>
     <p class="sec-lead">Pas de aannames aan naar jouw eigen scenario. Eerlijk berekend, geen opgeblazen beloftes.</p>
@@ -638,7 +647,7 @@
   </div></div>
 
   <!-- 07 TRACK RECORD -->
-  <div class="impact"><div class="inner">
+  <div class="impact sec-block"><div class="inner">
     <div class="sec-num">06 · UTAMA in cijfers</div>
     <h2 class="sec-h">Een bewezen track record</h2>
     <p class="sec-lead">Vertrouwen ontstaat niet uit beloftes, maar uit resultaten. Dit is wat we tot nu toe hebben neergezet.</p>
@@ -652,7 +661,7 @@
   </div></div>
 
   <!-- 08 WAAROM BALI -->
-  <div class="lite"><div class="inner">
+  <div class="lite sec-block"><div class="inner">
     <div class="sec-num">07 · De markt</div>
     <h2 class="sec-h">Waarom Bali?</h2>
     <p class="sec-lead">Bali combineert een toeristisch seizoen van 365 dagen met structureel groeiende vraag naar short-stayverblijf en een beperkt aanbod op legaal vergunde toplocaties.</p>
@@ -665,7 +674,7 @@
   </div></div>
 
   <!-- 09 IN CIJFERS -->
-  <div class="impact"><div class="inner">
+  <div class="impact sec-block"><div class="inner">
     <div class="sec-num">08 · In cijfers</div>
     <h2 class="sec-h">De kern in vier cijfers</h2>
     <div class="big-stats" style="margin-top:20px">
@@ -677,7 +686,7 @@
   </div></div>
 
   <!-- 10 LEASEHOLD -->
-  <div class="impact"><div class="inner">
+  <div class="impact sec-block"><div class="inner">
     <div class="sec-num">09 · Leasehold, simpel uitgelegd</div>
     <h2 class="sec-h">Eigendom, met een einddatum</h2>
     <p class="sec-lead">Leasehold werkt in de praktijk vrijwel hetzelfde als koop, alleen met een vaste looptijd. Gedurende 60 jaar (30+30) bepaal jij volledig wat er met je villa gebeurt: verhuren, zelf verblijven, verkopen, of een combinatie daarvan.</p>
@@ -695,7 +704,7 @@
   </div></div>
 
   <!-- 11 WAAROM UTAMA -->
-  <div class="lite"><div class="inner">
+  <div class="lite sec-block"><div class="inner">
     <div class="sec-num">10 · Waarom UTAMA</div>
     <h2 class="sec-h">Wij leggen vast wat anderen openlaten</h2>
     <p class="sec-lead">Veel Bali-projecten ogen vergelijkbaar. Het verschil zit in de voorwaarden die je rendement en zekerheid bepalen, daar zijn wij compromisloos in.</p>
@@ -714,7 +723,7 @@
   </div></div>
 
   <!-- 12 IN-HOUSE BOUWTEAM -->
-  <div class="impact"><div class="inner">
+  <div class="impact sec-block"><div class="inner">
     <div class="sec-num">11 · Niet zomaar een ontwikkelaar</div>
     <h2 class="sec-h">Wij bouwen met ons in-house bouwteam</h2>
     <p class="sec-lead">Veel Bali-ontwikkelaars bestaan uit een verkoper, een architect en een aannemer. Bij ons zit elke discipline in huis, zo houden we grip op kwaliteit, planning en uitvoering.</p>
@@ -741,7 +750,7 @@
   </div></div>
 
   <!-- 13 VERTROUW DE STRUCTUUR -->
-  <div class="lite"><div class="inner">
+  <div class="lite sec-block"><div class="inner">
     <div class="sec-num">12 · Waarom je UTAMA kunt vertrouwen</div>
     <h2 class="sec-h">Vertrouw de structuur, niet de belofte</h2>
     <p class="sec-lead">Je rechten als investeerder rusten niet op een persoonlijke toezegging, maar op juridische overeenkomsten die onafhankelijk worden vastgelegd en gecontroleerd.</p>
@@ -754,7 +763,7 @@
   </div></div>
 
   <!-- 14 BEHEER A-Z -->
-  <div class="impact"><div class="inner">
+  <div class="impact sec-block"><div class="inner">
     <div class="sec-num">13 · A tot Z beheer</div>
     <h2 class="sec-h">Wij runnen alles. Jij blijft hands-off.</h2>
     <p class="sec-lead">Van vergunning tot verhuur en onderhoud verzorgt ons team het volledige traject, met maandelijkse rapportage en volledige kostentransparantie.</p>
@@ -768,7 +777,7 @@
   </div></div>
 
   <!-- 15 ZO KOOP JE -->
-  <div class="lite"><div class="inner">
+  <div class="lite sec-block"><div class="inner">
     <div class="sec-num">14 · Zo koop je</div>
     <h2 class="sec-h">Van reservering tot sleutel, volledig op afstand</h2>
     <p class="sec-lead">Je hoeft niet in Bali te zijn. Het hele traject verloopt op afstand, met heldere stappen en een transparant betaalschema.</p>
@@ -788,7 +797,7 @@
   </div></div>
 
   <!-- 16 RISICO'S -->
-  <div class="impact"><div class="inner">
+  <div class="impact sec-block"><div class="inner">
     <div class="sec-num">15 · Transparant over risico's</div>
     <h2 class="sec-h">De risico's, en hoe wij ze beperken</h2>
     <p class="sec-lead">Investeren in Bali kent risico's. We benoemen ze liever eerlijk — en zetten er telkens direct tegenover hoe onze werkwijze het risico wegneemt.</p>
@@ -815,7 +824,7 @@
   </div></div>
 
   <!-- 17 UITSTAP -->
-  <div class="lite"><div class="inner">
+  <div class="lite sec-block"><div class="inner">
     <div class="sec-num">16 · De uitstap</div>
     <h2 class="sec-h">Niet alleen een instap, ook een uitstap</h2>
     <p class="sec-lead">Je bent niet verplicht de villa dertig jaar aan te houden. Verkopen kan op elk moment, en je bepaalt zelf hoe.</p>
