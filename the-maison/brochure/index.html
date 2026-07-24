@@ -596,15 +596,29 @@
     .deal-card .body{ flex:1 }
     .tab-pane{ display:block !important; animation:none !important }
     .tab-pane{ padding:0 !important }
-    .tab-pane + .tab-pane{ break-before:page; page-break-before:always; margin-top:18px; padding-top:18px !important; border-top:2px solid var(--line) }
+    /* Secties lopen door i.p.v. elk op een nieuwe pagina te starten - anders
+       ontstaan er grote lege stukken zodra een sectie niet toevallig een hele
+       pagina vult. Een dunne lijn markeert nog wel het begin van elke sectie. */
+    .tab-pane + .tab-pane{ margin-top:26px; padding-top:22px !important; border-top:2px solid var(--line) }
     .faq details, details.assump{ display:block !important }
     .faq summary::after, details.assump summary::after{ display:none }
-    .card, .fee-card, .listing-card, .report-card, .exit-card, .bstat,
-    .subblock, .hold-panel, .checklist-dark, .num-item, .plan-block,
+    /* Alleen kleine/vaste-hoogte kaarten mogen nooit splitsen. .card en
+       .hold-panel kunnen (met de calculator-cijfers) juist erg lang worden;
+       geforceerd-heel houden zorgt dan voor grote lege pagina's als ze niet
+       meer op de resterende ruimte passen. Die mogen dus gewoon over een
+       paginabreuk heen lopen. */
+    .fee-card, .listing-card, .exit-card, .bstat,
+    .subblock, .dark-cta, .checklist-dark, .num-item,
     .stat, .deal-card, .fee-cards .fee-card, .scc, .role, .earn-proof{ break-inside:avoid }
     /* Nooit een kop alleen onderaan een pagina met de bijbehorende inhoud
        pas op de volgende - koppen blijven "vastgeplakt" aan wat erop volgt. */
     .subhead, .pane-h, .scen-h, h3{ break-after:avoid; page-break-after:avoid }
+    /* De Aannames/Verwacht-rendement-kaarten staan op scherm naast elkaar,
+       maar de mobiele 1-koloms-breakpoint (max-width:840px) van .calc slaat
+       ook aan op de smallere A4-paginabreedte. Forceer ze in print weer
+       naast elkaar - dat is compacter en voorkomt dat elke kaart bijna een
+       hele pagina op zichzelf nodig heeft. */
+    .calc{ display:grid !important; grid-template-columns:1fr 1fr !important }
     a[href]::after{ content:"" }
     .footer-cta{ break-inside:avoid }
     .print-footer{ display:block !important; margin-top:26px; padding-top:12px; border-top:1px solid var(--line); font-size:10.5px; color:var(--muted); text-align:center }
