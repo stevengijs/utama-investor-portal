@@ -66,6 +66,8 @@
   .ph-val{font-family:'Inter',system-ui,sans-serif;font-weight:800;font-size:clamp(30px,7vw,40px);color:#fff;letter-spacing:-.02em;line-height:1.1;margin-top:5px}
   .ph-val .ph-unit{font-size:15px;font-weight:700;color:rgba(255,255,255,.75);margin-left:5px}
   .ph-note{font-size:12.5px;color:rgba(255,255,255,.75);margin-top:7px;line-height:1.45}
+  .ph-gross{font-size:12px;color:rgba(255,255,255,.65);margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.18)}
+  .ph-gross b{color:rgba(255,255,255,.9);font-weight:700}
   .hrow b{color:var(--ink)}
   .hrow.big{border-top-color:var(--opt)}
   .hrow.big b{color:var(--opt-deep)}
@@ -811,6 +813,7 @@
               <div class="ph-eyebrow">Passief inkomen, elke maand</div>
               <div class="ph-val" id="bOMonth2">–</div>
               <div class="ph-note">Netto op je rekening, zonder dat je er iets voor doet - wij runnen de verhuur.</div>
+              <div class="ph-gross">Op basis van <b id="bOMonth2Gross">–</b> bruto huuromzet deze maand</div>
             </div>
 
             <div class="stat-grid">
@@ -1503,6 +1506,7 @@ function bcalc(){
   el('bOYield').textContent=bPct(y);
   el('bOMonth').textContent=bMoney(month);
   if(el('bOMonth2')) el('bOMonth2').innerHTML=bMoney(month)+' <span class="ph-unit">/ maand</span>';
+  if(el('bOMonth2Gross')) el('bOMonth2Gross').textContent=bMoney(gross/12);
   el('bOYear').textContent=bMoney(net);
   if(el('bOMonthGross')) el('bOMonthGross').textContent=bMoney(gross/12);
   if(el('bOYearGross')) el('bOYearGross').textContent=bMoney(gross);
