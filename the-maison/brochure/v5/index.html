@@ -1145,29 +1145,33 @@ if(el('bbCam')) el('bbCam').href="https://wa.me/"+CONFIG.whatsapp+"?text="+encod
   if(el('buildPct')) el('buildPct').textContent = pct + "%";
 })();
 
-// Bouwtijdlijn: mijlpalen in het verleden krijgen een vinkje, de eerstvolgende mijlpaal pulseert als "nu"
+// Bouwtijdlijn: mijlpalen in het verleden krijgen een vinkje. De laatst gepasseerde
+// mijlpaal is de fase waar we nu daadwerkelijk in zitten (nog niet de volgende), dus
+// die krijgt de "Nu bezig"-badge - niet de eerstvolgende (nog niet bereikte) mijlpaal.
 (function(){
   const tl = el('buildTl');
   if(!tl) return;
   const now = new Date();
   const items = Array.from(tl.querySelectorAll('.vitem[data-milestone]'));
-  let currentSet = false;
-  items.forEach(function(item){
+  let lastDoneIndex = -1;
+  items.forEach(function(item, i){
     const d = new Date(item.dataset.milestone + "T00:00:00");
     if(d <= now){
       item.classList.add('done');
-    } else if(!currentSet){
-      item.classList.add('current');
-      currentSet = true;
-      const h4 = item.querySelector('h4');
-      if(h4 && !h4.querySelector('.vnow')){
-        const badge = document.createElement('span');
-        badge.className = 'vnow';
-        badge.textContent = 'Nu bezig';
-        h4.appendChild(badge);
-      }
+      lastDoneIndex = i;
     }
   });
+  if(lastDoneIndex >= 0 && lastDoneIndex < items.length - 1){
+    const current = items[lastDoneIndex];
+    current.classList.add('current');
+    const h4 = current.querySelector('h4');
+    if(h4 && !h4.querySelector('.vnow')){
+      const badge = document.createElement('span');
+      badge.className = 'vnow';
+      badge.textContent = 'Nu bezig';
+      h4.appendChild(badge);
+    }
+  }
 })();
 
 function buildWa(l){
