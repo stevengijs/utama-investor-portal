@@ -185,7 +185,7 @@
   .pk-icon svg{width:17px;height:17px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   .pane-h{font-size:clamp(21px,3.6vw,28px);margin:6px 0 10px;line-height:1.15}
   .pane-lead{font-size:15px;line-height:1.6;max-width:640px;margin:0 0 20px;color:var(--ink)}
-  .subhead{font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:30px 0 12px;display:flex;align-items:center;gap:8px}
+  .subhead{font-size:19px;font-weight:800;letter-spacing:-.01em;text-transform:none;color:var(--ink);margin:32px 0 13px;display:flex;align-items:center;gap:8px;line-height:1.25}
   .subhead:first-of-type{margin-top:6px}
   .subhead::after{content:"";flex:1;height:1px;background:var(--line)}
   .subblock{border-radius:16px;padding:20px 22px;margin-bottom:6px}
@@ -571,7 +571,36 @@
   .rm-selected.empty{background:var(--sand-2);color:var(--muted);font-weight:600}
   @media(max-width:560px){.rmodal-box{padding:24px 18px 22px;border-radius:16px}}
 
-  @media print{ body{display:none !important} }
+  /* ============ PRINT / PDF-BROCHURE ============ */
+  .print-btn{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--muted);border:1px dashed var(--line);font-family:inherit;font-weight:700;font-size:13px;border-radius:10px;padding:10px 16px;cursor:pointer;margin-top:10px;width:100%;justify-content:center}
+  .print-btn:hover{border-color:var(--opt-deep);color:var(--opt-deep)}
+  .print-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  @media print{
+    @page{ size:A4; margin:14mm 12mm }
+    *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; color-adjust:exact !important }
+    body{ background:#fff }
+    .bnav, .gate, .tabs-nav, .sticky-cta, .lb, .rmodal, .print-btn,
+    .deal-cta, .rail-note, .footer-cta .fc-ctas,
+    .faq-cats, input[type="range"], .slider-pins,
+    .earn-cap .zoom-hint{ display:none !important }
+    main.portal{ display:block !important }
+    .rail{ position:static !important; width:100% !important; margin-bottom:22px; break-inside:avoid }
+    .deal-card{ display:flex; gap:18px; align-items:flex-start }
+    .deal-card .photo{ width:180px; height:130px; flex:none }
+    .deal-card .body{ flex:1 }
+    .tab-pane{ display:block !important; animation:none !important }
+    .tab-pane{ padding:0 !important }
+    .tab-pane + .tab-pane{ break-before:page; page-break-before:always; margin-top:18px; padding-top:18px !important; border-top:2px solid var(--line) }
+    .faq details, details.assump{ display:block !important }
+    .faq summary::after, details.assump summary::after{ display:none }
+    .card, .fee-card, .listing-card, .report-card, .exit-card, .bstat,
+    .subblock, .hold-panel, .checklist-dark, .num-item, .plan-block,
+    .stat, .deal-card, .fee-cards .fee-card, .scc, .role, .earn-proof{ break-inside:avoid }
+    a[href]::after{ content:"" }
+    .footer-cta{ break-inside:avoid }
+    .print-footer{ display:block !important; margin-top:26px; padding-top:12px; border-top:1px solid var(--line); font-size:10.5px; color:var(--muted); text-align:center }
+  }
+  .print-footer{ display:none }
 </style>
 </head>
 <body>
@@ -680,6 +709,7 @@
         <a class="wa block" id="waRailWa" target="_blank" rel="noopener"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg>WhatsApp Ashley</a>
         <button class="btn-outline block" id="waRailReserve" type="button" onclick="openReserveModal()">Reserveer een unit</button>
       </div>
+      <button class="print-btn" type="button" onclick="window.print()"><svg viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><rect x="4" y="9" width="16" height="9" rx="1.5"/><path d="M6 14h12v7H6z"/></svg>Download als PDF</button>
     </div>
     <div class="rail-note">Live bouwstatus bekijken? <a id="bbCam" target="_blank" rel="noopener">Open de bouwcamera →</a></div>
   </div>
@@ -1278,6 +1308,7 @@
     </div>
 
     <div class="legal-note">Dit portaal bevat indicatieve informatie en vormt geen fiscaal of juridisch advies. Rendementsberekeningen zijn schattingen en geen garanties. Laat de contracten altijd controleren door een bevoegde notaris, PPAT en je eigen juridisch of fiscaal adviseur.</div>
+    <div class="print-footer" id="printFooter">The Maison · Investeerdersportaal · UTAMA</div>
   </div>
 
   <!-- sticky mobile CTA -->
@@ -1698,6 +1729,18 @@ function rmSubmit(e){
   return false;
 }
 document.addEventListener('keydown', function(e){ if(el('rmodal').classList.contains('open') && e.key === 'Escape') closeReserveModal(); });
+
+// Print / PDF-brochure
+if(el('printFooter')){
+  var _pd = new Date();
+  el('printFooter').textContent = 'The Maison · Investeerdersportaal · gegenereerd op ' + _pd.toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'}) + ' · utamabali.com';
+}
+window.addEventListener('beforeprint', function(){
+  document.querySelectorAll('details').forEach(function(d){ d.dataset.wasOpen = d.open ? '1' : '0'; d.open = true; });
+});
+window.addEventListener('afterprint', function(){
+  document.querySelectorAll('details').forEach(function(d){ d.open = d.dataset.wasOpen === '1'; delete d.dataset.wasOpen; });
+});
 </script>
 </body>
 </html>
