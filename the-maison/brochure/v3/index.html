@@ -38,20 +38,36 @@
   }
   h1,h2,h3{font-family:'Inter',system-ui,-apple-system,sans-serif !important;font-weight:800;letter-spacing:-.015em}
   .big-yield .num,.pbtn .pv,.field label .val,.stat .s-v,.hrow.big b{font-family:'Inter',system-ui,sans-serif !important;font-weight:800 !important}
-  .results{background:linear-gradient(180deg,#1c1811,#141109);border-color:#141109}
   .card{box-shadow:none}
   .tcard,.bb-icon,.loc-map{box-shadow:none}
   .btn.primary,.btn{box-shadow:none}
   /* de gedeelde calc-widget (calc-shared.js/styles.css) gebruikt var(--terra)/
-     var(--gold) op een paar plekken; hier lokaal overschreven zodat ook de
-     rekentool zwart/inkt + crème gebruikt i.p.v. de kleitint */
+     var(--gold) op een paar plekken en is standaard een donkere kaart; hier
+     lokaal overschreven zodat de rekentool er net zo licht/ivoor uitziet als
+     de "payback calculation"-tabel uit de echte brochure (wit, zwarte tekst,
+     dunne lijnen, geen donker vlak) */
   .pbtn.on{border-color:var(--ink);background:var(--sand-2)}
   .pbtn.on .pv{color:var(--ink)}
   .slider-pins .pin.cur{background:var(--ink);border-color:var(--ink)}
   input[type=range]::-webkit-slider-thumb{background:var(--ink)}
   input[type=range]::-moz-range-thumb{background:var(--ink)}
-  .big-yield .lbl{color:var(--cream)}
-  .hold-block .hb-h{color:var(--cream)}
+  .results{background:var(--paper);color:var(--ink);border-color:var(--line)}
+  .results h3{color:var(--ink)}
+  .results .csub{color:var(--muted)}
+  .big-yield .num{color:var(--ink)}
+  .big-yield .lbl{color:var(--ink)}
+  .payback{color:var(--muted)}
+  .stat{background:var(--sand-2);border-color:var(--line)}
+  .stat .s-l{color:var(--muted)}
+  .stat .s-v{color:var(--ink)}
+  .hrow{color:var(--ink)}
+  .hrow b{color:var(--ink)}
+  .hrow.big{border-top-color:var(--line)}
+  .breakdown{border-top-color:var(--line);color:var(--muted)}
+  .breakdown .brow b{color:var(--ink)}
+  .note-ext{color:var(--muted)}
+  .hold-block{border-top-color:var(--line)}
+  .hold-block .hb-h{color:var(--ink)}
 
   .bnav{display:flex;align-items:center;justify-content:space-between;padding:16px 5vw;border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:120}
   .bnav a.back{color:var(--muted);text-decoration:none;font-size:13.5px}
@@ -86,8 +102,8 @@
   /* LAYOUT: full-bleed alternating sections, inner max-width container */
   .lite{background:var(--paper)}
   .lite.tint{background:var(--sand-2)}
-  .impact{background:var(--dark);color:var(--cream);--accent-ink:rgba(239,231,216,.78)}
-  .impact .muted-on-dark{color:rgba(239,231,216,.72)}
+  .impact{background:var(--sand-2);color:var(--ink);--accent-ink:var(--ink)}
+  .impact .muted-on-dark{color:var(--muted)}
   .inner{max-width:1040px;margin:0 auto;padding:52px 20px}
   @media(min-width:640px){.inner{padding:64px 24px}}
 
@@ -95,23 +111,21 @@
      width kaartje op de zandkleurige paginabodem i.p.v. een full-bleed band.
      Hero/Kernfeiten, de thanks-banner, FAQ en de contact-CTA blijven full-bleed. */
   .sec-block{max-width:1040px;margin:20px 20px;border-radius:20px;overflow:hidden;border:1px solid var(--line);box-shadow:0 1px 2px rgba(23,20,15,.04)}
-  .sec-block.impact{border-color:var(--line-dk)}
+  .sec-block.impact{border-color:var(--line)}
   .sec-block .inner{max-width:none}
   @media(min-width:1080px){.sec-block{margin-left:auto;margin-right:auto}}
   @media(max-width:560px){.sec-block{margin:14px 12px;border-radius:14px}}
   .sec-num{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:8px}
   .sec-h{font-size:clamp(22px,4.2vw,32px);margin:0 0 14px;line-height:1.1}
-  .impact .sec-h{color:#fff}
   .sec-lead{font-size:15.5px;line-height:1.65;max-width:680px;margin:0 0 16px;color:var(--ink)}
-  .impact .sec-lead{color:rgba(239,231,216,.85)}
   .sec-lead:last-of-type{margin-bottom:18px}
 
-  .thanks{background:#243F35;color:var(--cream);border-radius:16px;padding:18px 20px;margin:0;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
-  .thanks .agent-photo{width:58px;height:58px;border-radius:50%;object-fit:cover;flex:none;border:2px solid rgba(255,255,255,.22)}
+  .thanks{background:var(--sand-2);border:1px solid var(--line);color:var(--ink);border-radius:16px;padding:18px 20px;margin:0;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .thanks .agent-photo{width:58px;height:58px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--paper)}
   .thanks .agent-txt{flex:1;min-width:220px}
-  .thanks h3{color:#fff;font-size:19px;font-family:'Fraunces','Georgia',serif !important;font-weight:600 !important;letter-spacing:0}
-  .thanks p{margin:4px 0 0;opacity:.88;font-size:13.5px;max-width:560px;color:rgba(239,231,216,.88)}
-  .thanks p b{color:#fff}
+  .thanks h3{color:var(--ink);font-size:19px;font-family:'Fraunces','Georgia',serif !important;font-weight:600 !important;letter-spacing:0}
+  .thanks p{margin:4px 0 0;font-size:13.5px;max-width:560px;color:var(--muted)}
+  .thanks p b{color:var(--ink)}
   .thanks .wa{flex:none}
 
   /* HERO (cover-achtig: pill, grote kop, tagline, cijferrij) */
@@ -119,7 +133,6 @@
   .hero-h1{font-family:'Fraunces','Georgia',serif !important;font-weight:600 !important;letter-spacing:0;font-size:clamp(34px,6vw,48px);margin:6px 0 8px;line-height:1.05}
   .hero-p{color:var(--muted);font-size:16px;line-height:1.6;max-width:620px;margin:0 0 22px}
   .hero-divider{border-top:1px solid var(--line);margin:0 0 20px}
-  .impact .hero-divider{border-color:var(--line-dk)}
 
   .hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 22px}
   .hstat{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:15px 16px}
@@ -134,16 +147,12 @@
   .status-bar .seyebrow{display:block;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--ink);margin-bottom:2px}
   .btn-cam{display:inline-flex;align-items:center;gap:7px;background:var(--ink);color:#fff;padding:9px 15px;border-radius:999px;font-size:12.5px;font-weight:700;text-decoration:none;white-space:nowrap;flex:none}
   .btn-cam:hover{background:#000}
-  .impact .status-bar{background:rgba(255,255,255,.05);border-color:var(--line-dk)}
-  .impact .status-bar .stxt{color:#fff}
 
   .hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
   .btn-terra{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border:none;font-family:inherit;font-weight:700;font-size:14.5px;border-radius:10px;padding:13px 22px;cursor:pointer;text-decoration:none}
   .btn-terra:hover{background:#000}
   .btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--ink);border:1px solid var(--line);font-family:inherit;font-weight:700;font-size:14.5px;border-radius:10px;padding:13px 22px;cursor:pointer;text-decoration:none}
   .btn-outline:hover{border-color:var(--ink)}
-  .impact .btn-outline{color:#fff;border-color:var(--line-dk)}
-  .impact .btn-outline:hover{border-color:#fff}
 
   .bgal{display:grid;grid-template-columns:2fr 1fr 1fr;grid-auto-rows:160px;gap:8px;margin:26px 0 0}
   .bgal .g{background-size:cover;background-position:center;border-radius:12px;cursor:zoom-in;transition:opacity .15s}
@@ -162,50 +171,43 @@
   .num-list{margin-top:8px}
   .num-item{display:flex;gap:18px;padding:19px 0;border-top:1px solid var(--line)}
   .num-item:first-child{border-top:none;padding-top:6px}
-  .impact .num-item{border-color:var(--line-dk)}
   .num-item .nn{flex:none;width:30px;font-weight:800;color:var(--ink);font-size:15px;padding-top:1px}
   .num-item .nc h4{font-size:15px;margin:0 0 5px}
-  .impact .num-item .nc h4{color:#fff}
   .num-item .nc p{font-size:13.5px;color:var(--muted);margin:0;line-height:1.55}
-  .impact .num-item .nc p{color:rgba(239,231,216,.78)}
 
-  /* donker "inbegrepen"-blok met vinkjes */
-  .checklist-dark{background:var(--dark);border-radius:16px;padding:24px 26px;margin-top:26px}
-  .lite .checklist-dark{color:var(--cream)}
-  .ch-title{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--cream);margin-bottom:14px}
+  /* "inbegrepen"-blok met vinkjes (licht, geen donker vlak) */
+  .checklist-dark{background:var(--sand-2);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-top:26px;color:var(--ink)}
+  .ch-title{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:14px}
   .ch-grid{display:grid;grid-template-columns:1fr;gap:11px}
   @media(min-width:560px){.ch-grid{grid-template-columns:1fr 1fr}}
-  .ch-item{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;line-height:1.4}
-  .ch-item .ck{flex:none;color:var(--cream);font-weight:800}
+  .ch-item{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.4}
+  .ch-item .ck{flex:none;width:20px;height:20px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;margin-top:1px}
 
   /* vertrouwens-checklist (lichte achtergrond, geen kaartjes) */
   .trust-list{margin-top:6px}
   .trust-item{display:flex;gap:14px;padding:15px 0;border-top:1px solid var(--line);align-items:flex-start}
   .trust-item:first-child{border-top:none;padding-top:4px}
-  .impact .trust-item{border-color:var(--line-dk)}
   .trust-item .tick{flex:none;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;margin-top:1px}
   .trust-item p{margin:0;font-size:14px;line-height:1.55;color:var(--ink)}
-  .impact .trust-item p{color:rgba(239,231,216,.88)}
   .trust-item p b{color:var(--ink)}
-  .impact .trust-item p b{color:#fff}
 
-  /* stat rows (track record etc, dark) */
+  /* stat rows (track record etc, licht) */
   .stat-row{display:grid;grid-template-columns:1fr 1fr;gap:22px 16px}
   @media(min-width:640px){.stat-row{grid-template-columns:repeat(4,1fr)}}
-  .stat-row .sr .sv{font-size:clamp(28px,6vw,38px);font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
-  .stat-row .sr .sl{font-size:12.5px;margin-top:7px;color:rgba(239,231,216,.75);line-height:1.35;max-width:180px}
+  .stat-row .sr .sv{font-size:clamp(28px,6vw,38px);font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
+  .stat-row .sr .sl{font-size:12.5px;margin-top:7px;color:var(--muted);line-height:1.35;max-width:180px}
 
   /* grote cijfertegels ("In cijfers") */
-  .big-stats{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--line-dk)}
+  .big-stats{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--line)}
   @media(min-width:560px){.big-stats{grid-template-columns:1fr 1fr}}
-  .bstat{padding:22px 20px 22px 0;border-bottom:1px solid var(--line-dk)}
-  @media(min-width:560px){.bstat:nth-child(odd){border-right:1px solid var(--line-dk);padding-right:24px}.bstat:nth-child(even){padding-left:24px}}
-  .bstat .bv{font-size:clamp(32px,6vw,42px);font-weight:800;color:#fff;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .bstat{padding:22px 20px 22px 0;border-bottom:1px solid var(--line)}
+  @media(min-width:560px){.bstat:nth-child(odd){border-right:1px solid var(--line);padding-right:24px}.bstat:nth-child(even){padding-left:24px}}
+  .bstat .bv{font-size:clamp(32px,6vw,42px);font-weight:800;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
   .bstat .bv sup{font-size:.5em;font-weight:800}
-  .bstat .bl{font-size:13px;color:rgba(239,231,216,.75);margin-top:6px}
+  .bstat .bl{font-size:13px;color:var(--muted);margin-top:6px}
 
-  /* dark CTA-blok in track record */
-  .dark-cta{background:rgba(255,255,255,.05);border:1px solid var(--line-dk);border-radius:14px;padding:18px 20px;margin-top:22px;font-size:13.5px;color:rgba(239,231,216,.9);line-height:1.6}
+  /* CTA-blok in track record (licht) */
+  .dark-cta{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:22px;font-size:13.5px;color:var(--ink);line-height:1.6}
 
   /* nearby / location */
   .nearby-group{margin-bottom:18px}
@@ -262,18 +264,18 @@
   .pc .ps{font-size:12px;color:var(--muted)}
   .price-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 
-  /* payment schedule bar */
-  .paybar{display:flex;border-radius:14px;overflow:hidden;margin-top:16px;box-shadow:var(--shadow)}
-  .payseg{padding:22px 20px;position:relative}
-  .payseg+.payseg{border-left:1px solid rgba(255,255,255,.22)}
-  .payseg:nth-child(1){background:var(--ink);color:#fff;flex:3}
-  .payseg:nth-child(2){background:#4A453D;color:#fff;flex:3}
-  .payseg:nth-child(3){background:#8B8477;color:#fff;flex:3}
-  .payseg:nth-child(4){background:var(--sand-2);color:var(--ink);flex:1}
+  /* payment schedule bar (licht, warme intensiteitsschaal i.p.v. zwart/grijs) */
+  .paybar{display:flex;border-radius:14px;overflow:hidden;margin-top:16px;box-shadow:var(--shadow);border:1px solid var(--line)}
+  .payseg{padding:22px 20px;position:relative;color:var(--ink)}
+  .payseg+.payseg{border-left:1px solid var(--line)}
+  .payseg:nth-child(1){background:var(--line);flex:3}
+  .payseg:nth-child(2){background:var(--real);flex:3}
+  .payseg:nth-child(3){background:var(--sand-2);flex:3}
+  .payseg:nth-child(4){background:var(--paper);flex:1}
   .payseg .pp{font-family:'Inter',sans-serif;font-size:27px;font-weight:800;line-height:1}
   .payseg .pl{font-size:13px;font-weight:600;margin-top:9px}
-  .payseg .pa{font-size:12.5px;margin-top:5px;opacity:.85}
-  @media(max-width:640px){.paybar{flex-direction:column}.payseg{flex:none !important}.payseg+.payseg{border-left:none;border-top:1px solid rgba(255,255,255,.22)}}
+  .payseg .pa{font-size:12.5px;margin-top:5px;color:var(--muted)}
+  @media(max-width:640px){.paybar{flex-direction:column}.payseg{flex:none !important}.payseg+.payseg{border-left:none;border-top:1px solid var(--line)}}
 
   /* vertical timeline (planning) */
   .vtl{position:relative;margin-top:6px}
@@ -281,16 +283,12 @@
   .vitem:last-child{padding-bottom:0}
   .vmark{width:24px;flex:none;display:flex;flex-direction:column;align-items:center}
   .vdot{width:12px;height:12px;border-radius:50%;background:var(--ink);flex:none;margin-top:3px;border:2px solid var(--paper)}
-  .impact .vdot{border-color:var(--dark)}
   .vline{flex:1;width:1px;background:var(--line);margin-top:4px}
-  .impact .vline{background:var(--line-dk)}
   .vitem:last-child .vline{display:none}
   .vc{flex:1;padding-top:1px}
   .vc .vtag{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--ink)}
   .vc h4{font-size:15px;margin:3px 0 4px;font-weight:800;color:var(--ink)}
-  .impact .vc h4{color:#fff}
   .vc p{font-size:13.5px;color:var(--muted);margin:0;line-height:1.55}
-  .impact .vc p{color:rgba(239,231,216,.78)}
 
   /* team / leaseopties */
   .team{display:grid;grid-template-columns:1fr;gap:14px}
@@ -298,38 +296,37 @@
   .team.cols2{grid-template-columns:1fr}
   @media(min-width:640px){.team.cols2{grid-template-columns:repeat(2,1fr)}}
   .tcard{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px}
-  .impact .tcard{background:rgba(255,255,255,.05);border-color:var(--line-dk)}
   .tcard .n{font-family:'Inter',sans-serif;color:var(--accent-ink);font-weight:800;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
   .tcard h4{font-size:15.5px;margin:6px 0 4px}
-  .impact .tcard h4{color:#fff}
   .tcard p{font-size:13px;color:var(--muted);margin:0;line-height:1.55}
-  .impact .tcard p{color:rgba(239,231,216,.78)}
 
   /* rollenlijst (in-house bouwteam) */
   .role-grid{display:grid;grid-template-columns:1fr;gap:9px;margin-top:20px}
   @media(min-width:560px){.role-grid{grid-template-columns:1fr 1fr}}
-  .role{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border:1px solid var(--line-dk);border-radius:11px;padding:12px 15px;font-size:13.5px;color:rgba(239,231,216,.92)}
-  .role .rdot{flex:none;width:6px;height:6px;border-radius:50%;background:var(--cream)}
+  .role{display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:12px 15px;font-size:13.5px;color:var(--ink)}
+  .role .rdot{flex:none;width:6px;height:6px;border-radius:50%;background:var(--ink)}
 
-  /* 2-tone "veelgekozen route"-balk (leasehold) */
-  .route-bar{display:flex;flex-wrap:wrap;border-radius:14px;overflow:hidden;margin:20px 0 8px}
+  /* 2-tone "veelgekozen route"-balk (leasehold) — licht, met de olijf-tint
+     uit het drieluiksysteem als enige kleuraccent op de aanbevolen route */
+  .route-bar{display:flex;flex-wrap:wrap;border-radius:14px;overflow:hidden;margin:20px 0 8px;border:1px solid var(--line)}
   .route-a,.route-b{flex:1;min-width:220px;padding:18px 20px}
-  .route-a{background:#241F19}
+  .route-a{background:var(--paper)}
   .route-b{background:var(--opt)}
-  .route-bar .rlbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;opacity:.8;margin-bottom:5px;color:#fff}
-  .route-bar .rtxt{font-size:13.5px;color:#fff;line-height:1.4}
-  .route-foot{display:flex;justify-content:space-between;font-size:11.5px;color:rgba(239,231,216,.6)}
+  .route-bar .rlbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;opacity:.8;margin-bottom:5px;color:var(--ink)}
+  .route-bar .rtxt{font-size:13.5px;color:var(--ink);line-height:1.4}
+  .route-b .rlbl,.route-b .rtxt{color:#fff}
+  .route-foot{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted)}
 
-  /* risicokaarten (donker, "de realiteit" + oplossing-tags) */
+  /* risicokaarten ("de realiteit" + oplossing-tags), licht */
   .risk2-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:8px}
-  .risk2{background:rgba(255,255,255,.04);border:1px solid var(--line-dk);border-radius:14px;padding:19px 21px}
-  .risk2 h4{font-size:15px;margin:0 0 8px;color:#fff}
-  .risk2 h4 .rn{color:var(--cream);margin-right:6px}
-  .risk2 .real{font-size:13px;color:rgba(239,231,216,.65);margin:0 0 11px;line-height:1.55}
-  .risk2 .real b{color:rgba(239,231,216,.85);font-weight:700}
-  .risk2 .rsol{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--cream);margin-bottom:9px;display:flex;align-items:center;gap:6px}
+  .risk2{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:19px 21px}
+  .risk2 h4{font-size:15px;margin:0 0 8px;color:var(--ink)}
+  .risk2 h4 .rn{color:var(--ink);margin-right:6px}
+  .risk2 .real{font-size:13px;color:var(--muted);margin:0 0 11px;line-height:1.55}
+  .risk2 .real b{color:var(--ink);font-weight:700}
+  .risk2 .rsol{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ink);margin-bottom:9px;display:flex;align-items:center;gap:6px}
   .risk2 .rtags{display:flex;flex-wrap:wrap;gap:8px}
-  .rtag{background:rgba(255,255,255,.06);border:1px solid var(--line-dk);border-radius:999px;padding:6px 12px;font-size:12px;color:rgba(239,231,216,.92)}
+  .rtag{background:var(--sand-2);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12px;color:var(--ink)}
 
   /* exit */
   .exit-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:24px}
@@ -345,10 +342,10 @@
   .exit2 .ec ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
   .exit2 .ec li{display:flex;gap:8px;font-size:13.5px;color:var(--muted);align-items:flex-start}
   .exit2 .ec li .ck2{flex:none;color:var(--ink);font-weight:800}
-  .commission-bar{display:flex;align-items:center;gap:16px;background:var(--dark);color:#fff;border-radius:14px;padding:18px 22px;margin-top:16px;flex-wrap:wrap}
-  .commission-bar .cnum{font-size:28px;font-weight:800;color:#fff;flex:none}
-  .commission-bar p{margin:0;font-size:13.5px;color:rgba(239,231,216,.9);line-height:1.5}
-  .commission-bar p b{color:#fff}
+  .commission-bar{display:flex;align-items:center;gap:16px;background:var(--sand-2);border:1px solid var(--line);color:var(--ink);border-radius:14px;padding:18px 22px;margin-top:16px;flex-wrap:wrap}
+  .commission-bar .cnum{font-size:28px;font-weight:800;color:var(--ink);flex:none}
+  .commission-bar p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.5}
+  .commission-bar p b{color:var(--ink)}
 
   .faq details{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 17px;margin-bottom:9px}
   .faq summary{cursor:pointer;font-weight:700;font-size:14.5px;list-style:none;color:var(--ink)}
@@ -360,17 +357,17 @@
   /* bottom CTA (twee contactpersonen) */
   .contact-row{display:grid;grid-template-columns:1fr;gap:14px;max-width:560px;margin:0 auto 22px;text-align:left}
   @media(min-width:560px){.contact-row{grid-template-columns:1fr 1fr}}
-  .cperson{display:flex;gap:12px;align-items:center;background:rgba(255,255,255,.05);border:1px solid var(--line-dk);border-radius:14px;padding:14px 16px}
+  .cperson{display:flex;gap:12px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
   .cperson img{width:46px;height:46px;border-radius:50%;object-fit:cover;flex:none}
-  .cperson .cn{font-size:13.5px;font-weight:700;color:#fff}
-  .cperson .cr{font-size:11px;color:rgba(239,231,216,.65);margin:1px 0 6px}
-  .cperson a{display:block;font-size:12px;color:rgba(239,231,216,.85);text-decoration:none}
-  .cperson a:hover{color:#fff}
+  .cperson .cn{font-size:13.5px;font-weight:700;color:var(--ink)}
+  .cperson .cr{font-size:11px;color:var(--muted);margin:1px 0 6px}
+  .cperson a{display:block;font-size:12px;color:var(--ink);text-decoration:none}
+  .cperson a:hover{color:#000;text-decoration:underline}
   .bcta-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px}
   .wa{display:inline-flex;align-items:center;gap:9px;background:#25D366;color:#fff;border:none;font-family:inherit;font-weight:700;font-size:14.5px;border-radius:10px;padding:13px 20px;cursor:pointer;text-decoration:none}
   .wa svg{width:17px;height:17px;fill:#fff}
-  .wa.ghost{background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff}
-  .wa.ghost svg{fill:#fff}
+  .wa.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+  .wa.ghost svg{fill:var(--ink)}
 
   .note{font-size:12px;color:var(--muted);margin-top:16px;line-height:1.5}
   .legal-note{text-align:center;padding:24px 20px 100px;max-width:720px;margin:0 auto;font-size:11.5px;color:var(--muted);line-height:1.6}
@@ -583,7 +580,7 @@
       <div class="payseg"><div class="pp">10%</div><div class="pl">Bij sleuteloverdracht</div><div class="pa">€21.000</div></div>
     </div>
     <div class="checklist-dark" style="margin-top:20px">
-      <div class="ch-item" style="font-size:13px;color:rgba(239,231,216,.85)"><span class="ck">✓</span>Nog 4 van de 6 villa's beschikbaar. Elke termijn wordt gefactureerd nadat de bijbehorende bouwfase is voltooid en met foto- en videoverslag is aangetoond. Beschermd door vaste bouwgaranties en onafhankelijke supervisie.</div>
+      <div class="ch-item" style="font-size:13px"><span class="ck">✓</span>Nog 4 van de 6 villa's beschikbaar. Elke termijn wordt gefactureerd nadat de bijbehorende bouwfase is voltooid en met foto- en videoverslag is aangetoond. Beschermd door vaste bouwgaranties en onafhankelijke supervisie.</div>
     </div>
     <div class="price-ctas">
       <a class="wa" id="waAvailable" target="_blank" rel="noopener"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5z"/></svg>Bekijk de beschikbare units</a>
@@ -690,7 +687,7 @@
     <div class="sec-num">09 · Leasehold, simpel uitgelegd</div>
     <h2 class="sec-h">Eigendom, met een einddatum</h2>
     <p class="sec-lead">Leasehold werkt in de praktijk vrijwel hetzelfde als koop, alleen met een vaste looptijd. Gedurende 60 jaar (30+30) bepaal jij volledig wat er met je villa gebeurt: verhuren, zelf verblijven, verkopen, of een combinatie daarvan.</p>
-    <p class="sec-lead" style="font-size:13px;background:rgba(255,255,255,.05);border:1px solid var(--line-dk);border-radius:12px;padding:15px 17px">Buitenlanders mogen in Indonesië geen grond bezitten. Daarom investeren alle buitenlandse investeerders op Bali via leasehold — de juridisch verankerde en gangbare structuur.</p>
+    <p class="sec-lead" style="font-size:13px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:15px 17px">Buitenlanders mogen in Indonesië geen grond bezitten. Daarom investeren alle buitenlandse investeerders op Bali via leasehold — de juridisch verankerde en gangbare structuur.</p>
     <div class="team">
       <div class="tcard"><h4>Verhuren</h4><p>Maandelijkse cashflow uit short-stayverhuur, volledig voor jou beheerd.</p></div>
       <div class="tcard"><h4>Zelf verblijven</h4><p>Verblijf er gerust zelf tussen de boekingen door. De villa blijft primair ingericht op verhuur.</p></div>
@@ -772,7 +769,7 @@
       <div class="tcard"><div class="n">Operationeel beheer</div><p style="margin-top:6px">Dagelijkse housekeeping, tuin- en poolonderhoud, technisch onderhoud en maandelijkse financiële rapportage met digitale bonnen.</p></div>
     </div>
     <div class="checklist-dark" style="margin-top:18px">
-      <div class="ch-item" style="font-size:13.5px;color:rgba(239,231,216,.9)"><span class="ck">✓</span>Verhuurbeheer 15% en operationeel beheer circa 13% van de netto verhuuropbrengst. Na belasting en overige kosten is de rest voor jou. Geen verborgen kosten.</div>
+      <div class="ch-item" style="font-size:13.5px"><span class="ck">✓</span>Verhuurbeheer 15% en operationeel beheer circa 13% van de netto verhuuropbrengst. Na belasting en overige kosten is de rest voor jou. Geen verborgen kosten.</div>
     </div>
   </div></div>
 
