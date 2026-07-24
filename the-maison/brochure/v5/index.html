@@ -1,0 +1,976 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>The Maison, Pererenan | UTAMA — investeerdersportaal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" href="/images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png">
+<link rel="apple-touch-icon" href="/images/favicon-180.png">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  /* ---------------------------------------------------------------------
+     V5 — een totaal andere aanpak dan V1–V4: geen lange scroll-brochure,
+     maar een "investeerdersportaal". Één deal-samenvatting blijft altijd
+     in beeld (prijs, rendement, beschikbaarheid, CTA's) terwijl je door
+     genummerde tabbladen bladert in plaats van eindeloos te scrollen.
+     Dit volgt letterlijk het "information layering"-principe uit de
+     UTAMA-contentrichtlijnen: laag 1 altijd zichtbaar (het dealoverzicht),
+     laag 2 scanbaar per tabblad, laag 3 in accordions/calculator/FAQ.
+     Zelfde kleursysteem als V3: ivoor/zand als basis, inkt voor primaire
+     acties, olijf voor rendement/groei, blauwgrijs voor vertrouwen/
+     structuur — nu ook gebruikt om tabbladen en kaarten van elkaar te
+     onderscheiden i.p.v. alles hetzelfde grijs te maken.
+  --------------------------------------------------------------------- */
+  :root{
+    --sand:#FAF5EA; --sand-2:#F1E9DB; --paper:#FEFBF6;
+    --ink:#17140F; --muted:#5B564C; --line:#E7DECD;
+    --green:#17140F; --green-2:#17140F; --gold:#8B5A3C; --ok:#17140F; --terra:#8B5A3C;
+    --shadow:0 1px 2px rgba(23,20,15,.04);
+    --radius:14px;
+    --cream:#EFE7D8;
+    --pess:#AEBFC7; --pess-ink:#2c3236; --real:#ECE3D2; --real-ink:#17140F; --opt:#9CA47C; --opt-ink:#fff;
+    --sage-tint:#EEF0E2; --opt-deep:#5B6A45;
+  }
+  *{box-sizing:border-box}
+  h1,h2,h3{font-family:'Inter',system-ui,-apple-system,sans-serif !important;font-weight:800;letter-spacing:-.015em}
+  .big-yield .num,.pbtn .pv,.field label .val,.stat .s-v,.hrow.big b{font-family:'Inter',system-ui,sans-serif !important;font-weight:800 !important}
+  body{background:var(--sand)}
+  .card{box-shadow:none}
+  .tcard,.bb-icon,.loc-map{box-shadow:none}
+  .btn.primary,.btn{box-shadow:none}
+
+  /* rekentool: licht/ivoor, olijf = rendement (zelfde regels als V3) */
+  .pbtn.on{border-color:var(--ink);background:var(--sand-2)}
+  .pbtn.on .pv{color:var(--ink)}
+  .slider-pins .pin.cur{background:var(--ink);border-color:var(--ink)}
+  input[type=range]::-webkit-slider-thumb{background:var(--ink)}
+  input[type=range]::-moz-range-thumb{background:var(--ink)}
+  .results{background:var(--sage-tint);color:var(--ink);border:1px solid var(--opt)}
+  .results h3{color:var(--opt-deep)}
+  .results .csub{color:var(--muted)}
+  .big-yield .num{color:var(--opt-deep)}
+  .big-yield .lbl{color:var(--ink)}
+  .payback{color:var(--muted)}
+  .stat{background:var(--paper);border-color:var(--line)}
+  .stat .s-l{color:var(--muted)}
+  .stat .s-v{color:var(--ink)}
+  .hrow{color:var(--ink)}
+  .hrow b{color:var(--ink)}
+  .hrow.big{border-top-color:var(--opt)}
+  .hrow.big b{color:var(--opt-deep)}
+  .breakdown{border-top-color:var(--line);color:var(--muted)}
+  .breakdown .brow b{color:var(--ink)}
+  .note-ext{color:var(--muted)}
+  .hold-block{border-top-color:var(--line)}
+  .hold-block .hb-h{color:var(--opt-deep)}
+
+  /* ============ TOP NAV ============ */
+  .bnav{display:flex;align-items:center;justify-content:space-between;padding:16px 5vw;border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:120}
+  .bnav a.back{color:var(--muted);text-decoration:none;font-size:13.5px}
+  .bnav a.back:hover{color:var(--ink)}
+  .bnav .tag{font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--ink);background:var(--sand-2);padding:5px 10px;border-radius:999px}
+  .brand{font-family:'Inter',sans-serif !important;font-weight:800 !important;letter-spacing:.22em !important;text-decoration:none;color:var(--ink)}
+
+  /* ============ GATE ============ */
+  .gate{min-height:calc(100vh - 61px);display:grid;grid-template-columns:1fr}
+  @media(min-width:900px){.gate{grid-template-columns:1.05fr .95fr}}
+  .gate .gv{background-size:cover;background-position:center;position:relative;min-height:220px}
+  .gate .gv::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,14,10,.15),rgba(16,14,10,.78))}
+  .gate .gv .vt{position:absolute;left:28px;right:28px;bottom:28px;color:#fff;z-index:2}
+  .gate .gv .vt .eb{color:var(--cream);opacity:1;font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  .gate .gv .vt h2{color:#fff;font-size:26px;margin:8px 0 8px;font-weight:800}
+  .gate .gv .vt p{margin:0;opacity:.88;font-size:14.5px;max-width:440px;line-height:1.5}
+  .gate .gf{display:flex;align-items:center;justify-content:center;padding:32px 24px}
+  .gcard{width:100%;max-width:440px}
+  .gcard .eb{color:var(--ink);font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+  .gcard h1{font-size:26px;margin-bottom:8px}
+  .gcard .sub{color:var(--muted);font-size:14px;margin-bottom:20px;line-height:1.55}
+  .gfield{margin-bottom:12px}
+  .gfield label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:5px}
+  .gfield input,.gfield select{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:10px;font-family:inherit;font-size:15px;background:var(--paper);color:var(--ink)}
+  .gfield input:focus,.gfield select:focus{outline:none;border-color:var(--ink)}
+  .grow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .gerr{color:#9c3b23;font-size:13px;margin:4px 0 0;display:none}
+  .gsubmit{width:100%;justify-content:center;margin-top:6px}
+  .gtrust{margin-top:13px;font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
+  .gtrust svg{flex:none;margin-top:2px;color:var(--ink)}
+
+  .btn-ink{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border:none;font-family:inherit;font-weight:700;font-size:14.5px;border-radius:10px;padding:13px 22px;cursor:pointer;text-decoration:none}
+  .btn-ink:hover{background:#000}
+  .btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--ink);border:1px solid var(--line);font-family:inherit;font-weight:700;font-size:14.5px;border-radius:10px;padding:13px 22px;cursor:pointer;text-decoration:none}
+  .btn-outline:hover{border-color:var(--ink)}
+  .wa{display:inline-flex;align-items:center;gap:9px;background:#25D366;color:#fff;border:none;font-family:inherit;font-weight:700;font-size:14.5px;border-radius:10px;padding:13px 20px;cursor:pointer;text-decoration:none}
+  .wa svg{width:17px;height:17px;fill:#fff}
+  .wa.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+  .wa.ghost svg{fill:var(--ink)}
+  .wa.block,.btn-ink.block,.btn-outline.block{width:100%;justify-content:center}
+
+  /* ============ APP SHELL: sticky deal-rail + tabbed workspace ============ */
+  main.portal{max-width:1280px;margin:0 auto;padding:26px 20px 90px;display:grid;grid-template-columns:1fr;gap:22px}
+  @media(min-width:980px){main.portal{grid-template-columns:320px 1fr;align-items:start;padding:32px 24px 60px}}
+  /* grid items default to min-width:auto (sized to their widest unbreakable content, e.g. the
+     nowrap tab pills), which forces the whole 1fr track — and so the whole page — wider than
+     the viewport on mobile. min-width:0 lets each item shrink to the column and rely on its own
+     internal overflow (tabs-nav scrolls horizontally instead of blowing out the page). */
+  main.portal>*{min-width:0}
+
+  /* --- deal rail --- */
+  .rail{position:relative}
+  @media(min-width:980px){.rail{position:sticky;top:90px}}
+  .deal-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 1px 2px rgba(23,20,15,.04),0 12px 30px rgba(23,20,15,.05)}
+  .deal-card .photo{height:150px;background-size:cover;background-position:center;position:relative}
+  .deal-card .photo .status{position:absolute;left:12px;bottom:12px;background:rgba(23,20,15,.78);color:#fff;font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:5px 10px;border-radius:999px;display:flex;align-items:center;gap:6px}
+  .deal-card .photo .status::before{content:"";width:6px;height:6px;border-radius:50%;background:#8FD68A}
+  .deal-card .body{padding:18px 20px 20px}
+  .deal-card .kicker{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+  .deal-card h2{font-family:'Fraunces','Georgia',serif !important;font-weight:600 !important;letter-spacing:0;font-size:23px;margin:4px 0 2px}
+  .deal-card .loc{font-size:13px;color:var(--muted);margin-bottom:14px}
+  .deal-card .row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-top:1px solid var(--line)}
+  .deal-card .row:first-of-type{border-top:none;padding-top:0}
+  .deal-card .row .rl{font-size:12px;color:var(--muted)}
+  .deal-card .row .rv{font-family:'Fraunces','Georgia',serif;font-weight:600;font-size:17px;color:var(--ink);text-align:right}
+  .deal-card .row.price .rv{font-size:20px}
+  .deal-card .row.yield .rv{color:var(--opt-deep)}
+  .deal-card .price-note{font-size:11px;color:var(--muted);text-align:right;margin-top:-4px}
+  .avail-wrap{padding:12px 0;border-top:1px solid var(--line)}
+  .avail-wrap .al{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+  .avail-wrap .al b{color:var(--ink);font-weight:700}
+  .avail-bar{height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+  .avail-bar span{display:block;height:100%;background:var(--ink);border-radius:999px}
+  .deal-cta{padding:16px 20px 20px;display:flex;flex-direction:column;gap:9px;border-top:1px solid var(--line)}
+  .rail-note{font-size:11.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.5}
+  .rail-note a{color:var(--ink)}
+
+  /* --- tab nav --- */
+  .tabs-wrap{position:sticky;top:61px;z-index:60;background:var(--sand);padding:12px 0 10px;margin-bottom:2px}
+  @media(min-width:980px){.tabs-wrap{top:0;position:static;padding:0 0 14px}}
+  .tabs-nav{display:flex;gap:7px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
+  .tabs-nav::-webkit-scrollbar{display:none}
+  .tabs-nav button{flex:none;font-family:inherit;font-size:13px;font-weight:700;letter-spacing:.01em;padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:var(--paper);color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .15s;display:flex;align-items:center;gap:7px}
+  .tabs-nav button .tn{font-size:10.5px;font-weight:800;opacity:.55}
+  .tabs-nav button:hover{border-color:var(--ink);color:var(--ink)}
+  .tabs-nav button.active{background:var(--ink);border-color:var(--ink);color:#fff}
+  .tabs-nav button.active .tn{opacity:.7}
+
+  /* --- workspace / panes --- */
+  .workspace{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:8px}
+  @media(min-width:640px){.workspace{padding:10px}}
+  .tab-pane{display:none;padding:22px 18px}
+  @media(min-width:640px){.tab-pane{padding:34px 36px}}
+  .tab-pane.active{display:block;animation:fadein .2s ease}
+  @keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+  .pane-kicker{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+  .pane-h{font-size:clamp(21px,3.6vw,28px);margin:6px 0 10px;line-height:1.15}
+  .pane-lead{font-size:15px;line-height:1.6;max-width:640px;margin:0 0 20px;color:var(--ink)}
+  .subhead{font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:30px 0 12px;display:flex;align-items:center;gap:8px}
+  .subhead:first-of-type{margin-top:6px}
+  .subhead::after{content:"";flex:1;height:1px;background:var(--line)}
+  .subblock{border-radius:16px;padding:20px 22px;margin-bottom:6px}
+  .subblock.sage{background:var(--sage-tint);border:1px solid var(--opt)}
+  .subblock.pess-b{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--pess)}
+  .subblock.tint{background:var(--sand-2);border:1px solid var(--line)}
+
+  /* --- footer CTA (persists under every tab) --- */
+  .footer-cta{margin-top:22px;background:var(--ink);color:var(--cream);border-radius:20px;padding:24px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .footer-cta h3{color:#fff;font-size:19px;margin:0 0 4px;font-family:'Fraunces','Georgia',serif !important;font-weight:600 !important}
+  .footer-cta p{margin:0;font-size:13.5px;color:rgba(239,231,216,.8);max-width:420px}
+  .footer-cta .fc-ctas{display:flex;gap:10px;flex-wrap:wrap}
+  .footer-cta .wa.ghost{border-color:rgba(239,231,216,.35);color:#fff}
+  .footer-cta .wa.ghost svg{fill:#fff}
+
+  /* ============ shared content components (zelfde als V3) ============ */
+  .bgal{display:grid;grid-template-columns:2fr 1fr 1fr;grid-auto-rows:130px;gap:8px;margin:18px 0 0}
+  .bgal .g{background-size:cover;background-position:center;border-radius:12px;cursor:zoom-in;transition:opacity .15s}
+  .bgal .g.big{grid-row:span 2;grid-column:span 1}
+  .bgal .g:hover{opacity:.9}
+  @media(max-width:640px){.bgal{grid-template-columns:1fr 1fr;grid-auto-rows:100px}.bgal .g.big{grid-column:span 2;grid-row:span 1}}
+
+  .feature-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px 16px;margin:22px 0 6px}
+  @media(min-width:560px){.feature-cols{grid-template-columns:repeat(4,1fr)}}
+  .fcol{border-top:2px solid var(--ink);padding-top:12px}
+  .feature-cols .fcol:nth-child(2){border-top-color:var(--opt)}
+  .feature-cols .fcol:nth-child(3){border-top-color:var(--pess)}
+  .fcol h4{font-size:14px;margin:0 0 4px}
+  .fcol p{font-size:12.5px;color:var(--muted);margin:0;line-height:1.5}
+
+  .num-list{margin-top:4px}
+  .num-item{display:flex;gap:16px;padding:16px 0;border-top:1px solid var(--line)}
+  .num-item:first-child{border-top:none;padding-top:4px}
+  .num-item .nn{flex:none;width:26px;font-weight:800;color:var(--ink);font-size:14px;padding-top:1px}
+  .num-item .nc h4{font-size:14.5px;margin:0 0 4px}
+  .num-item .nc p{font-size:13px;color:var(--muted);margin:0;line-height:1.5}
+
+  .checklist-dark{background:var(--sand-2);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-top:20px;color:var(--ink)}
+  .ch-title{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:12px}
+  .ch-grid{display:grid;grid-template-columns:1fr;gap:10px}
+  @media(min-width:560px){.ch-grid{grid-template-columns:1fr 1fr}}
+  .ch-item{display:flex;gap:9px;align-items:flex-start;font-size:13px;line-height:1.4}
+  .ch-item .ck{flex:none;width:18px;height:18px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;margin-top:1px}
+
+  .trust-list{margin-top:4px}
+  .trust-item{display:flex;gap:12px;padding:13px 0;border-top:1px solid var(--line);align-items:flex-start}
+  .trust-item:first-child{border-top:none;padding-top:2px}
+  .trust-item .tick{flex:none;width:24px;height:24px;border-radius:50%;background:var(--pess);color:var(--pess-ink);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;margin-top:1px}
+  .trust-item p{margin:0;font-size:13.5px;line-height:1.5;color:var(--ink)}
+  .trust-item p b{color:var(--ink)}
+
+  .stat-row{display:grid;grid-template-columns:1fr 1fr;gap:18px 16px;margin-top:6px}
+  @media(min-width:640px){.stat-row{grid-template-columns:repeat(4,1fr)}}
+  .stat-row .sr .sv{font-size:clamp(24px,5vw,32px);font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
+  .stat-row .sr .sl{font-size:12px;margin-top:6px;color:var(--muted);line-height:1.3;max-width:180px}
+
+  .big-stats{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--line);margin-top:16px}
+  @media(min-width:560px){.big-stats{grid-template-columns:1fr 1fr}}
+  .bstat{padding:18px 18px 18px 0;border-bottom:1px solid var(--line)}
+  @media(min-width:560px){.bstat:nth-child(odd){border-right:1px solid var(--line);padding-right:20px}.bstat:nth-child(even){padding-left:20px}}
+  .bstat .bv{font-size:clamp(26px,5vw,34px);font-weight:800;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .bstat .bv sup{font-size:.5em;font-weight:800}
+  .bstat .bl{font-size:12.5px;color:var(--muted);margin-top:5px}
+
+  .dark-cta{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--opt);border-radius:14px;padding:16px 18px;margin-top:18px;font-size:13px;color:var(--ink);line-height:1.55}
+
+  .hl{display:grid;grid-template-columns:1fr;gap:9px;margin-top:6px}
+  @media(min-width:640px){.hl{grid-template-columns:1fr 1fr}}
+  .hl div{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:13px 15px;font-size:13px;line-height:1.45;display:flex;gap:11px;align-items:center}
+  .hl div::before{content:"";width:17px;height:17px;flex:none;border-radius:50%;background-color:var(--sand-2);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2317140F' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");background-size:10px;background-repeat:no-repeat;background-position:center}
+
+  .scen-wrap{margin-top:22px}
+  .scen-h{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:9px}
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:640px){.scen{grid-template-columns:1fr}}
+  .scc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:15px 16px;text-align:center;cursor:pointer;transition:filter .15s,box-shadow .15s}
+  .scc:hover{filter:brightness(0.97)}
+  .scc.pess{background:var(--pess);color:var(--pess-ink);border-color:var(--pess)}
+  .scc.real{background:var(--real);color:var(--real-ink);border-color:var(--real)}
+  .scc.opt{background:var(--opt);color:var(--opt-ink);border-color:var(--opt)}
+  .scc.cur{box-shadow:inset 0 0 0 2px var(--ink)}
+  .scl{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;opacity:.85}
+  .scv{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;margin-top:4px}
+  .scs{font-size:12px;margin-top:4px;opacity:.8}
+  .scb{font-size:11.5px;margin-top:7px;font-weight:600;opacity:.9}
+
+  .prices{display:grid;grid-template-columns:1fr;gap:9px;margin-top:6px}
+  @media(min-width:640px){.prices{grid-template-columns:repeat(3,1fr)}}
+  .pc{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:16px 18px;text-align:center}
+  .pc.cur{border-color:var(--opt);background:var(--sage-tint)}
+  .pc .pv{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:var(--ink)}
+  .pc.cur .pv{color:var(--opt-deep)}
+  .pc .pl{font-size:12.5px;font-weight:700;margin-top:4px}
+  .pc .ps{font-size:11.5px;color:var(--muted)}
+
+  .paybar{display:flex;border-radius:13px;overflow:hidden;margin-top:14px;box-shadow:var(--shadow);border:1px solid var(--line)}
+  .payseg{padding:16px 16px;position:relative;color:var(--ink)}
+  .payseg+.payseg{border-left:1px solid var(--line)}
+  .payseg:nth-child(1){background:var(--line);flex:3}
+  .payseg:nth-child(2){background:var(--real);flex:3}
+  .payseg:nth-child(3){background:var(--sand-2);flex:3}
+  .payseg:nth-child(4){background:var(--paper);flex:1}
+  .payseg .pp{font-family:'Inter',sans-serif;font-size:21px;font-weight:800;line-height:1}
+  .payseg .pl{font-size:12px;font-weight:600;margin-top:7px}
+  .payseg .pa{font-size:11.5px;margin-top:4px;color:var(--muted)}
+  @media(max-width:640px){.paybar{flex-direction:column}.payseg{flex:none !important}.payseg+.payseg{border-left:none;border-top:1px solid var(--line)}}
+
+  .vtl{position:relative;margin-top:4px}
+  .vitem{display:flex;gap:14px;padding-bottom:20px;position:relative}
+  .vitem:last-child{padding-bottom:0}
+  .vmark{width:22px;flex:none;display:flex;flex-direction:column;align-items:center}
+  .vdot{width:11px;height:11px;border-radius:50%;background:var(--ink);flex:none;margin-top:3px;border:2px solid var(--paper)}
+  .vline{flex:1;width:1px;background:var(--line);margin-top:4px}
+  .vitem:last-child .vline{display:none}
+  .vc{flex:1;padding-top:1px}
+  .vc .vtag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--ink)}
+  .vc h4{font-size:14px;margin:3px 0 3px;font-weight:800;color:var(--ink)}
+  .vc p{font-size:13px;color:var(--muted);margin:0;line-height:1.5}
+
+  .team{display:grid;grid-template-columns:1fr;gap:12px;margin-top:6px}
+  @media(min-width:640px){.team{grid-template-columns:repeat(3,1fr)}}
+  .team.cols2{grid-template-columns:1fr}
+  @media(min-width:640px){.team.cols2{grid-template-columns:repeat(2,1fr)}}
+  .tcard{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:16px}
+  .tcard .n{font-family:'Inter',sans-serif;color:var(--ink);font-weight:800;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
+  .tcard h4{font-size:14.5px;margin:5px 0 4px}
+  .tcard p{font-size:12.5px;color:var(--muted);margin:0;line-height:1.5}
+
+  .role-grid{display:grid;grid-template-columns:1fr;gap:8px;margin-top:14px}
+  @media(min-width:560px){.role-grid{grid-template-columns:1fr 1fr}}
+  .role{display:flex;align-items:center;gap:9px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:11px 14px;font-size:13px;color:var(--ink)}
+  .role .rdot{flex:none;width:6px;height:6px;border-radius:50%;background:var(--pess-ink)}
+
+  .route-bar{display:flex;flex-wrap:wrap;border-radius:13px;overflow:hidden;margin:16px 0 6px;border:1px solid var(--line)}
+  .route-a,.route-b{flex:1;min-width:200px;padding:15px 18px}
+  .route-a{background:var(--pess)}
+  .route-b{background:var(--opt)}
+  .route-bar .rlbl{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;opacity:.8;margin-bottom:4px;color:var(--ink)}
+  .route-bar .rtxt{font-size:13px;color:var(--ink);line-height:1.4}
+  .route-a .rlbl,.route-a .rtxt{color:var(--pess-ink)}
+
+  .risk2-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:6px}
+  .risk2{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--pess);border-radius:13px;padding:17px 19px}
+  .risk2 h4{font-size:14px;margin:0 0 7px;color:var(--ink)}
+  .risk2 h4 .rn{color:var(--pess-ink);margin-right:6px}
+  .risk2 .real{font-size:12.5px;color:var(--muted);margin:0 0 10px;line-height:1.5}
+  .risk2 .real b{color:var(--ink);font-weight:700}
+  .risk2 .rsol{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--pess-ink);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+  .risk2 .rtags{display:flex;flex-wrap:wrap;gap:7px}
+  .rtag{background:var(--pess);border:1px solid var(--pess);border-radius:999px;padding:5px 11px;font-size:11.5px;color:var(--pess-ink);font-weight:600}
+
+  .exit-card{background:var(--sage-tint);border:1px solid var(--opt);border-radius:15px;padding:20px 22px;margin-top:16px}
+  .exit-num{font-size:clamp(26px,6vw,36px);font-weight:800;color:var(--opt-deep);letter-spacing:-.02em;line-height:1}
+  .exit-lbl{font-size:12.5px;color:var(--muted);margin-top:5px}
+  .exit-break{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;border-top:1px solid var(--opt);padding-top:12px}
+  .exit-break .eb-i{font-size:12.5px}
+  .exit-break .eb-i b{display:block;font-size:15px;color:var(--ink)}
+  .exit2{display:grid;grid-template-columns:1fr;gap:12px;margin-top:6px}
+  @media(min-width:640px){.exit2{grid-template-columns:1fr 1fr}}
+  .exit2 .ec{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:17px 19px}
+  .exit2 .ec h4{font-size:14px;margin:0 0 9px}
+  .exit2 .ec ul{margin:0;padding:0;list-style:none;display:grid;gap:7px}
+  .exit2 .ec li{display:flex;gap:8px;font-size:13px;color:var(--muted);align-items:flex-start}
+  .exit2 .ec li .ck2{flex:none;color:var(--opt-deep);font-weight:800}
+  .commission-bar{display:flex;align-items:center;gap:14px;background:var(--sage-tint);border:1px solid var(--opt);color:var(--ink);border-radius:13px;padding:15px 19px;margin-top:14px;flex-wrap:wrap}
+  .commission-bar .cnum{font-size:24px;font-weight:800;color:var(--opt-deep);flex:none}
+  .commission-bar p{margin:0;font-size:13px;color:var(--muted);line-height:1.45}
+  .commission-bar p b{color:var(--ink)}
+
+  .faq details{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-bottom:8px}
+  .faq summary{cursor:pointer;font-weight:700;font-size:14px;list-style:none;color:var(--ink)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";float:right;color:var(--ink);font-weight:700;font-size:16px}
+  .faq details[open] summary::after{content:"–"}
+  .faq p{margin:8px 0 0;font-size:13px;color:var(--muted);line-height:1.5}
+
+  details.assump{margin-top:16px;font-size:12px;color:var(--muted)}
+  details.assump summary{cursor:pointer;font-weight:600;color:var(--ink)}
+  details.assump ul{margin:8px 0 0;padding-left:18px}
+
+  .contact-row{display:grid;grid-template-columns:1fr;gap:10px;margin-top:16px}
+  @media(min-width:560px){.contact-row{grid-template-columns:1fr 1fr}}
+  .cperson{display:flex;gap:12px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:13px 15px}
+  .cperson img{width:42px;height:42px;border-radius:50%;object-fit:cover;flex:none}
+  .cperson .cn{font-size:13px;font-weight:700;color:var(--ink)}
+  .cperson .cr{font-size:11px;color:var(--muted);margin:1px 0 5px}
+  .cperson a{display:block;font-size:11.5px;color:var(--ink);text-decoration:none}
+  .cperson a:hover{text-decoration:underline}
+
+  .legal-note{text-align:center;padding:18px 20px 0;max-width:720px;margin:0 auto;font-size:11px;color:var(--muted);line-height:1.6}
+
+  .sticky-cta{position:fixed;left:0;right:0;bottom:0;background:var(--paper);border-top:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;z-index:150}
+  .sticky-cta a{flex:1;justify-content:center;padding:12px 10px;font-size:13.5px}
+  @media(min-width:980px){.sticky-cta{display:none}}
+  main.portal{padding-bottom:26px}
+  @media(max-width:979px){main.portal{padding-bottom:90px}}
+
+  .lb{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(15,13,9,.95);padding:24px}
+  .lb.open{display:flex}
+  .lb img{max-width:94vw;max-height:90vh;border-radius:8px;object-fit:contain}
+  .lb .x{position:absolute;top:16px;right:22px;background:none;border:none;color:#fff;font-size:36px;line-height:1;cursor:pointer;opacity:.85}
+  .lb .x:hover{opacity:1}
+  .lb .nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.14);border:none;color:#fff;width:46px;height:46px;border-radius:50%;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .lb .nav:hover{background:rgba(255,255,255,.28)}
+  .lb .prev{left:14px}.lb .next{right:14px}
+  .lb .cap{position:absolute;bottom:16px;left:0;right:0;text-align:center;color:#eee;font-size:12.5px;opacity:.8}
+
+  @media print{ body{display:none !important} }
+</style>
+</head>
+<body>
+<nav class="bnav">
+  <a href="/" class="brand">UTAMA</a>
+  <span class="tag">V5 · investeerdersportaal</span>
+  <a href="/the-maison" class="back">&larr; Terug</a>
+</nav>
+
+<!-- GATE -->
+<section class="gate" id="gate">
+  <div class="gv" style="background-image:url('/the-maison/images/maison-exterior.jpg')">
+    <div class="vt">
+      <div class="eb">The Maison · Pererenan, Bali</div>
+      <h2>Open je persoonlijke deal room</h2>
+      <p>Prijs, rendement, planning, team en risico's — overzichtelijk in één portaal, in plaats van één lange brochure.</p>
+    </div>
+  </div>
+  <div class="gf">
+    <div class="gcard">
+      <div class="eb">Investeerdersportaal</div>
+      <h1>Eén laatste stap</h1>
+      <div class="sub">Laat hieronder je gegevens achter. Dan ontvang je direct toegang tot het volledige dealoverzicht van The Maison. Ashley neemt daarna contact met je op om eventuele vragen te beantwoorden.</div>
+      <form id="gform" onsubmit="return unlock(event)">
+        <div class="gfield">
+          <label for="qName">Naam</label>
+          <input id="qName" type="text" placeholder="Je volledige naam" required>
+        </div>
+        <div class="grow">
+          <div class="gfield">
+            <label for="qPhone">WhatsApp-nummer</label>
+            <input id="qPhone" type="tel" placeholder="+31 6 ..." required>
+          </div>
+          <div class="gfield">
+            <label for="qEmail">E-mailadres</label>
+            <input id="qEmail" type="email" placeholder="jij@voorbeeld.com" required>
+          </div>
+        </div>
+        <div class="grow">
+          <div class="gfield">
+            <label for="qBudget">Budget</label>
+            <select id="qBudget" required>
+              <option value="" disabled selected>Kies je budget</option>
+              <option>Tot €200K</option>
+              <option>€200K - €250K</option>
+              <option>€250K - €400K</option>
+              <option>€400K+</option>
+              <option>Nog niet zeker</option>
+            </select>
+          </div>
+          <div class="gfield">
+            <label for="qWhen">Wanneer wil je kopen?</label>
+            <select id="qWhen" required>
+              <option value="" disabled selected>Kies je horizon</option>
+              <option>Zo snel mogelijk</option>
+              <option>Binnen 3 maanden</option>
+              <option>3 tot 6 maanden</option>
+              <option>6 tot 12 maanden</option>
+              <option>Ik oriënteer me nog</option>
+            </select>
+          </div>
+        </div>
+        <div class="gerr" id="qErr">Vul je naam, WhatsApp-nummer en e-mailadres in.</div>
+        <button class="wa gsubmit" type="submit" style="background:var(--ink)">Open het portaal</button>
+        <div class="gtrust">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>Geen spam. We gebruiken je gegevens alleen om je de juiste informatie te sturen en je vragen te beantwoorden.</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- PORTAL -->
+<main class="portal" id="portal" hidden>
+
+  <!-- ============ STICKY DEAL RAIL (laag 1 — altijd zichtbaar) ============ -->
+  <div class="rail">
+    <div class="deal-card">
+      <div class="photo" style="background-image:url('/the-maison/images/maison-exterior.jpg')">
+        <div class="status">In aanbouw · april 2027</div>
+      </div>
+      <div class="body">
+        <div class="kicker">Investeerdersportaal</div>
+        <h2>The Maison</h2>
+        <div class="loc">Pererenan, Bali</div>
+
+        <div class="row price"><div class="rl">Huidige prijs</div><div class="rv">€210.000</div></div>
+        <div class="price-note">Stijgt naar €225.000 op 15 augustus</div>
+        <div class="row yield"><div class="rl">Verwacht rendement</div><div class="rv">12–17%/jr</div></div>
+        <div class="row"><div class="rl">Leaseperiode</div><div class="rv">30+30 jr</div></div>
+        <div class="row"><div class="rl">Aantal villa's</div><div class="rv">6</div></div>
+
+        <div class="avail-wrap">
+          <div class="al">Beschikbaarheid <b>4 van de 6</b></div>
+          <div class="avail-bar"><span style="width:66%"></span></div>
+        </div>
+      </div>
+      <div class="deal-cta">
+        <a class="wa block" id="waRailWa" target="_blank" rel="noopener"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5z"/></svg>Praat met Ashley</a>
+        <a class="btn-outline block" id="waRailReserve" target="_blank" rel="noopener">Reserveer een unit</a>
+      </div>
+    </div>
+    <div class="rail-note">Live bouwstatus bekijken? <a id="bbCam" target="_blank" rel="noopener">Open de bouwcamera →</a></div>
+  </div>
+
+  <!-- ============ TABBED WORKSPACE (laag 2 + 3) ============ -->
+  <div>
+    <div class="tabs-wrap">
+      <div class="tabs-nav" id="tabsNav">
+        <button data-tab="project" class="active"><span class="tn">01</span>Het project</button>
+        <button data-tab="rendement"><span class="tn">02</span>Rendement</button>
+        <button data-tab="planning"><span class="tn">03</span>Prijs &amp; planning</button>
+        <button data-tab="team"><span class="tn">04</span>Team &amp; beheer</button>
+        <button data-tab="vertrouwen"><span class="tn">05</span>Vertrouwen &amp; risico's</button>
+        <button data-tab="vragen"><span class="tn">06</span>Vragen</button>
+      </div>
+    </div>
+
+    <div class="workspace">
+
+      <!-- 01 · HET PROJECT -->
+      <div class="tab-pane active" id="pane-project">
+        <div class="pane-kicker">01 · Het project</div>
+        <h2 class="pane-h">Een boutique villa, geen vakantiehuis</h2>
+        <p class="pane-lead">Zes designvilla's binnen één gestroomlijnd concept: privé plunge pool, twee ensuite slaapkamers en een rooftop lounge van 40 m², volledig gemeubileerd en direct klaar voor verhuur via Airbnb en Booking.com.</p>
+
+        <div class="bgal">
+          <div class="g big" style="background-image:url('/the-maison/images/maison-exterior.jpg')"></div>
+          <div class="g" style="background-image:url('/the-maison/images/maison-living.jpg')"></div>
+          <div class="g" style="background-image:url('/the-maison/images/maison-kitchen.jpg')"></div>
+          <div class="g" style="background-image:url('/the-maison/images/maison-outdoor.jpg')"></div>
+          <div class="g" style="background-image:url('/the-maison/images/maison-bathroom.jpg')"></div>
+        </div>
+
+        <div class="feature-cols">
+          <div class="fcol"><h4>Turnkey</h4><p>Volledig afgewerkt en ingericht opgeleverd, inclusief branded details.</p></div>
+          <div class="fcol"><h4>Prime locatie</h4><p>3 minuten van Pererenan Beach, in een legaal vergunde short-stayzone.</p></div>
+          <div class="fcol"><h4>Volledig beheerd</h4><p>Verhuur en operationeel beheer geregeld door House of Reservations.</p></div>
+          <div class="fcol"><h4>60 jaar lease</h4><p>Leaseconstructie van 30+30 jaar, notarieel vastgelegd.</p></div>
+        </div>
+
+        <div class="subhead">Wat dit project omvat</div>
+        <div class="num-list">
+          <div class="num-item"><div class="nn">01</div><div class="nc"><h4>Ontwikkeling &amp; bouw</h4><p>Architectuur, vergunningen, bouwbegeleiding en kwaliteitscontrole door onafhankelijke supervisie, met vaste bouwgaranties.</p></div></div>
+          <div class="num-item"><div class="nn">02</div><div class="nc"><h4>Inrichting &amp; branding</h4><p>Interieur, styling en gastbeleving worden volledig verzorgd, van meubilair tot branded details.</p></div></div>
+          <div class="num-item"><div class="nn">03</div><div class="nc"><h4>Verhuur &amp; beheer</h4><p>Na oplevering start de verhuur direct via de grote platforms. Je ontvangt maandelijks je aandeel in de opbrengsten, transparant gerapporteerd.</p></div></div>
+          <div class="num-item"><div class="nn">04</div><div class="nc"><h4>Juridische structuur</h4><p>Leaseovereenkomst van 30+30 jaar, notarieel vastgelegd op jouw naam. Je rechten staan los van UTAMA.</p></div></div>
+        </div>
+
+        <div class="checklist-dark">
+          <div class="ch-title">Turnkey inbegrepen</div>
+          <div class="ch-grid">
+            <div class="ch-item"><span class="ck">✓</span>Volledig afgewerkte en ingerichte villa</div>
+            <div class="ch-item"><span class="ck">✓</span>Interieurpakket &amp; branded details</div>
+            <div class="ch-item"><span class="ck">✓</span>Notariële vastlegging leaserechten</div>
+            <div class="ch-item"><span class="ck">✓</span>Aansluiting nutsvoorzieningen</div>
+            <div class="ch-item"><span class="ck">✓</span>Onboarding op verhuurplatforms</div>
+            <div class="ch-item"><span class="ck">✓</span>Fotografie &amp; listing-optimalisatie</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 · RENDEMENT -->
+      <div class="tab-pane" id="pane-rendement">
+        <div class="pane-kicker">02 · Rendement</div>
+        <h2 class="pane-h">Bereken je rendement</h2>
+        <p class="pane-lead">Pas de aannames aan naar jouw eigen scenario. Eerlijk berekend, geen opgeblazen beloftes.</p>
+
+        <div class="calc">
+          <div class="card">
+            <h3>Aannames</h3>
+            <div class="csub">Voorgevuld met de cijfers van The Maison.</div>
+            <div class="field"><label>Prijs (vast)</label><div class="pricesel" id="bPricesel"></div></div>
+            <div class="field"><label><span>Gem. nachtprijs</span> <span class="val" id="bVNightly"></span></label><div class="slider-wrap"><input type="range" id="bNightly" min="150" max="220" step="5" value="175" oninput="bcalc()"><div class="slider-pins" id="bNightlyPins"></div></div></div>
+            <div class="field"><label><span>Bezettingsgraad</span> <span class="val" id="bVOcc"></span></label><input type="range" id="bOcc" min="60" max="100" step="1" value="85" oninput="bcalc()"></div>
+            <div class="field"><label><span>Kosten &amp; beheer</span> <span class="val" id="bVCosts"></span></label><input type="range" id="bCosts" min="35" max="55" step="1" value="43" oninput="bcalc()"></div>
+            <div class="field"><label><span>Aanhoudperiode</span> <span class="val" id="bVHold"></span></label><input type="range" id="bHold" min="1" max="30" step="1" value="5" oninput="bcalc()"></div>
+            <div class="field"><label><span>Geschatte waardegroei / jaar</span> <span class="val" id="bVGrowth"></span></label><div class="field-note">Vast, gebaseerd op marktdata voor deze regio</div></div>
+          </div>
+          <div class="card results">
+            <h3>Verwacht rendement</h3>
+            <div class="csub">Op jaarbasis, netto na alle kosten en beheer.</div>
+            <div class="big-yield"><div class="num" id="bOYield">–</div><div class="lbl">netto rendement / jaar</div></div>
+            <div class="payback" id="bOPayback"></div>
+            <div class="stat-grid">
+              <div class="stat"><div class="s-l">Netto huur / maand</div><div class="s-v" id="bOMonth">–</div></div>
+              <div class="stat"><div class="s-l">Netto huur / jaar</div><div class="s-v" id="bOYear">–</div></div>
+            </div>
+            <div class="hold-block">
+              <div class="hb-h" id="bOHoldH"></div>
+              <div class="hrow"><span>Netto huurinkomsten</span><b id="bORent">–</b></div>
+              <div class="hrow"><span>Geschatte verkoopwinst</span><b id="bOResale">–</b></div>
+              <div class="hrow big"><span>Totaal rendement</span><b id="bOTotalRet">–</b></div>
+            </div>
+            <div class="breakdown">
+              <div class="brow"><span>Bruto huurinkomsten / jaar</span><b id="bOGross">–</b></div>
+              <div class="brow"><span>Af: kosten &amp; beheer</span><b id="bOCostAmt">–</b></div>
+              <div class="brow"><span>Totale investering</span><b id="bOInv">–</b></div>
+            </div>
+            <div class="note-ext" id="bOExt"></div>
+          </div>
+        </div>
+        <details class="assump">
+          <summary>Aannames &amp; transparantie</summary>
+          <ul>
+            <li>Bruto huurinkomsten = nachtprijs × 365 × bezettingsgraad. Alle bedragen in euro's.</li>
+            <li>Netto = bruto minus alle kosten: beheer, marketing, OTA-fees, schoonmaak, onderhoud, personeel en lokale belasting.</li>
+            <li>Cijfers zijn gebaseerd op het rendementsmodel van The Maison (House of Reservations, met deels directe boekingen).</li>
+            <li>Waardegroei: vaste aanname van 5% per jaar, op basis van marktdata voor de westkust van Bali. Indicatie, geen garantie.</li>
+          </ul>
+        </details>
+
+        <div class="scen-wrap">
+          <div class="scen-h">Drie scenario's voor The Maison</div>
+          <div class="scen" id="bScenGrid"></div>
+          <p class="note" style="font-size:12px;color:var(--muted);margin-top:10px">Nettorendement per jaar, incl. beheer en kosten. Schattingen, geen garanties.</p>
+        </div>
+
+        <div class="subhead">Niet alleen een instap, ook een uitstap</div>
+        <p class="pane-lead" style="margin-bottom:14px">Je bent niet verplicht de villa dertig jaar aan te houden. Verkopen kan op elk moment, tegen 4% commissie via UTAMA — of volledig zelfstandig.</p>
+        <div class="exit-card">
+          <div class="exit-num">101,3% ROI</div>
+          <div class="exit-lbl">Geschat totaalrendement over 5 jaar, realistisch scenario — prognose, geen garantie</div>
+          <div class="exit-break">
+            <div class="eb-i"><b>€154.737</b>Netto huurinkomsten</div>
+            <div class="eb-i"><b>€58.019</b>Geschatte verkoopwinst</div>
+            <div class="eb-i"><b>€212.756</b>Totaal geschat rendement</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 · PRIJS & PLANNING -->
+      <div class="tab-pane" id="pane-planning">
+        <div class="pane-kicker">03 · Prijs &amp; planning</div>
+        <h2 class="pane-h">Instappen vanaf €195.000, turnkey</h2>
+        <p class="pane-lead">Alle prijzen zijn turnkey: volledig afgewerkt, ingericht en klaar voor verhuur. Geen verborgen kosten achteraf.</p>
+
+        <div class="prices">
+          <div class="pc"><div class="pv">€195.000</div><div class="pl">Pre-sale</div><div class="ps">eerdere fase</div></div>
+          <div class="pc cur"><div class="pv">€210.000</div><div class="pl">Nu</div><div class="ps">huidige prijs</div></div>
+          <div class="pc"><div class="pv">€225.000</div><div class="pl">Vanaf 15 aug</div><div class="ps">prijs stijgt</div></div>
+        </div>
+        <div class="paybar">
+          <div class="payseg"><div class="pp">30%</div><div class="pl">Bij contract</div><div class="pa">€63.000</div></div>
+          <div class="payseg"><div class="pp">30%</div><div class="pl">Bij casco</div><div class="pa">€63.000</div></div>
+          <div class="payseg"><div class="pp">30%</div><div class="pl">Bij afbouw</div><div class="pa">€63.000</div></div>
+          <div class="payseg"><div class="pp">10%</div><div class="pl">Bij sleuteloverdracht</div><div class="pa">€21.000</div></div>
+        </div>
+        <a class="wa" id="waAvailable" target="_blank" rel="noopener" style="margin-top:16px"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5z"/></svg>Bekijk de beschikbare units</a>
+
+        <div class="subhead">Van start bouw tot eerste gast</div>
+        <div class="vtl">
+          <div class="vitem"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag">15 mei 2026</div><h4>Start bouw</h4><p>Grondwerk en fundering; notariële vastlegging is dan afgerond.</p></div></div>
+          <div class="vitem"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag">Q4 2026</div><h4>Casco gereed</h4><p>Hoofdconstructie en dak gereed, start afbouw.</p></div></div>
+          <div class="vitem"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag">Q1 2027</div><h4>Afbouw &amp; inrichting</h4><p>Afwerking, interieur, styling en branded details.</p></div></div>
+          <div class="vitem"><div class="vmark"><span class="vdot"></span></div><div class="vc"><div class="vtag">April 2027</div><h4>Oplevering &amp; start verhuur</h4><p>Turnkey sleuteloverdracht; listings live en eerste boekingen.</p></div></div>
+        </div>
+
+        <div class="subhead">Zo koop je, volledig op afstand</div>
+        <p class="pane-lead" style="margin-bottom:12px">Je hoeft niet in Bali te zijn. Het hele traject verloopt op afstand, met heldere stappen.</p>
+        <div class="num-list">
+          <div class="num-item"><div class="nn">01</div><div class="nc"><h4>Reserveren</h4><p>Je tekent een intentieverklaring en maakt een aanbetaling van €5.000 over. Volledig verrekend bij aankoop.</p></div></div>
+          <div class="num-item"><div class="nn">02</div><div class="nc"><h4>Notarieel vastgelegd</h4><p>Met een volmacht (Power of Attorney) machtig je de notaris om namens jou te tekenen, volledig op afstand.</p></div></div>
+          <div class="num-item"><div class="nn">03</div><div class="nc"><h4>Doorlopend op de hoogte</h4><p>Elke twee weken foto- en video-updates, plus live meekijken via de bouwcamera.</p></div></div>
+          <div class="num-item"><div class="nn">04</div><div class="nc"><h4>Oplevering</h4><p>Je villa wordt turnkey overgedragen en de verhuur gaat direct van start.</p></div></div>
+        </div>
+        <p class="note" style="font-size:12px;color:var(--muted);margin-top:10px">Notariskosten bedragen 1% van de transactiewaarde, voor rekening van de koper. Afrekenen kan in euro's, USD, IDR of BTC.</p>
+      </div>
+
+      <!-- 04 · TEAM & BEHEER -->
+      <div class="tab-pane" id="pane-team">
+        <div class="pane-kicker">04 · Team &amp; beheer</div>
+        <h2 class="pane-h">Niet zomaar een ontwikkelaar</h2>
+        <p class="pane-lead">Veel Bali-ontwikkelaars bestaan uit een verkoper, een architect en een aannemer. Bij ons zit elke discipline in huis, zo houden we grip op kwaliteit, planning en uitvoering.</p>
+
+        <div class="role-grid">
+          <div class="role"><span class="rdot"></span>Gecertificeerde structural engineers</div>
+          <div class="role"><span class="rdot"></span>MEP-specialist</div>
+          <div class="role"><span class="rdot"></span>Quantity surveyor</div>
+          <div class="role"><span class="rdot"></span>Project manager</div>
+          <div class="role"><span class="rdot"></span>Vaste site manager per project</div>
+          <div class="role"><span class="rdot"></span>Client side construction management</div>
+          <div class="role"><span class="rdot"></span>In-house architecten</div>
+          <div class="role"><span class="rdot"></span>Interieurontwerp-team</div>
+          <div class="role"><span class="rdot"></span>Hospitality-team</div>
+          <div class="role"><span class="rdot"></span>Verhuurteam</div>
+        </div>
+        <div class="checklist-dark">
+          <div class="ch-title">Bouwkwaliteit &amp; garantie</div>
+          <div class="ch-grid" style="grid-template-columns:1fr">
+            <div class="ch-item"><span class="ck">✓</span>Onafhankelijke constructieberekeningen en doorlopende supervisie op de bouwplaats</div>
+            <div class="ch-item"><span class="ck">✓</span>Vastgelegde Scope of Work, kwaliteitsinspecties en volledige technische documentatie</div>
+            <div class="ch-item"><span class="ck">✓</span><b>10 jaar garantie</b> op de bouwkundige schil van de villa</div>
+          </div>
+        </div>
+
+        <div class="subhead">Wij runnen alles. Jij blijft hands-off.</div>
+        <div class="team cols2">
+          <div class="tcard"><div class="n">Verhuurbeheer</div><p style="margin-top:6px">Listings op Airbnb, Booking.com, Agoda en Vrbo, met dynamische prijsstrategie en een gastenteam dat lange dagen bereikbaar is.</p></div>
+          <div class="tcard"><div class="n">Operationeel beheer</div><p style="margin-top:6px">Dagelijkse housekeeping, tuin- en poolonderhoud, technisch onderhoud en maandelijkse financiële rapportage.</p></div>
+        </div>
+        <div class="checklist-dark">
+          <div class="ch-item" style="font-size:13px"><span class="ck">✓</span>Verhuurbeheer 15% en operationeel beheer circa 13% van de netto verhuuropbrengst. Na belasting en overige kosten is de rest voor jou. Geen verborgen kosten.</div>
+        </div>
+
+        <div class="subhead">Leasehold, simpel uitgelegd</div>
+        <p class="pane-lead" style="margin-bottom:10px">Leasehold werkt in de praktijk vrijwel hetzelfde als koop, alleen met een vaste looptijd. Gedurende 60 jaar (30+30) bepaal jij wat er met je villa gebeurt.</p>
+        <div class="subblock tint" style="font-size:13px;margin-bottom:16px">Buitenlanders mogen in Indonesië geen grond bezitten. Daarom investeren alle buitenlandse investeerders op Bali via leasehold — de juridisch verankerde en gangbare structuur.</div>
+        <div class="route-bar">
+          <div class="route-a"><div class="rlbl">Een veelgekozen route · eerste 5–10 jaar</div><div class="rtxt">Verhuren voor maandelijks rendement</div></div>
+          <div class="route-b"><div class="rlbl">Daarna</div><div class="rtxt">Doorverkopen tegen een hogere prijs</div></div>
+        </div>
+      </div>
+
+      <!-- 05 · VERTROUWEN & RISICO'S -->
+      <div class="tab-pane" id="pane-vertrouwen">
+        <div class="pane-kicker">05 · Vertrouwen &amp; risico's</div>
+        <h2 class="pane-h">Vertrouw de structuur, niet de belofte</h2>
+        <p class="pane-lead">Je rechten als investeerder rusten niet op een persoonlijke toezegging, maar op juridische overeenkomsten die onafhankelijk worden vastgelegd en gecontroleerd.</p>
+
+        <div class="trust-list">
+          <div class="trust-item"><div class="tick">✓</div><p><b>30+30 jaar lease</b> met verlenging juridisch vastgelegd, geen open einde.</p></div>
+          <div class="trust-item"><div class="tick">✓</div><p><b>Pink- en Orange C2-zone</b>, legaal vergund voor short-stay, géén grijs gebied.</p></div>
+          <div class="trust-item"><div class="tick">✓</div><p><b>Bouw- en verhuurvergunningen</b> (PBG/SLF) inbegrepen bij oplevering.</p></div>
+          <div class="trust-item"><div class="tick">✓</div><p><b>Onafhankelijke notarissen</b> handelen elke transactie af, met due diligence vooraf.</p></div>
+          <div class="trust-item"><div class="tick">✓</div><p><b>De leaseovereenkomst blijft juridisch geldig</b>, ook als UTAMA ooit niet meer zou bestaan.</p></div>
+          <div class="trust-item"><div class="tick">✓</div><p><b>Investeren en uitkeren in euro's</b>, volledig transparant.</p></div>
+        </div>
+        <div class="team cols2" style="margin-top:18px">
+          <div class="tcard"><div class="n">01 · Leaseholdcontract</div><p style="margin-top:6px">Voor de lease van de grond, 30+30 jaar met juridisch vastgelegde verlenging.</p></div>
+          <div class="tcard"><div class="n">02 · Constructiecontract</div><p style="margin-top:6px">Voor de bouw van de villa, met garanties, oplevertijdslijnen en bouwspecificaties.</p></div>
+        </div>
+
+        <div class="subhead">De risico's, en hoe wij ze beperken</div>
+        <p class="pane-lead" style="margin-bottom:12px">Investeren in Bali kent risico's. We benoemen ze liever eerlijk — en zetten er telkens direct tegenover hoe onze werkwijze het risico wegneemt.</p>
+        <div class="risk2-grid">
+          <div class="risk2">
+            <h4><span class="rn">01</span>Verkeerde zoning of ontbrekende vergunningen</h4>
+            <p class="real"><b>De realiteit:</b> veel Bali-projecten worden gebouwd in ongeschikte zones of zonder de juiste vergunningen.</p>
+            <div class="rsol">✓ Hoe UTAMA dit oplost</div>
+            <div class="rtags"><span class="rtag">Alleen Pink- of Orange C2-grond</span><span class="rtag">Incl. PBG/SLF-vergunningen</span><span class="rtag">Notariële overeenkomsten</span></div>
+          </div>
+          <div class="risk2">
+            <h4><span class="rn">02</span>Bouwvertraging</h4>
+            <p class="real"><b>De realiteit:</b> bouwprojecten in Bali kunnen vertraging oplopen.</p>
+            <div class="rsol">✓ Hoe UTAMA dit oplost</div>
+            <div class="rtags"><span class="rtag">Vaste opleverdatum in het constructiecontract</span><span class="rtag">Live bouwcamera + 2-wekelijkse updates</span><span class="rtag">Betaling per bouwmijlpaal</span></div>
+          </div>
+          <div class="risk2">
+            <h4><span class="rn">03</span>Verhuurrendement lager dan verwacht</h4>
+            <p class="real"><b>De realiteit:</b> bezetting en nachtprijs kunnen afwijken van de prognose.</p>
+            <div class="rsol">✓ Hoe UTAMA dit oplost</div>
+            <div class="rtags"><span class="rtag">Voorzichtig scenario altijd zichtbaar</span><span class="rtag">Beheerder met trackrecord</span><span class="rtag">Maandelijkse rapportage</span></div>
+          </div>
+        </div>
+
+        <div class="subhead">Een bewezen track record</div>
+        <div class="stat-row">
+          <div class="sr"><div class="sv">25+</div><div class="sl">Nederlandse investeerders gingen je voor</div></div>
+          <div class="sr"><div class="sv">4</div><div class="sl">Door UTAMA opgeleverde projecten</div></div>
+          <div class="sr"><div class="sv">8</div><div class="sl">Investeerders ontvangen nú maandelijks huur</div></div>
+          <div class="sr"><div class="sv">±40</div><div class="sl">Woningen dit jaar in ontwikkeling</div></div>
+        </div>
+        <div class="dark-cta">Geen projecties, maar uitbetalingen die vandaag op bankrekeningen binnenkomen. Wil je het uit eerste hand horen? Ashley brengt je graag in contact met een bestaande investeerder.</div>
+        <div class="big-stats">
+          <div class="bstat"><div class="bv">12–17<sup>%</sup></div><div class="bl">Verwacht rendement per jaar</div></div>
+          <div class="bstat"><div class="bv">70–85<sup>%</sup></div><div class="bl">Verwachte bezettingsgraad</div></div>
+          <div class="bstat"><div class="bv">60<sup style="font-size:.4em">jr</sup></div><div class="bl">Lease (30+30), notarieel vastgelegd</div></div>
+          <div class="bstat"><div class="bv">€195k–225k</div><div class="bl">Investering per villa, in euro's</div></div>
+        </div>
+
+        <div class="subhead">Waarom Bali?</div>
+        <p class="pane-lead" style="margin-bottom:10px">Een toeristisch seizoen van 365 dagen, structureel groeiende vraag naar short-stayverblijf en een beperkt aanbod op legaal vergunde toplocaties.</p>
+        <div class="hl">
+          <div>Jaarrond toeristisch seizoen, geen laagseizoen in bezetting</div>
+          <div>Beperkt legaal vergund aanbod in de Pink- en Orange-zones</div>
+          <div>Groeiende vraag van expats, remote workers en digital nomads</div>
+          <div>Na Canggu is Pererenan de volgende gevestigde toplocatie</div>
+        </div>
+      </div>
+
+      <!-- 06 · VRAGEN -->
+      <div class="tab-pane" id="pane-vragen">
+        <div class="pane-kicker">06 · Vragen</div>
+        <h2 class="pane-h">Veelgestelde vragen</h2>
+        <p class="pane-lead">Staat je vraag er niet bij? Ashley beantwoordt hem persoonlijk via WhatsApp.</p>
+        <div class="faq">
+          <details>
+            <summary>Hoe zit het met belasting?</summary>
+            <p>Belasting wordt geheven in Indonesië, waar het vastgoed zich bevindt. Over de verhuuromzet geldt daar een lokale toeristenbelasting van 10%. In Nederland valt het bezit in box 3, maar dankzij het belastingverdrag tussen beide landen betaal je er hier doorgaans weinig tot geen box 3-heffing over. Laat je hierover adviseren door een belastingadviseur.</p>
+          </details>
+          <details>
+            <summary>Kan ik de woning zelf gebruiken?</summary>
+            <p>Ja. Je kunt er tussen de boekingen door zelf verblijven. De woning blijft wel primair ingericht en geoptimaliseerd voor verhuur, zodat je rendement op peil blijft.</p>
+          </details>
+          <details>
+            <summary>Wat als het rendement lager uitvalt?</summary>
+            <p>Rendement is nooit gegarandeerd. Maar je bezit een afgebouwde woning op een gewilde locatie, met een sterke leasestructuur van 30+30 jaar. Die blijft inkomsten genereren en kun je verkopen.</p>
+          </details>
+          <details>
+            <summary>Wat als UTAMA niet meer bestaat?</summary>
+            <p>Je rechten staan los van UTAMA of Steven. Leaseovereenkomsten zijn juridische contracten en je eigendomsrechten zijn notarieel gedocumenteerd, ze blijven geldig ongeacht de staat van UTAMA.</p>
+          </details>
+        </div>
+
+        <div class="subhead">Nog even kennismaken?</div>
+        <div class="contact-row">
+          <div class="cperson">
+            <img src="/images/ashley.jpg" alt="Ashley Vermoten">
+            <div><div class="cn">Ashley Vermoten</div><div class="cr">Sales Manager, UTAMA</div><a href="mailto:ashley@utamabali.com">ashley@utamabali.com</a></div>
+          </div>
+          <div class="cperson">
+            <img src="/images/steven.jpg" alt="Steven Gijsman" onerror="this.style.display='none'">
+            <div><div class="cn">Steven Gijsman</div><div class="cr">Director, UTAMA</div><a href="mailto:steven@utamabali.com">steven@utamabali.com</a></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- persistente CTA-strip, blijft zichtbaar ongeacht welk tabblad open staat -->
+    <div class="footer-cta">
+      <div>
+        <h3>Klaar voor een korte discovery call?</h3>
+        <p>In een vrijblijvend gesprek van zo'n 15 minuten kijken we samen of The Maison bij je past.</p>
+      </div>
+      <div class="fc-ctas">
+        <a class="wa" id="waFooterWa" target="_blank" rel="noopener"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5z"/></svg>WhatsApp Ashley</a>
+        <a class="wa ghost" id="waFooterReserve" target="_blank" rel="noopener">Reserveer een unit</a>
+      </div>
+    </div>
+
+    <div class="legal-note">Dit portaal bevat indicatieve informatie en vormt geen fiscaal of juridisch advies. Rendementsberekeningen zijn schattingen en geen garanties. Laat de contracten altijd controleren door een bevoegde notaris, PPAT en je eigen juridisch of fiscaal adviseur.</div>
+  </div>
+
+  <!-- sticky mobile CTA -->
+  <div class="sticky-cta">
+    <a class="wa" id="waSticky" target="_blank" rel="noopener" style="flex:2"><svg viewBox="0 0 32 32" width="16" height="16"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5z"/></svg>WhatsApp Ashley</a>
+    <a class="btn-outline" id="waStickyReserve" target="_blank" rel="noopener" style="flex:1;display:flex">Reserveren</a>
+  </div>
+</main>
+
+<div class="lb" id="lb" onclick="if(event.target===this)closeLb()">
+  <button class="x" onclick="closeLb()" aria-label="Sluiten">&times;</button>
+  <button class="nav prev" onclick="stepLb(-1)" aria-label="Vorige">&#8249;</button>
+  <img id="lbImg" src="" alt="The Maison render">
+  <button class="nav next" onclick="stepLb(1)" aria-label="Volgende">&#8250;</button>
+  <div class="cap" id="lbCap"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="/supabase-client.js"></script>
+<script src="/calc-shared.js"></script>
+<script>
+const CONFIG = { whatsapp:"31624845014", email:"steven@utamabali.com" };
+const el = id => document.getElementById(id);
+if(el('bbCam')) el('bbCam').href="https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent("Hi Ashley! Mag ik de link naar de live bouwcamera van The Maison?");
+
+function buildWa(l){
+  const msg="Hi Ashley! Ik heb net het investeerdersportaal van The Maison bekeken en wil graag meer weten.%0A%0A"+
+    "Naam: "+encodeURIComponent(l.name||'-')+"%0A"+
+    "WhatsApp: "+encodeURIComponent(l.phone||'-')+"%0A"+
+    "E-mail: "+encodeURIComponent(l.email||'-')+"%0A"+
+    "Budget: "+encodeURIComponent(l.budget||'-')+"%0A"+
+    "Koophorizon: "+encodeURIComponent(l.when||'-');
+  return "https://wa.me/"+CONFIG.whatsapp+"?text="+msg;
+}
+function reveal(l){
+  l=l||{};
+  const wa=buildWa(l);
+  ['waRailWa','waFooterWa','waSticky','waAvailable'].forEach(function(id){ if(el(id)) el(id).href=wa; });
+  const reserveMsg="Hi Ashley! Ik wil graag een unit van The Maison reserveren. Kun je me de volgende stappen sturen?";
+  const waReserve="https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(reserveMsg);
+  ['waRailReserve','waFooterReserve','waStickyReserve'].forEach(function(id){ if(el(id)) el(id).href=waReserve; });
+  el('gate').style.display='none';
+  el('portal').hidden=false;
+  window.scrollTo({top:0,behavior:'instant'});
+  if(typeof bcalc==='function') bcalc(); /* het rendementstabblad is verborgen tot nu, dus pins etc. moeten opnieuw gerenderd worden zodra zichtbaar */
+}
+function unlock(e){
+  e.preventDefault();
+  const name=el('qName').value.trim(), phone=el('qPhone').value.trim(), email=el('qEmail').value.trim();
+  const budget=el('qBudget').value, when=el('qWhen').value;
+  if(!name||!phone||!email||!budget||!when){ el('qErr').style.display='block'; return false; }
+  const lead={ project:"The Maison", name, phone, email, budget, when };
+  try{ localStorage.setItem('maison_v5_lead', JSON.stringify(lead)); }catch(err){}
+  submitLead({ ...lead, lang:"nl" }).catch(()=>{});
+  reveal(lead);
+  return false;
+}
+// Al eens ontgrendeld op dit toestel? Dan tonen we het portaal meteen weer.
+try{
+  var _r = localStorage.getItem('maison_v5_lead') || sessionStorage.getItem('maison_v5_lead');
+  if(_r){ reveal(JSON.parse(_r)); }
+}catch(e){}
+
+// ---- tabbladen ----
+function showTab(id, skipHash){
+  document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.toggle('active', p.id==='pane-'+id); });
+  document.querySelectorAll('#tabsNav button').forEach(function(b){ b.classList.toggle('active', b.dataset.tab===id); });
+  if(!skipHash){ try{ history.replaceState(null,'','#'+id); }catch(e){} }
+  document.querySelector('.workspace').scrollIntoView({behavior:'smooth', block:'start'});
+  /* het rendement-paneel (met de slider-pins) heeft width 0 zolang het display:none is,
+     dus zodra het zichtbaar wordt moeten de pins/scenario's opnieuw gerenderd worden */
+  if(id==='rendement' && typeof bRenderScenarios==='function'){
+    requestAnimationFrame(function(){ bRenderScenarios(); });
+  }
+}
+document.querySelectorAll('#tabsNav button').forEach(function(b){ b.addEventListener('click', function(){ showTab(b.dataset.tab); }); });
+(function(){
+  const initial = (location.hash||'').replace('#','');
+  const valid = ['project','rendement','planning','team','vertrouwen','vragen'];
+  if(valid.includes(initial)) showTab(initial, true);
+})();
+
+// ROI-calculator
+const GROWTH_RATE = 0.05; /* vaste jaarlijkse waardegroei-aanname, o.b.v. marktdata voor Pererenan/west-Bali (niet instelbaar) */
+const BPRICES=[
+  {v:195000, l:"Pre-sale", s:"eerdere fase"},
+  {v:210000, l:"Nu", s:"huidige prijs", current:true},
+  {v:225000, l:"Vanaf 15 aug", s:"prijs stijgt"}
+];
+let bSelPrice=210000;
+const BSCENARIOS=[
+  {label:"Voorzichtig", occ:70, nightly:165},
+  {label:"Realistisch", occ:85, nightly:175, current:true},
+  {label:"Optimistisch", occ:90, nightly:205}
+];
+let bSelScenario=BSCENARIOS.findIndex(function(s){return s.current;});
+function bMoney(v){ return new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(Math.round(v)); }
+function bPct(v){ return new Intl.NumberFormat('nl-NL',{style:'percent',minimumFractionDigits:1,maximumFractionDigits:1}).format(v); }
+function renderBPricesel(){
+  el('bPricesel').innerHTML = BPRICES.map(pr=>`<div class="pbtn ${pr.v===bSelPrice?'on':''}" onclick="bSetPrice(${pr.v})"><span class="pv">${bMoney(pr.v)}</span><span class="ps">${pr.l} · ${pr.s}</span></div>`).join("");
+}
+function bSetPrice(v){ bSelPrice=v; renderBPricesel(); bcalc(); }
+function bApplyScenario(i){
+  bSelScenario=i;
+  const s=BSCENARIOS[i];
+  el('bNightly').value=s.nightly;
+  el('bOcc').value=s.occ;
+  bcalc();
+}
+const SCEN_TONE=['pess','real','opt']; /* drieluik-paneelsysteem: voorzichtig/realistisch/optimistisch */
+function bRenderScenarios(){
+  const price=bSelPrice, costs=+el('bCosts').value/100;
+  el('bScenGrid').innerHTML = BSCENARIOS.map(function(s,i){
+    const r=roiCalc(price, s.nightly, s.occ/100, costs);
+    return `
+    <div class="scc ${SCEN_TONE[i]||''} ${i===bSelScenario?'cur':''}" onclick="bApplyScenario(${i})">
+      <div class="scl">${s.label}</div>
+      <div class="scv">${r.roi.toFixed(1).replace('.',',')}%</div>
+      <div class="scs">${s.occ}% bezetting · €${s.nightly}/nacht</div>
+      <div class="scb">Terugverdiend in ${r.payback.toFixed(1).replace('.',',')} jaar</div>
+    </div>`;
+  }).join("");
+  renderScenarioPins(el('bNightly'), el('bNightlyPins'), BSCENARIOS, bSelScenario, 'bApplyScenario', bMoney, null);
+}
+window.addEventListener('resize', function(){ renderScenarioPins(el('bNightly'), el('bNightlyPins'), BSCENARIOS, bSelScenario, 'bApplyScenario', bMoney, null); });
+function bcalc(){
+  const price=bSelPrice, nightly=+el('bNightly').value, occ=+el('bOcc').value/100, costs=+el('bCosts').value/100, hold=+el('bHold').value, growth=GROWTH_RATE;
+  el('bVNightly').textContent=bMoney(nightly);
+  el('bVOcc').textContent=Math.round(occ*100)+"%";
+  el('bVCosts').textContent=Math.round(costs*100)+"%";
+  el('bVHold').textContent=hold+" jaar";
+  el('bVGrowth').textContent=Math.round(growth*100)+"%";
+  const {gross, net, roi, payback}=roiCalc(price, nightly, occ, costs);
+  const costAmt=gross-net;
+  const y=roi/100, month=net/12;
+  el('bOYield').textContent=bPct(y);
+  el('bOMonth').textContent=bMoney(month);
+  el('bOYear').textContent=bMoney(net);
+  el('bOGross').textContent=bMoney(gross);
+  el('bOCostAmt').textContent=bMoney(costAmt);
+  el('bOInv').textContent=bMoney(price);
+  el('bOPayback').textContent="Terugverdiend in ± "+(payback>0?payback.toFixed(1):"–")+" jaar (alleen uit huur).";
+  const rentTotal=net*hold, resaleVal=price*Math.pow(1+growth,hold), resaleProfit=resaleVal-price, totalRet=rentTotal+resaleProfit, totalRoi=price>0?totalRet/price:0;
+  el('bOHoldH').textContent="Over "+hold+" jaar aanhouden (bij "+Math.round(growth*100)+"% waardegroei/jaar):";
+  el('bORent').textContent=bMoney(rentTotal);
+  el('bOResale').textContent=bMoney(resaleProfit);
+  el('bOTotalRet').textContent=bMoney(totalRet)+"  ("+bPct(totalRoi)+" ROI)";
+  el('bOExt').textContent="Leasehold 30 jaar met gegarandeerde verlenging van 30 jaar. Verlengen na 30 jaar kost ± 20% van de aankoopprijs (± "+bMoney(price*0.20)+"). Je kunt de villa ook eerder verkopen.";
+  bRenderScenarios();
+}
+renderBPricesel();
+bcalc();
+
+// Lightbox
+const GAL=[].slice.call(document.querySelectorAll('.bgal .g'));
+const GIMG=GAL.map(function(g){ const m=(g.style.backgroundImage||'').match(/url\(["']?(.*?)["']?\)/); return m?m[1]:''; });
+let lbIdx=0;
+GAL.forEach(function(g,i){ g.addEventListener('click',function(){ openLb(i); }); });
+function openLb(i){ lbIdx=i; el('lbImg').src=GIMG[i]; el('lbCap').textContent=(i+1)+' / '+GIMG.length; el('lb').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeLb(){ el('lb').classList.remove('open'); document.body.style.overflow=''; }
+function stepLb(d){ lbIdx=(lbIdx+d+GIMG.length)%GIMG.length; el('lbImg').src=GIMG[lbIdx]; el('lbCap').textContent=(lbIdx+1)+' / '+GIMG.length; }
+document.addEventListener('keydown',function(e){ if(!el('lb').classList.contains('open'))return; if(e.key==='Escape')closeLb(); if(e.key==='ArrowRight')stepLb(1); if(e.key==='ArrowLeft')stepLb(-1); });
+</script>
+</body>
+</html>
