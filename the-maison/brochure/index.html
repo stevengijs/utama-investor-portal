@@ -277,6 +277,13 @@
   @media(min-width:640px){.stat-row{grid-template-columns:repeat(4,1fr)}}
   .stat-row .sr .sv{font-size:clamp(24px,5vw,32px);font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
   .stat-row .sr .sl{font-size:12px;margin-top:6px;color:var(--muted);line-height:1.3;max-width:180px}
+  .proof-strip{display:flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:14px;background:var(--sand-2);overflow:hidden}
+  .proof-item{flex:1 1 25%;padding:13px 14px;text-align:center;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .proof-item .pv{font-size:16.5px;font-weight:800;color:var(--opt-deep);line-height:1.1;font-variant-numeric:tabular-nums}
+  .proof-item .pl{font-size:10.5px;color:var(--muted);margin-top:3px;line-height:1.3}
+  @media(min-width:640px){.proof-item{border-bottom:none}}
+  @media(max-width:639px){.proof-item{flex:1 1 50%}.proof-item:nth-child(2n){border-right:none}.proof-item:nth-last-child(-n+2){border-bottom:none}}
+  @media(min-width:640px){.proof-item:last-child{border-right:none}}
 
   .big-stats{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--line);margin-top:16px}
   @media(min-width:560px){.big-stats{grid-template-columns:1fr 1fr}}
@@ -1042,7 +1049,7 @@
         </div>
 
         <div class="plan-block">
-          <div class="subhead">11 maanden, van eerste spadesteek tot eerste gast</div>
+          <div class="subhead">11 maanden, van eerste schep in de grond tot eerste gast</div>
           <div class="vtl" id="buildTl">
             <div class="vitem" data-milestone="2026-05-15"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag">15 mei 2026</div><h4>Start bouw</h4><p>Grondwerk en fundering.</p></div></div>
             <div class="vitem" data-milestone="2026-12-31"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag">Q4 2026</div><h4>Casco gereed</h4><p>Hoofdconstructie en dak gereed, start afbouw.</p></div></div>
@@ -1086,9 +1093,15 @@
         <h2 class="pane-h">Wij runnen alles. Jij blijft hands-off.</h2>
         <p class="pane-lead">Na oplevering neemt House of Reservations het volledige verhuur- en operationeel beheer over. Jij bezit de villa, wij zorgen dat hij verhuurd wordt - met maandelijkse rapportage en volledige kostentransparantie.</p>
 
-        <div class="team cols2">
-          <div class="tcard"><div class="n">Verhuurbeheer</div><p style="margin-top:6px">Listings op Airbnb, Booking.com, Agoda en Vrbo, met dynamische prijsstrategie en een gastenteam dat lange dagen bereikbaar is.</p></div>
-          <div class="tcard"><div class="n">Operationeel beheer</div><p style="margin-top:6px">Dagelijkse housekeeping, tuin- en poolonderhoud, technisch onderhoud en maandelijkse financiële rapportage.</p></div>
+        <div class="why-grid">
+          <div class="why-card">
+            <div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v9a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1v-9"/></svg></div>
+            <div><h4>Verhuurbeheer</h4><p>Listings op Airbnb, Booking.com, Agoda en Vrbo, met dynamische prijsstrategie en een gastenteam dat tot 20 uur per dag bereikbaar is - onderdeel van House of Reservations, dat al 250+ villa's op Bali beheert.</p></div>
+          </div>
+          <div class="why-card">
+            <div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 1-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 1 5.4-5.4l-3 3-2-2 3-3z"/></svg></div>
+            <div><h4>Operationeel beheer</h4><p>Dagelijkse housekeeping, tuin- en poolonderhoud en technisch onderhoud houden de villa op niveau. Elke maand ontvang je een volledige financiële rapportage, met je aandeel direct op je rekening.</p></div>
+          </div>
         </div>
         <div class="checklist-dark">
           <div class="ch-item" style="font-size:13px"><span class="ck">✓</span>Verhuurbeheer 15% en operationeel beheer circa 15% van de netto verhuuropbrengst. Na belasting en overige kosten is de rest voor jou. Geen verborgen kosten.</div>
@@ -1098,19 +1111,19 @@
           <div class="subhead">Verhuurbeheer van A tot Z</div>
           <p class="pane-lead" style="margin-bottom:16px">Een villa die niet goed wordt verhuurd, is het grootste risico bij investeren in Bali - niet de bouw. Daarom draagt House of Reservations, dat al 250+ villa's op Bali beheert, het volledige verhuurproces: van de eerste foto tot jouw uitkering op de bank. Eén merk, één aanspreekpunt, geen partijen die naar elkaar wijzen.</p>
 
-          <div class="stat-row" style="margin-bottom:20px">
-            <div class="sr"><div class="sv">250+</div><div class="sl">Villa's in beheer bij House of Reservations</div></div>
-            <div class="sr"><div class="sv">200K+</div><div class="sl">Volgers op Instagram</div></div>
-            <div class="sr"><div class="sv">1M+</div><div class="sl">Volgers op TikTok</div></div>
-            <div class="sr"><div class="sv">20u/dag</div><div class="sl">Bereikbaarheid gastenteam</div></div>
+          <div class="proof-strip" style="margin-bottom:20px">
+            <div class="proof-item"><div class="pv">250+</div><div class="pl">Villa's in beheer</div></div>
+            <div class="proof-item"><div class="pv">200K+</div><div class="pl">Volgers Instagram</div></div>
+            <div class="proof-item"><div class="pv">1M+</div><div class="pl">Volgers TikTok</div></div>
+            <div class="proof-item"><div class="pv">20u/dag</div><div class="pl">Bereikbaar gastenteam</div></div>
           </div>
 
           <div class="num-list">
-            <div class="num-item"><div class="nn">01</div><div class="nc"><h4>Branding &amp; platforms</h4><p>Je villa gaat live op Airbnb, Booking.com, Agoda, Expedia en Vrbo onder het merk House of Reservations, met eigen fotografie en listing-optimalisatie. Daarnaast werkt het merk met een social-media-first strategie en vaste samenwerkingen met reis- en lifestyle-influencers, wat de 200K+ volgers op Instagram en 1M+ op TikTok blijft laten groeien. Dat levert niet alleen naamsbekendheid op, maar ook directe boekingen via de eigen website - buiten de platforms om, zonder de commissie die Airbnb en Booking.com per boeking rekenen, en zonder dat jij daar iets voor doet of aan betaalt.</p></div></div>
-            <div class="num-item"><div class="nn">02</div><div class="nc"><h4>Dynamische prijsstrategie</h4><p>Nachtprijzen worden doorlopend bijgesteld op vraag, seizoen en lokale evenementen. Niet de hoogste prijs, maar de prijs die bezetting én opbrengst samen maximaliseert.</p></div></div>
-            <div class="num-item"><div class="nn">03</div><div class="nc"><h4>Gastbeleving die boekingen aanjaagt</h4><p>Het gastenteam is tot 20 uur per dag bereikbaar, van eerste vraag tot check-out. Snelle reacties leiden tot betere reviews, betere reviews naar een hogere positie op de platforms - en dat weer naar meer boekingen.</p></div></div>
-            <div class="num-item"><div class="nn">04</div><div class="nc"><h4>Onderhoud dat je investering beschermt</h4><p>Dagelijkse housekeeping, tuin- en zwembadonderhoud en technisch onderhoud houden de villa op niveau. Dat beschermt niet alleen de gastervaring, maar ook de waarde van je villa.</p></div></div>
-            <div class="num-item"><div class="nn">05</div><div class="nc"><h4>Transparante maandelijkse uitkering</h4><p>Elke maand ontvang je een overzicht van bezetting, omzet en kosten, met je aandeel direct op je rekening. Verhuurbeheer 15% en operationeel beheer circa 15% van de netto-opbrengst - vooraf bekend, geen verrassingen achteraf.</p></div></div>
+            <div class="num-item"><div class="nn">01</div><div class="nc"><h4>Jouw villa gaat online</h4><p>Je villa gaat live op Airbnb, Booking.com, Agoda, Expedia en Vrbo onder het merk House of Reservations, met eigen fotografie en listing-optimalisatie. Daarnaast werkt het merk met een social-media-first strategie en vaste samenwerkingen met reis- en lifestyle-influencers, wat de 200K+ volgers op Instagram en 1M+ op TikTok blijft laten groeien. Dat levert niet alleen naamsbekendheid op, maar ook directe boekingen via de eigen website - buiten de platforms om, zonder de commissie die Airbnb en Booking.com per boeking rekenen, en zonder dat jij daar iets voor doet of aan betaalt.</p></div></div>
+            <div class="num-item"><div class="nn">02</div><div class="nc"><h4>Je krijgt altijd de beste prijs</h4><p>Nachtprijzen worden doorlopend bijgesteld op vraag, seizoen en lokale evenementen. Niet de hoogste prijs, maar de prijs die bezetting én opbrengst samen maximaliseert.</p></div></div>
+            <div class="num-item"><div class="nn">03</div><div class="nc"><h4>Je gasten worden dag en nacht geholpen</h4><p>Het gastenteam is tot 20 uur per dag bereikbaar, van eerste vraag tot check-out. Snelle reacties leiden tot betere reviews, betere reviews naar een hogere positie op de platforms - en dat weer naar meer boekingen.</p></div></div>
+            <div class="num-item"><div class="nn">04</div><div class="nc"><h4>Jouw villa blijft in topconditie</h4><p>Dagelijkse housekeeping, tuin- en zwembadonderhoud en technisch onderhoud houden de villa op niveau. Dat beschermt niet alleen de gastervaring, maar ook de waarde van je villa.</p></div></div>
+            <div class="num-item"><div class="nn">05</div><div class="nc"><h4>Je weet altijd precies wat je ontvangt</h4><p>Elke maand ontvang je een overzicht van bezetting, omzet en kosten, met je aandeel direct op je rekening. Verhuurbeheer 15% en operationeel beheer circa 15% van de netto-opbrengst - vooraf bekend, geen verrassingen achteraf.</p></div></div>
           </div>
 
           <div class="subhead" style="margin-top:26px">Zo ziet dat er in de praktijk uit</div>
@@ -1230,7 +1243,7 @@
             <h4><span class="rn">02</span>Bouwvertraging</h4>
             <p class="real"><b>De realiteit:</b> bouwprojecten in Bali kunnen vertraging oplopen.</p>
             <div class="rsol">✓ Hoe UTAMA dit oplost</div>
-            <div class="rtags"><span class="rtag">Vaste opleverdatum in het constructiecontract</span><span class="rtag">Live bouwcamera + 2-wekelijkse updates</span><span class="rtag">Betaling per bouwmijlpaal</span></div>
+            <div class="rtags"><span class="rtag">Vaste opleverdatum in het constructiecontract</span><span class="rtag">Boete bij vertraging</span><span class="rtag">Live bouwcamera + 2-wekelijkse updates</span><span class="rtag">Betaling per bouwmijlpaal</span></div>
           </div>
           <div class="risk2">
             <h4><span class="rn">03</span>Verhuurrendement lager dan verwacht</h4>
@@ -1239,6 +1252,7 @@
             <div class="rtags"><span class="rtag">Voorzichtig scenario altijd zichtbaar</span><span class="rtag">Beheerder met trackrecord</span><span class="rtag">Maandelijkse rapportage</span></div>
           </div>
         </div>
+        <div class="dark-cta">Vastgoedprijzen op Bali stijgen hard door de groeiende populariteit van het eiland. Dankzij onze sterke leasecontracten, toplocaties, geldige vergunningen en bouwkwaliteit kun je jouw villa bij verkoop voor een hogere prijs aanbieden dan vergelijkbare projecten zonder die garanties.</div>
 
         <div class="subhead">Een bewezen track record</div>
         <div class="stat-row">
@@ -1268,29 +1282,21 @@
           </div>
         </div>
         <div class="faq">
-          <details data-cat="beheer">
-            <summary>Moet ik zelf iets regelen rond verhuur?</summary>
-            <p>Nee. Na oplevering verzorgt House of Reservations het volledige verhuurbeheer: listings op Airbnb, Booking.com, Agoda en Vrbo, gastcommunicatie, housekeeping en onderhoud. Je kunt de villa ook zelf beheren of voor een andere beheerder kiezen.</p>
-          </details>
           <details data-cat="juridisch">
             <summary>Wat houdt de reservering van €5.000 in?</summary>
             <p>Met een intentieverklaring en een aanbetaling van €5.000 reserveer je je voorkeursvilla. Dit bedrag wordt volledig verrekend bij de aankoop, na de notariële overdracht - zo zet je de huidige prijs vast voordat deze op 15 augustus stijgt.</p>
           </details>
-          <details data-cat="belasting">
-            <summary>Hoe zit het met belasting?</summary>
-            <p>Belasting wordt geheven in Indonesië, waar het vastgoed zich bevindt. Over de verhuuromzet geldt daar een lokale toeristenbelasting van 10%. In Nederland valt het bezit in box 3, maar dankzij het belastingverdrag tussen beide landen betaal je er hier doorgaans weinig tot geen box 3-heffing over. Laat je hierover adviseren door een belastingadviseur.</p>
-          </details>
-          <details data-cat="eigendom">
-            <summary>Hoeveel investeerders gingen mij voor?</summary>
-            <p>Ruim 25 Nederlandse investeerders, verdeeld over vier opgeleverde projecten. Inmiddels ontvangen zo'n acht van hen maandelijks huurinkomsten uit hun woning.</p>
+          <details data-cat="beheer">
+            <summary>Moet ik zelf iets regelen rond verhuur?</summary>
+            <p>Nee. Na oplevering verzorgt House of Reservations het volledige verhuurbeheer: listings op Airbnb, Booking.com, Agoda en Vrbo, gastcommunicatie, housekeeping en onderhoud. Je kunt de villa ook zelf beheren of voor een andere beheerder kiezen.</p>
           </details>
           <details data-cat="eigendom">
             <summary>Kan ik de woning zelf gebruiken?</summary>
             <p>Ja. Je kunt er tussen de boekingen door zelf verblijven. De woning blijft wel primair ingericht en geoptimaliseerd voor verhuur, zodat je rendement op peil blijft.</p>
           </details>
-          <details data-cat="eigendom">
-            <summary>Hoe verkoop ik mijn woning later?</summary>
-            <p>Volledig vrij: zelfstandig, via een willekeurig makelaarskantoor, of met hulp van UTAMA. Er is geen exclusiviteit. Schakel je ons in, dan rekenen we 4% commissie en benaderen we ons eigen kopersnetwerk.</p>
+          <details data-cat="juridisch">
+            <summary>In welke valuta betaal ik?</summary>
+            <p>Je kunt afrekenen in euro's, Amerikaanse dollars, Indonesische roepia of bitcoin - wat voor jou het prettigst werkt.</p>
           </details>
           <details data-cat="uitkering">
             <summary>Hoe ontvang ik mijn rendement?</summary>
@@ -1300,9 +1306,25 @@
             <summary>Welke jaarlijkse kosten zijn er?</summary>
             <p>Verhuurbeheer (15%) en operationeel beheer (circa 15%) van de netto verhuuropbrengst, plus lokale belasting. Dit is al verwerkt in de rendementsberekening - geen verborgen kosten.</p>
           </details>
+          <details data-cat="belasting">
+            <summary>Hoe zit het met belasting?</summary>
+            <p>Belasting wordt geheven in Indonesië, waar het vastgoed zich bevindt. Over de verhuuromzet geldt daar een lokale toeristenbelasting van 10%. In Nederland valt het bezit in box 3, maar dankzij het belastingverdrag tussen beide landen betaal je er hier doorgaans weinig tot geen box 3-heffing over. Laat je hierover adviseren door een belastingadviseur.</p>
+          </details>
           <details data-cat="uitkering">
             <summary>Wat als het rendement lager uitvalt?</summary>
             <p>Rendement is nooit gegarandeerd. Maar je bezit een afgebouwde woning op een gewilde locatie, met een sterke leasestructuur van 30+30 jaar. Die blijft inkomsten genereren en kun je verkopen.</p>
+          </details>
+          <details data-cat="juridisch">
+            <summary>Wat gebeurt er als ik een betaaltermijn mis?</summary>
+            <p>Neem in dat geval zo snel mogelijk contact met ons op - in de praktijk zoeken we altijd eerst naar een werkbare oplossing. De exacte voorwaarden rond betaaltermijnen staan vastgelegd in het constructiecontract, dat je vooraf door je eigen adviseur kunt laten doorlopen.</p>
+          </details>
+          <details data-cat="eigendom">
+            <summary>Hoe verkoop ik mijn woning later?</summary>
+            <p>Volledig vrij: zelfstandig, via een willekeurig makelaarskantoor, of met hulp van UTAMA. Er is geen exclusiviteit. Schakel je ons in, dan rekenen we 4% commissie en benaderen we ons eigen kopersnetwerk.</p>
+          </details>
+          <details data-cat="eigendom">
+            <summary>Hoeveel investeerders gingen mij voor?</summary>
+            <p>Ruim 25 Nederlandse investeerders, verdeeld over vier opgeleverde projecten. Inmiddels ontvangen zo'n acht van hen maandelijks huurinkomsten uit hun woning.</p>
           </details>
           <details data-cat="juridisch">
             <summary>Wat als UTAMA niet meer bestaat?</summary>

@@ -311,3 +311,39 @@ revoke all on public.contacts_overview from anon, authenticated;
 -- already shows everything in one row. If that view still exists in your
 -- database from before, it's harmless leftover; drop it with:
 --   drop view if exists public.leads_overview;
+
+-- ---------------------------------------------------------------------------
+-- Reservation email notifications (added after initial schema; applied
+-- directly against the live project via Supabase migrations, not run from
+-- this file - kept here so the shape is documented in one place).
+--
+-- Note: the live submit_lead() signature has evolved beyond what's shown
+-- above too (a p_ref_code param was added for the referral programme,
+-- see supabase-client.js's _getStoredReferralCode() usage) - this file
+-- was not kept in perfect sync with every later migration.
+--
+-- 1. leads.type ('inquiry' default | 'reservation') distinguishes a real
+--    villa reservation (the-maison/brochure's rmSubmit()) from every other
+--    brochure/early-access inquiry. submit_lead() gained a matching
+--    p_type parameter (default 'inquiry', so old callers are unaffected).
+--
+-- 2. A trigger (public.notify_new_reservation, AFTER INSERT on leads)
+--    fires only when type = 'reservation'. It calls the notify-reservation
+--    Edge Function via pg_net (net.http_post), passing name/email/phone/
+--    project/unit/created_at as JSON.
+--
+-- 3. A shared secret (in Supabase Vault, name 'reservation_webhook_secret')
+--    is sent as the x-webhook-secret header so the Edge Function can reject
+--    calls that didn't come from this trigger. Regenerate/rotate it with:
+--      select vault.create_secret('<new-uuid>', 'reservation_webhook_secret');
+--    (this replaces the existing secret of the same name)
+--
+-- 4. The Edge Function (supabase/functions/notify-reservation/index.ts)
+--    emails ashley@utamabali.com and steven@utamabali.com via Resend.
+--    It requires two Edge Function secrets to actually send mail:
+--      RESEND_API_KEY   - from resend.com
+--      WEBHOOK_SECRET   - must equal the Vault secret above
+--    Until RESEND_API_KEY is set, the function logs and no-ops (HTTP 200,
+--    {"ok":false,"reason":"not-configured"}) rather than erroring, so an
+--    unconfigured deployment never breaks the reservation flow itself.
+-- ---------------------------------------------------------------------------

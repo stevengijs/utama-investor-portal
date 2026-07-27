@@ -90,7 +90,8 @@ async function submitLead(fields){
       p_timeline: fields.when || null,
       p_source_page: window.location.pathname,
       p_lang: fields.lang || null,
-      p_ref_code: _getStoredReferralCode()
+      p_ref_code: _getStoredReferralCode(),
+      p_type: fields.type || null
     });
     if(error){ console.error("submitLead error", error); return { ok:false, error }; }
     return { ok:true, contactId:data };
