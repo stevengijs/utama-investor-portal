@@ -162,3 +162,46 @@ async function getMyReferralStats(){
     return { ok:false, error:err };
   }
 }
+
+/**
+ * Data room (/dataroom/) helpers. Same passwordless magic-link pattern as
+ * the referral portal above - in fact the same Supabase Auth session works
+ * on both pages (getReferralSession/onReferralAuthChange/signOutReferral
+ * are generic, not actually referral-specific, so they're reused as-is
+ * rather than duplicated here). See supabase/dataroom-schema.sql.
+ */
+async function sendDataroomMagicLink(email){
+  const sb = getSupabaseClient();
+  if(!sb) return { ok:false, reason:"not-configured" };
+  try{
+    const { error } = await sb.auth.signInWithOtp({
+      email: email,
+      options: { emailRedirectTo: window.location.origin + "/dataroom/" }
+    });
+    if(error){ console.error("sendDataroomMagicLink error", error); return { ok:false, error }; }
+    return { ok:true };
+  }catch(err){
+    console.error("sendDataroomMagicLink exception", err);
+    return { ok:false, error:err };
+  }
+}
+
+/**
+ * Once signed in: returns { projects:[{project, granted_at,
+ * documents:[{id,category,title,description,view_url}]}] }. An empty
+ * projects array means this person is signed in but not (yet) approved for
+ * any data room - see get_my_dataroom_access() in
+ * supabase/dataroom-schema.sql.
+ */
+async function getMyDataroomAccess(){
+  const sb = getSupabaseClient();
+  if(!sb) return { ok:false, reason:"not-configured" };
+  try{
+    const { data, error } = await sb.rpc('get_my_dataroom_access');
+    if(error){ console.error("getMyDataroomAccess error", error); return { ok:false, error }; }
+    return { ok:true, access:data };
+  }catch(err){
+    console.error("getMyDataroomAccess exception", err);
+    return { ok:false, error:err };
+  }
+}
