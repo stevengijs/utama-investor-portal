@@ -165,13 +165,16 @@ $$;
 
 -- ---------------------------------------------------------------------------
 -- get_my_dataroom_access(): the one call the /dataroom/ page makes once
--- someone is signed in. Returns every project they've been granted, each
--- with its list of documents (title/category/description + a ready-to-use
--- Drive view link). Returns an empty list for someone who's signed in but
--- not yet approved for anything - the page shows a friendly "not yet"
--- message rather than an error.
+-- someone is signed in. The data room is per project (mirrors the site's
+-- own structure: /the-maison/, /the-maison/brochure/, /the-maison/dataroom/,
+-- and later /moka/dataroom/ etc.) - pass p_project to scope the result to
+-- just that project's page. Leave it null to get every project this person
+-- has been granted at once (kept around for a possible future overview,
+-- not used by the per-project pages). Returns an empty list for someone
+-- who's signed in but not (yet) approved for this project - the page shows
+-- a friendly "not yet" message rather than an error.
 -- ---------------------------------------------------------------------------
-create or replace function public.get_my_dataroom_access()
+create or replace function public.get_my_dataroom_access(p_project text default null)
 returns json
 language plpgsql
 security definer
@@ -209,11 +212,12 @@ begin
       ) order by a.granted_at desc)
       from public.dataroom_access a
       where a.contact_id = v_contact_id
+        and (p_project is null or a.project = trim(p_project))
     ), '[]'::json)
   );
 end;
 $$;
 
-grant execute on function public.get_my_dataroom_access() to authenticated;
+grant execute on function public.get_my_dataroom_access(text) to authenticated;
 -- Deliberately NOT granted to anon - you must be signed in (magic link) to
 -- call this, same gate as the referral portal.

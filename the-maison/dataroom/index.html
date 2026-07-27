@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UTAMA - Data room</title>
-<meta name="description" content="Bekijk due diligence-documentatie en voorbeeldcontracten voor jouw project.">
+<title>UTAMA - The Maison - Data room</title>
+<meta name="description" content="Due diligence-documentatie en voorbeeldcontracten voor The Maison.">
 <link rel="icon" href="/images/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,13 +26,9 @@
   .drok{background:#eef2f0;border:1px solid #d3e2da;border-radius:12px;padding:16px 18px;font-size:14.5px;color:var(--green-2);line-height:1.55}
   .drerr{background:#fbeee6;border:1px solid #f0d4c2;border-radius:12px;padding:14px 16px;font-size:14px;color:#a3512a;margin-top:14px}
   .dreyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);font-weight:700}
+  .drsince{font-size:12px;color:var(--muted);margin:-14px 0 20px}
 
-  .drproject{margin-bottom:28px}
-  .drproject:last-child{margin-bottom:0}
-  .drproject h2{font-family:'Fraunces',serif;font-size:19px;font-weight:600;margin:0 0 4px}
-  .drproject .drsince{font-size:12px;color:var(--muted);margin-bottom:14px}
-
-  .drcat{margin-bottom:16px}
+  .drcat{margin-bottom:18px}
   .drcat:last-child{margin-bottom:0}
   .drcat h3{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--terra);margin:0 0 8px}
 
@@ -52,19 +48,19 @@
 </head>
 <body>
 <div class="drwrap">
-  <a href="/" class="drback">&larr; Terug naar utamabali.com</a>
+  <a href="/the-maison" class="drback">&larr; Terug naar The Maison</a>
 
   <div class="drcard">
     <div id="loadingState">
-      <div class="dreyebrow">Data room</div>
+      <div class="dreyebrow">Data room &middot; The Maison</div>
       <h1>Even geduld...</h1>
       <p class="sub reload-hint">We checken of je al bent ingelogd.</p>
     </div>
 
     <div id="loggedOutState" style="display:none">
-      <div class="dreyebrow">Data room</div>
+      <div class="dreyebrow">Data room &middot; The Maison</div>
       <h1>Due diligence &amp; contractdocumentatie</h1>
-      <p class="sub">Log in met het e-mailadres waarmee je bij ons bekend bent. Als je bent goedgekeurd voor de data room van een project, zie je hier de bijbehorende documenten.</p>
+      <p class="sub">Log in met het e-mailadres waarmee je bij ons bekend bent. Ben je goedgekeurd voor de data room van The Maison, dan zie je hier de bijbehorende documenten.</p>
 
       <form id="loginForm">
         <div class="drfield">
@@ -82,8 +78,9 @@
     </div>
 
     <div id="loggedInState" style="display:none">
-      <div class="dreyebrow">Data room</div>
+      <div class="dreyebrow">Data room &middot; The Maison</div>
       <h1 style="font-size:26px">Jouw documenten</h1>
+      <p class="sub" id="sinceLine" style="display:none"></p>
       <p class="sub">Bestanden openen in Google Drive. Zorg dat je bent ingelogd met het Google-account waarmee wij de toegang hebben gedeeld.</p>
 
       <div id="drContent"></div>
@@ -96,6 +93,9 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="/supabase-client.js"></script>
 <script>
+const PROJECT = "The Maison";
+const CATEGORY_ORDER = ['due_diligence', 'contract_voorbeeld', 'overig'];
+
 function fmtDate(iso){
   try{ return new Date(iso).toLocaleDateString('nl-NL', { day:'numeric', month:'short', year:'numeric' }); }
   catch(e){ return ''; }
@@ -105,9 +105,33 @@ function categoryLabel(cat){
   if(cat === 'contract_voorbeeld') return 'Voorbeeldcontract';
   return 'Overig';
 }
-const CATEGORY_ORDER = ['due_diligence', 'contract_voorbeeld', 'overig'];
 
-function renderProject(p){
+async function renderLoggedIn(){
+  document.getElementById('loadingState').style.display = 'none';
+  document.getElementById('loggedOutState').style.display = 'none';
+  document.getElementById('loggedInState').style.display = 'block';
+
+  const session = await getReferralSession();
+  document.getElementById('whoamiEmail').textContent = (session && session.user && session.user.email) || '';
+
+  const result = await getMyDataroomAccess(PROJECT);
+  const wrap = document.getElementById('drContent');
+  if(!result.ok || !result.access){
+    wrap.innerHTML = '<div class="drnoaccess">Dit lukte niet om op te halen. Probeer de pagina te verversen, of neem contact op als het blijft mislukken.</div>';
+    return;
+  }
+
+  const projects = (result.access.projects || []);
+  if(projects.length === 0){
+    wrap.innerHTML = '<div class="drnoaccess">Je bent ingelogd, maar nog niet goedgekeurd voor de data room van The Maison. Neem contact op met Ashley of Steven als je hier documenten verwacht te zien.</div>';
+    return;
+  }
+
+  const p = projects[0];
+  const sinceLine = document.getElementById('sinceLine');
+  sinceLine.textContent = 'Toegang sinds ' + fmtDate(p.granted_at) + '.';
+  sinceLine.style.display = 'block';
+
   const byCat = {};
   (p.documents || []).forEach(function(d){
     const cat = d.category || 'overig';
@@ -124,35 +148,7 @@ function renderProject(p){
     return '<div class="drcat"><h3>' + categoryLabel(cat) + '</h3><div class="drdoclist">' + rows + '</div></div>';
   }).join('');
 
-  const body = catHtml || '<div class="drempty">Nog geen documenten toegevoegd voor dit project.</div>';
-
-  return '<div class="drproject"><h2>' + p.project + '</h2>' +
-    '<div class="drsince">Toegang sinds ' + fmtDate(p.granted_at) + '</div>' +
-    body + '</div>';
-}
-
-async function renderLoggedIn(){
-  document.getElementById('loadingState').style.display = 'none';
-  document.getElementById('loggedOutState').style.display = 'none';
-  document.getElementById('loggedInState').style.display = 'block';
-
-  const session = await getReferralSession();
-  document.getElementById('whoamiEmail').textContent = (session && session.user && session.user.email) || '';
-
-  const result = await getMyDataroomAccess();
-  const wrap = document.getElementById('drContent');
-  if(!result.ok || !result.access){
-    wrap.innerHTML = '<div class="drnoaccess">Dit lukte niet om op te halen. Probeer de pagina te verversen, of neem contact op als het blijft mislukken.</div>';
-    return;
-  }
-
-  const projects = (result.access.projects || []);
-  if(projects.length === 0){
-    wrap.innerHTML = '<div class="drnoaccess">Je bent ingelogd, maar nog niet goedgekeurd voor een data room. Neem contact op met Ashley of Steven als je hier documenten verwacht te zien.</div>';
-    return;
-  }
-
-  wrap.innerHTML = projects.map(renderProject).join('');
+  wrap.innerHTML = catHtml || '<div class="drempty">Nog geen documenten toegevoegd voor The Maison.</div>';
 }
 
 function renderLoggedOut(){

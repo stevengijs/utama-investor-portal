@@ -164,11 +164,18 @@ async function getMyReferralStats(){
 }
 
 /**
- * Data room (/dataroom/) helpers. Same passwordless magic-link pattern as
- * the referral portal above - in fact the same Supabase Auth session works
- * on both pages (getReferralSession/onReferralAuthChange/signOutReferral
- * are generic, not actually referral-specific, so they're reused as-is
- * rather than duplicated here). See supabase/dataroom-schema.sql.
+ * Data room helpers. One page per project (/the-maison/dataroom/, later
+ * /moka/dataroom/, ...), mirroring how the rest of the site is structured -
+ * not one generic cross-project /dataroom/. Same passwordless magic-link
+ * pattern as the referral portal above - in fact the same Supabase Auth
+ * session works across every page on the site (getReferralSession/
+ * onReferralAuthChange/signOutReferral are generic, not actually
+ * referral-specific, so they're reused as-is rather than duplicated here).
+ * See supabase/dataroom-schema.sql.
+ *
+ * emailRedirectTo uses the CURRENT page's own URL, not a hardcoded path -
+ * that's what makes this one function work unchanged for every project's
+ * dataroom page.
  */
 async function sendDataroomMagicLink(email){
   const sb = getSupabaseClient();
@@ -176,7 +183,7 @@ async function sendDataroomMagicLink(email){
   try{
     const { error } = await sb.auth.signInWithOtp({
       email: email,
-      options: { emailRedirectTo: window.location.origin + "/dataroom/" }
+      options: { emailRedirectTo: window.location.origin + window.location.pathname }
     });
     if(error){ console.error("sendDataroomMagicLink error", error); return { ok:false, error }; }
     return { ok:true };
@@ -188,16 +195,16 @@ async function sendDataroomMagicLink(email){
 
 /**
  * Once signed in: returns { projects:[{project, granted_at,
- * documents:[{id,category,title,description,view_url}]}] }. An empty
- * projects array means this person is signed in but not (yet) approved for
- * any data room - see get_my_dataroom_access() in
- * supabase/dataroom-schema.sql.
+ * documents:[{id,category,title,description,view_url}]}] }, scoped to the
+ * given project. An empty projects array means this person is signed in
+ * but not (yet) approved for THIS project's data room - see
+ * get_my_dataroom_access() in supabase/dataroom-schema.sql.
  */
-async function getMyDataroomAccess(){
+async function getMyDataroomAccess(project){
   const sb = getSupabaseClient();
   if(!sb) return { ok:false, reason:"not-configured" };
   try{
-    const { data, error } = await sb.rpc('get_my_dataroom_access');
+    const { data, error } = await sb.rpc('get_my_dataroom_access', { p_project: project });
     if(error){ console.error("getMyDataroomAccess error", error); return { ok:false, error }; }
     return { ok:true, access:data };
   }catch(err){
