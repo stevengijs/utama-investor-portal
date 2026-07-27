@@ -159,6 +159,41 @@ table.pay tfoot td{font-weight:700;border-top:2px solid var(--line);border-botto
 .demo-banner{background:var(--green-2);color:#f0e7d6;font-size:12.5px;text-align:center;padding:8px 14px}
 .demo-banner b{color:#fff}
 
+/* referral */
+.side nav a.nav-ref{position:relative}
+.navtag{margin-left:auto;font-size:10.5px;font-weight:700;background:var(--gold);color:#241d10;padding:2px 8px;border-radius:var(--radius-pill);flex:none}
+.side nav a.active .navtag{background:rgba(36,29,16,.16);color:#241d10}
+
+.refeyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--terra);font-weight:700}
+.refhero{background:linear-gradient(135deg,var(--paper),var(--sand-2))}
+
+.linkbox{display:flex;gap:8px;margin:16px 0 14px;max-width:520px}
+.linkbox input{flex:1;padding:13px 14px;border:1px solid var(--line);border-radius:var(--radius-btn);font-family:inherit;font-size:14px;background:var(--sand);color:var(--ink)}
+.sharerow{display:flex;gap:10px;flex-wrap:wrap}
+.sharebtn{display:inline-flex;align-items:center;gap:8px}
+.sharebtn.wa{background:#25D366}
+.sharebtn.wa:hover{background:#1fbd5a}
+
+.refstats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:6px}
+.refstat{background:var(--sand);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+.refstat .v{font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:var(--green)}
+.refstat .l{font-size:12.5px;color:var(--muted);margin-top:3px}
+
+.reflist{border-top:1px solid var(--line);margin-top:14px}
+.refrow{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:14px}
+.refrow .rd{color:var(--muted);font-size:12.5px}
+.reftag{font-size:12px;font-weight:600;padding:4px 11px;border-radius:var(--radius-pill);white-space:nowrap}
+.reftag.pending{background:var(--sand-2);color:var(--muted)}
+.reftag.eligible{background:#fbeee6;color:var(--terra)}
+.reftag.paid{background:#e4f2ea;color:var(--ok)}
+.refempty{color:var(--muted);font-size:14px;padding:14px 0 0}
+
+/* overview teaser -> referral tab */
+.refteaser{display:flex;align-items:center;gap:16px;cursor:pointer;transition:.15s}
+.refteaser:hover{border-color:var(--terra)}
+.refteaser-ic{width:42px;height:42px;border-radius:var(--radius-btn);background:#fbeee6;color:var(--terra);display:flex;align-items:center;justify-content:center;flex:none}
+.refteaser-ic svg{width:20px;height:20px}
+
 @media(max-width:860px){
   .shell{grid-template-columns:1fr}
   .side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center}
@@ -170,5 +205,7 @@ table.pay tfoot td{font-weight:700;border-top:2px solid var(--line);border-botto
   .stats{grid-template-columns:repeat(2,1fr)}
   .docs{grid-template-columns:1fr}
   .ret{grid-template-columns:1fr}
+  .refstats{grid-template-columns:1fr}
+  .refteaser{flex-wrap:wrap}
   .main{padding:22px 18px 50px}
 }

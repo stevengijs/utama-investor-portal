@@ -25,6 +25,7 @@
       <a data-panel="docs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Documenten</a>
       <a data-panel="returns"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg> Rendement</a>
       <a data-panel="updates"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg> Updates</a>
+      <a data-panel="referral" class="nav-ref"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg> Referral <span class="navtag">&euro;2.500</span></a>
     </nav>
     <div class="who">
       <div class="av" id="av">MdV</div>
@@ -76,6 +77,14 @@
           <div class="csub" style="margin:2px 0 0" id="nextPay">Termijn 2 (30%) · EUR 63.000 · verwacht sep 2026</div>
         </div>
         <a class="btn ghost" data-goto="pay">Bekijk betaalschema</a>
+      </div>
+      <div class="card refteaser" data-goto="referral" role="button" tabindex="0">
+        <div class="refteaser-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
+        <div style="flex:1">
+          <h3 style="font-size:16px">Ken je iemand die dit ook zou willen?</h3>
+          <div class="csub" style="margin-bottom:0">Deel je referral-link en ontvang &euro;2.500 zodra iemand via jou koopt.</div>
+        </div>
+        <span class="btn ghost" style="flex:none">Bekijk je link &rarr;</span>
       </div>
     </section>
 
@@ -136,6 +145,43 @@
         <div class="feed" id="feed"></div>
       </div>
     </section>
+
+    <!-- REFERRAL -->
+    <section class="panel" id="p-referral">
+      <div class="card refhero">
+        <div class="refeyebrow">Referral programma</div>
+        <h3 style="font-size:22px;margin-top:4px">Ken je iemand die dit ook zou willen?</h3>
+        <p class="csub" style="max-width:560px">Deel je persoonlijke link met vrienden, familie of kennissen. Koopt iemand via jouw link een villa bij UTAMA? Dan ontvang jij &euro;2.500, zodra het contract getekend is.</p>
+
+        <div class="linkbox">
+          <input id="refLinkInput" type="text" readonly>
+          <button class="btn ghost" id="copyLinkBtn" type="button">Kopieer</button>
+        </div>
+        <div class="sharerow">
+          <button class="btn primary sharebtn wa" id="waShareBtn" type="button">
+            <svg viewBox="0 0 32 32" fill="currentColor" width="16" height="16"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg>
+            Deel via WhatsApp
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="font-size:16px">Jouw resultaten</h3>
+        <div class="csub">Actuele status van je referrals.</div>
+        <div class="refstats">
+          <div class="refstat"><div class="v" id="statVisits">0</div><div class="l">Bezoeken via je link</div></div>
+          <div class="refstat"><div class="v" id="statCount">0</div><div class="l">Vrienden aangemeld</div></div>
+          <div class="refstat"><div class="v" id="statAmount">&euro;0</div><div class="l">Toegekend / uitbetaald</div></div>
+        </div>
+        <div id="reflistWrap"></div>
+      </div>
+
+      <div class="card" style="display:flex;gap:22px;flex-wrap:wrap">
+        <div style="flex:1;min-width:180px"><div class="pagetag">Stap 1</div><p style="margin:6px 0 0;font-size:14px">Deel je persoonlijke link via WhatsApp, mail of social media.</p></div>
+        <div style="flex:1;min-width:180px"><div class="pagetag">Stap 2</div><p style="margin:6px 0 0;font-size:14px">Je vriend vraagt de brochure aan of neemt contact op via jouw link.</p></div>
+        <div style="flex:1;min-width:180px"><div class="pagetag">Stap 3</div><p style="margin:6px 0 0;font-size:14px">Koopt diegene een villa? Zodra het contract getekend is, ontvang jij &euro;2.500.</p></div>
+      </div>
+    </section>
   </main>
 </div>
 
@@ -170,7 +216,15 @@ const DATA = {
     {dt:"12 jun 2026", h:"Casco eerste verdieping gestort", p:"De betonvloer van de eerste verdieping is gestort. Volgende stap is de tweede verdieping en de rooftop-constructie."},
     {dt:"28 mrt 2026", h:"Fundering afgerond", p:"Grondwerk en fundering zijn volledig afgerond, ruim op schema. Foto's staan bij je documenten."},
     {dt:"15 feb 2026", h:"Welkom in je portal", p:"Je contract is getekend en je reservering is verwerkt. Welkom bij The Maison."}
-  ]
+  ],
+  referral:{
+    code:"MARK2500",
+    visits:14,
+    referrals:[
+      {dt:"3 jun 2026", amt:2500, st:"eligible"},
+      {dt:"22 apr 2026", amt:2500, st:"pending"}
+    ]
+  }
 };
 const eur = n => "€"+n.toLocaleString("nl-NL");
 const el = id => document.getElementById(id);
@@ -227,8 +281,38 @@ el('rNote').textContent="Schatting op basis van ± "+eur(R.nightly)+" per nacht 
 // updates
 el('feed').innerHTML=DATA.updates.map(u=>`<div class="item"><div class="dt">${u.dt}</div><div><h4>${u.h}</h4><p>${u.p}</p></div></div>`).join("");
 
+// referral
+const REF=DATA.referral;
+const refLink=window.location.origin+"/?ref="+REF.code;
+el('refLinkInput').value=refLink;
+el('statVisits').textContent=REF.visits;
+el('statCount').textContent=REF.referrals.length;
+const refPaidOrEligible=REF.referrals.filter(r=>r.st==='eligible'||r.st==='paid').reduce((s,r)=>s+r.amt,0);
+el('statAmount').textContent=eur(refPaidOrEligible);
+const refStatusLbl={paid:{t:"Uitbetaald",c:"paid"},eligible:{t:"Toegekend — komt eraan",c:"eligible"},pending:{t:"In afwachting",c:"pending"}};
+el('reflistWrap').innerHTML = REF.referrals.length
+  ? '<div class="reflist">'+REF.referrals.map(r=>{
+      const s=refStatusLbl[r.st]||refStatusLbl.pending;
+      return `<div class="refrow"><div><div>Referral van ${r.dt}</div><div class="rd">${eur(r.amt)}</div></div><span class="reftag ${s.c}">${s.t}</span></div>`;
+    }).join("")+'</div>'
+  : '<div class="refempty">Nog geen aanmeldingen via jouw link. Zodra iemand via je link een brochure aanvraagt, verschijnt die hier.</div>';
+
+el('copyLinkBtn').addEventListener('click',function(){
+  const input=el('refLinkInput');
+  input.select(); input.setSelectionRange(0,99999);
+  navigator.clipboard && navigator.clipboard.writeText(input.value).catch(()=>{});
+  try{ document.execCommand('copy'); }catch(e){}
+  const btn=el('copyLinkBtn'); const orig=btn.textContent;
+  btn.textContent="Gekopieerd!";
+  setTimeout(()=>{ btn.textContent=orig; },1800);
+});
+el('waShareBtn').addEventListener('click',function(){
+  const text="Hoi! Ik investeer in vastgoedprojecten van UTAMA op Bali en dacht dat dit ook iets voor jou kan zijn. Neem gerust een kijkje: "+refLink;
+  window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank','noopener');
+});
+
 // nav
-const titles={overview:"Overzicht",build:"Bouwvoortgang",pay:"Betalingen",docs:"Documenten",returns:"Rendement",updates:"Updates"};
+const titles={overview:"Overzicht",build:"Bouwvoortgang",pay:"Betalingen",docs:"Documenten",returns:"Rendement",updates:"Updates",referral:"Referral programma"};
 function show(name){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
   el('p-'+name).classList.add('on');
@@ -237,7 +321,10 @@ function show(name){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 document.querySelectorAll('#nav a').forEach(a=>a.addEventListener('click',()=>show(a.dataset.panel)));
-document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.goto)));
+document.querySelectorAll('[data-goto]').forEach(b=>{
+  b.addEventListener('click',()=>show(b.dataset.goto));
+  b.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); show(b.dataset.goto); } });
+});
 </script>
 </body>
 </html>
