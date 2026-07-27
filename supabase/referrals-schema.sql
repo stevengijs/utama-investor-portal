@@ -246,6 +246,16 @@ grant execute on function public.get_my_referral_stats() to authenticated;
 -- don't pass it keep working unchanged (default null). Referral attribution
 -- is best-effort and silent - an unknown/expired/self-referral code never
 -- blocks or errors out someone's brochure request, it's just not credited.
+--
+-- IMPORTANT: this is a SEPARATE overload of submit_lead (10 args vs. the
+-- 9-arg version in schema.sql) - Postgres/PostgREST picks the overload whose
+-- parameter names match the caller's named arguments. supabase-client.js
+-- always sends p_ref_code, so the live site always calls THIS version, never
+-- the plain one in schema.sql. That means any future change to the 9-arg
+-- version's leads insert (columns, defaults, etc.) must be mirrored here too,
+-- or it silently never reaches production - this exact mismatch is why the
+-- name/email/phone columns weren't showing up on new leads until this line
+-- was fixed to match.
 -- ---------------------------------------------------------------------------
 create or replace function public.submit_lead(
   p_email       text,
@@ -287,8 +297,8 @@ begin
         updated_at       = now()
   returning id into v_contact_id;
 
-  insert into public.leads (contact_id, project, unit, budget, timeline, source_page, lang)
-  values (v_contact_id, trim(p_project), nullif(trim(p_unit), ''), p_budget, p_timeline, p_source_page, p_lang);
+  insert into public.leads (contact_id, name, email, phone, project, unit, budget, timeline, source_page, lang)
+  values (v_contact_id, nullif(trim(p_name), ''), v_email, nullif(trim(p_phone), ''), trim(p_project), nullif(trim(p_unit), ''), p_budget, p_timeline, p_source_page, p_lang);
 
   if p_ref_code is not null and trim(p_ref_code) <> '' then
     select id into v_referrer_id
