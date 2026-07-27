@@ -285,3 +285,40 @@ order by c.last_activity_at desc;
 -- security_invoker (set above) makes the view respect each table's RLS
 -- instead of bypassing it; the REVOKE below is the actual lock on the door.
 revoke all on public.contacts_overview from anon, authenticated;
+
+-- ---------------------------------------------------------------------------
+-- Handy view #2: one row per submission (lead), with the contact's name,
+-- email and phone joined straight in. contacts_overview (above) is one row
+-- per PERSON - great for "who is this and what's their history", but it
+-- aggregates project/budget/timeline into arrays, which is fine for a
+-- summary but awkward if what you actually want is "show me every brochure
+-- request, newest first, with who asked and their contact details right
+-- there". This view is that: the raw leads table, contact info attached,
+-- nothing collapsed or aggregated - the same one row per submission you'd
+-- get querying `leads` directly, just no longer missing name/email/phone.
+-- ---------------------------------------------------------------------------
+drop view if exists public.leads_overview;
+create view public.leads_overview
+with (security_invoker = true)
+as
+select
+  l.id,
+  l.created_at,
+  c.name,
+  c.email,
+  c.phone,
+  l.project,
+  l.unit,
+  l.budget,
+  l.timeline,
+  l.source_page,
+  l.lang,
+  l.contact_id
+from public.leads l
+join public.contacts c on c.id = l.contact_id
+order by l.created_at desc;
+
+-- Same reasoning as contacts_overview above: this view must stay off-limits
+-- to the public anon key, otherwise it becomes an unauthenticated API
+-- endpoint that hands out every visitor's name, email and phone number.
+revoke all on public.leads_overview from anon, authenticated;
