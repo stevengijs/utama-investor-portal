@@ -39,6 +39,25 @@ function isValidEmail(s: unknown): s is string {
   return typeof s === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 }
 
+function formatBaliTime(iso: unknown): string {
+  if (typeof iso !== "string") return escapeHtml(iso);
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return escapeHtml(iso);
+  try {
+    const formatted = new Intl.DateTimeFormat("nl-NL", {
+      timeZone: "Asia/Makassar",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(d);
+    return `${formatted} (Bali-tijd)`;
+  } catch {
+    return escapeHtml(iso);
+  }
+}
+
 async function sendEmail(payload: Record<string, unknown>): Promise<{ ok: boolean; status: number }> {
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -89,13 +108,14 @@ Deno.serve(async (req: Request) => {
   const internalSubject = `Nieuwe reservering: ${lead.project ?? "The Maison"}${lead.unit ? " - " + lead.unit : ""}`;
   const internalHtml = `
     <div style="font-family:Arial,sans-serif;font-size:15px;color:#17140F;line-height:1.6">
-      <h2 style="margin:0 0 14px">Nieuwe villareservering</h2>
+      <h2 style="margin:0 0 10px">Nieuwe villareservering</h2>
+      <p style="margin:0 0 18px">${escapeHtml(lead.name)} heeft zojuist${unitName ? " " + unitName + " van" : ""} ${projectName} gereserveerd via het investeerdersportaal. Neem snel contact op om de intentieverklaring te versturen - hieronder de gegevens.</p>
       <p><b>Naam:</b> ${escapeHtml(lead.name)}</p>
       <p><b>E-mail:</b> ${escapeHtml(lead.email)}</p>
       <p><b>WhatsApp:</b> ${escapeHtml(lead.phone)}</p>
       <p><b>Project:</b> ${projectName}</p>
       <p><b>Unit:</b> ${escapeHtml(lead.unit)}</p>
-      <p><b>Tijdstip:</b> ${escapeHtml(lead.created_at)}</p>
+      <p><b>Tijdstip:</b> ${formatBaliTime(lead.created_at)}</p>
       <p style="margin-top:18px;color:#5B564C;font-size:13px">Automatisch verstuurd vanuit het investeerdersportaal zodra iemand de reserveringsflow afrondt.</p>
     </div>`;
 
