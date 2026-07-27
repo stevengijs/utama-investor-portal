@@ -181,20 +181,12 @@
           <div><div class="cta-agent-name">Steven Gijsman</div><div class="cta-agent-role">Director, UTAMA</div></div>
         </div>
       </div>
-      <h2 data-t="ctaTitle">Ontvang de digitale brochure via WhatsApp</h2>
-      <p data-t="ctaSub">Laat je gegevens achter, dan ontvang je de brochure direct via WhatsApp.</p>
-      <div class="mtrust" data-t="ctaFine">Aanbetaling €5.000 reserveert een unit · geen spam.</div>
-      <div class="cta-grid">
-        <input type="text" id="leadName" data-tp="name" placeholder="Je naam">
-        <input type="text" id="leadPhone" data-tp="phone" placeholder="Je WhatsApp-nummer">
-        <input type="email" id="leadEmail" data-tp="email" placeholder="Je e-mailadres">
-      </div>
+      <h2 data-t="ctaTitle">Klaar voor de volgende stap?</h2>
+      <p data-t="ctaSub">Ontvang de digitale brochure van een project via WhatsApp, of stel je vraag direct aan Ashley.</p>
       <div class="cta-btns">
-        <button class="btn wa-btn" onclick="sendLead('wa')"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg><span data-t="ctaBtn">Verstuur via WhatsApp</span></button>
-        <button class="btn ghost2" onclick="sendLead('email')" data-t="ctaEmail">Of per e-mail</button>
-        <button class="btn ghost2" onclick="openCal()" data-t="ctaCall">Plan een gesprek</button>
+        <button type="button" class="btn wa-btn" onclick="openContactModal()"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg><span data-t="ctaBtn">Ontvang de brochure via WhatsApp</span></button>
+        <button type="button" class="btn ghost2" onclick="waDirect()" data-t="ctaWa">Praat direct via WhatsApp</button>
       </div>
-      <div class="cta-ok" id="ctaOk"></div>
     </div>
   </div>
 </section>
@@ -205,6 +197,33 @@
     <button class="fab-wa" onclick="waDirect()" title="WhatsApp" aria-label="WhatsApp"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg></button>
   </div>
 </footer>
+
+<div class="modal-ov" id="contactModal" onclick="if(event.target===this)closeContactModal()">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="x" onclick="closeContactModal()" aria-label="Sluiten">&times;</button>
+    <div class="eb" data-t="cmEb">Digitale brochure</div>
+    <h3 data-t="cmTitle">Ontvang de brochure via WhatsApp</h3>
+    <div class="msub" data-t="cmSub">Laat je gegevens achter, dan sturen we de brochure van het project van jouw keuze direct naar je WhatsApp.</div>
+    <form onsubmit="return submitContact(event)">
+      <div class="mfield"><label data-t="name">Je naam</label><input id="cmName" type="text" data-tp="name" placeholder="Je volledige naam" required></div>
+      <div class="mrow">
+        <div class="mfield"><label data-t="phone">Je WhatsApp-nummer</label><input id="cmPhone" type="tel" placeholder="+31 6 ..." required></div>
+        <div class="mfield"><label data-t="email">Je e-mailadres</label><input id="cmEmail" type="email" placeholder="jij@voorbeeld.com" required></div>
+      </div>
+      <div class="mfield"><label data-t="cmProject">Welk project?</label>
+        <select id="cmProject" required>
+          <option value="" disabled selected data-t="cmProjectChoose">Kies een project</option>
+          <option>The Maison</option>
+          <option>MOKA</option>
+          <option data-t="cmProjectUnsure">Nog geen voorkeur</option>
+        </select>
+      </div>
+      <div class="merr" id="cmErr" data-t="cmErr">Vul je naam, WhatsApp-nummer, e-mailadres en project in.</div>
+      <button class="btn" style="width:100%;justify-content:center;margin-top:6px" type="submit" data-t="cmBtn">Verstuur via WhatsApp</button>
+      <div class="mtrust" data-t="ctaFine">Aanbetaling &euro;5.000 reserveert een unit &middot; geen spam.</div>
+    </form>
+  </div>
+</div>
 
 <div class="modal-ov" id="eaModal" onclick="if(event.target===this)closeEarlyAccess()">
   <div class="modal" role="dialog" aria-modal="true">
@@ -284,11 +303,13 @@ const T={
   h3li1:"Na oplevering regelt ons beheerteam listing, boekingen en gasten",h3li2:"Ook schoonmaak, onderhoud en belasting geregeld, jij hoeft nergens naar om te kijken",h3li3:"Jij ontvangt maandelijks inkomsten en rapportage, zonder gedoe",
   founderEyebrow:"Wie zit hierachter",founderTitle:"Steven Gijsman, oprichter UTAMA",
   founderP1:"Ik ontwikkel elke villa persoonlijk, van locatiekeuze tot sleuteloverdracht. Geen anoniem fonds en geen tussenpartijen: ik selecteer de aannemer zelf, bewaak kwaliteit, planning en budget, en ken elke investeerder bij naam. Inmiddels gingen ruim 25 Nederlandse investeerders je voor, verdeeld over vier opgeleverde projecten.",
-  ctaTitle:"Ontvang de digitale brochure via WhatsApp",ctaSub:"Laat je gegevens achter, dan ontvang je de brochure direct via WhatsApp.",ctaFine:"Aanbetaling €5.000 reserveert een unit · geen spam.",
-  ctaBtn:"Verstuur via WhatsApp",ctaEmail:"Of per e-mail",ctaCall:"Plan een gesprek",name:"Je naam",phone:"Je WhatsApp-nummer",email:"Je e-mailadres",
+  ctaTitle:"Klaar voor de volgende stap?",ctaSub:"Ontvang de digitale brochure van een project via WhatsApp, of stel je vraag direct aan Ashley.",ctaFine:"Aanbetaling €5.000 reserveert een unit · geen spam.",
+  ctaBtn:"Ontvang de brochure via WhatsApp",ctaWa:"Praat direct via WhatsApp",name:"Je naam",phone:"Je WhatsApp-nummer",email:"Je e-mailadres",
+  cmEb:"Digitale brochure",cmTitle:"Ontvang de brochure via WhatsApp",cmSub:"Laat je gegevens achter, dan sturen we de brochure van het project van jouw keuze direct naar je WhatsApp.",
+  cmProject:"Welk project?",cmProjectChoose:"Kies een project",cmProjectUnsure:"Nog geen voorkeur",cmErr:"Vul je naam, WhatsApp-nummer, e-mailadres en project in.",cmBtn:"Verstuur via WhatsApp",
+  cmOkTitle:"Verstuurd!",cmOkP:"We hebben je bericht ontvangen. Ashley neemt snel contact met je op via WhatsApp.",
   footer:"Investeren in Bali-vastgoed, transparant en zorgeloos.",footerRef:"Verdien €2.500 als je iemand aanbrengt",
   from:"vanaf",soldPart:"{sold} van {y} verkocht",leftPart:"nog {x} beschikbaar",soldOutLine:"✓ Volledig uitverkocht ({y} van {y})",recentSold:"{x} verkocht",more:"Bekijk project en rendement →",soon:"Volgend project wordt binnenkort onthuld",soonTag:"Binnenkort · nieuw project",
-  fill:"Vul je naam en je WhatsApp of e-mail in.",okMsg:"Bedankt! We nemen snel contact met je op. Je ontvangt de brochure via WhatsApp.",
   eaEb:"Vroegtijdige toegang",eaTitle:"Meld je alvast aan voor het volgende project",eaSub:"Laat je gegevens achter, dan ben je een van de eersten die de details en pre-sale prijzen ontvangt zodra het project onthuld wordt.",
   eaBudget:"Budget",eaWhen:"Wanneer wil je kopen?",eaErr:"Vul je naam, WhatsApp-nummer en e-mailadres in.",eaBtn:"Meld je aan",
   eaOkTitle:"Aangemeld!",eaOkP:"We houden je op de hoogte zodra dit project onthuld wordt. Je hoort als eerste van ons.",eaTrust:"Geen spam. We gebruiken je gegevens alleen om je op de hoogte te houden van dit project."},
@@ -309,11 +330,13 @@ const T={
   h3li1:"After handover, our management team handles listing, bookings and guests",h3li2:"Cleaning, maintenance and tax are covered too, you never have to chase anything",h3li3:"You receive monthly income and reporting, without the hassle",
   founderEyebrow:"Who's behind this",founderTitle:"Steven Gijsman, founder of UTAMA",
   founderP1:"I develop every villa personally, from site selection through to key handover. No anonymous fund and no middlemen: I select the contractor myself, oversee quality, planning and budget, and know every investor by name. To date, 25+ Dutch investors have trusted me with their investment, across four completed projects.",
-  ctaTitle:"Get the digital brochure via WhatsApp",ctaSub:"Leave your details and we'll send the brochure straight to your WhatsApp.",ctaFine:"€5,000 deposit reserves a unit · no spam.",
-  ctaBtn:"Send via WhatsApp",ctaEmail:"Or by email",ctaCall:"Book a call",name:"Your name",phone:"Your WhatsApp number",email:"Your email",
+  ctaTitle:"Ready for the next step?",ctaSub:"Get a project's digital brochure via WhatsApp, or ask Ashley directly.",ctaFine:"€5,000 deposit reserves a unit · no spam.",
+  ctaBtn:"Get the brochure via WhatsApp",ctaWa:"Chat directly on WhatsApp",name:"Your name",phone:"Your WhatsApp number",email:"Your email",
+  cmEb:"Digital brochure",cmTitle:"Get the brochure via WhatsApp",cmSub:"Leave your details and we'll send the brochure for the project of your choice straight to your WhatsApp.",
+  cmProject:"Which project?",cmProjectChoose:"Choose a project",cmProjectUnsure:"Not sure yet",cmErr:"Please enter your name, WhatsApp number, email and project.",cmBtn:"Send via WhatsApp",
+  cmOkTitle:"Sent!",cmOkP:"We've received your message. Ashley will be in touch shortly via WhatsApp.",
   footer:"Investing in Bali real estate, transparent and hassle-free.",footerRef:"Earn €2,500 for every friend you bring in",
   from:"from",soldPart:"{sold} of {y} sold",leftPart:"{x} left",soldOutLine:"✓ Fully sold out ({y} of {y})",recentSold:"{x} sold",more:"View project and returns →",soon:"Next project to be revealed soon",soonTag:"Coming soon · new project",
-  fill:"Please enter your name and WhatsApp or email.",okMsg:"Thanks! We'll be in touch shortly. You'll receive the brochure via WhatsApp.",
   eaEb:"Early access",eaTitle:"Register your interest for the next project",eaSub:"Leave your details and you'll be one of the first to receive the details and pre-sale prices once the project is revealed.",
   eaBudget:"Budget",eaWhen:"When do you want to buy?",eaErr:"Please enter your name, WhatsApp number and email.",eaBtn:"Register interest",
   eaOkTitle:"You're on the list!",eaOkP:"We'll keep you posted as soon as this project is revealed. You'll be among the first to hear from us.",eaTrust:"No spam. We'll only use your details to keep you posted about this project."}
@@ -355,18 +378,30 @@ function setLang(l){
   renderCards();
 }
 function fb(txt,ok){try{const ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();document.execCommand('copy');document.body.removeChild(ta);ok();}catch(e){}}
-function sendLead(via){
-  const name=el('leadName').value.trim(), email=el('leadEmail').value.trim(), phone=el('leadPhone').value.trim();
-  const ok=el('ctaOk');
-  if(!name||(!email&&!phone)){ok.style.display="block";ok.textContent=T[lang].fill;return;}
-  const body=(lang==='nl'?"Nieuwe lead via de website":"New lead via the website")+"%0A"+
-    (lang==='nl'?"Naam":"Name")+": "+(name||"-")+"%0AWhatsApp: "+(phone||"-")+"%0AE-mail: "+(email||"-");
-  if(via==='wa'){ window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+body,"_blank"); }
-  else{ const subj=encodeURIComponent(lang==='nl'?"Info-aanvraag UTAMA":"Info request UTAMA"); window.location.href="mailto:"+CONFIG.email+"?subject="+subj+"&body="+body; }
-  ok.style.display="block"; ok.textContent=T[lang].okMsg;
-}
-function openCal(){ if(CONFIG.calendly){window.open(CONFIG.calendly,"_blank");} else {sendLead('wa');} }
 function waDirect(){ const msg=(lang==='nl'?"Hi! Ik heb interesse in jullie Bali-villa's.":"Hi! I'm interested in your Bali villas."); window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg),"_blank"); }
+function openContactModal(){ el('contactModal').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeContactModal(){ el('contactModal').classList.remove('open'); document.body.style.overflow=''; }
+function submitContact(e){
+  e.preventDefault();
+  const name=el('cmName').value.trim(), phone=el('cmPhone').value.trim(), email=el('cmEmail').value.trim(), project=el('cmProject').value;
+  if(!name||!phone||!email||!project){ el('cmErr').style.display='block'; return false; }
+  submitLead({ project, name, phone, email, lang, type:'inquiry' }).catch(()=>{});
+  const body=(lang==='nl'?"Nieuwe brochure-aanvraag via de website":"New brochure request via the website")+"%0A"+
+    (lang==='nl'?"Project":"Project")+": "+project+"%0A"+(lang==='nl'?"Naam":"Name")+": "+name+"%0AWhatsApp: "+phone+"%0AE-mail: "+email;
+  window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+body,"_blank");
+  showContactSuccess(name);
+  return false;
+}
+function showContactSuccess(name){
+  const m=document.querySelector('#contactModal .modal'); if(!m) return;
+  const first=name?name.split(' ')[0]:'';
+  m.innerHTML='<div class="msuccess">'+
+    '<div class="checkwrap"><svg viewBox="0 0 52 52" class="chk"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg></div>'+
+    '<h3>'+T[lang].cmOkTitle+(first?', '+first:'')+'</h3>'+
+    '<p>'+T[lang].cmOkP+'</p>'+
+    '</div>';
+  launchConfetti('contactModal');
+}
 function openEarlyAccess(){ el('eaModal').classList.add('open'); document.body.style.overflow='hidden'; }
 function closeEarlyAccess(){ el('eaModal').classList.remove('open'); document.body.style.overflow=''; }
 function submitEarlyAccess(e){
@@ -403,7 +438,7 @@ function launchConfetti(hostId){
     host.appendChild(c);
   }
 }
-document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeEarlyAccess(); });
+document.addEventListener('keydown',function(e){ if(e.key!=='Escape') return; closeEarlyAccess(); closeContactModal(); });
 setLang('nl');
 </script>
 </body>
