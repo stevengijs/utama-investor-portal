@@ -95,8 +95,14 @@
   <div class="wrap">
     <div class="cta">
       <div class="cta-agent">
-        <img src="/images/ashley.jpg" alt="Ashley Vermoten, Sales Manager UTAMA">
-        <div><div class="cta-agent-name">Ashley Vermoten</div><div class="cta-agent-role" data-t="agentRole">Sales Manager, UTAMA</div></div>
+        <div class="cta-agent-person">
+          <img src="/images/ashley.jpg" alt="Ashley Vermoten, Sales Manager UTAMA">
+          <div><div class="cta-agent-name">Ashley Vermoten</div><div class="cta-agent-role" data-t="agentRole">Sales Manager, UTAMA</div></div>
+        </div>
+        <div class="cta-agent-person">
+          <img src="/images/steven.jpg" alt="Steven Gijsman, Director UTAMA" onerror="this.style.display='none'">
+          <div><div class="cta-agent-name">Steven Gijsman</div><div class="cta-agent-role">Director, UTAMA</div></div>
+        </div>
       </div>
       <h2 data-t="ctaTitle">Klaar voor de volgende stap?</h2>
       <p data-t="ctaSub">Bekijk de volledige digitale brochure met alle renders, plattegronden, exacte prijzen en het rendementsmodel, of stel je vraag direct aan Ashley.</p>
@@ -283,7 +289,8 @@ setLang('nl');
   @keyframes cfall{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(105vh) rotate(680deg);opacity:.85}}
   .gallery .g{cursor:zoom-in;transition:transform .15s}
   .gallery .g:hover{transform:translateY(-2px)}
-  .cta-agent{display:flex;align-items:center;gap:12px;margin-bottom:16px;position:relative;z-index:1}
+  .cta-agent{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:16px;position:relative;z-index:1}
+  .cta-agent-person{display:flex;align-items:center;gap:12px}
   .cta-agent img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.32);flex:none}
   .cta-agent-name{font-size:13.5px;font-weight:600;color:#fff}
   .cta-agent-role{font-size:12px;color:#eee4d4;opacity:.8;margin-top:1px}
