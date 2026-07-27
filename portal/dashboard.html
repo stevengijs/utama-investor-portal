@@ -153,6 +153,10 @@
         <h3 style="font-size:22px;margin-top:4px">Ken je iemand die dit ook zou willen?</h3>
         <p class="csub" style="max-width:560px">Deel je persoonlijke link met vrienden, familie of kennissen. Koopt iemand via jouw link een villa bij UTAMA? Dan ontvang jij &euro;2.500, zodra het contract getekend is.</p>
 
+        <div class="reflink-target">
+          <label for="refProjectSelect">Deel een link naar</label>
+          <select id="refProjectSelect"></select>
+        </div>
         <div class="linkbox">
           <input id="refLinkInput" type="text" readonly>
           <button class="btn ghost" id="copyLinkBtn" type="button">Kopieer</button>
@@ -283,8 +287,31 @@ el('feed').innerHTML=DATA.updates.map(u=>`<div class="item"><div class="dt">${u.
 
 // referral
 const REF=DATA.referral;
-const refLink=window.location.origin+"/?ref="+REF.code;
-el('refLinkInput').value=refLink;
+// Zelfde project-lijst en linkopbouw als /referral/index.html - los van de
+// homepage kun je ook direct naar een specifiek project linken. ?ref=CODE
+// wordt op elke pagina opgepikt door supabase-client.js, dus dit is puur
+// een kwestie van het juiste pad meegeven.
+const REF_PROJECTS=[
+  { key:"home", label:"Algemeen (homepage)", path:"/" },
+  { key:"maison", label:"The Maison", path:"/the-maison" },
+  { key:"moka", label:"MOKA", path:"/moka" }
+];
+function buildRefLink(code,path){ return window.location.origin+path+"?ref="+code; }
+function refShareMessage(project){
+  return (project && project.key!=='home')
+    ? "Hoi! Ik investeer bij UTAMA op Bali en dacht dat "+project.label+" ook iets voor jou kan zijn. Neem gerust een kijkje:"
+    : "Hoi! Ik investeer in vastgoedprojecten van UTAMA op Bali en dacht dat dit ook iets voor jou kan zijn. Neem gerust een kijkje:";
+}
+let refLink=buildRefLink(REF.code,REF_PROJECTS[0].path);
+const refProjectSelect=el('refProjectSelect');
+refProjectSelect.innerHTML=REF_PROJECTS.map(p=>`<option value="${p.key}">${p.label}</option>`).join("");
+function refreshRefLink(){
+  const project=REF_PROJECTS.find(p=>p.key===refProjectSelect.value)||REF_PROJECTS[0];
+  refLink=buildRefLink(REF.code,project.path);
+  el('refLinkInput').value=refLink;
+}
+refProjectSelect.onchange=refreshRefLink;
+refreshRefLink();
 el('statVisits').textContent=REF.visits;
 el('statCount').textContent=REF.referrals.length;
 const refPaidOrEligible=REF.referrals.filter(r=>r.st==='eligible'||r.st==='paid').reduce((s,r)=>s+r.amt,0);
@@ -307,7 +334,8 @@ el('copyLinkBtn').addEventListener('click',function(){
   setTimeout(()=>{ btn.textContent=orig; },1800);
 });
 el('waShareBtn').addEventListener('click',function(){
-  const text="Hoi! Ik investeer in vastgoedprojecten van UTAMA op Bali en dacht dat dit ook iets voor jou kan zijn. Neem gerust een kijkje: "+refLink;
+  const project=REF_PROJECTS.find(p=>p.key===refProjectSelect.value)||REF_PROJECTS[0];
+  const text=refShareMessage(project)+" "+refLink;
   window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank','noopener');
 });
 

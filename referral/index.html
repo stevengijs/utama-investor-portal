@@ -27,6 +27,11 @@
   .referr{background:#fbeee6;border:1px solid #f0d4c2;border-radius:8px;padding:14px 16px;font-size:14px;color:#a3512a;margin-top:14px}
   .refeyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);font-weight:700}
 
+  .reflink-target{margin-bottom:12px}
+  .reflink-target label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:6px}
+  .reflink-target select{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:14.5px;background:#fff;color:var(--ink)}
+  .reflink-target select:focus{outline:none;border-color:var(--green)}
+
   .linkbox{display:flex;gap:8px;margin:6px 0 14px}
   .linkbox input{flex:1;padding:13px 14px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:14px;background:var(--sand);color:var(--ink)}
   .linkbox button{flex:none}
@@ -92,6 +97,10 @@
       <h1 style="font-size:26px">Deel &lsquo;m, en verdien &euro;2.500 per aankoop</h1>
       <p class="sub">Iedereen die via jouw link een brochure aanvraagt en later koopt, telt mee. Zodra het contract getekend is, nemen wij zelf contact met je op om de uitbetaling te regelen.</p>
 
+      <div class="reflink-target">
+        <label for="refProjectSelect">Deel een link naar</label>
+        <select id="refProjectSelect"></select>
+      </div>
       <div class="linkbox">
         <input id="refLinkInput" type="text" readonly>
         <button class="btn" id="copyLinkBtn" type="button">Kopieer</button>
@@ -137,13 +146,31 @@ function statusLabel(s){
   return { text:'In afwachting', cls:'pending' };
 }
 
-function shareMessage(){
+function shareMessage(project){
+  if(project && project.key !== 'home'){
+    return "Hoi! Ik investeer bij UTAMA op Bali en dacht dat " + project.label + " ook iets voor jou kan zijn. Neem gerust een kijkje:";
+  }
   return "Hoi! Ik investeer in vastgoedprojecten van UTAMA op Bali en dacht dat dit ook iets voor jou kan zijn. Neem gerust een kijkje:";
 }
 
-function wireShareButtons(link){
+// Welke pagina('s) je referral-link kan targeten - los van de homepage kun je
+// ook direct naar een specifiek project linken. ?ref=CODE wordt door
+// supabase-client.js op elke pagina opgepikt (zie _captureReferralFromUrl),
+// dus dit is puur een kwestie van het juiste pad meegeven, geen aparte
+// server-side wiring nodig. Voeg hier een regel toe zodra er een nieuw
+// project live gaat.
+const REF_PROJECTS = [
+  { key:"home", label:"Algemeen (homepage)", path:"/" },
+  { key:"maison", label:"The Maison", path:"/the-maison" },
+  { key:"moka", label:"MOKA", path:"/moka" }
+];
+function buildRefLink(code, path){
+  return window.location.origin + path + "?ref=" + code;
+}
+
+function wireShareButtons(link, project){
   document.getElementById('waShareBtn').onclick = function(){
-    const text = shareMessage() + " " + link;
+    const text = shareMessage(project) + " " + link;
     window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener');
   };
 
@@ -151,7 +178,7 @@ function wireShareButtons(link){
   if(navigator.share){
     nativeBtn.style.display = 'inline-flex';
     nativeBtn.onclick = function(){
-      navigator.share({ title: 'UTAMA', text: shareMessage(), url: link }).catch(()=>{});
+      navigator.share({ title: 'UTAMA', text: shareMessage(project), url: link }).catch(()=>{});
     };
   } else {
     nativeBtn.style.display = 'none';
@@ -170,9 +197,16 @@ async function renderLoggedIn(){
   if(!result.ok || !result.stats){ return; }
   const stats = result.stats;
 
-  const link = window.location.origin + '/?ref=' + stats.code;
-  document.getElementById('refLinkInput').value = link;
-  wireShareButtons(link);
+  const select = document.getElementById('refProjectSelect');
+  select.innerHTML = REF_PROJECTS.map(p => '<option value="' + p.key + '">' + p.label + '</option>').join('');
+  function refreshLink(){
+    const project = REF_PROJECTS.find(p => p.key === select.value) || REF_PROJECTS[0];
+    const link = buildRefLink(stats.code, project.path);
+    document.getElementById('refLinkInput').value = link;
+    wireShareButtons(link, project);
+  }
+  select.onchange = refreshLink;
+  refreshLink();
   document.getElementById('statVisits').textContent = stats.visits || 0;
 
   const refs = stats.referrals || [];
