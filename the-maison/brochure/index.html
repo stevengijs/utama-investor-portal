@@ -303,6 +303,13 @@
   .bstat .bl{font-size:12.5px;color:var(--muted);margin-top:5px}
 
   .dark-cta{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--opt);border-radius:14px;padding:16px 18px;margin-top:18px;font-size:13px;color:var(--ink);line-height:1.55}
+  .dr-cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--sand-2);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:16px}
+  .dr-cta-ic{width:40px;height:40px;border-radius:10px;background:var(--paper);color:var(--opt-deep);display:flex;align-items:center;justify-content:center;flex:none}
+  .dr-cta-ic svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .dr-cta-body{flex:1;min-width:220px}
+  .dr-cta-body h4{margin:0 0 3px;font-size:14.5px;font-weight:700;color:var(--ink)}
+  .dr-cta-body p{margin:0;font-size:13px;color:var(--muted);line-height:1.5}
+  .dr-cta .btn-outline{flex:none;white-space:nowrap}
   .earn-proof{display:flex;gap:20px;align-items:center;background:var(--sand-2,var(--paper));border:1px solid var(--line);border-radius:14px;padding:18px;margin:18px 0}
   .earn-proof img{width:220px;flex:none;border-radius:14px;display:block}
   .earn-cap-lbl{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--opt-deep);margin-bottom:6px}
@@ -1231,6 +1238,15 @@
           <div class="tcard"><div class="n">02 · Constructiecontract</div><p style="margin-top:6px">Voor de bouw van de villa, met garanties, oplevertijdslijnen en bouwspecificaties.</p></div>
         </div>
 
+        <div class="dr-cta">
+          <div class="dr-cta-ic"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+          <div class="dr-cta-body">
+            <h4>Zelf de onderliggende documentatie inzien?</h4>
+            <p>Due diligence-stukken en voorbeeldcontracten staan in onze data room. Vraag 'm aan, dan krijg je meteen toegang.</p>
+          </div>
+          <button class="btn-outline" type="button" onclick="openDataroomModal()">Vraag de data room aan</button>
+        </div>
+
         <div class="subhead">De risico's, en hoe wij ze beperken</div>
         <p class="pane-lead" style="margin-bottom:12px">Investeren in Bali kent risico's. We benoemen ze liever eerlijk - en zetten er telkens direct tegenover hoe onze werkwijze het risico wegneemt.</p>
         <div class="risk2-grid">
@@ -1451,6 +1467,44 @@
       <h3 id="rmDoneTitle">Aanvraag ontvangen</h3>
       <p class="rm-lead" id="rmDoneLead">We sturen je de intentieverklaring voor jouw unit toe. Ashley neemt ook persoonlijk contact op om de vervolgstappen te bespreken.</p>
       <a class="wa block" id="rmWaFollow" target="_blank" rel="noopener" style="margin-top:6px"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg>Alvast WhatsApp Ashley</a>
+    </div>
+  </div>
+</div>
+
+<!-- DATA ROOM-AANVRAAG: lichte modal, los van de reserveringsmodule -->
+<div class="rmodal" id="drmodal" onclick="if(event.target===this)closeDataroomModal()">
+  <div class="rmodal-box">
+    <button class="x" onclick="closeDataroomModal()" aria-label="Sluiten">&times;</button>
+
+    <div id="drStep1">
+      <div class="eb">Data room</div>
+      <h3>Vraag de data room aan</h3>
+      <p class="rm-lead">Laat je gegevens achter, dan krijg je direct toegang tot de due diligence-stukken en voorbeeldcontracten van The Maison.</p>
+      <form id="drForm" onsubmit="return drSubmit(event)">
+        <div class="gfield">
+          <label for="drName">Naam</label>
+          <input id="drName" type="text" placeholder="Je volledige naam" required>
+        </div>
+        <div class="grow">
+          <div class="gfield">
+            <label for="drPhone">WhatsApp-nummer</label>
+            <input id="drPhone" type="tel" placeholder="+31 6 ...">
+          </div>
+          <div class="gfield">
+            <label for="drEmail">E-mailadres</label>
+            <input id="drEmail" type="email" placeholder="jij@voorbeeld.com" required>
+          </div>
+        </div>
+        <div class="gerr" id="drErr">Vul je naam en e-mailadres in.</div>
+        <button class="btn-reserve block" type="submit">Geef me toegang</button>
+      </form>
+    </div>
+
+    <div id="drStep2" style="display:none;text-align:center">
+      <div class="eb">Data room</div>
+      <h3>Aanvraag ontvangen</h3>
+      <p class="rm-lead">Je hebt nu direct toegang. Ashley of Steven nemen ook persoonlijk contact op als je vragen hebt over de documenten.</p>
+      <a class="btn-reserve block" href="/the-maison/dataroom/" target="_blank" rel="noopener" style="justify-content:center;text-decoration:none">Open de data room &rarr;</a>
     </div>
   </div>
 </div>
@@ -1834,6 +1888,29 @@ function rmSubmit(e){
   return false;
 }
 document.addEventListener('keydown', function(e){ if(el('rmodal').classList.contains('open') && e.key === 'Escape') closeReserveModal(); });
+
+function openDataroomModal(){
+  el('drStep1').style.display = '';
+  el('drStep2').style.display = 'none';
+  el('drForm').reset();
+  el('drErr').style.display = 'none';
+  el('drmodal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDataroomModal(){
+  el('drmodal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function drSubmit(e){
+  e.preventDefault();
+  const name = el('drName').value.trim(), phone = el('drPhone').value.trim(), email = el('drEmail').value.trim();
+  if(!name || !email){ el('drErr').style.display = 'block'; return false; }
+  submitLead({ project: "The Maison", name, phone, email, type: "dataroom_request", lang: "nl" }).catch(function(){});
+  el('drStep1').style.display = 'none';
+  el('drStep2').style.display = '';
+  return false;
+}
+document.addEventListener('keydown', function(e){ if(el('drmodal').classList.contains('open') && e.key === 'Escape') closeDataroomModal(); });
 
 // Print / PDF-brochure
 if(el('printFooter')){
