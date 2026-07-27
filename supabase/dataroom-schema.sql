@@ -221,3 +221,38 @@ $$;
 grant execute on function public.get_my_dataroom_access(text) to authenticated;
 -- Deliberately NOT granted to anon - you must be signed in (magic link) to
 -- call this, same gate as the referral portal.
+
+-- ---------------------------------------------------------------------------
+-- list_dataroom_files(): for the current, deliberately-public phase of the
+-- data room (Steven's call: keep it open for now, gate it properly later).
+-- No auth required - returns the document list (title/category/description
+-- + Drive view link) for a project, straight from dataroom_documents. This
+-- is what lets the /the-maison/dataroom/ page show individual file links
+-- without ever surfacing the underlying Drive FOLDER's URL - visitors only
+-- ever see links to the specific files Steven has listed here, not a
+-- browsable folder listing.
+--
+-- To add/remove what's visible: insert/delete rows in dataroom_documents
+-- yourself (Table Editor or SQL Editor) - same table used for the
+-- eventual gated version, so switching back to real per-person access
+-- later doesn't require rebuilding this list.
+-- ---------------------------------------------------------------------------
+create or replace function public.list_dataroom_files(p_project text)
+returns json
+language sql
+security definer
+set search_path = public
+stable
+as $$
+  select coalesce(json_agg(json_build_object(
+    'id', d.id,
+    'category', d.category,
+    'title', d.title,
+    'description', d.description,
+    'view_url', 'https://drive.google.com/file/d/' || d.drive_file_id || '/view'
+  ) order by d.sort_order, d.title), '[]'::json)
+  from public.dataroom_documents d
+  where d.project = trim(p_project);
+$$;
+
+grant execute on function public.list_dataroom_files(text) to anon, authenticated;

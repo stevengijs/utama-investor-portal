@@ -212,3 +212,23 @@ async function getMyDataroomAccess(project){
     return { ok:false, error:err };
   }
 }
+
+/**
+ * Public file list for the current (deliberately open-for-now) phase of a
+ * project's data room - no login required. Returns
+ * [{id,category,title,description,view_url}]. Only ever exposes individual
+ * Drive file links, never the underlying folder URL - see
+ * list_dataroom_files() in supabase/dataroom-schema.sql.
+ */
+async function listDataroomFiles(project){
+  const sb = getSupabaseClient();
+  if(!sb) return { ok:false, reason:"not-configured" };
+  try{
+    const { data, error } = await sb.rpc('list_dataroom_files', { p_project: project });
+    if(error){ console.error("listDataroomFiles error", error); return { ok:false, error }; }
+    return { ok:true, files:data };
+  }catch(err){
+    console.error("listDataroomFiles exception", err);
+    return { ok:false, error:err };
+  }
+}
