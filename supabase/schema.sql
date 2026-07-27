@@ -45,9 +45,19 @@ create index if not exists contacts_user_id_idx on public.contacts (user_id);
 -- queue, in reporting), not noise to collapse away. A contact can and will
 -- have many leads across many projects - that's expected, not a bug.
 -- ---------------------------------------------------------------------------
+-- name/email/phone are intentionally duplicated here from contacts: they're
+-- a snapshot of what the person typed on THIS submission, so opening the
+-- leads table on its own (Table Editor, or a plain "select * from leads")
+-- already tells the whole story - who asked, what for, when - with no join
+-- or separate view needed. contacts stays the deduplicated, "current best
+-- known" record for the person (used for dedup, purchases, portal login
+-- linking); leads is the append-only log of individual submissions.
 create table if not exists public.leads (
   id           uuid primary key default gen_random_uuid(),
   contact_id   uuid not null references public.contacts(id) on delete cascade,
+  name         text,
+  email        citext,
+  phone        text,
   project      text not null,   -- 'The Maison' | 'MOKA' | 'Volgend project (early access)' | ...
   unit         text,            -- e.g. 'Signature Villa' (MOKA unit type), null where not applicable
   budget       text,
@@ -198,8 +208,8 @@ begin
         updated_at       = now()
   returning id into v_contact_id;
 
-  insert into public.leads (contact_id, project, unit, budget, timeline, source_page, lang)
-  values (v_contact_id, trim(p_project), nullif(trim(p_unit), ''), p_budget, p_timeline, p_source_page, p_lang);
+  insert into public.leads (contact_id, name, email, phone, project, unit, budget, timeline, source_page, lang)
+  values (v_contact_id, nullif(trim(p_name), ''), v_email, nullif(trim(p_phone), ''), trim(p_project), nullif(trim(p_unit), ''), p_budget, p_timeline, p_source_page, p_lang);
 
   return v_contact_id;
 end;
@@ -286,39 +296,10 @@ order by c.last_activity_at desc;
 -- instead of bypassing it; the REVOKE below is the actual lock on the door.
 revoke all on public.contacts_overview from anon, authenticated;
 
--- ---------------------------------------------------------------------------
--- Handy view #2: one row per submission (lead), with the contact's name,
--- email and phone joined straight in. contacts_overview (above) is one row
--- per PERSON - great for "who is this and what's their history", but it
--- aggregates project/budget/timeline into arrays, which is fine for a
--- summary but awkward if what you actually want is "show me every brochure
--- request, newest first, with who asked and their contact details right
--- there". This view is that: the raw leads table, contact info attached,
--- nothing collapsed or aggregated - the same one row per submission you'd
--- get querying `leads` directly, just no longer missing name/email/phone.
--- ---------------------------------------------------------------------------
-drop view if exists public.leads_overview;
-create view public.leads_overview
-with (security_invoker = true)
-as
-select
-  l.id,
-  l.created_at,
-  c.name,
-  c.email,
-  c.phone,
-  l.project,
-  l.unit,
-  l.budget,
-  l.timeline,
-  l.source_page,
-  l.lang,
-  l.contact_id
-from public.leads l
-join public.contacts c on c.id = l.contact_id
-order by l.created_at desc;
-
--- Same reasoning as contacts_overview above: this view must stay off-limits
--- to the public anon key, otherwise it becomes an unauthenticated API
--- endpoint that hands out every visitor's name, email and phone number.
-revoke all on public.leads_overview from anon, authenticated;
+-- Note: an earlier version of this file added a separate leads_overview
+-- view (leads joined to contacts) so name/email/phone would show up
+-- alongside a submission. That's no longer needed - name/email/phone are
+-- now columns on public.leads itself (see above), so the plain leads table
+-- already shows everything in one row. If that view still exists in your
+-- database from before, it's harmless leftover; drop it with:
+--   drop view if exists public.leads_overview;
