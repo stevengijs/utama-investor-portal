@@ -479,13 +479,6 @@
   .faq-name span{font-weight:500;color:var(--muted);font-size:13px}
   @media(max-width:560px){.faq-lead .faq-photo{width:44px;height:44px}}
 
-  .faq-cats{display:flex;gap:9px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;margin-bottom:16px}
-  .faq-cats::-webkit-scrollbar{display:none}
-  .faq-cat{flex:none;display:flex;align-items:center;padding:9px 17px;border-radius:999px;border:1px solid var(--line);background:var(--paper);cursor:pointer;transition:all .15s;font-family:inherit}
-  .faq-cat:hover{border-color:var(--opt-deep)}
-  .faq-cat.active{border-color:var(--opt-deep);background:var(--sage-tint)}
-  .faq-cat .fc-lbl{font-family:'Fraunces','Georgia',serif;font-weight:600;font-size:14.5px;color:var(--ink);white-space:nowrap}
-
   .faq details{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-bottom:8px}
   .faq summary{cursor:pointer;font-weight:700;font-size:14px;list-style:none;color:var(--ink)}
   .faq summary::-webkit-details-marker{display:none}
@@ -583,7 +576,7 @@
     body{ background:#fff }
     .bnav, .gate, .tabs-nav, .sticky-cta, .lb, .rmodal, .print-btn,
     .deal-cta, .rail-note, .footer-cta .fc-ctas,
-    .faq-cats, input[type="range"], .slider-pins,
+    input[type="range"], .slider-pins,
     .earn-cap .zoom-hint{ display:none !important }
     /* Een live Google Maps-embed kan niet in een PDF/print-snapshot renderen
        (levert een kapot-plaatje icoon op) - verbergen, de "Bekijk op Google
@@ -629,7 +622,7 @@
 <body>
 <nav class="bnav">
   <a href="/" class="brand">UTAMA</a>
-  <span class="tag">Investeerdersportaal</span>
+  <span class="tag">Digitale Brochure &middot; The Maison</span>
   <a href="/the-maison" class="back">&larr; Terug</a>
 </nav>
 
@@ -1237,26 +1230,6 @@
             <p class="pane-lead" style="margin:0">Staat je vraag er niet bij? Stuur ons een appje, we beantwoorden hem persoonlijk via WhatsApp.</p>
           </div>
         </div>
-        <div class="faq-cats" id="faqCats">
-          <button class="faq-cat active" data-cat="all" onclick="filterFaq('all',this)">
-            <span class="fc-lbl">Alle</span>
-          </button>
-          <button class="faq-cat" data-cat="uitkering" onclick="filterFaq('uitkering',this)">
-            <span class="fc-lbl">Uitkering</span>
-          </button>
-          <button class="faq-cat" data-cat="eigendom" onclick="filterFaq('eigendom',this)">
-            <span class="fc-lbl">Eigendom</span>
-          </button>
-          <button class="faq-cat" data-cat="beheer" onclick="filterFaq('beheer',this)">
-            <span class="fc-lbl">Verhuur &amp; kosten</span>
-          </button>
-          <button class="faq-cat" data-cat="belasting" onclick="filterFaq('belasting',this)">
-            <span class="fc-lbl">Belasting</span>
-          </button>
-          <button class="faq-cat" data-cat="juridisch" onclick="filterFaq('juridisch',this)">
-            <span class="fc-lbl">Juridisch</span>
-          </button>
-        </div>
         <div class="faq">
           <details data-cat="beheer">
             <summary>Moet ik zelf iets regelen rond verhuur?</summary>
@@ -1646,13 +1619,6 @@ renderBPricesel();
 bcalc();
 
 // FAQ categorie-filter
-function filterFaq(cat, btn){
-  document.querySelectorAll('.faq-cat').forEach(function(b){ b.classList.toggle('active', b===btn); });
-  document.querySelectorAll('.faq details').forEach(function(d){
-    d.style.display = (cat==='all' || d.dataset.cat===cat) ? '' : 'none';
-  });
-}
-
 // Lightbox
 const GAL=[].slice.call(document.querySelectorAll('.bgal .g'));
 const GIMG=GAL.map(function(g){ const m=(g.style.backgroundImage||'').match(/url\(["']?(.*?)["']?\)/); return m?m[1]:''; });
