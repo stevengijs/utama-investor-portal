@@ -90,6 +90,10 @@
   .bnav .pdf-chip:hover{opacity:.85}
   .bnav .pdf-chip svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;flex:none}
   @media(max-width:480px){.bnav .pdf-chip .pc-lbl{display:none}.bnav .pdf-chip{padding:8px;border-radius:999px}}
+  .bnav .dataroom-link{display:none;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:var(--opt-deep);text-decoration:none;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--paper);white-space:nowrap}
+  .bnav .dataroom-link:hover{border-color:var(--opt-deep)}
+  .bnav .dataroom-link.show{display:flex}
+  .bnav .dataroom-link svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex:none}
   .brand{font-family:'Inter',sans-serif !important;font-weight:800 !important;letter-spacing:.22em !important;text-decoration:none;color:var(--ink)}
 
   /* ============ GATE ============ */
@@ -632,6 +636,10 @@
     <a class="pdf-chip" href="/the-maison/brochure/UTAMA-The-Maison-Investeerdersbrochure.pdf?v=20260727f" download="UTAMA-The-Maison-Investeerdersbrochure.pdf">
       <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
       <span class="pc-lbl">Download de brochure als PDF</span>
+    </a>
+    <a class="dataroom-link" id="dataroomLink" href="/the-maison/dataroom/">
+      <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      Data room
     </a>
   </div>
   <a href="/the-maison" class="back">&larr; Terug</a>
@@ -1407,6 +1415,24 @@
 const CONFIG = { whatsapp:"31624845014", email:"steven@utamabali.com" };
 const el = id => document.getElementById(id);
 if(el('bbCam')) el('bbCam').href="https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent("Hi Ashley! Mag ik de link naar de live bouwcamera van The Maison?");
+
+// Data room-link in de nav: blijft onzichtbaar voor iedereen, behalve voor wie
+// al eerder is ingelogd (op /the-maison/dataroom/ of /referral/, zelfde
+// Supabase-sessie) EN goedgekeurd is voor The Maison. Geen aparte inlogvorm
+// hier op de brochurepagina - dit is puur een snelkoppeling voor iemand die
+// de weg al kent, niet een nieuwe manier om in te loggen.
+(async function(){
+  const link = el('dataroomLink');
+  if(!link) return;
+  try{
+    const session = await getReferralSession();
+    if(!session) return;
+    const result = await getMyDataroomAccess('The Maison');
+    if(result.ok && result.access && (result.access.projects || []).length > 0){
+      link.classList.add('show');
+    }
+  }catch(e){}
+})();
 
 // Bouwvoortgang: percentage tussen start bouw en oplevering, berekend op basis van vandaag
 (function(){
