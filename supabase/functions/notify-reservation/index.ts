@@ -5,11 +5,13 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 // type = 'reservation' or type = 'dataroom_request' - i.e. someone used the
 // reservation modal or the data room request modal on the the-maison
 // brochure, not just a general inquiry form. Sends:
-//   1) an internal notification to Ashley and Steven with the details, and
+//   1) an internal notification to Ashley and Steven with the details (for a
+//      data room request, this includes the direct data room link so it's
+//      handy to forward once the person is verified), and
 //   2) a short confirmation email to the customer themselves, so they know
-//      their request came through (and, for a data room request, a direct
-//      link to the data room itself - it's open access today, so there's no
-//      reason to make them wait for that part).
+//      their request came through. For a data room request, this is
+//      explicitly NOT the direct link - Ashley/Steven verify the person
+//      first and send the link themselves afterwards.
 //
 // Deployed via the Supabase MCP tool (deploy_edge_function) - this file is
 // kept in the repo for version control, but editing it here does NOT
@@ -112,7 +114,7 @@ Deno.serve(async (req: Request) => {
     ? `Data room aangevraagd: ${lead.project ?? "The Maison"}`
     : `Nieuwe reservering: ${lead.project ?? "The Maison"}${lead.unit ? " - " + lead.unit : ""}`;
   const internalIntro = isDataroom
-    ? `${escapeHtml(lead.name)} heeft zojuist de data room van ${projectName} aangevraagd via het investeerdersportaal. Diegene heeft meteen toegang gekregen - een persoonlijk berichtje kan geen kwaad, hieronder de gegevens.`
+    ? `${escapeHtml(lead.name)} heeft zojuist de data room van ${projectName} aangevraagd via het investeerdersportaal. Verifieer diegene eerst persoonlijk - stuur daarna zelf de data room-link door. Hieronder de gegevens.`
     : `${escapeHtml(lead.name)} heeft zojuist${unitName ? " " + unitName + " van" : ""} ${projectName} gereserveerd via het investeerdersportaal. Neem snel contact op om de intentieverklaring te versturen - hieronder de gegevens.`;
   const internalHtml = `
     <div style="font-family:Arial,sans-serif;font-size:15px;color:#17140F;line-height:1.6">
@@ -124,6 +126,7 @@ Deno.serve(async (req: Request) => {
       <p><b>Project:</b> ${projectName}</p>
       ${isDataroom ? "" : `<p><b>Unit:</b> ${escapeHtml(lead.unit)}</p>`}
       <p><b>Tijdstip:</b> ${formatBaliTime(lead.created_at)}</p>
+      ${isDataroom ? `<p style="margin-top:18px"><a href="https://invest.utamabali.com/the-maison/dataroom/" style="display:inline-block;background:#17140F;color:#fff;text-decoration:none;padding:10px 18px;border-radius:8px;font-weight:600">Data room-link (na verificatie doorsturen)</a></p>` : ""}
       <p style="margin-top:18px;color:#5B564C;font-size:13px">Automatisch verstuurd vanuit het investeerdersportaal.</p>
     </div>`;
 
@@ -145,15 +148,15 @@ Deno.serve(async (req: Request) => {
   if (isValidEmail(lead.email)) {
     const greeting = firstName ? `Hoi ${firstName},` : "Hoi,";
     const customerSubject = isDataroom
-      ? `De data room van ${lead.project ?? "The Maison"}`
+      ? `Je aanvraag voor de data room van ${lead.project ?? "The Maison"}`
       : `Je aanvraag voor ${lead.project ?? "The Maison"}${unitName ? " - " + unitName : ""} is binnen`;
     const customerHtml = isDataroom
       ? `
       <div style="font-family:Arial,sans-serif;font-size:15px;color:#17140F;line-height:1.6">
         <p>${greeting}</p>
-        <p>Bedankt voor je interesse in ${projectName}. Hieronder de link naar de data room, met due diligence-stukken en voorbeeldcontracten:</p>
-        <p style="margin:18px 0"><a href="https://invest.utamabali.com/the-maison/dataroom/" style="display:inline-block;background:#17140F;color:#fff;text-decoration:none;padding:12px 20px;border-radius:8px;font-weight:600">Open de data room</a></p>
-        <p>Heb je vragen over een van de documenten? Reageer gerust op deze e-mail, of app ons direct.</p>
+        <p>Bedankt voor je interesse in ${projectName}. We hebben je aanvraag voor de data room goed ontvangen.</p>
+        <p>Ashley of Steven neemt 'm persoonlijk met je door - zodra dat is gebeurd, ontvang je de link naar de due diligence-stukken en voorbeeldcontracten.</p>
+        <p style="margin-top:18px">Heb je in de tussentijd een vraag? Reageer gerust op deze e-mail, of app ons direct.</p>
         <p style="margin-top:22px">Met vriendelijke groet,<br>Team UTAMA</p>
       </div>`
       : `
