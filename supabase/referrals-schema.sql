@@ -152,6 +152,14 @@ begin
 end;
 $$;
 
+-- Internal helper only, called from get_or_create_referral_code() below -
+-- never meant to be hit directly over the API. Supabase's default privilege
+-- rule grants EXECUTE to anon/authenticated on every new function
+-- automatically, so this has to be revoked explicitly; the SECURITY DEFINER
+-- caller below is unaffected since it runs as the function owner, who always
+-- retains execute rights on functions they own.
+revoke execute on function public.generate_referral_code(text, text) from anon, authenticated;
+
 -- ---------------------------------------------------------------------------
 -- get_or_create_referral_code(): the only thing the referral page needs to
 -- call once someone is signed in. Finds their contact row (linking it to
@@ -344,6 +352,11 @@ begin
   return new;
 end;
 $$;
+
+-- Trigger function - Postgres invokes this directly on insert/update of
+-- public.purchases, never via a role-level EXECUTE call, so it never needs
+-- to be reachable from the API. Same default-privilege reasoning as above.
+revoke execute on function public.mark_referral_eligible() from anon, authenticated;
 
 drop trigger if exists on_purchase_contracted_mark_referral on public.purchases;
 create trigger on_purchase_contracted_mark_referral

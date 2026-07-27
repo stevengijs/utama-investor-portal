@@ -247,6 +247,14 @@ begin
 end;
 $$;
 
+-- Trigger function - Postgres invokes this directly on insert into
+-- auth.users, never via a role-level EXECUTE call, so it never needs to be
+-- reachable from the API. Supabase's default privilege rule grants EXECUTE
+-- to anon/authenticated on every new function automatically; revoke it here
+-- explicitly (revoking from the PUBLIC pseudo-role alone is not enough -
+-- these are separate, direct grants).
+revoke execute on function public.link_contact_on_signup() from anon, authenticated;
+
 drop trigger if exists on_auth_user_created_link_contact on auth.users;
 create trigger on_auth_user_created_link_contact
   after insert on auth.users
