@@ -15,35 +15,13 @@
   .drwrap{max-width:640px;margin:0 auto;padding:70px 20px 90px}
   .drback{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:26px}
   .drback:hover{color:var(--green)}
-  .drcard{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:34px}
-  .drcard h1{font-size:clamp(24px,4vw,32px);margin:10px 0 12px}
+  .drcard{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:34px;text-align:center}
+  .drcard h1{font-size:clamp(24px,4vw,30px);margin:10px 0 12px}
   .drcard .sub{color:#4c463b;font-size:15.5px;line-height:1.6;margin:0 0 26px}
-  .drfield{margin-bottom:14px}
-  .drfield label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px}
-  .drfield input{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:10px;font-family:inherit;font-size:15px;background:#fff;color:var(--ink)}
-  .drfield input:focus{outline:none;border-color:var(--green)}
-  .drnote{font-size:12.5px;color:var(--muted);margin-top:14px}
-  .drok{background:#eef2f0;border:1px solid #d3e2da;border-radius:12px;padding:16px 18px;font-size:14.5px;color:var(--green-2);line-height:1.55}
-  .drerr{background:#fbeee6;border:1px solid #f0d4c2;border-radius:12px;padding:14px 16px;font-size:14px;color:#a3512a;margin-top:14px}
   .dreyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);font-weight:700}
-  .drsince{font-size:12px;color:var(--muted);margin:-14px 0 20px}
-
-  .drcat{margin-bottom:18px}
-  .drcat:last-child{margin-bottom:0}
-  .drcat h3{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--terra);margin:0 0 8px}
-
-  .drdoclist{border-top:1px solid var(--line)}
-  .drdoc{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
-  .drdoc:hover .drdoc-title{color:var(--green-2)}
-  .drdoc-title{font-size:14.5px;font-weight:600;color:var(--ink)}
-  .drdoc-desc{font-size:12.5px;color:var(--muted);margin-top:2px}
-  .drdoc-arrow{flex:none;color:var(--muted);font-size:15px}
-
-  .drempty{color:var(--muted);font-size:14px;padding:14px 0}
-  .drnoaccess{background:var(--sand);border:1px solid var(--line);border-radius:12px;padding:18px;font-size:14.5px;color:var(--muted);line-height:1.6}
-  .drsignout{margin-top:22px;font-size:13px;color:var(--muted)}
-  .drsignout a{color:var(--green-2);text-decoration:none;font-weight:600}
-  .reload-hint{font-size:13px;color:var(--muted)}
+  .dricon{width:56px;height:56px;border-radius:50%;background:var(--sand);display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+  .dricon svg{width:26px;height:26px;stroke:var(--opt-deep);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .drnote{font-size:12.5px;color:var(--muted);margin-top:18px;line-height:1.6}
 </style>
 </head>
 <body>
@@ -51,148 +29,13 @@
   <a href="/the-maison" class="drback">&larr; Terug naar The Maison</a>
 
   <div class="drcard">
-    <div id="loadingState">
-      <div class="dreyebrow">Data room &middot; The Maison</div>
-      <h1>Even geduld...</h1>
-      <p class="sub reload-hint">We checken of je al bent ingelogd.</p>
-    </div>
-
-    <div id="loggedOutState" style="display:none">
-      <div class="dreyebrow">Data room &middot; The Maison</div>
-      <h1>Due diligence &amp; contractdocumentatie</h1>
-      <p class="sub">Log in met het e-mailadres waarmee je bij ons bekend bent. Ben je goedgekeurd voor de data room van The Maison, dan zie je hier de bijbehorende documenten.</p>
-
-      <form id="loginForm">
-        <div class="drfield">
-          <label for="drEmail">E-mailadres</label>
-          <input id="drEmail" type="email" required placeholder="jij@voorbeeld.com">
-        </div>
-        <button class="btn block" type="submit" style="width:100%">Stuur me een inloglink</button>
-        <p class="drnote">Geen wachtwoord nodig. Je ontvangt een e-mail met een link &mdash; klik daarop en je ziet direct de documenten waarvoor je bent goedgekeurd.</p>
-      </form>
-
-      <div id="loginSentBox" style="display:none;margin-top:18px">
-        <div class="drok">We hebben je een e-mail gestuurd. Klik op de link daarin om verder te gaan. Niets ontvangen binnen een paar minuten? Check ook je spamfolder.</div>
-      </div>
-      <div id="loginErrBox" style="display:none" class="drerr"></div>
-    </div>
-
-    <div id="loggedInState" style="display:none">
-      <div class="dreyebrow">Data room &middot; The Maison</div>
-      <h1 style="font-size:26px">Jouw documenten</h1>
-      <p class="sub" id="sinceLine" style="display:none"></p>
-      <p class="sub">Bestanden openen in Google Drive. Zorg dat je bent ingelogd met het Google-account waarmee wij de toegang hebben gedeeld.</p>
-
-      <div id="drContent"></div>
-
-      <div class="drsignout">Ingelogd als <span id="whoamiEmail"></span> &middot; <a href="#" id="signOutLink">Uitloggen</a></div>
-    </div>
+    <div class="dricon"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+    <div class="dreyebrow">Data room &middot; The Maison</div>
+    <h1>Due diligence &amp; contractdocumentatie</h1>
+    <p class="sub">Hierin vind je onder andere due diligence-stukken en voorbeeldcontracten voor The Maison. De map staat in Google Drive - open 'm hieronder.</p>
+    <a class="btn" href="https://drive.google.com/drive/folders/1QAz5u6mzaL9tb_tPDY37NKk-2HmWAR6K?usp=sharing" target="_blank" rel="noopener">Open de data room</a>
+    <p class="drnote">Geen toegang, of iets ontbreekt? Neem contact op met Ashley of Steven.</p>
   </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="/supabase-client.js"></script>
-<script>
-const PROJECT = "The Maison";
-const CATEGORY_ORDER = ['due_diligence', 'contract_voorbeeld', 'overig'];
-
-function fmtDate(iso){
-  try{ return new Date(iso).toLocaleDateString('nl-NL', { day:'numeric', month:'short', year:'numeric' }); }
-  catch(e){ return ''; }
-}
-function categoryLabel(cat){
-  if(cat === 'due_diligence') return 'Due diligence';
-  if(cat === 'contract_voorbeeld') return 'Voorbeeldcontract';
-  return 'Overig';
-}
-
-async function renderLoggedIn(){
-  document.getElementById('loadingState').style.display = 'none';
-  document.getElementById('loggedOutState').style.display = 'none';
-  document.getElementById('loggedInState').style.display = 'block';
-
-  const session = await getReferralSession();
-  document.getElementById('whoamiEmail').textContent = (session && session.user && session.user.email) || '';
-
-  const result = await getMyDataroomAccess(PROJECT);
-  const wrap = document.getElementById('drContent');
-  if(!result.ok || !result.access){
-    wrap.innerHTML = '<div class="drnoaccess">Dit lukte niet om op te halen. Probeer de pagina te verversen, of neem contact op als het blijft mislukken.</div>';
-    return;
-  }
-
-  const projects = (result.access.projects || []);
-  if(projects.length === 0){
-    wrap.innerHTML = '<div class="drnoaccess">Je bent ingelogd, maar nog niet goedgekeurd voor de data room van The Maison. Neem contact op met Ashley of Steven als je hier documenten verwacht te zien.</div>';
-    return;
-  }
-
-  const p = projects[0];
-  const sinceLine = document.getElementById('sinceLine');
-  sinceLine.textContent = 'Toegang sinds ' + fmtDate(p.granted_at) + '.';
-  sinceLine.style.display = 'block';
-
-  const byCat = {};
-  (p.documents || []).forEach(function(d){
-    const cat = d.category || 'overig';
-    (byCat[cat] = byCat[cat] || []).push(d);
-  });
-
-  const catHtml = CATEGORY_ORDER.filter(function(c){ return byCat[c] && byCat[c].length; }).map(function(cat){
-    const rows = byCat[cat].map(function(d){
-      const desc = d.description ? '<div class="drdoc-desc">' + d.description + '</div>' : '';
-      return '<a class="drdoc" href="' + d.view_url + '" target="_blank" rel="noopener">' +
-        '<div><div class="drdoc-title">' + d.title + '</div>' + desc + '</div>' +
-        '<span class="drdoc-arrow">&#8599;</span></a>';
-    }).join('');
-    return '<div class="drcat"><h3>' + categoryLabel(cat) + '</h3><div class="drdoclist">' + rows + '</div></div>';
-  }).join('');
-
-  wrap.innerHTML = catHtml || '<div class="drempty">Nog geen documenten toegevoegd voor The Maison.</div>';
-}
-
-function renderLoggedOut(){
-  document.getElementById('loadingState').style.display = 'none';
-  document.getElementById('loggedInState').style.display = 'none';
-  document.getElementById('loggedOutState').style.display = 'block';
-}
-
-document.getElementById('loginForm').addEventListener('submit', async function(e){
-  e.preventDefault();
-  const email = document.getElementById('drEmail').value.trim();
-  const errBox = document.getElementById('loginErrBox');
-  const sentBox = document.getElementById('loginSentBox');
-  errBox.style.display = 'none';
-  if(!email){ return; }
-  const btn = e.target.querySelector('button[type=submit]');
-  btn.disabled = true;
-  const origText = btn.textContent;
-  btn.textContent = 'Versturen...';
-  const res = await sendDataroomMagicLink(email);
-  btn.disabled = false;
-  btn.textContent = origText;
-  if(res.ok){
-    sentBox.style.display = 'block';
-    e.target.style.display = 'none';
-  } else {
-    errBox.textContent = 'Dit lukte niet. Probeer het zo nog eens, of neem contact op als het blijft mislukken.';
-    errBox.style.display = 'block';
-  }
-});
-
-document.getElementById('signOutLink').addEventListener('click', async function(e){
-  e.preventDefault();
-  await signOutReferral();
-  window.location.reload();
-});
-
-(async function init(){
-  onReferralAuthChange(function(session){
-    if(session){ renderLoggedIn(); } else { renderLoggedOut(); }
-  });
-  const session = await getReferralSession();
-  if(session){ renderLoggedIn(); } else { renderLoggedOut(); }
-})();
-</script>
 </body>
 </html>
