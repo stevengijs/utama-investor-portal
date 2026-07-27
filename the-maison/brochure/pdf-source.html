@@ -34,6 +34,8 @@
 
   .kicker{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:9px;margin-bottom:16px}
   .kicker .kn{color:var(--opt-deep)}
+  .kicker-ic{width:24px;height:24px;border-radius:50%;background:var(--opt);display:flex;align-items:center;justify-content:center;flex:none}
+  .kicker-ic svg{width:13px;height:13px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   .h1{font-family:'Inter',sans-serif;font-weight:800;letter-spacing:-.02em;font-size:32px;line-height:1.14;margin:0 0 16px;color:var(--ink)}
   .lead{font-size:13.5px;line-height:1.65;color:var(--muted);max-width:660px;margin:0 0 18px}
   .subh{font-size:15px;font-weight:800;color:var(--ink);margin:22px 0 11px;display:flex;align-items:center;gap:8px}
@@ -275,6 +277,18 @@
   .cperson .cn{font-size:13.5px;font-weight:700;color:var(--ink)}
   .cperson .cr{font-size:10.5px;color:var(--muted);margin:2px 0 4px}
   .cperson a{font-size:11px;color:var(--ink)}
+  .wa-cta{display:flex;align-items:center;gap:14px;background:#075E54;border-radius:13px;padding:14px 18px;color:#fff}
+  .wa-cta img{width:48px;height:48px;border-radius:50%;object-fit:cover;flex:none;border:2px solid rgba(255,255,255,.4)}
+  .wa-cta .wa-body{flex:1}
+  .wa-cta .wa-lbl{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+  .wa-cta .wa-name{font-size:14px;font-weight:800;margin-top:2px}
+  .wa-cta .wa-btn{display:flex;align-items:center;gap:7px;background:#fff;color:#075E54;font-weight:800;font-size:11.5px;padding:8px 14px;border-radius:999px;flex:none}
+  .wa-cta .wa-btn svg{width:14px;height:14px;fill:#075E54}
+  .cperson-sec{display:flex;gap:12px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:11px 15px;margin-top:8px}
+  .cperson-sec img{width:38px;height:38px;border-radius:50%;object-fit:cover;flex:none}
+  .cperson-sec .cn{font-size:12px;font-weight:700;color:var(--ink)}
+  .cperson-sec .cr{font-size:10px;color:var(--muted)}
+  .cperson-sec a{font-size:10.5px;color:var(--muted);margin-left:auto;flex:none}
   .legalnote{font-size:9.5px;color:var(--muted);line-height:1.55;margin-top:16px}
 </style>
 </head>
@@ -301,7 +315,7 @@
 
 <!-- ============ 02 · HET PROJECT ============ -->
 <section class="pdfpage"><div class="pg">
-  <div class="kicker"><span class="kn">01</span> Het project</div>
+  <div class="kicker"><span class="kicker-ic"><svg viewBox="0 0 24 24"><path d="M4 11l8-6 8 6"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg></span><span class="kn">01</span> Het project</div>
   <h1 class="h1">Wij bouwen voor rendement, niet voor vakantie</h1>
   <p class="lead">Wij zetten The Maison op vanuit één overtuiging: een short-stay concept met een echte brand experience verhuurt beter dan een woning zonder identiteit. Daarom kozen we voor zes designvilla's binnen één gestroomlijnd concept - privé plunge pool, twee ensuite slaapkamers en een rooftop lounge van 40&nbsp;m², volledig gemeubileerd en direct klaar voor verhuur via Airbnb en Booking.com. Middenin Pererenan, alles op loopafstand.</p>
   <p class="lead" style="font-weight:700;color:var(--ink)">Gebouwd voor investeerders die rendement zoeken - niet voor wie een nieuwe woning zoekt.</p>
@@ -390,7 +404,7 @@
 
 <!-- ============ 05 · RENDEMENT INTRO + PRIJZEN ============ -->
 <section class="pdfpage"><div class="pg">
-  <div class="kicker"><span class="kn">02</span> Rendement &amp; prijs</div>
+  <div class="kicker"><span class="kicker-ic"><svg viewBox="0 0 24 24"><path d="M4 16l5-5 4 3 6-7"/><path d="M15 6h4v4"/></svg></span><span class="kn">02</span> Rendement &amp; prijs</div>
   <h1 class="h1">Instappen vanaf €210.000</h1>
   <p class="lead">Alle prijzen zijn turnkey: volledig afgewerkt, ingericht en klaar voor verhuur. Geen verborgen kosten achteraf.</p>
   <div class="ptiles">
@@ -497,7 +511,7 @@
 
 <!-- ============ 08 · PLANNING ============ -->
 <section class="pdfpage"><div class="pg">
-  <div class="kicker"><span class="kn">03</span> Planning</div>
+  <div class="kicker"><span class="kicker-ic"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></span><span class="kn">03</span> Planning</div>
   <h1 class="h1">Van reservering tot sleuteloverdracht</h1>
   <p class="lead">Je hoeft niet in Bali te zijn: tekenen kan volledig digitaal, op afstand. Ben je toch op locatie, dan kan dat net zo goed op kantoor bij de notaris in Bali - jij kiest.</p>
   <div class="subh">5 stappen, waar je ook bent</div>
@@ -520,7 +534,7 @@
 
 <!-- ============ 09 · BOUWMANAGEMENT ============ -->
 <section class="pdfpage"><div class="pg">
-  <div class="kicker"><span class="kn">04</span> Bouwmanagement</div>
+  <div class="kicker"><span class="kicker-ic"><svg viewBox="0 0 24 24"><path d="M4 15a8 8 0 0 1 16 0"/><path d="M3 15h18"/><path d="M12 7v3"/></svg></span><span class="kn">04</span> Bouwmanagement</div>
   <h1 class="h1">Vaste partners, één aanspreekpunt</h1>
   <p class="lead">Bij veel Bali-projecten wisselen aannemer, architect en projectmanager per project, vaak los van elkaar ingehuurd en zonder centrale coördinatie. Wij werken al jarenlang met dezelfde vaste partners, elk met hun eigen specialisme, gecoördineerd door UTAMA als jouw vaste aanspreekpunt.</p>
   <div class="subh">Onze vaste partners, onder één dak</div>
@@ -546,7 +560,7 @@
 
 <!-- ============ 10 · BEHEER OVERZICHT (nummers 01-05 blijven bij elkaar op 1 pagina) ============ -->
 <section class="pdfpage"><div class="pg">
-  <div class="kicker"><span class="kn">05</span> Beheer</div>
+  <div class="kicker"><span class="kicker-ic"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 9h8M8 13h5"/><circle cx="16.5" cy="15.5" r="2"/></svg></span><span class="kn">05</span> Beheer</div>
   <h1 class="h1" style="font-size:27px;margin-bottom:10px">Wij runnen alles. Jij blijft hands-off.</h1>
   <p class="lead" style="margin-bottom:12px">Na oplevering neemt House of Reservations het volledige verhuur- en operationeel beheer over, met maandelijkse rapportage en volledige kostentransparantie. Verhuurbeheer 15% en operationeel beheer circa 15% van de netto verhuuropbrengst - vooraf bekend, geen verborgen kosten.</p>
   <div class="statrow" style="border-top:none;padding-top:0;margin-top:0">
@@ -609,7 +623,7 @@
 
 <!-- ============ 12 · VERTROUWEN (intro blijft samen met de inhoud, niet los) ============ -->
 <section class="pdfpage"><div class="pg">
-  <div class="kicker"><span class="kn">06</span> Vertrouwen &amp; risico's</div>
+  <div class="kicker"><span class="kicker-ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="kn">06</span> Vertrouwen &amp; risico's</div>
   <h1 class="h1" style="font-size:26px;margin-bottom:10px">Vertrouw de structuur, niet de belofte</h1>
   <p class="lead" style="margin-bottom:14px">Je rechten als investeerder rusten niet op een persoonlijke toezegging, maar op juridische overeenkomsten die onafhankelijk worden vastgelegd en gecontroleerd. Dit is geen model op papier: het draait vandaag al voor 250+ villa's op Bali, met nog 4 van de 6 villa's beschikbaar.</p>
   <div class="trustlist">
@@ -682,7 +696,7 @@
 
 <!-- ============ 15 · VEELGESTELDE VRAGEN + CONTACT (alles op 1 pagina) ============ -->
 <section class="pdfpage"><div class="pg">
-  <div class="kicker"><span class="kn">07</span> Vragen</div>
+  <div class="kicker"><span class="kicker-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 2-2.5 2-2.5 4"/><path d="M12 17h.01"/></svg></span><span class="kn">07</span> Vragen</div>
   <h1 class="h1" style="font-size:22px;margin-bottom:10px">Veelgestelde vragen</h1>
   <div class="faqlead" style="margin:0 0 12px">
     <img src="/images/steven.jpg" alt="Steven Gijsman">
@@ -701,10 +715,15 @@
     <div class="faqit"><div class="q">Wat als UTAMA niet meer bestaat?</div><p class="a">Je rechten staan los van UTAMA of Steven. Leaseovereenkomsten zijn juridische contracten en je eigendomsrechten zijn notarieel gedocumenteerd, ze blijven geldig ongeacht de staat van UTAMA.</p></div>
   </div>
   <div class="subh" style="margin:16px 0 8px">Nog even kennismaken?</div>
-  <div class="contactrow" style="margin-top:8px">
-    <div class="cperson" style="padding:10px 13px"><img src="/images/ashley.jpg" alt="Ashley Vermoten" style="width:42px;height:42px"><div><div class="cn" style="font-size:12.5px">Ashley Vermoten</div><div class="cr" style="font-size:10px;margin:1px 0 3px">Sales Manager, UTAMA</div><a href="mailto:ashley@utamabali.com" style="font-size:10px">ashley@utamabali.com</a></div></div>
-    <div class="cperson" style="padding:10px 13px"><img src="/images/steven.jpg" alt="Steven Gijsman" style="width:42px;height:42px"><div><div class="cn" style="font-size:12.5px">Steven Gijsman</div><div class="cr" style="font-size:10px;margin:1px 0 3px">Director, UTAMA</div><a href="mailto:steven@utamabali.com" style="font-size:10px">steven@utamabali.com</a></div></div>
+  <div class="wa-cta">
+    <img src="/images/ashley.jpg" alt="Ashley Vermoten">
+    <div class="wa-body">
+      <div class="wa-lbl">Stel je vraag direct via WhatsApp</div>
+      <div class="wa-name">Ashley Vermoten · Sales Manager, UTAMA</div>
+    </div>
+    <div class="wa-btn"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg>+31 6 24845014</div>
   </div>
+  <div class="cperson-sec"><img src="/images/steven.jpg" alt="Steven Gijsman"><div><div class="cn">Steven Gijsman</div><div class="cr">Director, UTAMA</div></div><a href="mailto:steven@utamabali.com">steven@utamabali.com</a></div>
   <div class="legalnote" style="margin-top:10px">Dit document bevat indicatieve informatie en vormt geen fiscaal of juridisch advies. Rendementsberekeningen zijn schattingen en geen garanties. Laat de contracten altijd controleren door een bevoegde notaris, PPAT en je eigen juridisch of fiscaal adviseur.</div>
 </div><div class="foot"><span>UTAMA · The Maison</span><span>Vragen · 15</span></div></section>
 
