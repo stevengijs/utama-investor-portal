@@ -671,17 +671,10 @@
   }
   .print-footer{ display:none }
 
-  /* ============ MOKA-SPECIFIC: woningtype-selector & status pills ============ */
-  .unitsel{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 22px}
-  .unitsel .pbtn{min-width:150px}
-  .unitsel .pbtn .ps.avail{color:var(--opt-deep);font-weight:800;font-size:11.5px;letter-spacing:.02em}
-  .unitsel .pbtn .ps.sold{color:var(--muted);font-weight:700;font-size:11.5px;letter-spacing:.02em}
-  .unitsel .pbtn.is-sold{opacity:.75}
+  /* ============ MOKA-SPECIFIC: status pills (voor als de laatste unit ooit ook verkoopt) ============ */
   .pill.avail{background:var(--sage-tint);color:var(--opt-deep);border:1px solid var(--opt)}
   .pill.sold{background:var(--sand-2);color:var(--muted);border:1px solid var(--line)}
   .d-price .a.soldout-stamp{font-size:13px;font-weight:800;color:var(--muted);letter-spacing:.01em;background:var(--sand-2);border:1px solid var(--line);border-radius:8px;padding:5px 11px;display:inline-block;margin-top:2px}
-  .prices .pc.sold{opacity:.7}
-  .prices .pc .pv.strike{text-decoration:line-through;color:var(--muted);font-size:20px}
 
 </style>
 </head>
@@ -839,7 +832,7 @@
         <div class="feature-cols">
           <div class="fcol"><h4>Turnkey</h4><p>Volledig afgewerkt en ingericht opgeleverd, inclusief branded details.</p></div>
           <div class="fcol"><h4>Boutique community</h4><p>Eigen café, wellness club en rooftop pool lounge, vrij toegankelijk voor alle eigenaren en gasten.</p></div>
-          <div class="fcol"><h4>Volledig beheerd</h4><p>Verhuur en operationeel beheer geregeld door House of Reservations.</p></div>
+          <div class="fcol"><h4>Volledig beheerd</h4><p>Verhuur en operationeel beheer volledig in eigen huis geregeld, door een team dat fysiek op het resort aanwezig is.</p></div>
           <div class="fcol"><h4>30 + 30 jaar lease</h4><p>Leasehold van 30 jaar, met een notarieel gegarandeerde optie tot verlenging van nog eens 30 jaar.</p></div>
         </div>
 
@@ -863,9 +856,8 @@
           </div>
         </div>
 
-        <div class="subhead">Drie woningtypes, 15 units</div>
-        <p class="pane-lead" style="margin-bottom:10px">MOKA telt 7 Signature Villa's, 4 Boutique Villa's en 4 Boutique Appartementen. 14 van de 15 zijn al verkocht - kies hieronder een type voor de details, foto's en het rendement.</p>
-        <div class="unitsel" id="unitSel"></div>
+        <div class="subhead">De laatste beschikbare unit</div>
+        <p class="pane-lead" style="margin-bottom:10px">MOKA telt in totaal 15 units, verdeeld over drie woningtypes. 14 daarvan zijn inmiddels verkocht - alle Boutique Villa's en Boutique Appartementen zijn uitverkocht. Alleen de laatste Signature Villa, met privézwembad en rooftop jacuzzi, is nog beschikbaar.</p>
         <div class="detail">
           <div class="gallery" id="uGallery"></div>
           <div class="body">
@@ -947,12 +939,8 @@
 
         <div class="prices">
           <div class="pc cur hero"><div class="pv">€325.000</div><div class="pl">Signature Villa</div><div class="ps">Laatste beschikbare unit (1 van 7)</div></div>
-          <div class="pc sold"><div class="pv strike">€175.000</div><div class="pl">Boutique Villa</div><div class="ps">Uitverkocht (4 van 4)</div></div>
-          <div class="pc sold"><div class="pv strike">€135.000</div><div class="pl">Boutique Apartment</div><div class="ps">Uitverkocht (4 van 4)</div></div>
         </div>
         <p class="price-trend">MOKA werd gefaseerd verkocht: van de in totaal 15 units zijn er inmiddels 14 verkocht. Alleen de laatste Signature Villa - met privézwembad en rooftop jacuzzi - is nog beschikbaar.</p>
-
-        <div class="unitsel" id="unitSelCalc"></div>
 
         <div class="scen-wrap">
           <div class="scen-h">Drie scenario's voor <span id="scenUnitName">Signature Villa</span></div>
@@ -1023,7 +1011,7 @@
         <div class="fee-cards">
           <div class="fee-card">
             <div class="fee-h"><span class="fee-pct">15%</span><h4>Verhuurbeheer</h4></div>
-            <p class="fee-sub">De verhuurmotor: House of Reservations zorgt dat de woning daadwerkelijk geboekt wordt. Berekend over de netto-omzet, na de 3% OTA-commissie van Airbnb/Booking.com.</p>
+            <p class="fee-sub">De verhuurmotor: MOKA's eigen resortteam zorgt dat de woning daadwerkelijk geboekt wordt. Berekend over de netto-omzet, na de 3% OTA-commissie van Airbnb/Booking.com.</p>
             <ul class="fee-list">
               <li>Listings op Airbnb, Booking.com, Agoda en Vrbo</li>
               <li>Dynamische prijsstrategie per seizoen en bezetting</li>
@@ -1126,12 +1114,12 @@
       <div class="tab-pane" id="pane-beheer">
         <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 9h8M8 13h5"/><circle cx="16.5" cy="15.5" r="2"/></svg></span><div class="pane-kicker">06 · Beheer</div></div>
         <h2 class="pane-h">Wij runnen alles. Jij blijft hands-off.</h2>
-        <p class="pane-lead">Na oplevering neemt House of Reservations het volledige verhuur- en operationeel beheer over. Jij bezit de woning, wij zorgen dat hij verhuurd wordt - met maandelijkse rapportage en volledige kostentransparantie.</p>
+        <p class="pane-lead">Na oplevering verzorgt MOKA's eigen team het volledige verhuur- en operationeel beheer - allemaal in eigen huis, niet uitbesteed. Als resort staat er altijd personeel fysiek op het terrein, van housekeeping tot klusjesmannen tot receptiepersoneel. Jij bezit de woning, wij zorgen dat hij verhuurd wordt - met maandelijkse rapportage en volledige kostentransparantie.</p>
 
         <div class="why-grid">
           <div class="why-card">
             <div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v9a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1v-9"/></svg></div>
-            <div><h4>Verhuurbeheer</h4><p>Listings op Airbnb, Booking.com, Agoda en Vrbo, met dynamische prijsstrategie en een gastenteam dat tot 20 uur per dag bereikbaar is - onderdeel van House of Reservations, dat al 250+ villa's op Bali beheert.</p></div>
+            <div><h4>Verhuurbeheer</h4><p>Listings op Airbnb, Booking.com, Agoda en Vrbo, met dynamische prijsstrategie en een eigen resortteam dat fysiek op het terrein woont en werkt - housekeeping, klusjesmannen en receptiepersoneel altijd binnen handbereik.</p></div>
           </div>
           <div class="why-card">
             <div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 1-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 1 5.4-5.4l-3 3-2-2 3-3z"/></svg></div>
@@ -1144,19 +1132,19 @@
 
         <div class="plan-block">
           <div class="subhead">Verhuurbeheer van A tot Z</div>
-          <p class="pane-lead" style="margin-bottom:16px">Een woning die niet goed wordt verhuurd, is het grootste risico bij investeren in Bali - niet de bouw. Daarom draagt House of Reservations, dat al 250+ villa's op Bali beheert, het volledige verhuurproces: van de eerste foto tot jouw uitkering op de bank. Eén merk, één aanspreekpunt, geen partijen die naar elkaar wijzen.</p>
+          <p class="pane-lead" style="margin-bottom:16px">Een woning die niet goed wordt verhuurd, is het grootste risico bij investeren in Bali - niet de bouw. Daarom regelt MOKA's eigen team het volledige verhuurproces zelf, in eigen huis: van de eerste foto tot jouw uitkering op de bank. Als resort staat er altijd personeel op het terrein - van housekeeping tot klusjesmannen tot receptie - dus gasten worden razendsnel geholpen en de woning blijft continu in topconditie.</p>
 
           <div class="proof-strip" style="margin-bottom:20px">
-            <div class="proof-item"><div class="pv">250+</div><div class="pl">Villa's in beheer</div></div>
-            <div class="proof-item"><div class="pv">200K+</div><div class="pl">Volgers Instagram</div></div>
-            <div class="proof-item"><div class="pv">1M+</div><div class="pl">Volgers TikTok</div></div>
-            <div class="proof-item"><div class="pv">20u/dag</div><div class="pl">Bereikbaar gastenteam</div></div>
+            <div class="proof-item"><div class="pv">In huis</div><div class="pl">Eigen resortteam, niet uitbesteed</div></div>
+            <div class="proof-item"><div class="pv">Housekeeping</div><div class="pl">Dagelijks op het terrein</div></div>
+            <div class="proof-item"><div class="pv">Onderhoud</div><div class="pl">Eigen klusjesmannen ter plaatse</div></div>
+            <div class="proof-item"><div class="pv">Receptie</div><div class="pl">Fysiek aanwezig, geen callcenter</div></div>
           </div>
 
           <div class="num-list">
-            <div class="num-item"><div class="nn">01</div><div class="nc"><h4>Jouw woning gaat online</h4><p>Je woning gaat live op Airbnb, Booking.com, Agoda, Expedia en Vrbo onder het merk House of Reservations, met eigen fotografie en listing-optimalisatie. Daarnaast werkt het merk met een social-media-first strategie en vaste samenwerkingen met reis- en lifestyle-influencers, wat de 200K+ volgers op Instagram en 1M+ op TikTok blijft laten groeien. Dat levert niet alleen naamsbekendheid op, maar ook directe boekingen via de eigen website - buiten de platforms om, zonder de commissie die Airbnb en Booking.com per boeking rekenen, en zonder dat jij daar iets voor doet of aan betaalt.</p></div></div>
+            <div class="num-item"><div class="nn">01</div><div class="nc"><h4>Jouw woning gaat online</h4><p>Je woning gaat live op Airbnb, Booking.com, Agoda, Expedia en Vrbo onder het MOKA-merk zelf, met eigen fotografie en listing-optimalisatie door het resortteam ter plaatse. Zo blijft de merkbeleving en gastcommunicatie volledig in eigen hand, zonder tussenkomst van een externe beheerpartij.</p></div></div>
             <div class="num-item"><div class="nn">02</div><div class="nc"><h4>Je krijgt altijd de beste prijs</h4><p>Nachtprijzen worden doorlopend bijgesteld op vraag, seizoen en lokale evenementen. Niet de hoogste prijs, maar de prijs die bezetting én opbrengst samen maximaliseert.</p></div></div>
-            <div class="num-item"><div class="nn">03</div><div class="nc"><h4>Je gasten worden dag en nacht geholpen</h4><p>Het gastenteam is tot 20 uur per dag bereikbaar, van eerste vraag tot check-out. Snelle reacties leiden tot betere reviews, betere reviews naar een hogere positie op de platforms - en dat weer naar meer boekingen.</p></div></div>
+            <div class="num-item"><div class="nn">03</div><div class="nc"><h4>Je gasten worden razendsnel geholpen</h4><p>Het resortteam is fysiek op het terrein aanwezig, van eerste vraag tot check-out. Snelle reacties leiden tot betere reviews, betere reviews naar een hogere positie op de platforms - en dat weer naar meer boekingen.</p></div></div>
             <div class="num-item"><div class="nn">04</div><div class="nc"><h4>Jouw woning blijft in topconditie</h4><p>Dagelijkse housekeeping, tuin- en zwembadonderhoud en technisch onderhoud houden de woning op niveau. Dat beschermt niet alleen de gastervaring, maar ook de waarde van je woning.</p></div></div>
             <div class="num-item"><div class="nn">05</div><div class="nc"><h4>Je weet altijd precies wat je ontvangt</h4><p>Elke maand ontvang je een overzicht van bezetting, omzet en kosten, met je aandeel direct op je rekening. Verhuurbeheer 15% van de netto-omzet en operationeel beheer circa €635/maand - vooraf bekend, geen verrassingen achteraf.</p></div></div>
           </div>
@@ -1185,7 +1173,7 @@
           <p class="note" style="font-size:12px;color:var(--muted);margin-top:2px">Voorbeeldweergave. Ook gelist op Agoda, Expedia en Vrbo.</p>
 
           <div class="subhead" style="margin-top:26px">Hoe een goede periode eruitziet</div>
-          <p class="pane-lead" style="margin-bottom:12px">Ter illustratie: dit is hoe de agenda van een vergelijkbare, al verhuurde House of Reservations-villa eruitziet in een sterke periode. Een doorlopend blok is één boeking van meerdere nachten achter elkaar. Namen en boekingen zijn ter illustratie, geen weergave van een specifieke, huidige boeking.</p>
+          <p class="pane-lead" style="margin-bottom:12px">Ter illustratie: dit is hoe de agenda van een vergelijkbare, al verhuurde villa in Bali eruitziet in een sterke periode. Een doorlopend blok is één boeking van meerdere nachten achter elkaar. Namen en boekingen zijn ter illustratie, geen weergave van een specifieke, huidige boeking.</p>
           <div class="cal-wrap">
             <div class="cal-grid">
               <div class="cal-dow">Ma</div><div class="cal-dow">Di</div><div class="cal-dow">Wo</div><div class="cal-dow">Do</div><div class="cal-dow">Vr</div><div class="cal-dow">Za</div><div class="cal-dow">Zo</div>
@@ -1594,9 +1582,12 @@ document.querySelectorAll('#tabsNav button').forEach(function(b){ b.addEventList
   if(valid.includes(initial)) showTab(initial, true);
 })();
 
-/* ============ MOKA: 3 woningtypes, gedeeld tussen de Project-tab (galerij/facts) en de
-   Rendement-tab (calculator) via één globale selUnit. Cijfers geverifieerd tegen de
-   MOKA-brochure (Google Drive, juli 2026) - dezelfde data als op /moka. ============ */
+/* ============ MOKA: nog maar 1 unit te koop (Signature Villa/3BR) - de Boutique Villa's
+   en Boutique Appartementen zijn volledig uitverkocht en daarom niet meer opgenomen in
+   deze brochure. UNITS blijft een array van 1 item (i.p.v. een losse constante) zodat
+   currentUnit()/renderUnit()/bcalc() etc. ongewijzigd kunnen blijven werken. Cijfers
+   geverifieerd tegen de MOKA-brochure (Google Drive, juli 2026) - dezelfde data als
+   op /moka. ============ */
 const GROWTH_RATE = 0.05;
 const UNITS = [
   { key:"villa3", name:"Signature Villa", sub:"3 slaapkamers · pool villa", price:325000, unitsTotal:7, unitsSold:6,
@@ -1624,54 +1615,6 @@ const UNITS = [
       {label:"Realistisch", occ:85, nightly:195, current:true},
       {label:"Optimistisch", occ:95, nightly:225}
     ]
-  },
-  { key:"villa2", name:"Boutique Villa", sub:"2 slaapkamers · townhouse met plunge pool", price:175000, unitsTotal:4, unitsSold:4,
-    images:[
-      {src:"/images/moka/villa2-exterior.jpg", cap:"Entree met natuurstenen muur en eigen plunge pool"},
-      {src:"/images/moka/villa2-living.jpg", cap:"Living met ingebouwde tv-wand en boogvormige nissen"},
-      {src:"/images/moka/villa2-dining.jpg", cap:"Eethoek met zicht op de tuin en het zwembad"},
-      {src:"/images/moka/villa2-bedroom.jpg", cap:"Slaapkamer met balkon en inbouwkast"},
-      {src:"/images/moka/villa2-kitchen.jpg", cap:"Open keuken met marmeren achterwand"}
-    ],
-    facts:[
-      {l:"Type", v:"2 slaapkamers · 1,5 badkamer"},
-      {l:"Woonoppervlak", v:"70 m² + 36 m² buiten (106 m² totaal)"},
-      {l:"Zwembad", v:"Privé plunge pool, 4,6 m²"},
-      {l:"Extra", v:"Tuin, terras en werkplek"},
-      {l:"Oplevering", v:"Augustus 2026"},
-      {l:"Leasehold", v:"30 + 30 jaar (gegarandeerd)"}
-    ],
-    highlights:["Uitverkocht: alle 4 townhouses zijn verkocht","Privé plunge pool en eigen tuin","Compacte, efficiënte lay-out over 2 verdiepingen","Ideaal voor stellen of kleine gezinnen","30 + 30 jaar leasehold met gegarandeerde verlenging","Volledig gemeubileerd en direct verhuurklaar"],
-    roi:{ nightly:{min:80,max:150,def:115}, costs:{min:16,max:30,def:22} },
-    scenarios:[
-      {label:"Voorzichtig", occ:75, nightly:95},
-      {label:"Realistisch", occ:85, nightly:115, current:true},
-      {label:"Optimistisch", occ:95, nightly:135}
-    ]
-  },
-  { key:"apt1", name:"Boutique Apartment", sub:"1 slaapkamer · appartement met balkonbad", price:135000, unitsTotal:4, unitsSold:4,
-    images:[
-      {src:"/images/moka/apt1-hero.jpg", cap:"Open living met keuken en slaapkamer in één ruimte"},
-      {src:"/images/moka/apt1-kitchen.jpg", cap:"Kitchenette met marmeren achterwand en uitzicht op palmbomen"},
-      {src:"/images/moka/apt1-bedroom.jpg", cap:"Slaapkamer met inbouwkast en make-up hoek"},
-      {src:"/images/moka/apt1-bathroom.jpg", cap:"Badkamer met inloopdouche en koperen fittingen"},
-      {src:"/images/moka/apt1-balcony-bath.jpg", cap:"Balkon met eigen buitenbad en uitzicht over het groen"},
-      {src:"/images/moka/apt1-living.jpg", cap:"Gedeelde loungeruimte met toegang tot het balkon"}
-    ],
-    facts:[
-      {l:"Type", v:"1 slaapkamer · 1 badkamer"},
-      {l:"Woonoppervlak", v:"44,5 m² + 9 m² balkon"},
-      {l:"Extra", v:"Kitchenette · balkon met buitenbad"},
-      {l:"Oplevering", v:"Augustus 2026"},
-      {l:"Leasehold", v:"30 + 30 jaar (gegarandeerd)"}
-    ],
-    highlights:["Uitverkocht: alle 4 appartementen zijn verkocht","Compact en instapklaar, ideaal voor digital nomads","Balkon met eigen buitenbad","Toegang tot café, wellness club en rooftop pool","30 + 30 jaar leasehold met gegarandeerde verlenging","Volledig gemeubileerd en direct verhuurklaar"],
-    roi:{ nightly:{min:65,max:130,def:95}, costs:{min:16,max:30,def:22} },
-    scenarios:[
-      {label:"Voorzichtig", occ:70, nightly:80},
-      {label:"Realistisch", occ:85, nightly:95, current:true},
-      {label:"Optimistisch", occ:90, nightly:115}
-    ]
   }
 ];
 let selUnit = "villa3", bSelScenario = 1;
@@ -1682,18 +1625,6 @@ function renderUGallery(){
   el('uGallery').innerHTML = `<div class="g big photo" style="background-image:url('${u.images[0].src}');background-size:cover;background-position:center" onclick="openLb(0)"></div>`+
     [1,2,3,4].map(i=>u.images[i]?`<div class="g photo" style="background-image:url('${u.images[i].src}');background-size:cover;background-position:center" onclick="openLb(${i})"></div>`:imgBlock()).join("");
 }
-function renderUnitSelInto(id){
-  const target = el(id);
-  if(!target) return;
-  target.innerHTML = UNITS.map(u=>{
-    const avail=u.unitsTotal-u.unitsSold;
-    const tagCls = avail>0 ? 'avail' : 'sold';
-    const tag = avail>0 ? 'Laatste unit' : 'Uitverkocht';
-    return `<div class="pbtn ${u.key===selUnit?'on':''} ${avail>0?'':'is-sold'}" onclick="selectUnit('${u.key}')"><span class="pv">${u.name}</span><span class="ps ${tagCls}">${tag} · ${u.unitsSold}/${u.unitsTotal} verkocht</span></div>`;
-  }).join("");
-}
-function renderUnitSel(){ renderUnitSelInto('unitSel'); renderUnitSelInto('unitSelCalc'); }
-function selectUnit(key){ selUnit=key; renderUnit(); }
 function renderUnit(){
   const u=currentUnit();
   const avail=u.unitsTotal-u.unitsSold;
@@ -1708,7 +1639,6 @@ function renderUnit(){
   el('uFacts').innerHTML=u.facts.map(f=>`<div class="fact"><div class="l">${f.l}</div><div class="v">${f.v}</div></div>`).join("");
   el('uHl').innerHTML=u.highlights.map(x=>`<div>${x}</div>`).join("");
   el('scenUnitName').textContent=u.name;
-  renderUnitSel();
   const realistic = u.scenarios.find(s=>s.current) || u.scenarios[1];
   bSelScenario = u.scenarios.findIndex(s=>s.current);
   el('bNightly').min=u.roi.nightly.min; el('bNightly').max=u.roi.nightly.max; el('bNightly').value=realistic.nightly;
