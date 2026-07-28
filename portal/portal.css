@@ -1,13 +1,18 @@
 /* UTAMA Investor Portal - prototype styles
    Huisstijl-tokens gesynchroniseerd met de standaard brochurepagina
    (the-maison/brochure/) en het gedeelde /styles.css: warmer ivoor/zand,
-   inkt voor merk/navigatie, terracotta als warme accent. --ok blijft een
-   eigen, herkenbaar groen (los van --green) omdat het hier echte
-   statussen markeert: voltooide tijdlijn-stappen en betaalde termijnen. */
+   inkt voor merk/navigatie/actieve staat. Terracotta is - net als op de
+   brochure - gereserveerd voor precies één ding: de referral/verdien-
+   oproepen. "Nu bezig"-statussen (bouwvoortgang) gebruiken olijfgroen
+   (--opt/--opt-deep), net als de "huidige mijlpaal"-markering op de
+   brochure. --ok blijft een eigen, herkenbaar groen (los van --green)
+   omdat het hier echte statussen markeert: voltooide tijdlijn-stappen en
+   betaalde termijnen. */
 :root{
   --sand:#FAF5EA; --sand-2:#F1E9DB; --paper:#FEFBF6;
   --ink:#17140F; --muted:#5B564C; --line:#E7DECD;
   --green:#17140F; --green-2:#17140F; --terra:#8B5A3C; --gold:#8B5A3C; --ok:#2E7D5B;
+  --opt:#9CA47C; --opt-deep:#5B6A45; --sage-tint:#EEF0E2;
   --warn:#B9791F;
   /* Vormentaal, gesynchroniseerd met /styles.css: één schaduwlaag i.p.v.
      ad-hoc waarden, vaste radius-schaal (8px knoppen/velden/iconchips,
@@ -20,13 +25,13 @@
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{background:var(--sand);color:var(--ink);font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4{font-family:'Fraunces','Georgia',serif;font-weight:600;line-height:1.15;margin:0}
+h1,h2,h3,h4{font-family:'Inter',system-ui,-apple-system,sans-serif !important;font-weight:800;letter-spacing:-.015em;line-height:1.15;margin:0}
 a{color:inherit}
-.brand{font-family:'Fraunces',serif;font-weight:600;font-size:20px;letter-spacing:.34em;text-transform:uppercase;text-decoration:none;color:var(--ink)}
-.brand span{color:var(--terra)}
+.brand{font-family:'Inter',system-ui,-apple-system,sans-serif !important;font-weight:800 !important;font-size:20px;letter-spacing:.34em;text-transform:uppercase;text-decoration:none;color:var(--ink)}
+.brand span{color:inherit}
 .btn{display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;font-family:inherit;font-weight:600;font-size:15px;border-radius:var(--radius-btn);padding:13px 20px;text-decoration:none;transition:.15s}
-.btn.primary{background:var(--terra);color:#fff}
-.btn.primary:hover{background:#a95a2d}
+.btn.primary{background:var(--ink);color:#fff}
+.btn.primary:hover{background:#000}
 .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
 .btn.ghost:hover{border-color:var(--green);color:var(--green)}
 .btn.block{width:100%;justify-content:center}
@@ -40,7 +45,7 @@ a{color:inherit}
 .login-visual .vtext p{margin:0;opacity:.9;font-size:15px;max-width:420px}
 .login-form{display:flex;align-items:center;justify-content:center;padding:40px}
 .login-card{width:100%;max-width:380px}
-.login-card .eyebrow{color:var(--terra);font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin:22px 0 6px}
+.login-card .eyebrow{color:var(--ink);font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin:22px 0 6px}
 .login-card h1{font-size:30px;margin-bottom:6px}
 .login-card .sub{color:var(--muted);font-size:14.5px;margin-bottom:24px}
 .field{margin-bottom:14px}
@@ -72,7 +77,7 @@ a{color:inherit}
 .topline{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px;flex-wrap:wrap;gap:12px}
 .topline .hello{color:var(--muted);font-size:14px}
 .topline h1{font-size:27px;margin-top:3px}
-.pagetag{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--terra)}
+.pagetag{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
 
 .panel{display:none;animation:fade .25s}
 .panel.on{display:block}
@@ -88,18 +93,18 @@ a{color:inherit}
 .unit .uinfo h2{font-size:23px}
 .unit .uloc{color:var(--muted);font-size:14px;margin:2px 0 14px}
 .badge{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:var(--radius-pill)}
-.badge.build{background:#fbeee6;color:var(--terra)}
+.badge.build{background:var(--sage-tint);color:var(--opt-deep)}
 .badge.dot::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block}
 
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
 .stat{background:var(--sand);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px}
-.stat .k{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--green)}
+.stat .k{font-family:'Inter',system-ui,-apple-system,sans-serif !important;font-weight:800 !important;font-size:22px;color:var(--green)}
 .stat .l{font-size:12.5px;color:var(--muted);margin-top:2px}
 
 /* progress bar */
 .prog{margin-top:8px}
 .prog .bar{height:10px;background:var(--sand-2);border-radius:var(--radius-pill);overflow:hidden}
-.prog .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--terra));border-radius:var(--radius-pill)}
+.prog .bar i{display:block;height:100%;background:var(--ink);border-radius:var(--radius-pill)}
 .prog .pl{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:7px}
 
 /* timeline */
@@ -111,13 +116,13 @@ a{color:inherit}
 .tl .mk .ln{flex:1;width:2px;background:var(--line);margin:2px 0}
 .tl:last-child .mk .ln{display:none}
 .tl.done .cir{background:var(--ok);border-color:var(--ok);color:#fff}
-.tl.now .cir{background:var(--terra);border-color:var(--terra);color:#fff}
+.tl.now .cir{background:var(--opt-deep);border-color:var(--opt-deep);color:#fff}
 .tl .tc h4{font-size:15.5px}
 .tl .tc .tm{font-size:12.5px;color:var(--muted);margin:1px 0 4px}
 .tl .tc .td{font-size:13.5px;color:var(--ink)}
 .tl .st{margin-left:auto;font-size:12px;font-weight:600;padding:4px 10px;border-radius:var(--radius-pill);height:fit-content}
 .st.s-done{background:#e4f2ea;color:var(--ok)}
-.st.s-now{background:#fbeee6;color:var(--terra)}
+.st.s-now{background:var(--sage-tint);color:var(--opt-deep)}
 .st.s-plan{background:var(--sand-2);color:var(--muted)}
 
 /* table */
@@ -139,13 +144,13 @@ table.pay tfoot td{font-weight:700;border-top:2px solid var(--line);border-botto
 .doc .dn{font-size:14.5px;font-weight:600}
 .doc .dm{font-size:12.5px;color:var(--muted)}
 .doc .dl{margin-left:auto;color:var(--green);text-decoration:none;font-size:13px;font-weight:600;white-space:nowrap}
-.doc .dl:hover{color:var(--terra)}
+.doc .dl:hover{color:var(--ink)}
 
 /* returns */
 .ret{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:6px}
 .ret .r{background:var(--sand);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px}
-.ret .r .rv{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:var(--green)}
-.ret .r.hl .rv{color:var(--terra)}
+.ret .r .rv{font-family:'Inter',system-ui,-apple-system,sans-serif !important;font-weight:800 !important;font-size:26px;color:var(--green)}
+.ret .r.hl .rv{color:var(--opt-deep)}
 .ret .r .rl{font-size:12.5px;color:var(--muted);margin-top:3px}
 .note{font-size:12.5px;color:var(--muted);background:var(--sand-2);border-radius:var(--radius-btn);padding:11px 14px;margin-top:14px}
 
@@ -164,7 +169,7 @@ table.pay tfoot td{font-weight:700;border-top:2px solid var(--line);border-botto
 .navtag{margin-left:auto;font-size:10.5px;font-weight:700;background:var(--gold);color:#241d10;padding:2px 8px;border-radius:var(--radius-pill);flex:none}
 .side nav a.active .navtag{background:rgba(36,29,16,.16);color:#241d10}
 
-.refeyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--terra);font-weight:700}
+.refeyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);font-weight:700}
 .refhero{background:linear-gradient(135deg,var(--paper),var(--sand-2))}
 
 .reflink-target{max-width:320px;margin-top:16px}
@@ -181,7 +186,7 @@ table.pay tfoot td{font-weight:700;border-top:2px solid var(--line);border-botto
 
 .refstats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:6px}
 .refstat{background:var(--sand);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
-.refstat .v{font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:var(--green)}
+.refstat .v{font-family:'Inter',system-ui,-apple-system,sans-serif !important;font-weight:800 !important;font-size:24px;color:var(--green)}
 .refstat .l{font-size:12.5px;color:var(--muted);margin-top:3px}
 
 .reflist{border-top:1px solid var(--line);margin-top:14px}
