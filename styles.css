@@ -55,11 +55,26 @@ nav .links a:hover{color:var(--green)}
 .lang button{border:none;background:transparent;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--muted);padding:5px 11px;border-radius:var(--radius-pill);cursor:pointer}
 .lang button.on{background:var(--green);color:#fff}
 
-.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:radial-gradient(900px 380px at 78% -10%,rgba(192,107,58,.12),transparent 60%),var(--sand)}
+/* was ooit rgba(192,107,58,.12) - het oude terracotta-accent van vóór de rebrand naar
+   ink als primaire kleur. Vervangen door een neutrale, ink-getinte gloed. */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:radial-gradient(900px 380px at 78% -10%,rgba(23,20,15,.05),transparent 60%),var(--sand)}
 .hero .inner{padding-top:60px;padding-bottom:50px;max-width:52ch}
 .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);font-weight:700}
 .hero h1{font-size:clamp(32px,5.2vw,54px);letter-spacing:-.5px;margin:14px 0 14px}
 .hero p{font-size:18px;color:#4c463b;margin:0 0 24px;max-width:46ch}
+/* --- hero met foto + oprichter-chip (homepage) --- */
+.hero-grid{display:grid;grid-template-columns:1fr;gap:0}
+@media(min-width:940px){.hero-grid{grid-template-columns:1.05fr .95fr;gap:36px;align-items:center}}
+.hero-visual{display:none}
+@media(min-width:940px){
+  .hero-visual{display:block;padding:36px 0}
+  .hero-photo{position:relative;height:440px;border-radius:22px;overflow:hidden;background-size:cover;background-position:center;box-shadow:var(--shadow)}
+  .hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,20,15,0) 55%,rgba(23,20,15,.5) 100%)}
+}
+.hero-founder-chip{position:absolute;left:16px;bottom:16px;z-index:1;display:flex;align-items:center;gap:11px;background:rgba(254,251,246,.96);border-radius:14px;padding:8px 16px 8px 8px;box-shadow:var(--shadow)}
+.hero-founder-chip img{width:42px;height:42px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--paper)}
+.hero-founder-chip b{display:block;font-size:13px;color:var(--ink);font-weight:700}
+.hero-founder-chip span{font-size:11px;color:var(--muted)}
 .btns{display:flex;gap:12px;flex-wrap:wrap}
 @media(max-width:560px){.btns{flex-direction:column}.btns .btn{width:100%;max-width:calc(100% - 40px);text-align:center}}
 .btn{border:none;background:var(--ink);color:#fff;font-family:inherit;font-weight:600;font-size:15px;padding:13px 24px;border-radius:var(--radius-btn);cursor:pointer;text-decoration:none;display:inline-block;transition:background .15s}
