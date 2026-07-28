@@ -74,6 +74,18 @@
     .founder-body p{margin-left:auto;margin-right:auto}
     .founder-site{flex-direction:column;text-align:center;max-width:none}
   }
+  /* --- Eerder uitverkocht: social proof-strip, geen brochurepagina, niet klikbaar --- */
+  .sold-strip{margin-top:34px}
+  .sold-strip .sold-head{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:12px}
+  .sold-strip .sold-head::after{content:"";flex:1;height:1px;background:var(--line)}
+  .sold-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:760px){.sold-grid{grid-template-columns:1fr}}
+  .sold-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+  .sold-card .img{height:160px;position:relative;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center}
+  .sold-card .img::after{content:"";position:absolute;inset:0;background:rgba(23,20,15,.4)}
+  .sold-card .stamp{position:relative;z-index:1;background:rgba(255,255,255,.96);color:var(--ink);font-weight:800;font-size:14px;letter-spacing:.14em;text-transform:uppercase;padding:8px 20px;border-radius:6px;transform:rotate(-6deg);white-space:nowrap}
+  .sold-card .pinfo{padding:14px 18px}
+  .sold-card h3{font-size:17px;margin:0}
 </style>
 </head>
 <body>
@@ -118,6 +130,11 @@
       <p data-t="projSub">Klik op een project voor de details, de renders en een rendementsberekening op maat.</p>
     </div>
     <div class="pcards" id="pcards"></div>
+
+    <div class="sold-strip">
+      <div class="sold-head" data-t="soldEyebrow">Eerder uitverkocht</div>
+      <div class="sold-grid" id="soldGrid"></div>
+    </div>
   </div>
 </section>
 
@@ -285,6 +302,14 @@ const PROJECTS = [
     img:"/images/moka/villa3-exterior.jpg" }
 ];
 
+/* Eerder uitverkochte projecten: alleen voor social proof op de homepage, geen eigen
+   pagina/brochure en niet klikbaar. img mag leeg blijven tot de foto binnen is - er
+   is dan een nette kleurverloop-placeholder i.p.v. een kapotte afbeelding. */
+const SOLD_OUT_PROJECTS = [
+  { name:"Teman Villas", img:"" },
+  { name:"Palma Villas", img:"" }
+];
+
 const T={
  nl:{navProjects:"Projecten",navHow:"Zo werkt het",navContact:"Contact",
   heroEyebrow:"Off-plan villa's op Bali",heroTitle:"Jij bezit het. Wij runnen het.",
@@ -310,6 +335,7 @@ const T={
   cmOkTitle:"Verstuurd!",cmOkP:"We hebben je bericht ontvangen. Ashley neemt snel contact met je op via WhatsApp.",
   footer:"Investeren in Bali-vastgoed, transparant en zorgeloos.",footerRef:"Verdien €2.500 als je iemand aanbrengt",
   from:"vanaf",soldPart:"{sold} van {y} verkocht",leftPart:"nog {x} beschikbaar",soldOutLine:"✓ Volledig uitverkocht ({y} van {y})",recentSold:"{x} verkocht",more:"Bekijk project en rendement →",soon:"Volgend project wordt binnenkort onthuld",soonTag:"Binnenkort · nieuw project",
+  soldEyebrow:"Eerder uitverkocht",
   eaEb:"Vroegtijdige toegang",eaTitle:"Meld je alvast aan voor het volgende project",eaSub:"Laat je gegevens achter, dan ben je een van de eersten die de details en pre-sale prijzen ontvangt zodra het project onthuld wordt.",
   eaBudget:"Budget",eaWhen:"Wanneer wil je kopen?",eaErr:"Vul je naam, WhatsApp-nummer en e-mailadres in.",eaBtn:"Meld je aan",
   eaOkTitle:"Aangemeld!",eaOkP:"We houden je op de hoogte zodra dit project onthuld wordt. Je hoort als eerste van ons.",eaTrust:"Geen spam. We gebruiken je gegevens alleen om je op de hoogte te houden van dit project."},
@@ -337,6 +363,7 @@ const T={
   cmOkTitle:"Sent!",cmOkP:"We've received your message. Ashley will be in touch shortly via WhatsApp.",
   footer:"Investing in Bali real estate, transparent and hassle-free.",footerRef:"Earn €2,500 for every friend you bring in",
   from:"from",soldPart:"{sold} of {y} sold",leftPart:"{x} left",soldOutLine:"✓ Fully sold out ({y} of {y})",recentSold:"{x} sold",more:"View project and returns →",soon:"Next project to be revealed soon",soonTag:"Coming soon · new project",
+  soldEyebrow:"Previously sold out",
   eaEb:"Early access",eaTitle:"Register your interest for the next project",eaSub:"Leave your details and you'll be one of the first to receive the details and pre-sale prices once the project is revealed.",
   eaBudget:"Budget",eaWhen:"When do you want to buy?",eaErr:"Please enter your name, WhatsApp number and email.",eaBtn:"Register interest",
   eaOkTitle:"You're on the list!",eaOkP:"We'll keep you posted as soon as this project is revealed. You'll be among the first to hear from us.",eaTrust:"No spam. We'll only use your details to keep you posted about this project."}
@@ -371,11 +398,26 @@ function renderCards(){
   </div>`;
   el('pcards').innerHTML=h;
 }
+/* Niet-klikbare social-proof kaartjes voor eerder uitverkochte projecten - gewone
+   <div>'s, geen <a href>, dus er is nergens een link of brochurepagina voor nodig.
+   "SOLD OUT" blijft bewust ongevertaald: dat is de stempel die Steven expliciet
+   vroeg, ongeacht de taalkeuze NL/EN. */
+function renderSoldOut(){
+  const host=el('soldGrid'); if(!host) return;
+  host.innerHTML = SOLD_OUT_PROJECTS.map((p,i)=>{
+    const imgStyle=p.img?`background-image:url('${p.img}');background-size:cover;background-position:center`:`background:linear-gradient(135deg,${i%2?'#c98a5b,#b06a38':'#2f5546,#243f35'})`;
+    return `<div class="sold-card">
+      <div class="img" style="${imgStyle}"><span class="stamp">Sold out</span></div>
+      <div class="pinfo"><h3>${p.name}</h3></div>
+    </div>`;
+  }).join("");
+}
 function setLang(l){
   lang=l; el('btnNL').classList.toggle('on',l==='nl'); el('btnEN').classList.toggle('on',l==='en'); document.documentElement.lang=l;
   document.querySelectorAll('[data-t]').forEach(e=>{const k=e.getAttribute('data-t'); if(T[l][k]!==undefined)e.textContent=T[l][k];});
   document.querySelectorAll('[data-tp]').forEach(e=>{const k=e.getAttribute('data-tp'); if(T[l][k]!==undefined)e.placeholder=T[l][k];});
   renderCards();
+  renderSoldOut();
 }
 function fb(txt,ok){try{const ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();document.execCommand('copy');document.body.removeChild(ta);ok();}catch(e){}}
 function waDirect(){ const msg=(lang==='nl'?"Hi! Ik heb interesse in jullie Bali-villa's.":"Hi! I'm interested in your Bali villas."); window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg),"_blank"); }
