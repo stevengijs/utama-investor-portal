@@ -43,6 +43,24 @@ function isValidEmail(s: unknown): s is string {
   return typeof s === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 }
 
+// Turns a lead's project name into that project's dataroom slug, e.g.
+// "The Maison" -> "the-maison", so the internal notification always links to
+// the RIGHT project's data room instead of a hardcoded one. Explicit
+// mappings first (in case a project's slug ever doesn't match a plain
+// slugify), then a generic fallback so a brand-new project added later
+// works automatically without this function needing an update.
+const PROJECT_SLUGS: Record<string, string> = {
+  "The Maison": "the-maison",
+  "MOKA": "moka",
+};
+function projectSlug(project: unknown): string {
+  const p = typeof project === "string" ? project.trim() : "";
+  if (!p) return "the-maison";
+  if (PROJECT_SLUGS[p]) return PROJECT_SLUGS[p];
+  const slug = p.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  return slug || "the-maison";
+}
+
 function formatBaliTime(iso: unknown): string {
   if (typeof iso !== "string") return escapeHtml(iso);
   const d = new Date(iso);
@@ -126,7 +144,7 @@ Deno.serve(async (req: Request) => {
       <p><b>Project:</b> ${projectName}</p>
       ${isDataroom ? "" : `<p><b>Unit:</b> ${escapeHtml(lead.unit)}</p>`}
       <p><b>Tijdstip:</b> ${formatBaliTime(lead.created_at)}</p>
-      ${isDataroom ? `<p style="margin-top:18px"><a href="https://invest.utamabali.com/the-maison/dataroom/" style="display:inline-block;background:#17140F;color:#fff;text-decoration:none;padding:10px 18px;border-radius:8px;font-weight:600">Data room-link (na verificatie doorsturen)</a></p>` : ""}
+      ${isDataroom ? `<p style="margin-top:18px"><a href="https://invest.utamabali.com/${projectSlug(lead.project)}/dataroom/" style="display:inline-block;background:#17140F;color:#fff;text-decoration:none;padding:10px 18px;border-radius:8px;font-weight:600">Data room-link (na verificatie doorsturen)</a></p>` : ""}
       <p style="margin-top:18px;color:#5B564C;font-size:13px">Automatisch verstuurd vanuit het investeerdersportaal.</p>
     </div>`;
 
