@@ -134,6 +134,14 @@
   .wa.block,.btn-ink.block,.btn-outline.block{width:100%;justify-content:center}
 
   /* ============ APP SHELL: sticky deal-rail + tabbed workspace ============ */
+  /* main.portal{display:grid} heeft hogere specificiteit dan de standaard
+     [hidden]{display:none} van de browser, dus zonder deze regel blijft het
+     portaal zichtbaar - ook al staat het HTML-attribuut hidden nog aan.
+     Bij een al ontgrendeld toestel (localStorage) merk je dit nooit, want
+     reveal() haalt hidden er meteen af; bij een vers bezoek zie je dan de
+     gate én het volledige portaal tegelijk. Deze regel met [hidden] wint
+     altijd op specificiteit, ongeacht de volgorde hieronder. */
+  main.portal[hidden]{display:none}
   main.portal{max-width:1280px;margin:0 auto;padding:26px 20px 90px;display:grid;grid-template-columns:1fr;gap:22px}
   @media(min-width:980px){main.portal{grid-template-columns:320px 1fr;align-items:start;padding:32px 24px 60px}}
   /* grid items default to min-width:auto (sized to their widest unbreakable content, e.g. the
