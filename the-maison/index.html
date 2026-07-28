@@ -34,18 +34,28 @@
 </nav>
 
 <header class="hero">
-  <div class="wrap inner">
-    <div class="eyebrow"><a href="/" style="color:var(--ink);text-decoration:none" data-t="back">Projecten</a> · Pererenan, Bali</div>
-    <h1>The Maison</h1>
-    <p data-t="mHeroSub">Met The Maison bouwen we zes designvilla's met 2 slaapkamers, een privé plunge pool en een rooftop lounge, in het hart van Pererenan. Jij bezit de villa, wij ontwikkelen, beheren en verhuren hem voor je.</p>
-    <div class="btns">
-      <button type="button" class="btn" onclick="openBrochure()" data-t="mHeroCta2">Bekijk volledige brochure</button>
-      <button type="button" class="btn ghost" onclick="waDirect()" data-t="mHeroCta1">Contact via WhatsApp</button>
+  <div class="wrap hero-grid">
+    <div class="inner">
+      <div class="eyebrow"><a href="/" style="color:var(--ink);text-decoration:none" data-t="back">Projecten</a> · Pererenan, Bali</div>
+      <h1>The Maison</h1>
+      <p data-t="mHeroSub">Met The Maison bouwen we zes designvilla's met 2 slaapkamers, een privé plunge pool en een rooftop lounge, in het hart van Pererenan. Jij bezit de villa, wij ontwikkelen, beheren en verhuren hem voor je.</p>
+      <div class="btns">
+        <button type="button" class="btn" onclick="openBrochure()" data-t="mHeroCta2">Bekijk volledige brochure</button>
+        <button type="button" class="btn ghost" onclick="waDirect()" data-t="mHeroCta1">Contact via WhatsApp</button>
+      </div>
+      <div class="trustrow">
+        <div><b>vanaf €210.000</b><span data-t="mt1">richtprijs, nu in verkoop</span></div>
+        <div><b>±14%</b><span data-t="mt2">netto rendement (realistisch)</span></div>
+        <div><b id="mAvail">4 van 6</b><span data-t="mt3">nog beschikbaar</span></div>
+      </div>
     </div>
-    <div class="trustrow">
-      <div><b>vanaf €210.000</b><span data-t="mt1">richtprijs, nu in verkoop</span></div>
-      <div><b>±14%</b><span data-t="mt2">netto rendement (realistisch)</span></div>
-      <div><b id="mAvail">4 van 6</b><span data-t="mt3">nog beschikbaar</span></div>
+    <div class="hero-visual">
+      <div class="hero-photo" style="background-image:url('/the-maison/images/maison-exterior.jpg')">
+        <div class="hero-founder-chip">
+          <img src="/images/steven.jpg" alt="Steven Gijsman" onerror="this.style.display='none'">
+          <div><b>Steven Gijsman</b><span data-t="heroFounderRole">Oprichter UTAMA</span></div>
+        </div>
+      </div>
     </div>
   </div>
 </header>
@@ -148,7 +158,7 @@ const T={
   mHeroSub:"Met The Maison bouwen we zes designvilla's met 2 slaapkamers, een privé plunge pool en een rooftop lounge, in het hart van Pererenan. Jij bezit de villa, wij ontwikkelen, beheren en verhuren hem voor je.",
   mHeroCta1:"Contact via WhatsApp",mHeroCta2:"Bekijk volledige brochure",mt1:"richtprijs, nu in verkoop",mt2:"netto rendement (realistisch)",mt3:"al verkocht",mStatus:"In verkoop · oplevering april 2027",
   ctaTitle:"Klaar voor de volgende stap?",ctaSub:"Bekijk de volledige digitale brochure met alle renders, plattegronden, exacte prijzen en het rendementsmodel, of stel je vraag direct aan Ashley.",
-  ctaWa:"Praat met Ashley via WhatsApp",agentRole:"Sales Manager, UTAMA",
+  ctaWa:"Praat met Ashley via WhatsApp",agentRole:"Sales Manager, UTAMA",heroFounderRole:"Oprichter UTAMA",
   footer:"Investeren in Bali-vastgoed, transparant en zorgeloos.",footerRef:"Verdien €2.500 als je iemand aanbrengt",
   disc:"Deze site geeft indicatieve informatie en geen fiscaal of juridisch advies. Rendementen zijn schattingen, geen garanties. Laat contracten altijd controleren door een bevoegde notaris (PPAT) en je eigen adviseur.",
   available:"{sold} van {y} verkocht · nog {x} beschikbaar",availShort:"{x} van {y}",render:"Render: voeg je beeld toe",
@@ -159,7 +169,7 @@ const T={
   mHeroSub:"With The Maison we're building six design villas with 2 bedrooms, a private plunge pool and a rooftop lounge, in the heart of Pererenan. You own the villa, we develop, manage and rent it out for you.",
   mHeroCta1:"Chat on WhatsApp",mHeroCta2:"View full brochure",mt1:"guide price, selling now",mt2:"net yield (realistic)",mt3:"already sold",mStatus:"Selling now · completion April 2027",
   ctaTitle:"Ready for the next step?",ctaSub:"View the full digital brochure with all renders, floor plans, exact prices and the return model, or ask Ashley directly.",
-  ctaWa:"Chat with Ashley on WhatsApp",agentRole:"Sales Manager, UTAMA",
+  ctaWa:"Chat with Ashley on WhatsApp",agentRole:"Sales Manager, UTAMA",heroFounderRole:"Founder of UTAMA",
   footer:"Investing in Bali real estate, transparent and hassle-free.",footerRef:"Earn €2,500 for every friend you bring in",
   disc:"This site provides indicative information and no tax or legal advice. Returns are estimates, not guarantees. Always have contracts checked by an authorised notary (PPAT) and your own adviser.",
   available:"{sold} of {y} sold · {x} left",availShort:"{x} of {y}",render:"Render: add your image",

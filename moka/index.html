@@ -34,18 +34,28 @@
 </nav>
 
 <header class="hero">
-  <div class="wrap inner">
-    <div class="eyebrow"><a href="/" style="color:var(--ink);text-decoration:none" data-t="back">Projecten</a> · Kedungu, Bali</div>
-    <h1>MOKA</h1>
-    <p data-t="heroSub">In MOKA ontwikkelen we een boutique community met een eigen café, wellness club en rooftop pool lounge, op 600 meter van het strand in Kedungu. Van de 15 units is alleen de laatste Signature Villa nog beschikbaar.</p>
-    <div class="btns">
-      <button type="button" class="btn" onclick="openBrochure()" data-t="heroCta2">Bekijk volledige brochure</button>
-      <button type="button" class="btn ghost" onclick="waDirect()" data-t="heroCta1">Contact via WhatsApp</button>
+  <div class="wrap hero-grid">
+    <div class="inner">
+      <div class="eyebrow"><a href="/" style="color:var(--ink);text-decoration:none" data-t="back">Projecten</a> · Kedungu, Bali</div>
+      <h1>MOKA</h1>
+      <p data-t="heroSub">In MOKA ontwikkelen we een boutique community met een eigen café, wellness club en rooftop pool lounge, op 600 meter van het strand in Kedungu. Van de 15 units is alleen de laatste Signature Villa nog beschikbaar.</p>
+      <div class="btns">
+        <button type="button" class="btn" onclick="openBrochure()" data-t="heroCta2">Bekijk volledige brochure</button>
+        <button type="button" class="btn ghost" onclick="waDirect()" data-t="heroCta1">Contact via WhatsApp</button>
+      </div>
+      <div class="trustrow">
+        <div><b id="tAvail">14 van 15</b><span data-t="t1">units al verkocht</span></div>
+        <div><b>vanaf €325.000</b><span data-t="t2">laatste beschikbare unit</span></div>
+        <div><b>±14%</b><span data-t="t3">netto rendement (realistisch)</span></div>
+      </div>
     </div>
-    <div class="trustrow">
-      <div><b id="tAvail">14 van 15</b><span data-t="t1">units al verkocht</span></div>
-      <div><b>vanaf €325.000</b><span data-t="t2">laatste beschikbare unit</span></div>
-      <div><b>±14%</b><span data-t="t3">netto rendement (realistisch)</span></div>
+    <div class="hero-visual">
+      <div class="hero-photo" style="background-image:url('/images/moka/villa3-exterior.jpg')">
+        <div class="hero-founder-chip">
+          <img src="/images/steven.jpg" alt="Steven Gijsman" onerror="this.style.display='none'">
+          <div><b>Steven Gijsman</b><span data-t="heroFounderRole">Oprichter UTAMA</span></div>
+        </div>
+      </div>
     </div>
   </div>
 </header>
@@ -144,7 +154,7 @@ const T={
   heroCta1:"Contact via WhatsApp",heroCta2:"Bekijk volledige brochure",t1:"units al verkocht",t2:"laatste beschikbare unit",t3:"netto rendement (realistisch)",
   mStatus:"Laatste unit · nog te koop",
   ctaTitle:"Nog 1 unit beschikbaar in MOKA",ctaSub:"Vraag de laatste Signature Villa aan, bekijk de volledige digitale brochure met alle renders, plattegronden en het rendementsmodel, of stel je vraag direct aan Ashley.",
-  ctaWa:"Praat met Ashley via WhatsApp",agentRole:"Sales Manager, UTAMA",
+  ctaWa:"Praat met Ashley via WhatsApp",agentRole:"Sales Manager, UTAMA",heroFounderRole:"Oprichter UTAMA",
   footer:"Investeren in Bali-vastgoed, transparant en zorgeloos.",footerRef:"Verdien €2.500 als je iemand aanbrengt",
   disc:"Deze site geeft indicatieve informatie en geen fiscaal of juridisch advies. Rendementen zijn schattingen, geen garanties. Laat contracten altijd controleren door een bevoegde notaris (PPAT) en je eigen adviseur.",
   available:"{sold} van {y} verkocht · nog {x} beschikbaar",availShort:"{x} van {y}",render:"Render: voeg je beeld toe",
@@ -155,7 +165,7 @@ const T={
   heroCta1:"Chat on WhatsApp",heroCta2:"View full brochure",t1:"units already sold",t2:"last available unit",t3:"net yield (realistic)",
   mStatus:"Last unit · still for sale",
   ctaTitle:"1 unit still available in MOKA",ctaSub:"Ask about the last Signature Villa, view the full digital brochure with all renders, floor plans and the return model, or ask Ashley directly.",
-  ctaWa:"Chat with Ashley on WhatsApp",agentRole:"Sales Manager, UTAMA",
+  ctaWa:"Chat with Ashley on WhatsApp",agentRole:"Sales Manager, UTAMA",heroFounderRole:"Founder of UTAMA",
   footer:"Investing in Bali real estate, transparent and hassle-free.",footerRef:"Earn €2,500 for every friend you bring in",
   disc:"This site provides indicative information and no tax or legal advice. Returns are estimates, not guarantees. Always have contracts checked by an authorised notary (PPAT) and your own adviser.",
   available:"{sold} of {y} sold · {x} left",availShort:"{x} of {y}",render:"Render: add your image",
