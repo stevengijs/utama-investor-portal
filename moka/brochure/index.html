@@ -1,0 +1,1841 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>MOKA, Kedungu | UTAMA - investeerdersportaal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" href="/images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png">
+<link rel="apple-touch-icon" href="/images/favicon-180.png">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  /* ---------------------------------------------------------------------
+     Standaard UTAMA-brochurepagina ("investeerdersportaal"): geen lange
+     scroll-brochure, maar één deal-samenvatting die altijd in beeld
+     blijft (prijs, rendement, beschikbaarheid, CTA's) terwijl je door
+     genummerde tabbladen bladert in plaats van eindeloos te scrollen.
+     Dit volgt letterlijk het "information layering"-principe uit de
+     UTAMA-contentrichtlijnen: laag 1 altijd zichtbaar (het dealoverzicht),
+     laag 2 scanbaar per tabblad, laag 3 in accordions/calculator/FAQ.
+     Kleursysteem: ivoor/zand als basis, inkt voor primaire acties, olijf
+     voor rendement/groei, blauwgrijs voor vertrouwen/structuur - gebruikt
+     om tabbladen en kaarten van elkaar te onderscheiden i.p.v. alles
+     hetzelfde grijs te maken. Dit kleursysteem (--paper/--ink/--muted/
+     --sand/--sand-2/--line/--opt/--opt-deep/--pess/--pess-ink/--sage-tint)
+     is ook naar styles.css gebracht als de UTAMA-huisstijl platformbreed.
+  --------------------------------------------------------------------- */
+  :root{
+    --sand:#FAF5EA; --sand-2:#F1E9DB; --paper:#FEFBF6;
+    --ink:#17140F; --muted:#5B564C; --line:#E7DECD;
+    --green:#17140F; --green-2:#17140F; --gold:#8B5A3C; --ok:#17140F; --terra:#8B5A3C;
+    --shadow:rgba(0,0,0,.02) 0 0 0 1px, rgba(0,0,0,.04) 0 2px 6px 0, rgba(0,0,0,.1) 0 4px 8px 0;
+    --radius:14px;
+    --cream:#EFE7D8;
+    --pess:#AEBFC7; --pess-ink:#2c3236; --real:#ECE3D2; --real-ink:#17140F; --opt:#9CA47C; --opt-ink:#fff;
+    --sage-tint:#EEF0E2; --opt-deep:#5B6A45;
+  }
+  *{box-sizing:border-box}
+  h1,h2,h3{font-family:'Inter',system-ui,-apple-system,sans-serif !important;font-weight:800;letter-spacing:-.015em}
+  .big-yield .num,.pbtn .pv,.field label .val,.stat .s-v,.hrow.big b{font-family:'Inter',system-ui,sans-serif !important;font-weight:800 !important}
+  body{background:var(--sand)}
+  .card{box-shadow:none}
+  .tcard,.bb-icon,.loc-map{box-shadow:none}
+  .btn.primary,.btn{box-shadow:none}
+
+  /* rekentool: licht/ivoor, olijf = rendement (zelfde regels als V3) */
+  .pbtn.on{border-color:var(--ink);background:var(--sand-2)}
+  .pbtn.on .pv{color:var(--ink)}
+  .slider-pins .pin.cur{background:var(--ink);border-color:var(--ink)}
+  input[type=range]::-webkit-slider-thumb{background:var(--ink)}
+  input[type=range]::-moz-range-thumb{background:var(--ink)}
+  .results{background:var(--sage-tint);color:var(--ink);border:1px solid var(--opt)}
+  .results h3{color:var(--opt-deep)}
+  .results .csub{color:var(--muted)}
+  .big-yield .num{color:var(--opt-deep)}
+  .big-yield .lbl{color:var(--ink)}
+  .payback{color:var(--muted)}
+  .stat{background:var(--paper);border-color:var(--line)}
+  .stat .s-l{color:var(--muted)}
+  .stat .s-v{color:var(--ink)}
+  .stat .s-sub{font-size:11.5px;color:var(--muted);margin-top:5px}
+  .passive-hero{background:var(--opt-deep);border-radius:14px;padding:18px 20px 20px;margin:2px 0 18px}
+  .ph-eyebrow{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+  .ph-val{font-family:'Inter',system-ui,sans-serif;font-weight:800;font-size:clamp(30px,7vw,40px);color:#fff;letter-spacing:-.02em;line-height:1.1;margin-top:5px}
+  .ph-val .ph-unit{font-size:15px;font-weight:700;color:rgba(255,255,255,.75);margin-left:5px}
+  .ph-note{font-size:12.5px;color:rgba(255,255,255,.75);margin-top:7px;line-height:1.45}
+  .ph-gross{font-size:12px;color:rgba(255,255,255,.65);margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.18)}
+  .ph-gross b{color:rgba(255,255,255,.9);font-weight:700}
+  .note-ext{color:var(--muted)}
+
+  .hold-panel{background:var(--sand-2);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-top:18px}
+  .hold-panel .hb-h{font-size:12px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--opt-deep);margin-bottom:14px}
+  .hold-row{display:flex;flex-wrap:wrap;gap:20px 32px}
+  .hold-row.sub{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+  .hp-i{flex:1;min-width:160px}
+  .hp-i b{display:block;font-family:'Inter',sans-serif;font-weight:800;font-size:19px;color:var(--ink);letter-spacing:-.01em}
+  .hp-i span{font-size:12.5px;color:var(--muted)}
+  .hp-i.big b{font-size:18px;color:var(--opt-deep);white-space:nowrap}
+
+  /* ============ TOP NAV ============ */
+  .bnav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 5vw;border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:120;flex-wrap:wrap;row-gap:10px}
+  .bnav a.back{color:var(--muted);text-decoration:none;font-size:13.5px}
+  .bnav a.back:hover{color:var(--ink)}
+  .bnav .tag{font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--ink);background:var(--sand-2);padding:5px 10px;border-radius:999px}
+  .bnav-mid{display:flex;align-items:center;gap:9px;flex-wrap:wrap;row-gap:8px}
+  .bnav .pdf-chip{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:.02em;color:#fff;background:var(--ink);padding:6px 13px 6px 10px;border-radius:999px;text-decoration:none;white-space:nowrap;transition:opacity .15s,transform .15s}
+  .bnav .pdf-chip:hover{opacity:.85}
+  .bnav .pdf-chip svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;flex:none}
+  @media(max-width:480px){.bnav .pdf-chip .pc-lbl{display:none}.bnav .pdf-chip{padding:8px;border-radius:999px}}
+  .bnav .dataroom-link{display:none;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:var(--opt-deep);text-decoration:none;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--paper);white-space:nowrap}
+  .bnav .dataroom-link:hover{border-color:var(--opt-deep)}
+  .bnav .dataroom-link.show{display:flex}
+  .bnav .dataroom-link svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+  .brand{font-family:'Inter',sans-serif !important;font-weight:800 !important;letter-spacing:.22em !important;text-decoration:none;color:var(--ink)}
+
+  /* ============ GATE ============ */
+  .gate{min-height:calc(100vh - 61px);display:grid;grid-template-columns:1fr}
+  @media(min-width:900px){.gate{grid-template-columns:1.05fr .95fr}}
+  .gate .gv{background-size:cover;background-position:center;position:relative;min-height:220px}
+  .gate .gv::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,14,10,.15),rgba(16,14,10,.78))}
+  .gate .gv .vt{position:absolute;left:28px;right:28px;bottom:28px;color:#fff;z-index:2}
+  .gate .gv .vt .eb{color:var(--cream);opacity:1;font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  .gate .gv .vt h2{color:#fff;font-size:26px;margin:8px 0 8px;font-weight:800}
+  .gate .gv .vt p{margin:0;opacity:.88;font-size:14.5px;max-width:440px;line-height:1.5}
+  .gate .gf{display:flex;align-items:center;justify-content:center;padding:32px 24px}
+  .gcard{width:100%;max-width:440px}
+  .gcard .eb{color:var(--ink);font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+  .gcard h1{font-size:26px;margin-bottom:8px}
+  .gcard .sub{color:var(--muted);font-size:14px;margin-bottom:20px;line-height:1.55}
+  .gfield{margin-bottom:12px}
+  .gfield label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:5px}
+  .gfield input,.gfield select{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:15px;background:var(--paper);color:var(--ink)}
+  .gfield input:focus,.gfield select:focus{outline:none;border-color:var(--ink)}
+  .grow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .gerr{color:#9c3b23;font-size:13px;margin:4px 0 0;display:none}
+  .gsubmit{width:100%;justify-content:center;margin-top:6px}
+  .gtrust{margin-top:13px;font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
+  .gtrust svg{flex:none;margin-top:2px;color:var(--ink)}
+
+  .btn-ink{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border:none;font-family:inherit;font-weight:700;font-size:14.5px;border-radius:8px;padding:13px 22px;cursor:pointer;text-decoration:none}
+  .btn-ink:hover{background:#000}
+  .btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--ink);border:1px solid var(--line);font-family:inherit;font-weight:700;font-size:14.5px;border-radius:8px;padding:13px 22px;cursor:pointer;text-decoration:none}
+  .btn-reserve{display:inline-flex;align-items:center;gap:8px;background:var(--opt-deep);color:#fff;border:none;font-family:inherit;font-weight:700;font-size:14.5px;border-radius:8px;padding:13px 22px;cursor:pointer;text-decoration:none}
+  .btn-reserve:hover{background:#48542f}
+  .btn-reserve.block{width:100%;justify-content:center}
+  .btn-outline:hover{border-color:var(--ink)}
+  .wa{display:inline-flex;align-items:center;gap:9px;background:#075E54;color:#fff;border:none;font-family:inherit;font-weight:700;font-size:14.5px;border-radius:8px;padding:13px 20px;cursor:pointer;text-decoration:none}
+  .wa svg{width:17px;height:17px;fill:#fff}
+  .wa.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+  .wa.ghost svg{fill:var(--ink)}
+  .wa.block,.btn-ink.block,.btn-outline.block{width:100%;justify-content:center}
+
+  /* ============ APP SHELL: sticky deal-rail + tabbed workspace ============ */
+  main.portal{max-width:1280px;margin:0 auto;padding:26px 20px 90px;display:grid;grid-template-columns:1fr;gap:22px}
+  @media(min-width:980px){main.portal{grid-template-columns:320px 1fr;align-items:start;padding:32px 24px 60px}}
+  /* grid items default to min-width:auto (sized to their widest unbreakable content, e.g. the
+     nowrap tab pills), which forces the whole 1fr track - and so the whole page - wider than
+     the viewport on mobile. min-width:0 lets each item shrink to the column and rely on its own
+     internal overflow (tabs-nav scrolls horizontally instead of blowing out the page). */
+  main.portal>*{min-width:0}
+
+  /* --- deal rail --- */
+  .rail{position:relative}
+  @media(min-width:980px){.rail{position:sticky;top:90px}}
+  .deal-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+  .deal-card .photo{height:150px;background-size:cover;background-position:center;position:relative}
+  .deal-card .photo .status{position:absolute;left:12px;bottom:12px;background:rgba(23,20,15,.78);color:#fff;font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:5px 10px;border-radius:999px;display:flex;align-items:center;gap:6px}
+  .deal-card .photo .status::before{content:"";width:6px;height:6px;border-radius:50%;background:#8FD68A;box-shadow:0 0 0 0 rgba(143,214,138,.65);animation:live-pulse 2s ease-out infinite}
+  @keyframes live-pulse{0%{box-shadow:0 0 0 0 rgba(143,214,138,.65)}70%{box-shadow:0 0 0 7px rgba(143,214,138,0)}100%{box-shadow:0 0 0 0 rgba(143,214,138,0)}}
+  @media(prefers-reduced-motion:reduce){.deal-card .photo .status::before{animation:none}}
+  .deal-card .body{padding:18px 20px 20px}
+  .deal-card .kicker{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+  .deal-card h2{font-family:'Fraunces','Georgia',serif !important;font-weight:600 !important;letter-spacing:0;font-size:23px;margin:4px 0 2px}
+  .deal-card .loc{font-size:13px;color:var(--muted);margin-bottom:14px}
+  .deal-card .row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-top:1px solid var(--line)}
+  .deal-card .row:first-of-type{border-top:none;padding-top:0}
+  .deal-card .row .rl{font-size:12px;color:var(--muted)}
+  .deal-card .row .rv{font-family:'Fraunces','Georgia',serif;font-weight:600;font-size:17px;color:var(--ink);text-align:right}
+  .deal-card .row.price .rv{font-size:20px}
+  .deal-card .row.yield .rv{color:var(--opt-deep)}
+  .deal-card .price-note{font-size:11px;color:var(--muted);text-align:right;margin-top:-4px}
+  .avail-wrap,.build-wrap{padding:12px 0;border-top:1px solid var(--line)}
+  .avail-wrap .al,.build-wrap .al{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+  .avail-wrap .al b,.build-wrap .al b{color:var(--ink);font-weight:700}
+  .avail-bar{height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+  .avail-bar span{display:block;height:100%;background:var(--ink);border-radius:999px;transition:width .6s ease}
+  .build-dates{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);margin-top:5px}
+  .deal-cta{padding:16px 20px 20px;display:flex;flex-direction:column;gap:9px;border-top:1px solid var(--line)}
+  .rail-note{font-size:11.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.5}
+  .rail-note a{color:var(--ink)}
+
+  /* --- tab nav --- */
+  .tabs-wrap{position:sticky;top:61px;z-index:60;background:var(--sand);padding:12px 0 10px;margin-bottom:2px}
+  @media(min-width:980px){.tabs-wrap{top:66px;padding:12px 0 14px}}
+  .tabs-nav{display:flex;gap:7px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
+  .tabs-nav::-webkit-scrollbar{display:none}
+  .tabs-nav button{flex:none;font-family:inherit;font-size:13px;font-weight:700;letter-spacing:.01em;padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:var(--paper);color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .15s;display:flex;align-items:center;gap:7px}
+  .tabs-nav button .tn{font-size:10.5px;font-weight:800;opacity:.55}
+  .tabs-nav button:hover{border-color:var(--ink);color:var(--ink)}
+  .tabs-nav button.active{background:var(--ink);border-color:var(--ink);color:#fff}
+  .tabs-nav button.active .tn{opacity:.7}
+
+  /* --- workspace / panes --- */
+  .workspace{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:8px}
+  @media(min-width:640px){.workspace{padding:10px}}
+  .tab-pane{display:none;padding:22px 18px}
+  @media(min-width:640px){.tab-pane{padding:34px 36px}}
+  .tab-pane.active{display:block;animation:fadein .2s ease}
+  @keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+  .pane-kicker{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+  .pk-row{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  .pk-icon{flex:none;width:34px;height:34px;border-radius:50%;background:var(--opt);display:flex;align-items:center;justify-content:center}
+  .pk-icon svg{width:17px;height:17px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .pane-h{font-size:clamp(21px,3.6vw,28px);margin:6px 0 10px;line-height:1.15}
+  .pane-lead{font-size:15px;line-height:1.6;max-width:640px;margin:0 0 20px;color:var(--ink)}
+  .subhead{font-size:19px;font-weight:800;letter-spacing:-.01em;text-transform:none;color:var(--ink);margin:32px 0 13px;display:flex;align-items:center;gap:8px;line-height:1.25}
+  .subhead:first-of-type{margin-top:6px}
+  .subhead::after{content:"";flex:1;height:1px;background:var(--line)}
+  .subblock{border-radius:14px;padding:20px 22px;margin-bottom:6px}
+  .subblock.sage{background:var(--sage-tint);border:1px solid var(--opt)}
+  .subblock.pess-b{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--pess)}
+  .subblock.tint{background:var(--sand-2);border:1px solid var(--line)}
+
+  /* --- footer CTA (persists under every tab) --- */
+  .footer-cta{margin-top:22px;background:var(--ink);color:var(--cream);border-radius:20px;padding:24px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .footer-cta h3{color:#fff;font-size:19px;margin:0 0 4px;font-family:'Fraunces','Georgia',serif !important;font-weight:600 !important}
+  .footer-cta p{margin:0;font-size:13.5px;color:rgba(239,231,216,.8);max-width:420px}
+  .footer-cta .fc-ctas{display:flex;gap:10px;flex-wrap:wrap}
+  .footer-cta .wa.ghost{border-color:rgba(239,231,216,.35);color:#fff}
+  .footer-cta .wa.ghost svg{fill:#fff}
+  .footer-cta .fc-agent{display:flex;align-items:center;gap:16px}
+  .footer-cta .fc-photo{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none;border:2px solid rgba(239,231,216,.25)}
+  @media(max-width:560px){.footer-cta .fc-agent{gap:12px}.footer-cta .fc-photo{width:44px;height:44px}}
+
+  /* --- referral strip, persists under every tab net als footer-cta --- */
+  .ref-strip{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--terra);border-radius:14px;padding:16px 20px;margin-top:14px}
+  .ref-strip .rs-ic{width:38px;height:38px;border-radius:10px;background:var(--sand-2);color:var(--terra);display:flex;align-items:center;justify-content:center;flex:none}
+  .ref-strip .rs-ic svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .ref-strip .rs-body{flex:1;min-width:220px;font-size:13.5px;color:var(--ink);line-height:1.5}
+  .ref-strip .rs-body b{display:block;font-size:14.5px;margin-bottom:2px}
+  .ref-strip a.rs-cta{flex:none;font-size:13px;font-weight:700;color:var(--terra);text-decoration:none;white-space:nowrap}
+  .ref-strip a.rs-cta:hover{text-decoration:underline}
+
+  /* ============ shared content components (zelfde als V3) ============ */
+  .bgal{display:grid;grid-template-columns:2fr 1fr 1fr;grid-auto-rows:130px;gap:8px;margin:18px 0 0}
+  .bgal .g{background-size:cover;background-position:center;border-radius:14px;cursor:zoom-in;transition:opacity .15s}
+  .bgal .g.big{grid-row:span 2;grid-column:span 1}
+  .bgal .g:hover{opacity:.9}
+  @media(max-width:640px){.bgal{grid-template-columns:1fr 1fr;grid-auto-rows:100px}.bgal .g.big{grid-column:span 2;grid-row:span 1}}
+
+  .feature-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px 16px;margin:22px 0 6px}
+  @media(min-width:560px){.feature-cols{grid-template-columns:repeat(4,1fr)}}
+  .fcol{border-top:2px solid var(--ink);padding-top:12px}
+  .feature-cols .fcol:nth-child(2){border-top-color:var(--opt)}
+  .feature-cols .fcol:nth-child(3){border-top-color:var(--pess)}
+  .fcol h4{font-size:14px;margin:0 0 4px}
+  .fcol p{font-size:12.5px;color:var(--muted);margin:0;line-height:1.5}
+
+  .plan-block{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px 24px 24px;margin-bottom:22px}
+  .plan-block:last-of-type{margin-bottom:0}
+  .plan-block .subhead{margin-top:0}
+  @media(max-width:560px){.plan-block{padding:18px 18px 20px}}
+
+  .num-list{margin-top:4px}
+  .num-item{display:flex;gap:16px;padding:16px 0;border-top:1px solid var(--line)}
+  .num-item:first-child{border-top:none;padding-top:4px}
+  .num-item .nn{flex:none;width:26px;font-weight:800;color:var(--ink);font-size:14px;padding-top:1px}
+  .num-item .nc h4{font-size:14.5px;margin:0 0 4px}
+  .num-item .nc p{font-size:13px;color:var(--muted);margin:0;line-height:1.5}
+
+  .checklist-dark{background:var(--sand-2);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-top:20px;color:var(--ink)}
+  .ch-title{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:12px}
+  .ch-grid{display:grid;grid-template-columns:1fr;gap:10px}
+  @media(min-width:560px){.ch-grid{grid-template-columns:1fr 1fr}}
+  .ch-item{display:flex;gap:9px;align-items:flex-start;font-size:13px;line-height:1.4}
+  .ch-item .ck{flex:none;width:18px;height:18px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;margin-top:1px}
+
+  .loc-map{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:14px}
+  .loc-map iframe{width:100%;height:280px;border:0;display:block}
+
+  .nearby-group{margin-bottom:16px}
+  .nearby-group:last-of-type{margin-bottom:0}
+  .nearby-cat{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px}
+  .amen-list{display:grid;grid-template-columns:1fr;gap:8px}
+  @media(min-width:640px){.amen-list{grid-template-columns:1fr 1fr}}
+  .amen{display:flex;justify-content:space-between;align-items:center;gap:14px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:11px 14px}
+  .amen .al{font-size:13px;color:var(--ink)}
+  .amen .av{font-weight:800;font-size:11px;color:var(--ink);background:var(--sand-2);padding:3px 9px;border-radius:999px;white-space:nowrap}
+
+  .trust-list{margin-top:4px}
+  .trust-item{display:flex;gap:12px;padding:13px 0;border-top:1px solid var(--line);align-items:flex-start}
+  .trust-item:first-child{border-top:none;padding-top:2px}
+  .trust-item .tick{flex:none;width:24px;height:24px;border-radius:50%;background:var(--pess);color:var(--pess-ink);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;margin-top:1px}
+  .trust-item p{margin:0;font-size:13.5px;line-height:1.5;color:var(--ink)}
+  .trust-item p b{color:var(--ink)}
+
+  .proj-trust{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 4px}
+  .proj-trust .pt{display:flex;align-items:center;gap:7px;background:var(--pess);color:var(--pess-ink);font-size:12px;font-weight:700;padding:8px 14px;border-radius:999px;line-height:1.3}
+  .proj-trust .pt svg{width:13px;height:13px;flex:none}
+  @media(max-width:560px){.proj-trust{gap:7px}.proj-trust .pt{font-size:11.5px;padding:7px 12px}}
+
+  .stat-row{display:grid;grid-template-columns:1fr 1fr;gap:18px 16px;margin-top:6px}
+  @media(min-width:640px){.stat-row{grid-template-columns:repeat(4,1fr)}}
+  .stat-row .sr .sv{font-size:clamp(24px,5vw,32px);font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
+  .stat-row .sr .sl{font-size:12px;margin-top:6px;color:var(--muted);line-height:1.3;max-width:180px}
+  .proof-strip{display:flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:14px;background:var(--sand-2);overflow:hidden}
+  .proof-item{flex:1 1 25%;padding:13px 14px;text-align:center;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .proof-item .pv{font-size:16.5px;font-weight:800;color:var(--opt-deep);line-height:1.1;font-variant-numeric:tabular-nums}
+  .proof-item .pl{font-size:10.5px;color:var(--muted);margin-top:3px;line-height:1.3}
+  @media(min-width:640px){.proof-item{border-bottom:none}}
+  @media(max-width:639px){.proof-item{flex:1 1 50%}.proof-item:nth-child(2n){border-right:none}.proof-item:nth-last-child(-n+2){border-bottom:none}}
+  @media(min-width:640px){.proof-item:last-child{border-right:none}}
+
+  .big-stats{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--line);margin-top:16px}
+  @media(min-width:560px){.big-stats{grid-template-columns:1fr 1fr}}
+  .bstat{padding:18px 18px 18px 0;border-bottom:1px solid var(--line)}
+  @media(min-width:560px){.bstat:nth-child(odd){border-right:1px solid var(--line);padding-right:20px}.bstat:nth-child(even){padding-left:20px}}
+  .bstat .bv{font-size:clamp(26px,5vw,34px);font-weight:800;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .bstat .bv sup{font-size:.5em;font-weight:800}
+  .bstat .bl{font-size:12.5px;color:var(--muted);margin-top:5px}
+
+  .dark-cta{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--opt);border-radius:14px;padding:16px 18px;margin-top:18px;font-size:13px;color:var(--ink);line-height:1.55}
+  .dr-cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--sand-2);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:16px}
+  .dr-cta-ic{width:40px;height:40px;border-radius:10px;background:var(--paper);color:var(--opt-deep);display:flex;align-items:center;justify-content:center;flex:none}
+  .dr-cta-ic svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .dr-cta-body{flex:1;min-width:220px}
+  .dr-cta-body h4{margin:0 0 3px;font-size:14.5px;font-weight:700;color:var(--ink)}
+  .dr-cta-body p{margin:0;font-size:13px;color:var(--muted);line-height:1.5}
+  .dr-cta .btn-outline{flex:none;white-space:nowrap}
+  .earn-proof{display:flex;gap:20px;align-items:center;background:var(--sand-2,var(--paper));border:1px solid var(--line);border-radius:14px;padding:18px;margin:18px 0}
+  .earn-proof img{width:220px;flex:none;border-radius:14px;display:block}
+  .earn-cap-lbl{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--opt-deep);margin-bottom:6px}
+  .earn-cap p{font-size:13px;color:var(--ink);line-height:1.5;margin:0}
+  @media(max-width:640px){.earn-proof{flex-direction:column;align-items:stretch}.earn-proof img{width:100%;max-width:260px;margin:0 auto}}
+
+  /* Listing preview cards (Airbnb/Booking mockup) */
+  .listing-cards{display:grid;grid-template-columns:1fr;gap:14px;margin:16px 0 6px}
+  @media(min-width:640px){.listing-cards{grid-template-columns:1fr 1fr}}
+  .listing-card{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--paper)}
+  .lc-photo{height:150px;background-size:cover;background-position:center;position:relative}
+  .lc-plat{position:absolute;top:10px;left:10px;font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;background:rgba(23,20,15,.78);color:#fff;padding:4px 9px;border-radius:999px}
+  .lc-body{padding:14px 16px 16px}
+  .lc-title{font-weight:800;font-size:14px;color:var(--ink);line-height:1.3;margin-bottom:4px}
+  .lc-meta{font-size:12px;color:var(--muted);margin-bottom:10px}
+  .lc-price{font-size:13px;color:var(--ink)}
+  .lc-price b{font-size:16px;font-weight:800;color:var(--opt-deep)}
+  .lc-note{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+
+  /* Booking-kalender mockup */
+  .cal-wrap{overflow-x:auto;margin:16px 0 6px}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;min-width:490px}
+  .cal-dow{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);text-align:center;padding-bottom:2px}
+  .cal-cell{position:relative;border-radius:8px;padding:8px 6px;min-height:78px}
+  .cal-cell.booked{background:var(--sage-tint);border:1px solid var(--opt)}
+  .cal-cell.open{background:var(--paper);border:1px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .cal-d{font-size:11px;font-weight:800;color:var(--ink);margin-bottom:3px}
+  .cal-cell.open .cal-d{margin-bottom:2px;color:var(--muted)}
+  .cal-g{font-size:11px;font-weight:700;color:var(--opt-deep);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cal-r{font-size:10px;color:var(--muted);margin-top:2px}
+  .cal-tot{font-size:9.5px;color:var(--opt-deep);font-weight:800;margin-top:4px;line-height:1.3}
+  .cal-open-lbl{font-size:10px;color:var(--muted)}
+  /* Meerdaagse boekingen visueel als 1 doorlopend blok, i.p.v. losse dagen die toevallig dezelfde naam delen.
+     Elke dag toont z'n eigen nachtprijs; de eerste dag toont daarnaast ook de gastnaam en de totale omzet
+     van de hele boeking. */
+  .cal-cell.stay-start{border-radius:8px 0 0 8px}
+  .cal-cell.stay-mid{border-radius:0}
+  .cal-cell.stay-end{border-radius:0 8px 8px 0}
+  .cal-cell.stay-mid::before,.cal-cell.stay-end::before{content:"";position:absolute;left:-6px;top:-1px;bottom:-1px;width:6px;background:var(--sage-tint);border-top:1px solid var(--opt);border-bottom:1px solid var(--opt)}
+  .cal-cell.stay-mid .cal-d,.cal-cell.stay-end .cal-d{opacity:.6}
+
+  /* Maandelijkse rapportage mockup */
+  .report-card{border:1px solid var(--line);border-radius:14px;background:var(--paper);padding:20px 20px 22px;margin:16px 0 6px}
+  .report-tag{font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .report-main{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:8px 0 4px}
+  .report-eur{font-family:'Inter',sans-serif;font-size:32px;font-weight:800;color:var(--opt-deep);letter-spacing:-.02em}
+  .report-idr{font-size:14px;color:var(--muted)}
+  .report-lbl{font-size:12px;color:var(--muted);width:100%;margin-top:-2px}
+  .report-lines{border-top:1px solid var(--line);margin-top:14px;padding-top:10px}
+  .rp-line{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;padding:5px 0;color:var(--ink)}
+  .rp-line span{color:var(--muted);padding-right:8px}
+  .rp-line b{flex:none;white-space:nowrap}
+  .rp-line.total{border-top:1px solid var(--line);margin-top:4px;padding-top:9px;font-weight:800}
+  .rp-line.total span{color:var(--ink);font-weight:800}
+  .report-chart{display:flex;align-items:flex-end;gap:8px;margin-top:22px}
+  .rc-col{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;cursor:pointer}
+  .rc-v{font-size:9.5px;color:var(--muted);margin-bottom:5px;white-space:nowrap;transition:color .15s}
+  .rc-bar{width:100%;max-width:30px;height:80px;display:flex;align-items:flex-end}
+  .rc-bar::after{content:"";display:block;width:100%;height:var(--h);background:var(--line);border-radius:5px 5px 2px 2px;transition:background .15s,filter .15s}
+  .rc-col.cur .rc-v{color:var(--opt-deep);font-weight:800}
+  .rc-col.cur .rc-bar::after{background:var(--opt-deep)}
+  .rc-m{font-size:10px;color:var(--muted);margin-top:6px;transition:color .15s}
+  .rc-col:not(.cur):hover .rc-bar::after{background:var(--opt-deep)}
+  .rc-col:hover .rc-v,.rc-col:hover .rc-m{color:var(--ink)}
+  .rc-col::before{content:attr(data-tip);position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(4px);background:var(--ink);color:#fff;font-size:11px;font-weight:700;padding:6px 11px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s;z-index:5}
+  .rc-col::after{content:"";position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--ink);opacity:0;pointer-events:none;transition:opacity .15s}
+  .rc-col:hover::before{opacity:1;transform:translateX(-50%) translateY(0)}
+  .rc-col:hover::after{opacity:1}
+  @media(max-width:560px){.report-eur{font-size:26px}.report-chart{gap:5px}.rc-v{font-size:8.5px}}
+
+  .why-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
+  @media(min-width:640px){.why-grid{grid-template-columns:1fr 1fr}}
+  .why-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:17px 19px;display:flex;gap:13px;align-items:flex-start}
+  .why-ic{flex:none;width:36px;height:36px;border-radius:8px;background:var(--pess);color:var(--pess-ink);display:flex;align-items:center;justify-content:center}
+  .why-ic svg{width:18px;height:18px}
+  .why-card h4{font-size:13.5px;margin:1px 0 4px;font-weight:800;color:var(--ink)}
+  .why-card p{font-size:12.5px;line-height:1.5;color:var(--muted);margin:0}
+
+  .scen-wrap{margin-top:22px}
+  .scen-h{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:9px}
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:640px){.scen{grid-template-columns:1fr}}
+  .scc{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:15px 16px;text-align:center;cursor:pointer;transition:filter .15s,box-shadow .15s}
+  .scc:hover{filter:brightness(0.97)}
+  .scc.pess{background:var(--pess);color:var(--pess-ink);border-color:var(--pess)}
+  .scc.real{background:var(--real);color:var(--real-ink);border-color:var(--real)}
+  .scc.opt{background:var(--opt);color:var(--opt-ink);border-color:var(--opt)}
+  .scc.cur{box-shadow:inset 0 0 0 2px var(--ink)}
+  .scl{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;opacity:.85}
+  .scv{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;margin-top:4px}
+  .scs{font-size:12px;margin-top:4px;opacity:.8}
+  .scb{font-size:11.5px;margin-top:7px;font-weight:600;opacity:.9}
+
+  .prices{display:grid;grid-template-columns:1fr;gap:9px;margin-top:6px}
+  @media(min-width:640px){.prices{grid-template-columns:1fr 1fr}}
+  .pc{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px;text-align:center}
+  .pc.cur{border-color:var(--opt);background:var(--sage-tint)}
+  .pc .pv{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:var(--ink)}
+  .pc.cur .pv{color:var(--opt-deep)}
+  .pc.hero{padding:20px 18px}
+  .pc.hero .pv{font-size:30px}
+  .pc.next .pv{color:var(--ink)}
+  .pc .pl{font-size:12.5px;font-weight:700;margin-top:4px}
+  .pc .ps{font-size:11.5px;color:var(--muted)}
+  .price-trend{font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.5}
+
+  .paybar{display:flex;border-radius:14px;overflow:hidden;margin-top:6px;box-shadow:var(--shadow);border:1px solid var(--line)}
+  .payseg{padding:20px 18px;position:relative;color:var(--ink)}
+  .payseg+.payseg{border-left:1px solid rgba(23,20,15,.08)}
+  .payseg:nth-child(1){background:rgba(23,20,15,.045);flex:3}
+  .payseg:nth-child(2){background:rgba(23,20,15,.09);flex:3}
+  .payseg:nth-child(3){background:rgba(23,20,15,.15);flex:3}
+  .payseg.final{background:var(--ink);color:#fff;flex:1.6}
+  .payseg .step{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;opacity:.5;margin-bottom:12px}
+  .payseg .pp{font-family:'Inter',sans-serif;font-size:27px;font-weight:800;line-height:1}
+  .payseg .pl{font-size:13px;font-weight:700;margin-top:8px}
+  .payseg .pd{display:inline-block;font-size:10.5px;font-weight:700;margin-top:9px;padding:4px 9px;border-radius:999px;background:rgba(23,20,15,.08)}
+  .payseg .pa{font-size:12px;margin-top:11px;color:var(--muted);font-weight:600}
+  .payseg .pnote{font-size:10px;margin-top:4px;color:var(--muted);font-style:italic;line-height:1.3}
+  .payseg.final .pd{background:rgba(255,255,255,.16)}
+  .payseg.final .pa{color:rgba(239,231,216,.8)}
+  .payseg .pd.build-started{background:var(--opt-deep);color:#fff}
+  .payseg.done .pd{background:var(--opt-deep);color:#fff}
+  .payseg.done .pd::before{content:"✓ "}
+  .pay-status{display:none;margin-top:12px;font-size:12.5px;line-height:1.5;color:var(--ink);background:var(--sand-2);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+  .pay-status b{font-weight:800}
+  @media(max-width:640px){.paybar{flex-direction:column}.payseg{flex:none !important}.payseg+.payseg{border-left:none;border-top:1px solid rgba(23,20,15,.08)}}
+
+  .vtl{position:relative;margin-top:4px}
+  .vitem{display:flex;gap:14px;padding-bottom:20px;position:relative}
+  .vitem:last-child{padding-bottom:0}
+  .vmark{width:22px;flex:none;display:flex;flex-direction:column;align-items:center}
+  .vdot{width:11px;height:11px;border-radius:50%;background:var(--ink);flex:none;margin-top:3px;border:2px solid var(--paper)}
+  .vline{flex:1;width:1px;background:var(--line);margin-top:4px}
+  .vitem:last-child .vline{display:none}
+  .vc{flex:1;padding-top:1px}
+  .vc .vtag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--ink)}
+  .vc h4{font-size:14px;margin:3px 0 3px;font-weight:800;color:var(--ink)}
+  .vc p{font-size:13px;color:var(--muted);margin:0;line-height:1.5}
+
+  /* bouwvoortgang op de tijdlijn: afgeronde mijlpalen groen afgevinkt, huidige mijlpaal pulseert */
+  .vitem.done .vdot{background:var(--opt-deep);border-color:var(--paper);position:relative}
+  .vitem.done .vdot::after{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");background-size:7px;background-repeat:no-repeat;background-position:center}
+  .vitem.done .vline{background:var(--opt)}
+  .vitem.done .vc .vtag{color:var(--opt-deep)}
+  .vitem.current .vdot{background:var(--opt-deep);border-color:var(--paper);animation:vpulse 2s ease-out infinite}
+  .vitem.current .vc .vtag{color:var(--opt-deep)}
+  .vitem.current .vc .vnow{display:inline-block;margin-left:8px;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;background:var(--opt-deep);color:#fff;padding:2px 7px;border-radius:999px;vertical-align:middle}
+  @keyframes vpulse{0%{box-shadow:0 0 0 0 rgba(91,106,69,.5)}70%{box-shadow:0 0 0 7px rgba(91,106,69,0)}100%{box-shadow:0 0 0 0 rgba(91,106,69,0)}}
+  @media(prefers-reduced-motion:reduce){.vitem.current .vdot{animation:none}}
+
+  .team{display:grid;grid-template-columns:1fr;gap:12px;margin-top:6px}
+  @media(min-width:640px){.team{grid-template-columns:repeat(3,1fr)}}
+  .team.cols2{grid-template-columns:1fr}
+  @media(min-width:640px){.team.cols2{grid-template-columns:repeat(2,1fr)}}
+  .tcard{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .tcard .n{font-family:'Inter',sans-serif;color:var(--ink);font-weight:800;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
+  .tcard h4{font-size:14.5px;margin:5px 0 4px}
+  .tcard p{font-size:12.5px;color:var(--muted);margin:0;line-height:1.5}
+
+  .role-grid{display:grid;grid-template-columns:1fr;gap:8px;margin-top:14px}
+  @media(min-width:560px){.role-grid{grid-template-columns:1fr 1fr}}
+  .role{display:flex;align-items:center;gap:9px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:11px 14px;font-size:13px;color:var(--ink)}
+  .role .rdot{flex:none;width:6px;height:6px;border-radius:50%;background:var(--pess-ink)}
+
+  .route-bar{display:flex;flex-wrap:wrap;border-radius:14px;overflow:hidden;margin:16px 0 6px;border:1px solid var(--line)}
+  .route-a,.route-b{flex:1;min-width:200px;padding:15px 18px}
+  .route-a{background:var(--pess)}
+  .route-b{background:var(--opt)}
+  .route-bar .rlbl{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;opacity:.8;margin-bottom:4px;color:var(--ink)}
+  .route-bar .rtxt{font-size:13px;color:var(--ink);line-height:1.4}
+  .route-a .rlbl,.route-a .rtxt{color:var(--pess-ink)}
+
+  .risk2-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:6px}
+  .risk2{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--pess);border-radius:14px;padding:17px 19px}
+  .risk2 h4{font-size:14px;margin:0 0 7px;color:var(--ink)}
+  .risk2 h4 .rn{color:var(--pess-ink);margin-right:6px}
+  .risk2 .real{font-size:12.5px;color:var(--muted);margin:0 0 10px;line-height:1.5}
+  .risk2 .real b{color:var(--ink);font-weight:700}
+  .risk2 .rsol{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--pess-ink);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+  .risk2 .rtags{display:flex;flex-wrap:wrap;gap:7px}
+  .rtag{background:var(--pess);border:1px solid var(--pess);border-radius:999px;padding:5px 11px;font-size:11.5px;color:var(--pess-ink);font-weight:600}
+
+  .exit2{display:grid;grid-template-columns:1fr;gap:12px;margin-top:6px}
+
+  .fee-cards{display:grid;grid-template-columns:1fr;gap:14px;margin-top:16px}
+  @media(min-width:760px){.fee-cards{grid-template-columns:repeat(3,1fr)}}
+  .fee-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:19px 20px}
+  .fee-card .fee-h{display:flex;align-items:center;gap:11px;margin-bottom:9px}
+  .fee-card .fee-pct{flex:none;font-family:'Inter',sans-serif;font-weight:800;font-size:17px;color:var(--opt-deep);background:var(--sage-tint);border-radius:8px;padding:5px 10px;letter-spacing:-.01em}
+  .fee-card h4{margin:0;font-size:15px;letter-spacing:-.01em}
+  .fee-card .fee-sub{font-size:12px;color:var(--muted);margin:0 0 12px;line-height:1.45}
+  .fee-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+  .fee-list li{font-size:12.5px;color:var(--ink);padding-left:15px;position:relative;line-height:1.4}
+  .fee-list li::before{content:"";position:absolute;left:0;top:6px;width:5px;height:5px;border-radius:50%;background:var(--opt-deep)}
+  @media(min-width:640px){.exit2{grid-template-columns:1fr 1fr}}
+  .exit2 .ec{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:17px 19px}
+  .exit2 .ec h4{font-size:14px;margin:0 0 9px}
+  .exit2 .ec ul{margin:0;padding:0;list-style:none;display:grid;gap:7px}
+  .exit2 .ec li{display:flex;gap:8px;font-size:13px;color:var(--muted);align-items:flex-start}
+  .exit2 .ec li .ck2{flex:none;color:var(--opt-deep);font-weight:800}
+  .commission-bar{display:flex;align-items:center;gap:14px;background:var(--sage-tint);border:1px solid var(--opt);color:var(--ink);border-radius:14px;padding:15px 19px;margin-top:14px;flex-wrap:wrap}
+  .commission-bar .cnum{font-size:24px;font-weight:800;color:var(--opt-deep);flex:none}
+  .commission-bar p{margin:0;font-size:13px;color:var(--muted);line-height:1.45}
+  .commission-bar p b{color:var(--ink)}
+
+  .faq-lead{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+  .faq-lead .faq-photo{width:52px;height:52px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--line)}
+  .faq-name{font-family:'Inter',sans-serif;font-weight:800;font-size:14.5px;color:var(--ink);margin-bottom:2px}
+  .faq-name span{font-weight:500;color:var(--muted);font-size:13px}
+  @media(max-width:560px){.faq-lead .faq-photo{width:44px;height:44px}}
+
+  .faq details{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:13px 16px;margin-bottom:8px}
+  .faq summary{cursor:pointer;font-weight:700;font-size:14px;list-style:none;color:var(--ink)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";float:right;color:var(--ink);font-weight:700;font-size:16px}
+  .faq details[open] summary::after{content:"–"}
+  .faq p{margin:8px 0 0;font-size:13px;color:var(--muted);line-height:1.5}
+
+  details.assump{margin-top:16px;font-size:12px;color:var(--muted)}
+  details.assump summary{cursor:pointer;font-weight:600;color:var(--ink)}
+  details.assump ul{margin:8px 0 0;padding-left:18px}
+
+  .contact-row{display:grid;grid-template-columns:1fr;gap:10px;margin-top:16px}
+  @media(min-width:560px){.contact-row{grid-template-columns:1fr 1fr}}
+  .cperson{display:flex;gap:15px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .cperson img{width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none}
+  .cperson .cn{font-size:16px;font-weight:700;color:var(--ink)}
+  .cperson .cr{font-size:12px;color:var(--muted);margin:2px 0 6px}
+  .cperson a{display:block;font-size:12.5px;color:var(--ink);text-decoration:none}
+  .cperson a:hover{text-decoration:underline}
+  .cperson .cwa{display:flex;align-items:center;gap:5px;margin-top:5px;color:#075E54;font-weight:700}
+  .cperson .cwa svg{width:13px;height:13px;flex:none}
+
+  .legal-note{text-align:center;padding:18px 20px 0;max-width:720px;margin:0 auto;font-size:11px;color:var(--muted);line-height:1.6}
+
+  .sticky-cta{position:fixed;left:0;right:0;bottom:0;background:var(--paper);border-top:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;z-index:150}
+  .sticky-cta a{flex:1;justify-content:center;padding:12px 10px;font-size:13.5px}
+  @media(min-width:980px){.sticky-cta{display:none}}
+  main.portal{padding-bottom:26px}
+  @media(max-width:979px){main.portal{padding-bottom:90px}}
+
+  .lb{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(15,13,9,.95);padding:24px}
+  .lb.open{display:flex}
+  .lb img{max-width:94vw;max-height:90vh;border-radius:14px;object-fit:contain}
+  .lb .x{position:absolute;top:16px;right:22px;background:none;border:none;color:#fff;font-size:36px;line-height:1;cursor:pointer;opacity:.85}
+  .lb .x:hover{opacity:1}
+  .lb .nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.14);border:none;color:#fff;width:46px;height:46px;border-radius:50%;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .lb .nav:hover{background:rgba(255,255,255,.28)}
+  .lb .prev{left:14px}.lb .next{right:14px}
+  .lb .cap{position:absolute;bottom:16px;left:0;right:0;text-align:center;color:#eee;font-size:12.5px;opacity:.8}
+
+  /* --- reserveringsmodule (popup) --- */
+  .rmodal{position:fixed;inset:0;z-index:210;display:none;align-items:flex-start;justify-content:center;background:rgba(15,13,9,.6);padding:24px;overflow-y:auto}
+  .rmodal.open{display:flex}
+  .rmodal-box{background:var(--paper);border-radius:20px;max-width:600px;width:100%;margin:26px auto;padding:30px 28px 28px;position:relative;box-shadow:var(--shadow)}
+  .rmodal-box .x{position:absolute;top:14px;right:16px;background:none;border:none;font-size:26px;line-height:1;cursor:pointer;color:var(--muted)}
+  .rmodal-box .x:hover{color:var(--ink)}
+  .rmodal-box .eb{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--opt-deep)}
+  .rmodal-box h3{font-family:'Fraunces','Georgia',serif;font-weight:600;font-size:23px;margin:4px 0 6px}
+  .rmodal-box .rm-lead{font-size:13.5px;color:var(--muted);line-height:1.5;margin:0 0 16px}
+  .rm-explain{background:var(--sage-tint);border:1px solid var(--opt);border-radius:14px;padding:14px 16px;margin:0 0 18px;font-size:12.5px;line-height:1.55;color:var(--ink)}
+  .rm-explain b{color:var(--opt-deep)}
+
+  .spwrap{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);margin-bottom:10px}
+  .spwrap img{display:block;width:100%;height:auto}
+  .sp-hot{position:absolute;top:18%;height:48%;cursor:pointer;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6%;transition:background .15s}
+  .sp-hot .spn{width:26px;height:26px;border-radius:50%;background:rgba(254,251,246,.95);border:2px solid var(--ink);color:var(--ink);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)}
+  .sp-hot:hover{background:rgba(91,106,69,.16)}
+  .sp-hot.sel{background:rgba(91,106,69,.22)}
+  .sp-hot.sel .spn{background:var(--opt-deep);border-color:var(--opt-deep);color:#fff}
+  .sp-hot.sold{cursor:not-allowed}
+  .sp-hot.sold .spn{background:rgba(23,20,15,.7);border-color:rgba(23,20,15,.7);color:#fff}
+  .sp-hot.sold:hover{background:transparent}
+  .sp-hot.reserved{cursor:not-allowed}
+  .sp-hot.reserved .spn{background:var(--pess-ink);border-color:var(--pess-ink);color:#fff}
+  .sp-hot.reserved:hover{background:transparent}
+  .sp-hot .sold-lbl,.sp-hot .reserved-lbl{display:none;position:absolute;top:8%;left:50%;transform:translateX(-50%);font-size:8px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#fff;padding:2px 7px;border-radius:999px;white-space:nowrap}
+  .sp-hot .sold-lbl{background:rgba(23,20,15,.78)}
+  .sp-hot .reserved-lbl{background:var(--pess-ink)}
+  .sp-hot.sold .sold-lbl{display:block}
+  .sp-hot.reserved .reserved-lbl{display:block}
+
+  .sp-legend{display:flex;flex-wrap:wrap;gap:14px;font-size:11px;color:var(--muted);margin:0 0 16px}
+  .sp-legend span{display:inline-flex;align-items:center;gap:6px}
+  .sp-legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .sp-legend .d-av{background:var(--paper);border:2px solid var(--ink)}
+  .sp-legend .d-sel{background:var(--opt-deep)}
+  .sp-legend .d-res{background:var(--pess-ink)}
+  .sp-legend .d-sold{background:rgba(23,20,15,.7)}
+
+  .sp-pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+  .sp-pill{padding:8px 15px;border-radius:999px;border:1px solid var(--line);background:var(--paper);font-family:inherit;font-size:12.5px;font-weight:700;color:var(--ink);cursor:pointer}
+  .sp-pill.sold{background:rgba(23,20,15,.05);color:var(--muted);cursor:not-allowed;text-decoration:line-through}
+  .sp-pill.reserved{background:rgba(174,191,199,.18);color:var(--muted);cursor:not-allowed}
+  .sp-pill.sel{background:var(--opt-deep);color:#fff;border-color:var(--opt-deep)}
+
+  .rm-selected{font-size:13px;font-weight:700;margin-bottom:14px;padding:11px 14px;border-radius:8px;background:var(--sage-tint);color:var(--opt-deep)}
+  .rm-selected.empty{background:var(--sand-2);color:var(--muted);font-weight:600}
+  @media(max-width:560px){.rmodal-box{padding:24px 18px 22px;border-radius:14px}}
+
+  /* ============ PRINT / PDF-BROCHURE ============ */
+  .print-btn{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--muted);border:1px dashed var(--line);font-family:inherit;font-weight:700;font-size:13px;border-radius:8px;padding:10px 16px;cursor:pointer;margin-top:10px;width:100%;justify-content:center;text-decoration:none}
+  .print-btn:hover{border-color:var(--opt-deep);color:var(--opt-deep)}
+  .print-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  @media print{
+    @page{ size:A4; margin:14mm 12mm }
+    *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; color-adjust:exact !important }
+    body{ background:#fff }
+    .bnav, .gate, .tabs-nav, .sticky-cta, .lb, .rmodal, .print-btn,
+    .deal-cta, .rail-note, .footer-cta .fc-ctas,
+    input[type="range"], .slider-pins,
+    .earn-cap .zoom-hint{ display:none !important }
+    /* Een live Google Maps-embed kan niet in een PDF/print-snapshot renderen
+       (levert een kapot-plaatje icoon op) - verbergen, de "Bekijk op Google
+       Maps"-link eronder blijft staan als het bruikbare alternatief. */
+    .loc-map{ display:none !important }
+    main.portal{ display:block !important }
+    .rail{ position:static !important; width:100% !important; margin-bottom:22px; break-inside:avoid }
+    .deal-card{ display:flex; gap:18px; align-items:flex-start }
+    .deal-card .photo{ width:180px; height:130px; flex:none }
+    .deal-card .body{ flex:1 }
+    .tab-pane{ display:block !important; animation:none !important }
+    .tab-pane{ padding:0 !important }
+    /* Secties lopen door i.p.v. elk op een nieuwe pagina te starten - anders
+       ontstaan er grote lege stukken zodra een sectie niet toevallig een hele
+       pagina vult. Een dunne lijn markeert nog wel het begin van elke sectie. */
+    .tab-pane + .tab-pane{ margin-top:26px; padding-top:22px !important; border-top:2px solid var(--line) }
+    .faq details, details.assump{ display:block !important }
+    .faq summary::after, details.assump summary::after{ display:none }
+    /* Alleen kleine/vaste-hoogte kaarten mogen nooit splitsen. .card en
+       .hold-panel kunnen (met de calculator-cijfers) juist erg lang worden;
+       geforceerd-heel houden zorgt dan voor grote lege pagina's als ze niet
+       meer op de resterende ruimte passen. Die mogen dus gewoon over een
+       paginabreuk heen lopen. */
+    .fee-card, .listing-card, .exit-card, .bstat,
+    .subblock, .dark-cta, .checklist-dark, .num-item,
+    .stat, .deal-card, .fee-cards .fee-card, .scc, .role, .earn-proof{ break-inside:avoid }
+    /* Nooit een kop alleen onderaan een pagina met de bijbehorende inhoud
+       pas op de volgende - koppen blijven "vastgeplakt" aan wat erop volgt. */
+    .subhead, .pane-h, .scen-h, h3{ break-after:avoid; page-break-after:avoid }
+    /* De Aannames/Verwacht-rendement-kaarten staan op scherm naast elkaar,
+       maar de mobiele 1-koloms-breakpoint (max-width:840px) van .calc slaat
+       ook aan op de smallere A4-paginabreedte. Forceer ze in print weer
+       naast elkaar - dat is compacter en voorkomt dat elke kaart bijna een
+       hele pagina op zichzelf nodig heeft. */
+    .calc{ display:grid !important; grid-template-columns:1fr 1fr !important }
+    a[href]::after{ content:"" }
+    .footer-cta{ break-inside:avoid }
+    .print-footer{ display:block !important; margin-top:26px; padding-top:12px; border-top:1px solid var(--line); font-size:10.5px; color:var(--muted); text-align:center }
+  }
+  .print-footer{ display:none }
+
+  /* ============ MOKA-SPECIFIC: woningtype-selector & status pills ============ */
+  .unitsel{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 22px}
+  .unitsel .pbtn{min-width:150px}
+  .unitsel .pbtn .ps.avail{color:var(--opt-deep);font-weight:800;font-size:11.5px;letter-spacing:.02em}
+  .unitsel .pbtn .ps.sold{color:var(--muted);font-weight:700;font-size:11.5px;letter-spacing:.02em}
+  .unitsel .pbtn.is-sold{opacity:.75}
+  .pill.avail{background:var(--sage-tint);color:var(--opt-deep);border:1px solid var(--opt)}
+  .pill.sold{background:var(--sand-2);color:var(--muted);border:1px solid var(--line)}
+  .d-price .a.soldout-stamp{font-size:13px;font-weight:800;color:var(--muted);letter-spacing:.01em;background:var(--sand-2);border:1px solid var(--line);border-radius:8px;padding:5px 11px;display:inline-block;margin-top:2px}
+  .prices .pc.sold{opacity:.7}
+  .prices .pc .pv.strike{text-decoration:line-through;color:var(--muted);font-size:20px}
+
+</style>
+</head>
+<body>
+<nav class="bnav">
+  <a href="/" class="brand">UTAMA</a>
+  <div class="bnav-mid">
+    <span class="tag">Digitale Brochure &middot; MOKA</span>
+    <a class="pdf-chip" href="/moka/brochure/UTAMA-MOKA-Investeerdersbrochure.pdf?v=20260728a" download="UTAMA-MOKA-Investeerdersbrochure.pdf">
+      <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+      <span class="pc-lbl">Download de brochure als PDF</span>
+    </a>
+    <a class="dataroom-link" id="dataroomLink" href="/moka/dataroom/">
+      <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      Data room
+    </a>
+  </div>
+  <a href="/moka" class="back">&larr; Terug</a>
+</nav>
+
+<!-- GATE -->
+<section class="gate" id="gate">
+  <div class="gv" style="background-image:url('/images/moka/villa3-exterior.jpg')">
+    <div class="vt">
+      <div class="eb">MOKA · Kedungu, Bali</div>
+      <h2>Open je persoonlijke deal room</h2>
+      <p>Prijs, rendement, planning, team en zekerheden - overzichtelijk in één portaal, in plaats van één lange brochure.</p>
+    </div>
+  </div>
+  <div class="gf">
+    <div class="gcard">
+      <div class="eb">Investeerdersportaal</div>
+      <h1>Eén laatste stap</h1>
+      <div class="sub">Laat hieronder je gegevens achter. Dan ontvang je direct toegang tot het volledige dealoverzicht van MOKA. Wij nemen daarna contact met je op om eventuele vragen te beantwoorden.</div>
+      <form id="gform" onsubmit="return unlock(event)">
+        <div class="gfield">
+          <label for="qName">Naam</label>
+          <input id="qName" type="text" placeholder="Je volledige naam" required>
+        </div>
+        <div class="grow">
+          <div class="gfield">
+            <label for="qPhone">WhatsApp-nummer</label>
+            <input id="qPhone" type="tel" placeholder="+31 6 ..." required>
+          </div>
+          <div class="gfield">
+            <label for="qEmail">E-mailadres</label>
+            <input id="qEmail" type="email" placeholder="jij@voorbeeld.com" required>
+          </div>
+        </div>
+        <div class="grow">
+          <div class="gfield">
+            <label for="qBudget">Budget</label>
+            <select id="qBudget" required>
+              <option value="" disabled selected>Kies je budget</option>
+              <option>Tot €150.000</option>
+              <option>€150.000 - €250.000</option>
+              <option>€250.000 - €350.000</option>
+              <option>€350.000 of meer</option>
+              <option>Nog niet zeker</option>
+            </select>
+          </div>
+          <div class="gfield">
+            <label for="qWhen">Wanneer wil je kopen?</label>
+            <select id="qWhen" required>
+              <option value="" disabled selected>Kies je horizon</option>
+              <option>Zo snel mogelijk</option>
+              <option>Binnen 3 maanden</option>
+              <option>3 tot 6 maanden</option>
+              <option>6 tot 12 maanden</option>
+              <option>Ik oriënteer me nog</option>
+            </select>
+          </div>
+        </div>
+        <div class="gerr" id="qErr">Vul je naam, WhatsApp-nummer en e-mailadres in.</div>
+        <button class="wa gsubmit" type="submit" style="background:var(--ink)">Open het portaal</button>
+        <div class="gtrust">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>Geen spam. We gebruiken je gegevens alleen om je de juiste informatie te sturen en je vragen te beantwoorden.</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- PORTAL -->
+<main class="portal" id="portal" hidden>
+
+  <!-- ============ STICKY DEAL RAIL (laag 1 - altijd zichtbaar) ============ -->
+  <div class="rail">
+    <div class="deal-card">
+      <div class="photo" style="background-image:url('/images/moka/villa3-exterior.jpg')">
+        <div class="status">Turnkey opgeleverd · laatste unit beschikbaar</div>
+      </div>
+      <div class="body">
+        <div class="kicker">Investeerdersportaal</div>
+        <h2>MOKA</h2>
+        <div class="loc">Kedungu, Bali</div>
+
+        <div class="row price"><div class="rl">Laatste unit (Signature Villa)</div><div class="rv">€325.000</div></div>
+        <div class="row yield"><div class="rl">Verwacht rendement</div><div class="rv">10–19%/jr</div></div>
+        <div class="row"><div class="rl">Leaseperiode</div><div class="rv">30+30 jr</div></div>
+        <div class="row"><div class="rl">Totaal aantal units</div><div class="rv">15</div></div>
+
+        <div class="avail-wrap">
+          <div class="al">Beschikbaarheid <b>1 van 15</b></div>
+          <div class="avail-bar"><span style="width:7%"></span></div>
+        </div>
+      </div>
+      <div class="deal-cta">
+        <a class="wa block" id="waRailWa" target="_blank" rel="noopener"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg>WhatsApp Ashley</a>
+        <button class="btn-outline block" id="waRailReserve" type="button" onclick="openReserveModal()">Reserveer de laatste unit</button>
+      </div>
+      <a class="print-btn" href="/moka/brochure/UTAMA-MOKA-Investeerdersbrochure.pdf?v=20260728a" download="UTAMA-MOKA-Investeerdersbrochure.pdf"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Download als PDF</a>
+    </div>
+  </div>
+
+  <!-- ============ TABBED WORKSPACE (laag 2 + 3) ============ -->
+  <div>
+    <div class="tabs-wrap">
+      <div class="tabs-nav" id="tabsNav">
+        <button data-tab="project" class="active"><span class="tn">01</span>Het project</button>
+        <button data-tab="locatie"><span class="tn">02</span>Locatie</button>
+        <button data-tab="rendement"><span class="tn">03</span>Rendement &amp; prijs</button>
+        <button data-tab="planning"><span class="tn">04</span>Planning</button>
+        <button data-tab="team"><span class="tn">05</span>Bouwmanagement</button>
+        <button data-tab="beheer"><span class="tn">06</span>Beheer</button>
+        <button data-tab="vertrouwen"><span class="tn">07</span>Zekerheden</button>
+        <button data-tab="vragen"><span class="tn">08</span>Vragen</button>
+      </div>
+    </div>
+
+    <div class="workspace">
+
+      <!-- 01 · HET PROJECT -->
+      <div class="tab-pane active" id="pane-project">
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><path d="M4 11l8-6 8 6"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg></span><div class="pane-kicker">01 · Het project</div></div>
+        <h2 class="pane-h">MOKA: een boutique community, geen losse woningen</h2>
+        <p class="pane-lead">Wij ontwikkelen MOKA vanuit één overtuiging: een boutique community met een eigen café, wellness club en rooftop pool lounge verhuurt beter dan losse woningen zonder identiteit. MOKA telt 15 units, verdeeld over drie woningtypes - Signature Villa's met privézwembad en rooftop, compacte Boutique Villa's met plunge pool en Boutique Appartementen - allemaal volledig gemeubileerd en direct klaar voor verhuur via Airbnb en Booking.com. Op 600 meter van Kedungu Beach, in de Pink Zone met een strikte toeristische bestemming.</p>
+        <p class="pane-lead" style="font-weight:700">Gebouwd voor investeerders die rendement zoeken - niet voor wie een nieuwe woning zoekt.</p>
+
+        <div class="proj-trust">
+          <div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Pink Zone, met geldige vergunning</div>
+          <div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Aankoop notarieel beveiligd</div>
+          <div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>PBG &amp; SLF inbegrepen</div>
+        </div>
+
+        <div class="bgal">
+          <div class="g big" style="background-image:url('/images/moka/villa3-exterior.jpg')"></div>
+          <div class="g" style="background-image:url('/images/moka/villa3-pool.jpg')"></div>
+          <div class="g" style="background-image:url('/images/moka/villa3-rooftop-sunset.jpg')"></div>
+          <div class="g" style="background-image:url('/images/moka/villa3-living.jpg')"></div>
+          <div class="g" style="background-image:url('/images/moka/villa3-bathroom.jpg')"></div>
+        </div>
+
+        <div class="feature-cols">
+          <div class="fcol"><h4>Turnkey</h4><p>Volledig afgewerkt en ingericht opgeleverd, inclusief branded details.</p></div>
+          <div class="fcol"><h4>Boutique community</h4><p>Eigen café, wellness club en rooftop pool lounge, vrij toegankelijk voor alle eigenaren en gasten.</p></div>
+          <div class="fcol"><h4>Volledig beheerd</h4><p>Verhuur en operationeel beheer geregeld door House of Reservations.</p></div>
+          <div class="fcol"><h4>30 + 30 jaar lease</h4><p>Leasehold van 30 jaar, met een notarieel gegarandeerde optie tot verlenging van nog eens 30 jaar.</p></div>
+        </div>
+
+        <div class="subhead">Wat dit project omvat</div>
+        <div class="num-list">
+          <div class="num-item"><div class="nn">01</div><div class="nc"><h4>Ontwikkeling &amp; bouw</h4><p>Ons eigen bouwteam bouwt en levert MOKA op, samen met een vast netwerk van Bali's beste onderaannemers - dezelfde aanpak die achter al onze opgeleverde projecten zit.</p></div></div>
+          <div class="num-item"><div class="nn">02</div><div class="nc"><h4>Inrichting &amp; branding</h4><p>Interieur, styling en gastbeleving worden volledig verzorgd, van meubilair tot branded details.</p></div></div>
+          <div class="num-item"><div class="nn">03</div><div class="nc"><h4>Verhuur &amp; beheer</h4><p>Na oplevering start de verhuur direct via de grote platforms. Je ontvangt maandelijks je aandeel in de opbrengsten, transparant gerapporteerd.</p></div></div>
+          <div class="num-item"><div class="nn">04</div><div class="nc"><h4>Juridische structuur</h4><p>Leaseovereenkomst van 30+30 jaar, notarieel vastgelegd op jouw naam, inclusief PBG-bouwvergunning en SLF-gebruiksvergunning. Je rechten staan los van UTAMA.</p></div></div>
+        </div>
+
+        <div class="checklist-dark">
+          <div class="ch-title">Turnkey inbegrepen</div>
+          <div class="ch-grid">
+            <div class="ch-item"><span class="ck">✓</span>Volledig afgewerkte en ingerichte woning</div>
+            <div class="ch-item"><span class="ck">✓</span>Interieurpakket &amp; branded details</div>
+            <div class="ch-item"><span class="ck">✓</span>Notariële vastlegging leaserechten</div>
+            <div class="ch-item"><span class="ck">✓</span>Aansluiting nutsvoorzieningen</div>
+            <div class="ch-item"><span class="ck">✓</span>Onboarding op verhuurplatforms</div>
+            <div class="ch-item"><span class="ck">✓</span>Fotografie &amp; listing-optimalisatie</div>
+          </div>
+        </div>
+
+        <div class="subhead">Drie woningtypes, 15 units</div>
+        <p class="pane-lead" style="margin-bottom:10px">MOKA telt 7 Signature Villa's, 4 Boutique Villa's en 4 Boutique Appartementen. 14 van de 15 zijn al verkocht - kies hieronder een type voor de details, foto's en het rendement.</p>
+        <div class="unitsel" id="unitSel"></div>
+        <div class="detail">
+          <div class="gallery" id="uGallery"></div>
+          <div class="body">
+            <div class="d-head">
+              <div><h2 id="uName">Signature Villa</h2><div class="loc" id="uSub">3 slaapkamers · pool villa</div><div style="margin-top:8px"><span class="pill" id="uPill"></span></div></div>
+              <div class="d-price"><div class="p" id="uPrice">€325.000</div><div class="a" id="uStatus"></div></div>
+            </div>
+            <div class="facts" id="uFacts"></div>
+            <div class="hl" id="uHl"></div>
+          </div>
+        </div>
+
+        <div class="subhead">Leasehold, simpel uitgelegd</div>
+        <p class="pane-lead" style="margin-bottom:10px">Leasehold is in de praktijk gewoon koop zoals je die kent - alleen met een einddatum op het contract. Je koopt een lease van 30 jaar, met een notarieel gegarandeerde optie om deze met nog eens 30 jaar te verlengen. Gedurende die looptijd bepaal jij wat er met je woning gebeurt.</p>
+        <div class="subblock tint" style="font-size:13px;margin-bottom:16px">Sinds de onafhankelijkheid van Indonesië in 1945 - vastgelegd in de Agrarische Wet van 1960 - mag alleen wie de Indonesische nationaliteit heeft grond in eigendom bezitten. Daarom werkt ieder project van een buitenlandse ontwikkelaar of koper op Bali via leasehold, dezelfde juridisch verankerde structuur die wij hanteren. Mede daardoor behoren de rendementen op Bali tot de hoogste ter wereld.</div>
+        <div class="route-bar">
+          <div class="route-a"><div class="rlbl">Een veelgekozen route · eerste 5–10 jaar</div><div class="rtxt">Verhuren voor maandelijks rendement</div></div>
+          <div class="route-b"><div class="rlbl">Daarna</div><div class="rtxt">Doorverkopen tegen een hogere prijs</div></div>
+        </div>
+      </div>
+
+      <!-- 02 · LOCATIE -->
+      <div class="tab-pane" id="pane-locatie">
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg></span><div class="pane-kicker">02 · Locatie</div></div>
+        <h2 class="pane-h">Kedungu: de opvolger van Canggu en Pererenan</h2>
+        <p class="pane-lead" style="margin-bottom:14px">Op 600 meter van Kedungu Beach, in de Pink Zone met een strikte toeristische bestemmingsplanning - naast projecten van Ciputra Group.</p>
+        <div class="loc-map">
+          <iframe src="https://maps.google.com/maps?q=Kedungu+Beach,+Bali&z=14&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Locatie van MOKA, Kedungu"></iframe>
+        </div>
+        <a class="btn-outline" style="margin-bottom:20px" href="https://maps.google.com/maps?q=Kedungu+Beach,+Bali" target="_blank" rel="noopener">Bekijk op Google Maps →</a>
+
+        <div class="nearby-group">
+          <div class="nearby-cat">Locatiefeiten</div>
+          <div class="amen-list">
+            <div class="amen"><span class="al">Kedungu Beach</span><span class="av">600 m</span></div>
+            <div class="amen"><span class="al">Zonering</span><span class="av">Pink Zone</span></div>
+            <div class="amen"><span class="al">Surfspots</span><span class="av">3 vlakbij</span></div>
+            <div class="amen"><span class="al">Ontwikkeling</span><span class="av">Naast Ciputra Group</span></div>
+            <div class="amen"><span class="al">Bereikbaarheid</span><span class="av">Geplande metrohalte Tanah Lot</span></div>
+            <div class="amen"><span class="al">Groeimarkt</span><span class="av">Volgende hotspot na Canggu/Pererenan</span></div>
+          </div>
+        </div>
+
+        <div class="subhead" style="margin-top:26px">Waarom Bali?</div>
+        <p class="pane-lead" style="margin-bottom:10px">Een toeristisch seizoen van 365 dagen, structureel groeiende vraag naar short-stayverblijf en een beperkt aanbod op toplocaties met geldige vergunning.</p>
+        <div class="why-grid">
+          <div class="why-card">
+            <div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></div>
+            <div><h4>365 dagen hoogseizoen</h4><p>Geen laagseizoen: het hele jaar door toeristische vraag en bezetting.</p></div>
+          </div>
+          <div class="why-card">
+            <div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div><h4>Aanbod blijft beperkt</h4><p>Bouwen met een geldige vergunning kan alleen in de Pink- en Orange-zones.</p></div>
+          </div>
+          <div class="why-card">
+            <div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div><h4>Groeiende internationale vraag</h4><p>Steeds meer expats, remote workers en digital nomads kiezen Bali.</p></div>
+          </div>
+          <div class="why-card">
+            <div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg></div>
+            <div><h4>Na Canggu en Pererenan komt Kedungu</h4><p>Dezelfde groei die Canggu en Pererenan maakte, nu zichtbaar in Kedungu.</p></div>
+          </div>
+        </div>
+
+        <div class="subhead" style="margin-top:26px">MOKA leefstijl</div>
+        <p class="pane-lead" style="margin-bottom:14px">Alle eigenaren en gasten hebben gratis toegang tot de gedeelde voorzieningen op het terrein.</p>
+        <div class="num-list">
+          <div class="num-item"><div class="nn">01</div><div class="nc"><h4>MOKA House Café</h4><p>Een levendig café op het terrein, de ontmoetingsplek voor bewoners en gasten.</p></div></div>
+          <div class="num-item"><div class="nn">02</div><div class="nc"><h4>Wellness &amp; Fitness Club</h4><p>Sportschool en wellnessfaciliteiten, vrij te gebruiken door eigenaren en hun gasten.</p></div></div>
+          <div class="num-item"><div class="nn">03</div><div class="nc"><h4>Sunset Rooftop &amp; Pool Lounge</h4><p>Gedeeld rooftop zwembad met loungeplekken, populair bij gasten en goed voor de bezetting.</p></div></div>
+        </div>
+      </div>
+
+      <!-- 03 · RENDEMENT & PRIJS -->
+      <div class="tab-pane" id="pane-rendement">
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><path d="M4 16l5-5 4 3 6-7"/><path d="M15 6h4v4"/></svg></span><div class="pane-kicker">03 · Rendement &amp; prijs</div></div>
+        <h2 class="pane-h">Nog 1 unit beschikbaar, vanaf €325.000</h2>
+        <p class="pane-lead">Alle prijzen zijn turnkey: volledig afgewerkt, ingericht en klaar voor verhuur. Geen verborgen kosten achteraf. Pas hieronder de aannames aan naar jouw eigen scenario - eerlijk berekend, geen opgeblazen beloftes.</p>
+
+        <div class="prices">
+          <div class="pc cur hero"><div class="pv">€325.000</div><div class="pl">Signature Villa</div><div class="ps">Laatste beschikbare unit (1 van 7)</div></div>
+          <div class="pc sold"><div class="pv strike">€175.000</div><div class="pl">Boutique Villa</div><div class="ps">Uitverkocht (4 van 4)</div></div>
+          <div class="pc sold"><div class="pv strike">€135.000</div><div class="pl">Boutique Apartment</div><div class="ps">Uitverkocht (4 van 4)</div></div>
+        </div>
+        <p class="price-trend">MOKA werd gefaseerd verkocht: van de in totaal 15 units zijn er inmiddels 14 verkocht. Alleen de laatste Signature Villa - met privézwembad en rooftop jacuzzi - is nog beschikbaar.</p>
+
+        <div class="unitsel" id="unitSelCalc"></div>
+
+        <div class="scen-wrap">
+          <div class="scen-h">Drie scenario's voor <span id="scenUnitName">Signature Villa</span></div>
+          <div class="scen" id="bScenGrid"></div>
+          <p class="note" style="font-size:12px;color:var(--muted);margin-top:10px">Nettorendement per jaar, incl. beheer en kosten. Aan de hand van omgevingsdata.</p>
+        </div>
+
+        <div class="subhead">Bereken je rendement</div>
+        <div class="calc">
+          <div class="card">
+            <h3>Aannames</h3>
+            <div class="csub" id="assumpSub">Voorgevuld met de cijfers van MOKA.</div>
+            <div class="field"><label>Prijs (vast)</label><div class="field-note" style="margin-top:2px;font-family:'Inter',system-ui,sans-serif;font-weight:800;font-size:19px;color:var(--ink)" id="bVPrice"></div></div>
+            <div class="field"><label><span>Gem. nachtprijs</span> <span class="val" id="bVNightly"></span></label><div class="slider-wrap"><input type="range" id="bNightly" min="150" max="220" step="5" value="195" oninput="bcalc()"><div class="slider-pins" id="bNightlyPins"></div></div></div>
+            <div class="field"><label><span>Bezettingsgraad</span> <span class="val" id="bVOcc"></span></label><input type="range" id="bOcc" min="60" max="100" step="1" value="85" oninput="bcalc()"></div>
+            <div class="field"><label><span>Kosten &amp; beheer</span> <span class="val" id="bVCosts"></span></label><input type="range" id="bCosts" min="16" max="35" step="1" value="25" oninput="bcalc()"></div>
+            <div class="field"><label><span>Aanhoudperiode</span> <span class="val" id="bVHold"></span></label><input type="range" id="bHold" min="1" max="30" step="1" value="5" oninput="bcalc()"></div>
+            <div class="field"><label><span>Geschatte waardegroei / jaar</span> <span class="val" id="bVGrowth"></span></label><div class="field-note">Vast, gebaseerd op marktdata voor deze regio</div></div>
+          </div>
+          <div class="card results">
+            <h3>Verwacht rendement</h3>
+            <div class="csub">Op jaarbasis, netto na alle kosten en beheer.</div>
+            <div class="big-yield"><div class="num" id="bOYield">–</div><div class="lbl">netto rendement / jaar</div></div>
+            <div class="payback" id="bOPayback"></div>
+
+            <div class="passive-hero">
+              <div class="ph-eyebrow">Passief inkomen, elke maand</div>
+              <div class="ph-val" id="bOMonth2">–</div>
+              <div class="ph-note">Netto op je rekening, zonder dat je er iets voor doet - wij runnen de verhuur.</div>
+              <div class="ph-gross">Op basis van <b id="bOMonth2Gross">–</b> bruto huuromzet deze maand</div>
+            </div>
+
+            <div class="stat-grid">
+              <div class="stat"><div class="s-l">Netto huur / maand</div><div class="s-v" id="bOMonth">–</div><div class="s-sub">Bruto: <span id="bOMonthGross">–</span></div></div>
+              <div class="stat"><div class="s-l">Netto huur / jaar</div><div class="s-v" id="bOYear">–</div><div class="s-sub">Bruto: <span id="bOYearGross">–</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hold-panel">
+          <div class="hb-h" id="bOHoldH"></div>
+          <div class="hold-row">
+            <div class="hp-i"><b id="bORent">–</b><span>Netto huurinkomsten</span></div>
+            <div class="hp-i"><b id="bOResale">–</b><span>Geschatte verkoopwinst</span></div>
+            <div class="hp-i big"><b id="bOTotalRet">–</b><span>Totaal rendement</span></div>
+          </div>
+          <div class="hold-row sub">
+            <div class="hp-i"><b id="bOGross">–</b><span>Bruto huurinkomsten / jaar</span></div>
+            <div class="hp-i"><b id="bOCostAmt">–</b><span>Af: kosten &amp; beheer</span></div>
+            <div class="hp-i"><b id="bOInv">–</b><span>Totale investering</span></div>
+          </div>
+          <div class="note-ext" id="bOExt"></div>
+          <div class="subblock pess-b" style="margin-top:14px;margin-bottom:0;padding:14px 16px;font-size:12.5px">Je bent niet verplicht de woning dertig jaar aan te houden. Verkopen kan op elk moment, tegen 4% commissie via UTAMA - of volledig zelfstandig.</div>
+        </div>
+
+        <details class="assump">
+          <summary>Aannames &amp; transparantie</summary>
+          <ul>
+            <li>Bruto huurinkomsten = nachtprijs × 365 × bezettingsgraad. Alle bedragen in euro's.</li>
+            <li>Netto = bruto minus alle kosten: verhuurbeheer (15% van de netto-omzet na 3% OTA-commissie), operationele kosten, onderhoud en lokale belasting.</li>
+            <li>Cijfers per woningtype zijn gebaseerd op de brochure van MOKA.</li>
+            <li>Waardegroei: vaste aanname van 5% per jaar, op basis van marktdata voor de westkust van Bali. Indicatie, geen garantie.</li>
+          </ul>
+        </details>
+
+        <div class="subhead">Waar bestaat "Kosten &amp; beheer" precies uit?</div>
+        <p class="pane-lead" style="margin-bottom:4px">De schuifregelaar hierboven is een samengevoegd percentage van drie afzonderlijke kostenposten - hieronder zie je waar elk deel voor staat.</p>
+        <div class="fee-cards">
+          <div class="fee-card">
+            <div class="fee-h"><span class="fee-pct">15%</span><h4>Verhuurbeheer</h4></div>
+            <p class="fee-sub">De verhuurmotor: House of Reservations zorgt dat de woning daadwerkelijk geboekt wordt. Berekend over de netto-omzet, na de 3% OTA-commissie van Airbnb/Booking.com.</p>
+            <ul class="fee-list">
+              <li>Listings op Airbnb, Booking.com, Agoda en Vrbo</li>
+              <li>Dynamische prijsstrategie per seizoen en bezetting</li>
+              <li>Gastcommunicatie en support, dag en nacht</li>
+              <li>Eigen kanalen (Instagram, influencers) om platformfees te vermijden</li>
+            </ul>
+          </div>
+          <div class="fee-card">
+            <div class="fee-h"><span class="fee-pct">±€635</span><h4>Operationeel beheer</h4></div>
+            <p class="fee-sub">Vast bedrag per maand - houdt de woning draaiende, ongeacht bezetting.</p>
+            <ul class="fee-list">
+              <li>Housekeeping, tuin- en zwembadonderhoud</li>
+              <li>Elektra, water, wifi en banjar-bijdrage</li>
+              <li>Onderhoud &amp; reparaties (airco, sanitair e.d.)</li>
+              <li>Toegang tot café, wellness club en rooftop pool</li>
+            </ul>
+          </div>
+          <div class="fee-card">
+            <div class="fee-h"><span class="fee-pct">10%</span><h4>Lokale belasting &amp; overig</h4></div>
+            <p class="fee-sub">Wat er verder bij een verhuurde woning in Bali komt kijken.</p>
+            <ul class="fee-list">
+              <li>Lokale toeristenbelasting over de verhuuromzet</li>
+              <li>All-risk verzekering van de woning</li>
+              <li>Bank- en betalingskosten</li>
+              <li>Reserve voor onvoorziene kosten</li>
+            </ul>
+          </div>
+        </div>
+        <p class="note" style="font-size:12px;color:var(--muted);margin-top:12px">Al deze kosten zijn samengevoegd in de rekentool hierboven als één percentage - geen verborgen kosten achteraf.</p>
+
+        <div class="subhead">Betaalschema, in vier termijnen</div>
+        <p class="pane-lead" style="margin-bottom:6px">Je betaalt in vier stappen vanaf het moment van ondertekening - geen enkele stap is gekoppeld aan de bouw, want MOKA is inmiddels turnkey opgeleverd.</p>
+        <div class="paybar" id="payBar">
+          <div class="payseg"><div class="step">Fase 1</div><div class="pp">60%</div><div class="pl">Bij notariële ondertekening</div><div class="pd">Direct</div><div class="pa">€195.000</div><div class="pnote">Incl. €5.000 aanbetaling</div></div>
+          <div class="payseg"><div class="step">Fase 2</div><div class="pp">20%</div><div class="pl">Na 3 maanden</div><div class="pd">+3 mnd</div><div class="pa">€65.000</div></div>
+          <div class="payseg"><div class="step">Fase 3</div><div class="pp">10%</div><div class="pl">Na 6 maanden</div><div class="pd">+6 mnd</div><div class="pa">€32.500</div></div>
+          <div class="payseg final"><div class="step">Fase 4</div><div class="pp">10%</div><div class="pl">Bij sleuteloverdracht</div><div class="pd">Handover</div><div class="pa">€32.500</div></div>
+        </div>
+        <div class="pay-status" id="payStatus"></div>
+        <p class="note" style="font-size:12px;color:var(--muted);margin-top:10px">De €5.000 aanbetaling bij reservering wordt volledig verrekend met de eerste betaaltermijn - je betaalt nooit dubbel. Bedragen hierboven gelden voor de Signature Villa (€325.000).</p>
+        <button class="btn-reserve" id="waAvailable" type="button" onclick="openReserveModal()" style="margin-top:14px">Reserveer de laatste unit</button>
+      </div>
+
+      <!-- 04 · PLANNING -->
+      <div class="tab-pane" id="pane-planning">
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></span><div class="pane-kicker">04 · Planning</div></div>
+        <h2 class="pane-h">Van reservering tot sleuteloverdracht</h2>
+        <p class="pane-lead">Je hoeft niet in Bali te zijn: tekenen kan volledig digitaal, op afstand. Ben je toch op locatie, dan kan dat net zo goed op kantoor bij de notaris in Bali - jij kiest. MOKA is inmiddels turnkey opgeleverd, dus het traject naar sleuteloverdracht is korter dan bij een project in aanbouw.</p>
+
+        <div class="plan-block">
+          <div class="subhead">4 stappen, waar je ook bent</div>
+          <div class="num-list">
+            <div class="num-item"><div class="nn">01</div><div class="nc"><h4>Reserveren</h4><p>Je tekent een intentieverklaring en maakt een aanbetaling van €5.000 over. Volledig verrekend bij aankoop.</p></div></div>
+            <div class="num-item"><div class="nn">02</div><div class="nc"><h4>Due diligence &amp; contracten</h4><p>Je komt in een gezamenlijke WhatsApp-groep met de notaris en UTAMA. Hierin ontvang je de volledige due diligence van het project, waarna de contracten worden opgesteld. Er wordt pas getekend nadat jij de stukken hebt goedgekeurd - dit traject duurt gemiddeld 2 tot 3 weken.</p></div></div>
+            <div class="num-item"><div class="nn">03</div><div class="nc"><h4>Notarieel vastgelegd</h4><p>Met een volmacht (Power of Attorney) machtig je de notaris om namens jou te tekenen. Dit kan op kantoor bij de notaris, maar ook volledig digitaal, op afstand.</p></div></div>
+            <div class="num-item"><div class="nn">04</div><div class="nc"><h4>Sleuteloverdracht</h4><p>Je woning wordt turnkey overgedragen en de verhuur gaat direct van start.</p></div></div>
+          </div>
+        </div>
+
+        <div class="plan-block">
+          <div class="subhead">Van eerste schep in de grond tot turnkey oplevering</div>
+          <div class="vtl" id="buildTl">
+            <div class="vitem" data-milestone="2025-01-15"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag">Januari 2025</div><h4>Start bouw</h4><p>Grondwerk en fundering.</p></div></div>
+            <div class="vitem" data-milestone="2025-08-31"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag">Augustus 2025</div><h4>Casco gereed</h4><p>Hoofdconstructie en dak gereed, start afbouw.</p></div></div>
+            <div class="vitem" data-milestone="2026-03-31"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag">Maart 2026</div><h4>Afbouw &amp; inrichting</h4><p>Afwerking, interieur, styling, café en wellness club gereed.</p></div></div>
+            <div class="vitem" data-milestone="2026-07-15"><div class="vmark"><span class="vdot"></span></div><div class="vc"><div class="vtag">Juli 2026</div><h4>Oplevering &amp; start verhuur</h4><p>Turnkey sleuteloverdracht; listings live en eerste boekingen.</p></div></div>
+          </div>
+          <p class="note" style="font-size:12px;color:var(--muted);margin-top:14px">Notariskosten bedragen 1% van de transactiewaarde, voor rekening van de koper. Afrekenen kan in euro's, USD, IDR of BTC.</p>
+        </div>
+      </div>
+
+      <!-- 05 · BOUWMANAGEMENT -->
+      <div class="tab-pane" id="pane-team">
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><path d="M4 15a8 8 0 0 1 16 0"/><path d="M3 15h18"/><path d="M12 7v3"/></svg></span><div class="pane-kicker">05 · Bouwmanagement</div></div>
+        <h2 class="pane-h">Ons eigen bouwteam, één aanspreekpunt</h2>
+        <p class="pane-lead">MOKA is gebouwd en opgeleverd door ons eigen bouwteam, samen met een vast netwerk van Bali's beste onderaannemers - dezelfde aanpak die achter al onze opgeleverde projecten zit. Geen wisselende aannemers per project, maar één team dat UTAMA's kwaliteitsstandaard kent en bewaakt.</p>
+
+        <div class="subhead">Ons eigen team, onder één dak</div>
+        <div class="role-grid">
+          <div class="role"><span class="rdot"></span>Eigen bouwteam &amp; site management</div>
+          <div class="role"><span class="rdot"></span>Vast netwerk onderaannemers</div>
+          <div class="role"><span class="rdot"></span>Gecertificeerde structural engineers</div>
+          <div class="role"><span class="rdot"></span>MEP-specialist</div>
+          <div class="role"><span class="rdot"></span>Quantity surveyor</div>
+          <div class="role"><span class="rdot"></span>Project manager</div>
+          <div class="role"><span class="rdot"></span>Architectenteam</div>
+          <div class="role"><span class="rdot"></span>Interieurontwerp-team</div>
+        </div>
+        <div class="checklist-dark">
+          <div class="ch-title">Bouwkwaliteit &amp; garantie</div>
+          <div class="ch-grid" style="grid-template-columns:1fr">
+            <div class="ch-item"><span class="ck">✓</span>Onafhankelijke constructieberekeningen en doorlopende supervisie op de bouwplaats</div>
+            <div class="ch-item"><span class="ck">✓</span>Vastgelegde Scope of Work, kwaliteitsinspecties en volledige technische documentatie</div>
+            <div class="ch-item"><span class="ck">✓</span><b>10 jaar garantie</b> op de bouwkundige schil van de woning</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 06 · BEHEER -->
+      <div class="tab-pane" id="pane-beheer">
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 9h8M8 13h5"/><circle cx="16.5" cy="15.5" r="2"/></svg></span><div class="pane-kicker">06 · Beheer</div></div>
+        <h2 class="pane-h">Wij runnen alles. Jij blijft hands-off.</h2>
+        <p class="pane-lead">Na oplevering neemt House of Reservations het volledige verhuur- en operationeel beheer over. Jij bezit de woning, wij zorgen dat hij verhuurd wordt - met maandelijkse rapportage en volledige kostentransparantie.</p>
+
+        <div class="why-grid">
+          <div class="why-card">
+            <div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v9a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1v-9"/></svg></div>
+            <div><h4>Verhuurbeheer</h4><p>Listings op Airbnb, Booking.com, Agoda en Vrbo, met dynamische prijsstrategie en een gastenteam dat tot 20 uur per dag bereikbaar is - onderdeel van House of Reservations, dat al 250+ villa's op Bali beheert.</p></div>
+          </div>
+          <div class="why-card">
+            <div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 1-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 1 5.4-5.4l-3 3-2-2 3-3z"/></svg></div>
+            <div><h4>Operationeel beheer</h4><p>Dagelijkse housekeeping, tuin- en poolonderhoud en technisch onderhoud houden de woning en de gedeelde voorzieningen (café, wellness club, rooftop pool) op niveau. Elke maand ontvang je een volledige financiële rapportage, met je aandeel direct op je rekening.</p></div>
+          </div>
+        </div>
+        <div class="checklist-dark">
+          <div class="ch-item" style="font-size:13px"><span class="ck">✓</span>Verhuurbeheer 15% van de netto-omzet (na 3% OTA-commissie), operationeel beheer circa €635 per maand. Na belasting en overige kosten is de rest voor jou. Geen verborgen kosten.</div>
+        </div>
+
+        <div class="plan-block">
+          <div class="subhead">Verhuurbeheer van A tot Z</div>
+          <p class="pane-lead" style="margin-bottom:16px">Een woning die niet goed wordt verhuurd, is het grootste risico bij investeren in Bali - niet de bouw. Daarom draagt House of Reservations, dat al 250+ villa's op Bali beheert, het volledige verhuurproces: van de eerste foto tot jouw uitkering op de bank. Eén merk, één aanspreekpunt, geen partijen die naar elkaar wijzen.</p>
+
+          <div class="proof-strip" style="margin-bottom:20px">
+            <div class="proof-item"><div class="pv">250+</div><div class="pl">Villa's in beheer</div></div>
+            <div class="proof-item"><div class="pv">200K+</div><div class="pl">Volgers Instagram</div></div>
+            <div class="proof-item"><div class="pv">1M+</div><div class="pl">Volgers TikTok</div></div>
+            <div class="proof-item"><div class="pv">20u/dag</div><div class="pl">Bereikbaar gastenteam</div></div>
+          </div>
+
+          <div class="num-list">
+            <div class="num-item"><div class="nn">01</div><div class="nc"><h4>Jouw woning gaat online</h4><p>Je woning gaat live op Airbnb, Booking.com, Agoda, Expedia en Vrbo onder het merk House of Reservations, met eigen fotografie en listing-optimalisatie. Daarnaast werkt het merk met een social-media-first strategie en vaste samenwerkingen met reis- en lifestyle-influencers, wat de 200K+ volgers op Instagram en 1M+ op TikTok blijft laten groeien. Dat levert niet alleen naamsbekendheid op, maar ook directe boekingen via de eigen website - buiten de platforms om, zonder de commissie die Airbnb en Booking.com per boeking rekenen, en zonder dat jij daar iets voor doet of aan betaalt.</p></div></div>
+            <div class="num-item"><div class="nn">02</div><div class="nc"><h4>Je krijgt altijd de beste prijs</h4><p>Nachtprijzen worden doorlopend bijgesteld op vraag, seizoen en lokale evenementen. Niet de hoogste prijs, maar de prijs die bezetting én opbrengst samen maximaliseert.</p></div></div>
+            <div class="num-item"><div class="nn">03</div><div class="nc"><h4>Je gasten worden dag en nacht geholpen</h4><p>Het gastenteam is tot 20 uur per dag bereikbaar, van eerste vraag tot check-out. Snelle reacties leiden tot betere reviews, betere reviews naar een hogere positie op de platforms - en dat weer naar meer boekingen.</p></div></div>
+            <div class="num-item"><div class="nn">04</div><div class="nc"><h4>Jouw woning blijft in topconditie</h4><p>Dagelijkse housekeeping, tuin- en zwembadonderhoud en technisch onderhoud houden de woning op niveau. Dat beschermt niet alleen de gastervaring, maar ook de waarde van je woning.</p></div></div>
+            <div class="num-item"><div class="nn">05</div><div class="nc"><h4>Je weet altijd precies wat je ontvangt</h4><p>Elke maand ontvang je een overzicht van bezetting, omzet en kosten, met je aandeel direct op je rekening. Verhuurbeheer 15% van de netto-omzet en operationeel beheer circa €635/maand - vooraf bekend, geen verrassingen achteraf.</p></div></div>
+          </div>
+
+          <div class="subhead" style="margin-top:26px">Zo ziet dat er in de praktijk uit</div>
+          <p class="pane-lead" style="margin-bottom:14px">Van listing tot uitkering: dit is hoe de verhuur van de Signature Villa eruitziet. De voorbeelden hieronder zijn illustratief - foto's, teksten en cijfers volgen definitief bij livegang, gebaseerd op het realistische scenario uit de rendementscalculator (85% bezetting, €195 nachtprijs).</p>
+
+          <div class="listing-cards">
+            <div class="listing-card">
+              <div class="lc-photo" style="background-image:url('/images/moka/villa3-exterior.jpg')"><span class="lc-plat">Airbnb</span></div>
+              <div class="lc-body">
+                <div class="lc-title">MOKA · Signature Villa met privézwembad en rooftop</div>
+                <div class="lc-meta">Kedungu, Bali · 6 gasten · 3 slaapkamers · privézwembad</div>
+                <div class="lc-price"><b>€195</b> / nacht<span class="lc-note">Op basis van het realistische scenario in de calculator</span></div>
+              </div>
+            </div>
+            <div class="listing-card">
+              <div class="lc-photo" style="background-image:url('/images/moka/villa3-rooftop-sunset.jpg')"><span class="lc-plat">Booking.com</span></div>
+              <div class="lc-body">
+                <div class="lc-title">MOKA · Signature Villa met privézwembad en rooftop</div>
+                <div class="lc-meta">Kedungu, Bali · 6 gasten · 3 slaapkamers · privézwembad</div>
+                <div class="lc-price"><b>€205</b> / nacht<span class="lc-note">Nachtprijzen verschillen dynamisch per platform</span></div>
+              </div>
+            </div>
+          </div>
+          <p class="note" style="font-size:12px;color:var(--muted);margin-top:2px">Voorbeeldweergave. Ook gelist op Agoda, Expedia en Vrbo.</p>
+
+          <div class="subhead" style="margin-top:26px">Hoe een goede periode eruitziet</div>
+          <p class="pane-lead" style="margin-bottom:12px">Ter illustratie: dit is hoe de agenda van een vergelijkbare, al verhuurde House of Reservations-villa eruitziet in een sterke periode. Een doorlopend blok is één boeking van meerdere nachten achter elkaar. Namen en boekingen zijn ter illustratie, geen weergave van een specifieke, huidige boeking.</p>
+          <div class="cal-wrap">
+            <div class="cal-grid">
+              <div class="cal-dow">Ma</div><div class="cal-dow">Di</div><div class="cal-dow">Wo</div><div class="cal-dow">Do</div><div class="cal-dow">Vr</div><div class="cal-dow">Za</div><div class="cal-dow">Zo</div>
+              <div class="cal-cell booked stay-start"><div class="cal-d">3</div><div class="cal-g">Fleur</div><div class="cal-r">€195</div><div class="cal-tot">2 nachten · €390</div></div>
+              <div class="cal-cell booked stay-end"><div class="cal-d">4</div><div class="cal-r">€195</div></div>
+              <div class="cal-cell booked stay-start"><div class="cal-d">5</div><div class="cal-g">Daan</div><div class="cal-r">€215</div><div class="cal-tot">3 nachten · €645</div></div>
+              <div class="cal-cell booked stay-mid"><div class="cal-d">6</div><div class="cal-r">€215</div></div>
+              <div class="cal-cell booked stay-end"><div class="cal-d">7</div><div class="cal-r">€215</div></div>
+              <div class="cal-cell booked stay-start"><div class="cal-d">8</div><div class="cal-g">Julia</div><div class="cal-r">€235</div><div class="cal-tot">2 nachten · €470</div></div>
+              <div class="cal-cell booked stay-end"><div class="cal-d">9</div><div class="cal-r">€235</div></div>
+              <div class="cal-cell booked"><div class="cal-d">10</div><div class="cal-g">Sanne</div><div class="cal-r">€205</div></div>
+              <div class="cal-cell open"><div class="cal-d">11</div><div class="cal-open-lbl">Vrij</div></div>
+              <div class="cal-cell booked stay-start"><div class="cal-d">12</div><div class="cal-g">Milan</div><div class="cal-r">€185</div><div class="cal-tot">2 nachten · €370</div></div>
+              <div class="cal-cell booked stay-end"><div class="cal-d">13</div><div class="cal-r">€185</div></div>
+              <div class="cal-cell booked stay-start"><div class="cal-d">14</div><div class="cal-g">Eva</div><div class="cal-r">€225</div><div class="cal-tot">3 nachten · €675</div></div>
+              <div class="cal-cell booked stay-mid"><div class="cal-d">15</div><div class="cal-r">€225</div></div>
+              <div class="cal-cell booked stay-end"><div class="cal-d">16</div><div class="cal-r">€225</div></div>
+            </div>
+          </div>
+
+          <div class="subhead" style="margin-top:26px">Je maandelijkse rapportage</div>
+          <p class="pane-lead" style="margin-bottom:12px">Elke maand ontvang je een overzicht zoals hieronder: je verdiensten in euro's met de omrekening in IDR erbij, en het verloop van de afgelopen maanden.</p>
+          <div class="report-card">
+            <div class="report-tag">Voorbeeldrapportage · <span id="repMonth">–</span></div>
+            <div class="report-main">
+              <div class="report-eur">€3.781</div>
+              <div class="report-idr" id="repIdr">≈ Rp –</div>
+              <div class="report-lbl">Netto uitkering deze maand, realistisch scenario (85% bezetting, €195 nachtprijs)</div>
+            </div>
+            <div class="report-lines">
+              <div class="rp-line"><span>Bruto huurinkomsten</span><b>€5.042</b></div>
+              <div class="rp-line"><span>Kosten &amp; beheer (25%)</span><b>-€1.261</b></div>
+              <div class="rp-line total"><span>Netto uitkering</span><b>€3.781</b></div>
+            </div>
+            <div class="report-chart" id="repChart">
+              <div class="rc-col"><div class="rc-v">€2.495</div><div class="rc-bar" style="--h:66%"></div><div class="rc-m"></div></div>
+              <div class="rc-col"><div class="rc-v">€2.950</div><div class="rc-bar" style="--h:78%"></div><div class="rc-m"></div></div>
+              <div class="rc-col"><div class="rc-v">€3.330</div><div class="rc-bar" style="--h:88%"></div><div class="rc-m"></div></div>
+              <div class="rc-col"><div class="rc-v">€3.555</div><div class="rc-bar" style="--h:94%"></div><div class="rc-m"></div></div>
+              <div class="rc-col"><div class="rc-v">€3.705</div><div class="rc-bar" style="--h:98%"></div><div class="rc-m"></div></div>
+              <div class="rc-col cur"><div class="rc-v">€3.781</div><div class="rc-bar" style="--h:100%"></div><div class="rc-m"></div></div>
+            </div>
+            <p class="note" style="font-size:11.5px;color:var(--muted);margin-top:14px">Voorbeeldcijfers ter illustratie van een realistische opbouw in de eerste maanden na oplevering. Wisselkoers <span id="repRateNote">indicatief</span>. Je eigen rapportage volgt de daadwerkelijke bezetting, omzet en actuele wisselkoers van jouw woning.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 07 · ZEKERHEDEN -->
+      <div class="tab-pane" id="pane-vertrouwen">
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><div class="pane-kicker">07 · Zekerheden</div></div>
+        <h2 class="pane-h">Vertrouw de structuur, niet de belofte</h2>
+        <p class="pane-lead">Je rechten als investeerder rusten niet op een persoonlijke toezegging, maar op juridische overeenkomsten die onafhankelijk worden vastgelegd en gecontroleerd.</p>
+
+        <div class="trust-list">
+          <div class="trust-item"><div class="tick">✓</div><p><b>30+30 jaar lease</b> met verlenging juridisch vastgelegd, geen open einde.</p></div>
+          <div class="trust-item"><div class="tick">✓</div><p><b>Pink Zone</b>, met geldige vergunning voor short-stay, géén grijs gebied.</p></div>
+          <div class="trust-item"><div class="tick">✓</div><p><b>Bouw- en verhuurvergunningen</b> (PBG/SLF) inbegrepen bij oplevering.</p></div>
+          <div class="trust-item"><div class="tick">✓</div><p><b>Onafhankelijke notarissen</b> handelen elke transactie af, met due diligence vooraf.</p></div>
+          <div class="trust-item"><div class="tick">✓</div><p><b>De leaseovereenkomst blijft juridisch geldig</b>, ook als UTAMA ooit niet meer zou bestaan.</p></div>
+          <div class="trust-item"><div class="tick">✓</div><p><b>Investeren en uitkeren in euro's</b>, volledig transparant.</p></div>
+        </div>
+        <div class="team cols2" style="margin-top:18px">
+          <div class="tcard"><div class="n">01 · Leaseholdcontract</div><p style="margin-top:6px">Voor de lease van de grond, 30+30 jaar met juridisch vastgelegde verlenging.</p></div>
+          <div class="tcard"><div class="n">02 · Constructiecontract</div><p style="margin-top:6px">Voor de bouw van de woning, met garanties, oplevertijdslijnen en bouwspecificaties.</p></div>
+        </div>
+
+        <div class="dr-cta">
+          <div class="dr-cta-ic"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+          <div class="dr-cta-body">
+            <h4>Zelf de onderliggende documentatie inzien?</h4>
+            <p>Due diligence-stukken en voorbeeldcontracten staan in onze data room. Vraag 'm aan, dan nemen we contact op om je toegang te geven.</p>
+          </div>
+          <button class="btn-outline" type="button" onclick="openDataroomModal()">Vraag de data room aan</button>
+        </div>
+      </div>
+
+      <!-- 08 · VRAGEN -->
+      <div class="tab-pane" id="pane-vragen">
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 2-2.5 2-2.5 4"/><path d="M12 17h.01"/></svg></span><div class="pane-kicker">08 · Vragen</div></div>
+        <h2 class="pane-h">Veelgestelde vragen</h2>
+        <div class="faq-lead">
+          <img class="faq-photo" src="/images/steven.jpg" alt="Steven Gijsman" onerror="this.style.display='none'">
+          <div>
+            <div class="faq-name">Steven Gijsman <span>· Director UTAMA</span></div>
+            <p class="pane-lead" style="margin:0">Staat je vraag er niet bij? Stuur ons een appje, we beantwoorden hem persoonlijk via WhatsApp.</p>
+          </div>
+        </div>
+        <div class="faq">
+          <details data-cat="juridisch">
+            <summary>Wat houdt de reservering van €5.000 in?</summary>
+            <p>Met een intentieverklaring en €5.000 reserveer je de laatste unit. Dit bedrag wordt volledig verrekend bij de aankoop, na de notariële overdracht, zodat je nu al vroeg kunt instappen tegen pre-sale voorwaarden.</p>
+          </details>
+          <details data-cat="beheer">
+            <summary>Moet ik zelf iets regelen rond verhuur?</summary>
+            <p>Nee. UTAMA verzorgt het volledige traject van A tot Z: ontwikkeling, branding, marketing, boekingen, gastbeleving en operationeel beheer. Jij hebt er geen omkijken naar.</p>
+          </details>
+          <details data-cat="eigendom">
+            <summary>Kan ik de woning zelf gebruiken?</summary>
+            <p>Ja. Je kunt er tussen de boekingen door zelf verblijven. De woning blijft wel primair ingericht en geoptimaliseerd voor verhuur, zodat je rendement op peil blijft.</p>
+          </details>
+          <details data-cat="belasting">
+            <summary>Hoe zit het met belasting?</summary>
+            <p>Belasting wordt geheven in Indonesië, waar het vastgoed zich bevindt. Over de verhuuromzet geldt daar een lokale toeristenbelasting van 10%. In Nederland valt het bezit in box 3, maar dankzij het belastingverdrag tussen beide landen betaal je er hier doorgaans weinig tot geen box 3-heffing over. Wel moet je het altijd in je aangifte vermelden. Laat je hierover adviseren door een belastingadviseur.</p>
+          </details>
+          <details data-cat="eigendom">
+            <summary>Hoeveel investeerders gingen mij voor?</summary>
+            <p>Ruim 25 Nederlandse investeerders, verdeeld over vier opgeleverde projecten. Inmiddels ontvangen zo'n acht investeerders maandelijks huurinkomsten uit hun woning.</p>
+          </details>
+          <details data-cat="eigendom">
+            <summary>Hoe verkoop ik mijn woning later?</summary>
+            <p>Volledig vrij: zelfstandig, via een willekeurig makelaarskantoor, of met hulp van UTAMA. Er is geen exclusiviteit. Schakel je ons in, dan rekenen we 4% commissie en benaderen we ons eigen kopersnetwerk.</p>
+          </details>
+          <details data-cat="uitkering">
+            <summary>Hoe ontvang ik mijn rendement?</summary>
+            <p>Je ontvangt maandelijks jouw aandeel in de verhuuropbrengsten, uitgekeerd in euro's. Het verwachte bruto rendement ligt tussen 12% en 17% per jaar bij een bezetting van 70-85%.</p>
+          </details>
+          <details data-cat="beheer">
+            <summary>Welke jaarlijkse kosten heb ik?</summary>
+            <p>Verhuurbeheer is 15% van de netto-omzet (na 3% OTA-commissie), operationeel beheer circa €635 per maand, plus de lokale belasting van 10%. Dit is al verwerkt in de rendementsberekening - geen verborgen kosten.</p>
+          </details>
+          <details data-cat="uitkering">
+            <summary>Wat als het rendement lager uitvalt?</summary>
+            <p>Rendement is nooit gegarandeerd. Maar je bezit een afgebouwde woning op een gewilde locatie, met een sterke leasestructuur van 30+30 jaar. Die blijft inkomsten genereren en kun je verkopen.</p>
+          </details>
+          <details data-cat="juridisch">
+            <summary>Wat gebeurt er als ik een betaaltermijn mis?</summary>
+            <p>Neem in dat geval zo snel mogelijk contact met ons op - in de praktijk zoeken we altijd eerst naar een werkbare oplossing. De exacte voorwaarden rond betaaltermijnen staan vastgelegd in het constructiecontract, dat je vooraf door je eigen adviseur kunt laten doorlopen.</p>
+          </details>
+          <details data-cat="juridisch">
+            <summary>Wat als UTAMA niet meer bestaat?</summary>
+            <p>Je rechten staan los van UTAMA of Steven. Leaseovereenkomsten zijn juridische contracten en je eigendomsrechten zijn notarieel gedocumenteerd, ze blijven geldig ongeacht de staat van UTAMA.</p>
+          </details>
+        </div>
+
+        <div class="subhead">Nog even kennismaken?</div>
+        <div class="contact-row">
+          <div class="cperson">
+            <img src="/images/ashley.jpg" alt="Ashley Vermoten">
+            <div><div class="cn">Ashley Vermoten</div><div class="cr">Sales Manager, UTAMA</div><a href="mailto:ashley@utamabali.com">ashley@utamabali.com</a><a class="cwa" href="https://wa.me/31624845014" target="_blank" rel="noopener"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg>+31 6 24845014</a></div>
+          </div>
+          <div class="cperson">
+            <img src="/images/steven.jpg" alt="Steven Gijsman" onerror="this.style.display='none'">
+            <div><div class="cn">Steven Gijsman</div><div class="cr">Director, UTAMA</div><a href="mailto:steven@utamabali.com">steven@utamabali.com</a><a class="cwa" href="https://wa.me/6281330857011" target="_blank" rel="noopener"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg>+62 813-3085-7011</a></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- persistente CTA-strip, blijft zichtbaar ongeacht welk tabblad open staat -->
+    <div class="footer-cta">
+      <div class="fc-agent">
+        <img class="fc-photo" src="/images/ashley.jpg" alt="Ashley Vermoten">
+        <div>
+          <h3>Klaar voor een korte discovery call?</h3>
+          <p>In een vrijblijvend gesprek van zo'n 15 minuten kijken we samen of de laatste unit in MOKA bij je past.</p>
+        </div>
+      </div>
+      <div class="fc-ctas">
+        <a class="wa" id="waFooterWa" target="_blank" rel="noopener"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg>WhatsApp Ashley</a>
+        <button class="wa ghost" id="waFooterReserve" type="button" onclick="openReserveModal()">Reserveer de laatste unit</button>
+      </div>
+    </div>
+
+    <div class="ref-strip">
+      <div class="rs-ic"><svg viewBox="0 0 24 24"><path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
+      <div class="rs-body"><b>Ken je iemand die dit ook zou willen?</b>Beveel UTAMA aan bij vrienden of familie. Koopt iemand via jouw link een woning? Dan ontvang jij &euro;2.500.</div>
+      <a class="rs-cta" href="/referral/">Meer over het referral-programma &rarr;</a>
+    </div>
+
+    <div class="legal-note">Dit portaal bevat indicatieve informatie en vormt geen fiscaal of juridisch advies. Rendementsberekeningen zijn schattingen en geen garanties. Laat de contracten altijd controleren door een bevoegde notaris, PPAT en je eigen juridisch of fiscaal adviseur.</div>
+    <div class="print-footer" id="printFooter">MOKA · Investeerdersportaal · UTAMA</div>
+  </div>
+
+  <!-- sticky mobile CTA -->
+  <div class="sticky-cta">
+    <a class="wa" id="waSticky" target="_blank" rel="noopener" style="flex:2"><svg viewBox="0 0 32 32" width="16" height="16"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg>WhatsApp Ashley</a>
+    <button class="btn-outline" id="waStickyReserve" type="button" style="flex:1;display:flex" onclick="openReserveModal()">Reserveren</button>
+  </div>
+</main>
+
+<div class="lb" id="lb" onclick="if(event.target===this)closeLb()">
+  <button class="x" onclick="closeLb()" aria-label="Sluiten">&times;</button>
+  <button class="nav prev" onclick="stepLb(-1)" aria-label="Vorige">&#8249;</button>
+  <img id="lbImg" src="" alt="MOKA render">
+  <button class="nav next" onclick="stepLb(1)" aria-label="Volgende">&#8250;</button>
+  <div class="cap" id="lbCap"></div>
+</div>
+
+<!-- RESERVERINGSMODULE: er is nog maar 1 unit beschikbaar (Signature Villa), dus geen siteplan-stap - direct het aanvraagformulier -->
+<div class="rmodal" id="rmodal" onclick="if(event.target===this)closeReserveModal()">
+  <div class="rmodal-box">
+    <button class="x" onclick="closeReserveModal()" aria-label="Sluiten">&times;</button>
+
+    <div id="rmStep2">
+      <div class="eb">Reserveren</div>
+      <h3>Reserveer de laatste unit</h3>
+      <p class="rm-lead">Je reserveert de laatste beschikbare Signature Villa (€325.000) in MOKA. Laat je gegevens achter, dan sturen we de intentieverklaring toe.</p>
+      <div class="rm-explain"><b>Wat teken je precies?</b> De intentieverklaring is kort - ongeveer 1 A4, in gewone taal - en beschrijft wat je bij ons koopt en de belangrijkste afspraken. Zodra je hebt getekend én de €5.000 aanbetaling is voldaan (volledig retourneerbaar als het papierwerk aan onze kant niet blijkt te kloppen), stellen we samen met de notaris de koopcontracten op.</div>
+      <form id="rmForm" onsubmit="return rmSubmit(event)">
+        <div class="gfield">
+          <label for="rName">Naam</label>
+          <input id="rName" type="text" placeholder="Je volledige naam" required>
+        </div>
+        <div class="grow">
+          <div class="gfield">
+            <label for="rPhone">WhatsApp-nummer</label>
+            <input id="rPhone" type="tel" placeholder="+31 6 ..." required>
+          </div>
+          <div class="gfield">
+            <label for="rEmail">E-mailadres</label>
+            <input id="rEmail" type="email" placeholder="jij@voorbeeld.com" required>
+          </div>
+        </div>
+        <div class="gerr" id="rErr">Vul je naam, WhatsApp-nummer en e-mailadres in.</div>
+        <button class="btn-reserve block" type="submit">Vraag de intentieverklaring aan</button>
+      </form>
+    </div>
+
+    <div id="rmStep3" style="display:none;text-align:center">
+      <div class="eb">Reserveren</div>
+      <h3 id="rmDoneTitle">Aanvraag ontvangen</h3>
+      <p class="rm-lead" id="rmDoneLead">We sturen je de intentieverklaring voor de Signature Villa toe. Ashley neemt ook persoonlijk contact op om de vervolgstappen te bespreken.</p>
+      <a class="wa block" id="rmWaFollow" target="_blank" rel="noopener" style="margin-top:6px"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg>Alvast WhatsApp Ashley</a>
+    </div>
+  </div>
+</div>
+
+<!-- DATA ROOM-AANVRAAG: lichte modal, los van de reserveringsmodule -->
+<div class="rmodal" id="drmodal" onclick="if(event.target===this)closeDataroomModal()">
+  <div class="rmodal-box">
+    <button class="x" onclick="closeDataroomModal()" aria-label="Sluiten">&times;</button>
+
+    <div id="drStep1">
+      <div class="eb">Data room</div>
+      <h3>Vraag de data room aan</h3>
+      <p class="rm-lead">Laat je gegevens achter. We verifiëren je aanvraag even persoonlijk en sturen je daarna de link naar de due diligence-stukken en voorbeeldcontracten van MOKA.</p>
+      <form id="drForm" onsubmit="return drSubmit(event)">
+        <div class="gfield">
+          <label for="drName">Naam</label>
+          <input id="drName" type="text" placeholder="Je volledige naam" required>
+        </div>
+        <div class="grow">
+          <div class="gfield">
+            <label for="drPhone">WhatsApp-nummer</label>
+            <input id="drPhone" type="tel" placeholder="+31 6 ...">
+          </div>
+          <div class="gfield">
+            <label for="drEmail">E-mailadres</label>
+            <input id="drEmail" type="email" placeholder="jij@voorbeeld.com" required>
+          </div>
+        </div>
+        <div class="gerr" id="drErr">Vul je naam en e-mailadres in.</div>
+        <button class="btn-reserve block" type="submit">Vraag toegang aan</button>
+      </form>
+    </div>
+
+    <div id="drStep2" style="display:none;text-align:center">
+      <div class="eb">Data room</div>
+      <h3>Aanvraag ontvangen</h3>
+      <p class="rm-lead">We nemen dit persoonlijk met je door. Zodra dat is gebeurd, ontvang je van Ashley of Steven de link naar de data room.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="/supabase-client.js"></script>
+<script src="/calc-shared.js"></script>
+<script>
+const CONFIG = { whatsapp:"31624845014", email:"steven@utamabali.com" };
+const el = id => document.getElementById(id);
+function money(v){ return new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(Math.round(v)); }
+function pct(v){ return new Intl.NumberFormat('nl-NL',{style:'percent',minimumFractionDigits:1,maximumFractionDigits:1}).format(v); }
+
+// Data room-link in de nav: blijft onzichtbaar voor iedereen, behalve voor wie
+// al eerder is ingelogd (op /moka/dataroom/ of /referral/, zelfde Supabase-
+// sessie) EN goedgekeurd is voor MOKA.
+(async function(){
+  const link = el('dataroomLink');
+  if(!link) return;
+  try{
+    const session = await getReferralSession();
+    if(!session) return;
+    const result = await getMyDataroomAccess('MOKA');
+    if(result.ok && result.access && (result.access.projects || []).length > 0){
+      link.classList.add('show');
+    }
+  }catch(e){}
+})();
+
+// Bouwtijdlijn: MOKA is inmiddels turnkey opgeleverd, dus alle mijlpalen liggen
+// in het verleden en krijgen een vinkje - geen "Nu bezig"-badge nodig.
+(function(){
+  const tl = el('buildTl');
+  if(!tl) return;
+  const now = new Date();
+  tl.querySelectorAll('.vitem[data-milestone]').forEach(function(item){
+    const d = new Date(item.dataset.milestone + "T00:00:00");
+    if(d <= now) item.classList.add('done');
+  });
+})();
+
+// Voorbeeldrapportage (Beheer-tab): maandlabel is altijd "vorige maand" t.o.v. vandaag, zodat het
+// voorbeeld nooit een gedateerde toekomstige maand toont. Wisselkoers wordt live opgehaald (ECB-data
+// via de Frankfurter API, geen key nodig); lukt dat niet, dan valt hij terug op een handmatig
+// bijgewerkte indicatie zodat er nooit een lege of foutieve koers verschijnt.
+(function(){
+  const MONTHS_NL = ['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+  const MONTHS_SHORT_NL = ['Jan','Feb','Mrt','Apr','Mei','Jun','Jul','Aug','Sep','Okt','Nov','Dec'];
+  const now = new Date();
+  const prevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+
+  const repMonthEl = el('repMonth');
+  if(repMonthEl) repMonthEl.textContent = MONTHS_NL[prevMonth.getMonth()] + ' ' + prevMonth.getFullYear();
+
+  const chart = el('repChart');
+  if(chart){
+    const cols = chart.querySelectorAll('.rc-col');
+    cols.forEach(function(col, i){
+      const offset = cols.length - 1 - i;
+      const d = new Date(prevMonth.getFullYear(), prevMonth.getMonth() - offset, 1);
+      const mEl = col.querySelector('.rc-m');
+      if(mEl) mEl.textContent = MONTHS_SHORT_NL[d.getMonth()];
+      const vEl = col.querySelector('.rc-v');
+      const monthLong = MONTHS_NL[d.getMonth()].charAt(0).toUpperCase() + MONTHS_NL[d.getMonth()].slice(1);
+      col.setAttribute('data-tip', monthLong + ' ' + d.getFullYear() + ' · ' + (vEl ? vEl.textContent : ''));
+    });
+  }
+
+  const NETTO_EUR = 3781;
+  let fxRate = 20700;
+
+  function renderIdr(rate){
+    const idrEl = el('repIdr');
+    if(idrEl){
+      const idr = Math.round(NETTO_EUR * rate / 100000) * 100000;
+      idrEl.textContent = '≈ Rp ' + new Intl.NumberFormat('nl-NL').format(idr);
+    }
+    const noteEl = el('repRateNote');
+    if(noteEl) noteEl.textContent = 'circa Rp ' + new Intl.NumberFormat('nl-NL').format(Math.round(rate)) + ' per €1';
+  }
+  renderIdr(fxRate);
+
+  fetch('https://api.frankfurter.dev/v1/latest?base=EUR&symbols=IDR')
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(data){
+      if(data && data.rates && data.rates.IDR){ fxRate = data.rates.IDR; renderIdr(fxRate); }
+    })
+    .catch(function(){ /* fallback-koers staat al gerenderd */ });
+})();
+
+function buildWa(l){
+  const msg="Hi Ashley! Ik heb net het investeerdersportaal van MOKA bekeken en wil graag meer weten.%0A%0A"+
+    "Naam: "+encodeURIComponent(l.name||'-')+"%0A"+
+    "WhatsApp: "+encodeURIComponent(l.phone||'-')+"%0A"+
+    "E-mail: "+encodeURIComponent(l.email||'-')+"%0A"+
+    "Budget: "+encodeURIComponent(l.budget||'-')+"%0A"+
+    "Koophorizon: "+encodeURIComponent(l.when||'-');
+  return "https://wa.me/"+CONFIG.whatsapp+"?text="+msg;
+}
+function reveal(l){
+  l=l||{};
+  const wa=buildWa(l);
+  ['waRailWa','waFooterWa','waSticky'].forEach(function(id){ if(el(id)) el(id).href=wa; });
+  el('gate').style.display='none';
+  el('portal').hidden=false;
+  window.scrollTo({top:0,behavior:'instant'});
+  if(typeof bcalc==='function') bcalc();
+}
+function unlock(e){
+  e.preventDefault();
+  const name=el('qName').value.trim(), phone=el('qPhone').value.trim(), email=el('qEmail').value.trim();
+  const budget=el('qBudget').value, when=el('qWhen').value;
+  if(!name||!phone||!email||!budget||!when){ el('qErr').style.display='block'; return false; }
+  const lead={ project:"MOKA", name, phone, email, budget, when };
+  try{ localStorage.setItem('moka_brochure_lead', JSON.stringify(lead)); }catch(err){}
+  submitLead({ ...lead, lang:"nl" }).catch(()=>{});
+  reveal(lead);
+  return false;
+}
+try{
+  var _r = localStorage.getItem('moka_brochure_lead') || sessionStorage.getItem('moka_brochure_lead');
+  if(_r){ reveal(JSON.parse(_r)); }
+}catch(e){}
+
+// ---- tabbladen ----
+function showTab(id, skipHash){
+  document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.toggle('active', p.id==='pane-'+id); });
+  document.querySelectorAll('#tabsNav button').forEach(function(b){ b.classList.toggle('active', b.dataset.tab===id); });
+  if(!skipHash){ try{ history.replaceState(null,'','#'+id); }catch(e){} }
+  const ws = document.querySelector('.workspace');
+  const bnavEl = document.querySelector('.bnav');
+  const tabsWrapEl = document.querySelector('.tabs-wrap');
+  const stickyOffset = (bnavEl ? bnavEl.offsetHeight : 0) + (tabsWrapEl ? tabsWrapEl.offsetHeight : 0);
+  const targetY = ws.getBoundingClientRect().top + window.scrollY - stickyOffset - 8;
+  window.scrollTo({top: Math.max(0, targetY), behavior:'smooth'});
+  if(id==='rendement' && typeof bRenderScenarios==='function'){
+    requestAnimationFrame(function(){ bRenderScenarios(); });
+  }
+}
+document.querySelectorAll('#tabsNav button').forEach(function(b){ b.addEventListener('click', function(){ showTab(b.dataset.tab); }); });
+(function(){
+  const initial = (location.hash||'').replace('#','');
+  const valid = ['project','locatie','rendement','planning','team','beheer','vertrouwen','vragen'];
+  if(valid.includes(initial)) showTab(initial, true);
+})();
+
+/* ============ MOKA: 3 woningtypes, gedeeld tussen de Project-tab (galerij/facts) en de
+   Rendement-tab (calculator) via één globale selUnit. Cijfers geverifieerd tegen de
+   MOKA-brochure (Google Drive, juli 2026) - dezelfde data als op /moka. ============ */
+const GROWTH_RATE = 0.05;
+const UNITS = [
+  { key:"villa3", name:"Signature Villa", sub:"3 slaapkamers · pool villa", price:325000, unitsTotal:7, unitsSold:6,
+    images:[
+      {src:"/images/moka/villa3-exterior.jpg", cap:"Aanzicht: 3 verdiepingen met rooftop pergola, omringd door rijstvelden"},
+      {src:"/images/moka/villa3-pool.jpg", cap:"Privé zwembad in de tuin, direct grenzend aan living en slaapkamer"},
+      {src:"/images/moka/villa3-rooftop-sunset.jpg", cap:"Rooftop: jacuzzi en loungers met uitzicht over Kedungu"},
+      {src:"/images/moka/villa3-living.jpg", cap:"Dubbelhoge living met open keuken en spiltrap"},
+      {src:"/images/moka/villa3-bathroom.jpg", cap:"Master badkamer met vrijstaand koperen bad"},
+      {src:"/images/moka/villa3-rooftop-kitchen.jpg", cap:"Rooftop buitenkeuken en lounge onder de pergola"},
+      {src:"/images/moka/villa3-bedroom-pool.jpg", cap:"Slaapkamer met directe toegang tot het zwembad en buitendouche"}
+    ],
+    facts:[
+      {l:"Type", v:"3 ensuite slaapkamers · 3,5 badkamers"},
+      {l:"Woonoppervlak", v:"162 m² + 55 m² rooftop (217 m² totaal)"},
+      {l:"Zwembad", v:"Privé zwembad, 15,5 m²"},
+      {l:"Extra", v:"Rooftop jacuzzi · eigen bioscoop"},
+      {l:"Oplevering", v:"Juli 2026"},
+      {l:"Leasehold", v:"30 + 30 jaar (gegarandeerd)"}
+    ],
+    highlights:["Laatste beschikbare unit van de 7 Signature Villa's","Privé zwembad en 55 m² rooftop met jacuzzi","Eigen bioscoop en enclosed living met airco","Master suite met tuin en ligbad onder de sterren","30 + 30 jaar leasehold met gegarandeerde verlenging","Volledig gemeubileerd en direct verhuurklaar"],
+    roi:{ nightly:{min:150,max:240,def:195}, costs:{min:18,max:35,def:25} },
+    scenarios:[
+      {label:"Voorzichtig", occ:70, nightly:175},
+      {label:"Realistisch", occ:85, nightly:195, current:true},
+      {label:"Optimistisch", occ:95, nightly:225}
+    ]
+  },
+  { key:"villa2", name:"Boutique Villa", sub:"2 slaapkamers · townhouse met plunge pool", price:175000, unitsTotal:4, unitsSold:4,
+    images:[
+      {src:"/images/moka/villa2-exterior.jpg", cap:"Entree met natuurstenen muur en eigen plunge pool"},
+      {src:"/images/moka/villa2-living.jpg", cap:"Living met ingebouwde tv-wand en boogvormige nissen"},
+      {src:"/images/moka/villa2-dining.jpg", cap:"Eethoek met zicht op de tuin en het zwembad"},
+      {src:"/images/moka/villa2-bedroom.jpg", cap:"Slaapkamer met balkon en inbouwkast"},
+      {src:"/images/moka/villa2-kitchen.jpg", cap:"Open keuken met marmeren achterwand"}
+    ],
+    facts:[
+      {l:"Type", v:"2 slaapkamers · 1,5 badkamer"},
+      {l:"Woonoppervlak", v:"70 m² + 36 m² buiten (106 m² totaal)"},
+      {l:"Zwembad", v:"Privé plunge pool, 4,6 m²"},
+      {l:"Extra", v:"Tuin, terras en werkplek"},
+      {l:"Oplevering", v:"Augustus 2026"},
+      {l:"Leasehold", v:"30 + 30 jaar (gegarandeerd)"}
+    ],
+    highlights:["Uitverkocht: alle 4 townhouses zijn verkocht","Privé plunge pool en eigen tuin","Compacte, efficiënte lay-out over 2 verdiepingen","Ideaal voor stellen of kleine gezinnen","30 + 30 jaar leasehold met gegarandeerde verlenging","Volledig gemeubileerd en direct verhuurklaar"],
+    roi:{ nightly:{min:80,max:150,def:115}, costs:{min:16,max:30,def:22} },
+    scenarios:[
+      {label:"Voorzichtig", occ:75, nightly:95},
+      {label:"Realistisch", occ:85, nightly:115, current:true},
+      {label:"Optimistisch", occ:95, nightly:135}
+    ]
+  },
+  { key:"apt1", name:"Boutique Apartment", sub:"1 slaapkamer · appartement met balkonbad", price:135000, unitsTotal:4, unitsSold:4,
+    images:[
+      {src:"/images/moka/apt1-hero.jpg", cap:"Open living met keuken en slaapkamer in één ruimte"},
+      {src:"/images/moka/apt1-kitchen.jpg", cap:"Kitchenette met marmeren achterwand en uitzicht op palmbomen"},
+      {src:"/images/moka/apt1-bedroom.jpg", cap:"Slaapkamer met inbouwkast en make-up hoek"},
+      {src:"/images/moka/apt1-bathroom.jpg", cap:"Badkamer met inloopdouche en koperen fittingen"},
+      {src:"/images/moka/apt1-balcony-bath.jpg", cap:"Balkon met eigen buitenbad en uitzicht over het groen"},
+      {src:"/images/moka/apt1-living.jpg", cap:"Gedeelde loungeruimte met toegang tot het balkon"}
+    ],
+    facts:[
+      {l:"Type", v:"1 slaapkamer · 1 badkamer"},
+      {l:"Woonoppervlak", v:"44,5 m² + 9 m² balkon"},
+      {l:"Extra", v:"Kitchenette · balkon met buitenbad"},
+      {l:"Oplevering", v:"Augustus 2026"},
+      {l:"Leasehold", v:"30 + 30 jaar (gegarandeerd)"}
+    ],
+    highlights:["Uitverkocht: alle 4 appartementen zijn verkocht","Compact en instapklaar, ideaal voor digital nomads","Balkon met eigen buitenbad","Toegang tot café, wellness club en rooftop pool","30 + 30 jaar leasehold met gegarandeerde verlenging","Volledig gemeubileerd en direct verhuurklaar"],
+    roi:{ nightly:{min:65,max:130,def:95}, costs:{min:16,max:30,def:22} },
+    scenarios:[
+      {label:"Voorzichtig", occ:70, nightly:80},
+      {label:"Realistisch", occ:85, nightly:95, current:true},
+      {label:"Optimistisch", occ:90, nightly:115}
+    ]
+  }
+];
+let selUnit = "villa3", bSelScenario = 1;
+function currentUnit(){ return UNITS.find(u=>u.key===selUnit); }
+function imgBlock(){ return '<div class="g ph-img alt"><span class="ph-tag">Render volgt</span></div>'; }
+function renderUGallery(){
+  const u=currentUnit();
+  el('uGallery').innerHTML = `<div class="g big photo" style="background-image:url('${u.images[0].src}');background-size:cover;background-position:center" onclick="openLb(0)"></div>`+
+    [1,2,3,4].map(i=>u.images[i]?`<div class="g photo" style="background-image:url('${u.images[i].src}');background-size:cover;background-position:center" onclick="openLb(${i})"></div>`:imgBlock()).join("");
+}
+function renderUnitSelInto(id){
+  const target = el(id);
+  if(!target) return;
+  target.innerHTML = UNITS.map(u=>{
+    const avail=u.unitsTotal-u.unitsSold;
+    const tagCls = avail>0 ? 'avail' : 'sold';
+    const tag = avail>0 ? 'Laatste unit' : 'Uitverkocht';
+    return `<div class="pbtn ${u.key===selUnit?'on':''} ${avail>0?'':'is-sold'}" onclick="selectUnit('${u.key}')"><span class="pv">${u.name}</span><span class="ps ${tagCls}">${tag} · ${u.unitsSold}/${u.unitsTotal} verkocht</span></div>`;
+  }).join("");
+}
+function renderUnitSel(){ renderUnitSelInto('unitSel'); renderUnitSelInto('unitSelCalc'); }
+function selectUnit(key){ selUnit=key; renderUnit(); }
+function renderUnit(){
+  const u=currentUnit();
+  const avail=u.unitsTotal-u.unitsSold;
+  renderUGallery();
+  el('uName').textContent=u.name;
+  el('uSub').textContent=u.sub;
+  el('uPrice').textContent=money(u.price);
+  el('uStatus').textContent = avail>0 ? (u.unitsSold+" van "+u.unitsTotal+" verkocht · nog "+avail+" beschikbaar") : ("✓ Volledig uitverkocht ("+u.unitsTotal+" van "+u.unitsTotal+" verkocht)");
+  el('uStatus').className = 'a' + (avail>0 ? '' : ' soldout-stamp');
+  el('uPill').textContent = avail>0 ? 'Laatste unit' : 'Uitverkocht';
+  el('uPill').className = 'pill ' + (avail>0 ? 'avail' : 'sold');
+  el('uFacts').innerHTML=u.facts.map(f=>`<div class="fact"><div class="l">${f.l}</div><div class="v">${f.v}</div></div>`).join("");
+  el('uHl').innerHTML=u.highlights.map(x=>`<div>${x}</div>`).join("");
+  el('scenUnitName').textContent=u.name;
+  renderUnitSel();
+  const realistic = u.scenarios.find(s=>s.current) || u.scenarios[1];
+  bSelScenario = u.scenarios.findIndex(s=>s.current);
+  el('bNightly').min=u.roi.nightly.min; el('bNightly').max=u.roi.nightly.max; el('bNightly').value=realistic.nightly;
+  el('bOcc').value=realistic.occ;
+  el('bCosts').min=u.roi.costs.min; el('bCosts').max=u.roi.costs.max; el('bCosts').value=u.roi.costs.def;
+  el('assumpSub').textContent="Voorgevuld op de brochure, voor de "+u.name+".";
+  bcalc();
+}
+function bApplyScenario(i){
+  const u=currentUnit();
+  bSelScenario=i;
+  const s=u.scenarios[i];
+  el('bNightly').value=s.nightly;
+  el('bOcc').value=s.occ;
+  bcalc();
+}
+const SCEN_TONE=['pess','real','opt'];
+function bRenderScenarios(){
+  const u=currentUnit();
+  const price=u.price, costs=+el('bCosts').value/100;
+  el('bScenGrid').innerHTML = u.scenarios.map(function(s,i){
+    const r=roiCalc(price, s.nightly, s.occ/100, costs);
+    return `
+    <div class="scc ${SCEN_TONE[i]||''} ${i===bSelScenario?'cur':''}" onclick="bApplyScenario(${i})">
+      <div class="scl">${s.label}</div>
+      <div class="scv">${r.roi.toFixed(1).replace('.',',')}%</div>
+      <div class="scs">${s.occ}% bezetting · €${s.nightly}/nacht</div>
+      <div class="scb">Terugverdiend in ${r.payback.toFixed(1).replace('.',',')} jaar</div>
+    </div>`;
+  }).join("");
+  renderScenarioPins(el('bNightly'), el('bNightlyPins'), u.scenarios, bSelScenario, 'bApplyScenario', money, null);
+}
+window.addEventListener('resize', function(){ renderScenarioPins(el('bNightly'), el('bNightlyPins'), currentUnit().scenarios, bSelScenario, 'bApplyScenario', money, null); });
+function bcalc(){
+  const u=currentUnit();
+  const price=u.price, nightly=+el('bNightly').value, occ=+el('bOcc').value/100, costs=+el('bCosts').value/100, hold=+el('bHold').value, growth=GROWTH_RATE;
+  el('bVPrice').textContent=money(price);
+  el('bVNightly').textContent=money(nightly);
+  el('bVOcc').textContent=Math.round(occ*100)+"%";
+  el('bVCosts').textContent=Math.round(costs*100)+"%";
+  el('bVHold').textContent=hold+" jaar";
+  el('bVGrowth').textContent=Math.round(growth*100)+"%";
+  const {gross, net, roi, payback}=roiCalc(price, nightly, occ, costs);
+  const costAmt=gross-net;
+  const y=roi/100, month=net/12;
+  el('bOYield').textContent=pct(y);
+  el('bOMonth').textContent=money(month);
+  if(el('bOMonth2')) el('bOMonth2').innerHTML=money(month)+' <span class="ph-unit">/ maand</span>';
+  if(el('bOMonth2Gross')) el('bOMonth2Gross').textContent=money(gross/12);
+  el('bOYear').textContent=money(net);
+  if(el('bOMonthGross')) el('bOMonthGross').textContent=money(gross/12);
+  if(el('bOYearGross')) el('bOYearGross').textContent=money(gross);
+  el('bOGross').textContent=money(gross);
+  el('bOCostAmt').textContent=money(costAmt);
+  el('bOInv').textContent=money(price);
+  el('bOPayback').textContent="Terugverdiend in ± "+(payback>0?payback.toFixed(1):"–")+" jaar (alleen uit huur).";
+  const rentTotal=net*hold, resaleVal=price*Math.pow(1+growth,hold), resaleProfit=resaleVal-price, totalRet=rentTotal+resaleProfit, totalRoi=price>0?totalRet/price:0;
+  el('bOHoldH').textContent="Over "+hold+" jaar aanhouden (bij "+Math.round(growth*100)+"% waardegroei/jaar):";
+  el('bORent').textContent=money(rentTotal);
+  el('bOResale').textContent=money(resaleProfit);
+  el('bOTotalRet').textContent=money(totalRet)+"  ("+pct(totalRoi)+" ROI)";
+  el('bOExt').textContent="Leasehold 30 jaar met gegarandeerde verlenging van 30 jaar. Verlengen na 30 jaar kost ± 20% van de aankoopprijs (± "+money(price*0.20)+"). Je kunt de woning ook eerder verkopen.";
+  bRenderScenarios();
+}
+renderUnit();
+
+// Lightbox (gebruikt de afbeeldingen van de momenteel geselecteerde unit)
+let lbIdx=0;
+function openLb(i){ const u=currentUnit(); if(!u.images||!u.images[i]) return; lbIdx=i; el('lbImg').src=u.images[i].src; el('lbCap').textContent=u.images[i].cap+' ('+(i+1)+'/'+u.images.length+')'; el('lb').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeLb(){ el('lb').classList.remove('open'); document.body.style.overflow=''; }
+function stepLb(d){ const u=currentUnit(); if(!u.images) return; const n=u.images.length; lbIdx=(lbIdx+d+n)%n; el('lbImg').src=u.images[lbIdx].src; el('lbCap').textContent=u.images[lbIdx].cap+' ('+(lbIdx+1)+'/'+n+')'; }
+document.addEventListener('keydown',function(e){ if(!el('lb').classList.contains('open'))return; if(e.key==='Escape')closeLb(); if(e.key==='ArrowRight')stepLb(1); if(e.key==='ArrowLeft')stepLb(-1); });
+
+// ---- reserveringsmodule: er is nog maar 1 unit (Signature Villa), dus direct het formulier ----
+function openReserveModal(){
+  el('rmStep2').style.display = '';
+  el('rmStep3').style.display = 'none';
+  el('rmodal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeReserveModal(){
+  el('rmodal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function rmSubmit(e){
+  e.preventDefault();
+  const name = el('rName').value.trim(), phone = el('rPhone').value.trim(), email = el('rEmail').value.trim();
+  if(!name || !phone || !email){ el('rErr').style.display = 'block'; return false; }
+  const lead = { project: "MOKA", name, phone, email, unit: "Signature Villa", type: "reservation" };
+  submitLead({ ...lead, lang: "nl" }).catch(function(){});
+  const waMsg = "Hi Ashley! Ik wil graag de laatste Signature Villa van MOKA reserveren en de intentieverklaring ontvangen.%0A%0A" +
+    "Naam: " + encodeURIComponent(name) + "%0A" +
+    "WhatsApp: " + encodeURIComponent(phone) + "%0A" +
+    "E-mail: " + encodeURIComponent(email);
+  el('rmWaFollow').href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + waMsg;
+  el('rmStep2').style.display = 'none';
+  el('rmStep3').style.display = '';
+  return false;
+}
+document.addEventListener('keydown', function(e){ if(el('rmodal').classList.contains('open') && e.key === 'Escape') closeReserveModal(); });
+
+function openDataroomModal(){
+  el('drStep1').style.display = '';
+  el('drStep2').style.display = 'none';
+  el('drForm').reset();
+  el('drErr').style.display = 'none';
+  el('drmodal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDataroomModal(){
+  el('drmodal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function drSubmit(e){
+  e.preventDefault();
+  const name = el('drName').value.trim(), phone = el('drPhone').value.trim(), email = el('drEmail').value.trim();
+  if(!name || !email){ el('drErr').style.display = 'block'; return false; }
+  submitLead({ project: "MOKA", name, phone, email, type: "dataroom_request", lang: "nl" }).catch(function(){});
+  el('drStep1').style.display = 'none';
+  el('drStep2').style.display = '';
+  return false;
+}
+document.addEventListener('keydown', function(e){ if(el('drmodal').classList.contains('open') && e.key === 'Escape') closeDataroomModal(); });
+
+// Print / PDF-brochure
+if(el('printFooter')){
+  var _pd = new Date();
+  el('printFooter').textContent = 'MOKA · Investeerdersportaal · gegenereerd op ' + _pd.toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'}) + ' · utamabali.com';
+}
+window.addEventListener('beforeprint', function(){
+  document.querySelectorAll('details').forEach(function(d){ d.dataset.wasOpen = d.open ? '1' : '0'; d.open = true; });
+});
+window.addEventListener('afterprint', function(){
+  document.querySelectorAll('details').forEach(function(d){ d.open = d.dataset.wasOpen === '1'; delete d.dataset.wasOpen; });
+});
+</script>
+</body>
+</html>

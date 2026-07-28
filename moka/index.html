@@ -354,8 +354,8 @@
   <div class="modal" role="dialog" aria-modal="true">
     <button class="x" onclick="closeBrochure()" aria-label="Sluiten">&times;</button>
     <div class="eb">MOKA, Kedungu</div>
-    <h3 id="mTitle">Vraag de laatste unit aan</h3>
-    <div class="msub" id="mSub">Laat je gegevens achter, dan neemt Ashley snel contact met je op over de laatste beschikbare unit.</div>
+    <h3 id="mTitle">Bekijk de volledige brochure</h3>
+    <div class="msub" id="mSub">Laat je gegevens achter, dan open je direct de volledige brochure van MOKA, met alle renders, plattegronden, exacte prijzen en het rendementsmodel van de laatste beschikbare unit.</div>
     <form onsubmit="return submitBrochure(event)">
       <div class="mfield"><label>Naam</label><input id="bmName" type="text" placeholder="Je volledige naam" required></div>
       <div class="mrow">
@@ -385,7 +385,7 @@
         </div>
       </div>
       <div class="merr" id="bmErr">Vul je naam, WhatsApp-nummer en e-mailadres in.</div>
-      <button class="btn" style="width:100%;justify-content:center;margin-top:6px" type="submit">Versturen</button>
+      <button class="btn" style="width:100%;justify-content:center;margin-top:6px" type="submit">Bekijk de brochure</button>
       <div class="mtrust">Geen spam. We gebruiken je gegevens alleen om je de juiste informatie te sturen en je vragen te beantwoorden.</div>
     </form>
   </div>
@@ -715,7 +715,14 @@ function setLang(l){
   document.querySelectorAll('[data-t]').forEach(e=>{const k=e.getAttribute('data-t'); if(T[l][k]!==undefined)e.textContent=T[l][k];});
   renderUnit();
 }
-function openBrochure(){ el('broModal').classList.add('open'); document.body.style.overflow='hidden'; }
+function openBrochure(){
+  // Al eens ontgrendeld op dit toestel? Dan hoeft dit formulier niet nog eens -
+  // ga direct door naar de brochure, die zichzelf herkent via dezelfde opslag.
+  try{
+    if(localStorage.getItem('moka_brochure_lead')){ window.location.href="/moka/brochure/"; return; }
+  }catch(e){}
+  el('broModal').classList.add('open'); document.body.style.overflow='hidden';
+}
 function closeBrochure(){ el('broModal').classList.remove('open'); document.body.style.overflow=''; }
 function submitBrochure(e){
   e.preventDefault();
@@ -724,6 +731,13 @@ function submitBrochure(e){
   if(!name||!phone||!email||!budget||!when){ el('bmErr').style.display='block'; return false; }
   const u=currentUnit();
   const lead={ project:"MOKA", unit:u.name.nl, name, phone, email, budget, when };
+  // localStorage = blijft bewaard op dit toestel, ook een dag later of in een nieuw
+  // tabblad - dat is wat openBrochure() hierboven checkt om het formulier over te
+  // slaan. sessionStorage blijft ernaast bestaan als eenmalige hand-off naar de
+  // brochurepagina (die zelf ook al naar localStorage kijkt, dus dit is redundant
+  // maar onschadelijk).
+  try{ localStorage.setItem('moka_brochure_lead', JSON.stringify(lead)); }catch(err){}
+  try{ sessionStorage.setItem('moka_brochure_lead', JSON.stringify(lead)); }catch(err){}
   submitLead({ ...lead, lang }).catch(()=>{});
   showBrochureSuccess(name, lead);
   return false;
@@ -743,10 +757,10 @@ function showBrochureSuccess(name, lead){
   m.innerHTML='<div class="msuccess">'+
     '<div class="checkwrap"><svg viewBox="0 0 52 52" class="chk"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg></div>'+
     '<h3>Gelukt'+(first?', '+first:'')+'!</h3>'+
-    '<p>Ashley neemt snel contact met je op over MOKA. We openen alvast WhatsApp voor je.</p>'+
+    '<p>Je persoonlijke brochure van MOKA staat klaar. We openen ’m nu voor je.</p>'+
     '</div>';
   launchConfetti();
-  setTimeout(function(){ window.open(buildWa(lead),'_blank'); closeBrochure(); }, 1650);
+  setTimeout(function(){ window.location.href="/moka/brochure/"; }, 1650);
 }
 function launchConfetti(){
   const host=el('broModal'); if(!host) return;

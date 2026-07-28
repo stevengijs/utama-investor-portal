@@ -74,6 +74,18 @@
     .founder-body p{margin-left:auto;margin-right:auto}
     .founder-site{flex-direction:column;text-align:center;max-width:none}
   }
+
+  /* ============ Huisstijl-uitlijning met the-maison/brochure/ ============
+     De kleurtokens in /styles.css zijn al platformbreed gelijkgetrokken met
+     de brochurepagina. Typografie en accentkleur nog niet - dat lossen we
+     hier lokaal op (i.p.v. globaal in styles.css) zodat moka/index.html,
+     the-maison/index.html, referral/ en portal/dashboard.html ongemoeid
+     blijven. Zie the-maison/brochure/index.html regel ~42-43 voor het
+     origineel van deze override. */
+  h1,h2,h3{font-family:'Inter',system-ui,-apple-system,sans-serif !important;font-weight:800;letter-spacing:-.015em}
+  .brand{font-family:'Inter',system-ui,-apple-system,sans-serif !important;font-weight:800 !important}
+  .trustrow b,.pcard .price,.hcard .n,.pcard.soon .soon-text{font-family:'Inter',system-ui,-apple-system,sans-serif !important;font-weight:800 !important}
+  .eyebrow{color:var(--ink)}
 </style>
 </head>
 <body>
