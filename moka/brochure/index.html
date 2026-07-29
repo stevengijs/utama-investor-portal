@@ -683,7 +683,7 @@
   <a href="/" class="brand">UTAMA</a>
   <div class="bnav-mid">
     <span class="tag">Digitale Brochure &middot; MOKA</span>
-    <a class="pdf-chip" href="/moka/brochure/UTAMA-MOKA-Investeerdersbrochure.pdf?v=20260728b" download="UTAMA-MOKA-Investeerdersbrochure.pdf">
+    <a class="pdf-chip" id="navPdfChip" href="/moka/brochure/UTAMA-MOKA-Investeerdersbrochure.pdf?v=20260728b" download="UTAMA-MOKA-Investeerdersbrochure.pdf" style="display:none">
       <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
       <span class="pc-lbl">Download de brochure als PDF</span>
     </a>
@@ -1541,6 +1541,7 @@ function reveal(l){
   ['waRailWa','waFooterWa','waSticky'].forEach(function(id){ if(el(id)) el(id).href=wa; });
   el('gate').style.display='none';
   el('portal').hidden=false;
+  if(el('navPdfChip')) el('navPdfChip').style.display='flex';
   window.scrollTo({top:0,behavior:'instant'});
   if(typeof bcalc==='function') bcalc();
 }
