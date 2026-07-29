@@ -250,6 +250,39 @@ function launchConfetti(){
     host.appendChild(c);
   }
 }
+// ---- terugkerende bezoeker: alleen e-mail, direct door (check via Supabase) ----
+function toggleReturn(){
+  var f=el('retForm'); f.hidden=!f.hidden;
+  if(!f.hidden){ el('retEmail').focus(); }
+}
+function submitReturn(e){
+  e.preventDefault();
+  var email=el('retEmail').value.trim();
+  var btn=el('retBtn'), err=el('retErr');
+  if(!email) return false;
+  err.style.display='none';
+  btn.disabled=true; var label=btn.textContent; btn.textContent='Even controleren...';
+  fetch('https://gcpachivrwalsneuvlsa.supabase.co/functions/v1/brochure-access-check',{
+    method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify({email:email})
+  }).then(function(r){ return r.json(); }).then(function(d){
+    if(d && d.found){
+      var lead={ project:"MOKA", name:"", phone:"", email:email, budget:"", when:"", returning:true };
+      try{ localStorage.setItem('moka_brochure_lead', JSON.stringify(lead)); }catch(e2){}
+      try{ sessionStorage.setItem('moka_brochure_lead', JSON.stringify(lead)); }catch(e2){}
+      showBrochureSuccess('');
+      setTimeout(function(){ window.location.href="/moka/brochure/"; }, 1200);
+    } else {
+      btn.disabled=false; btn.textContent=label;
+      err.textContent='Dit adres kennen we nog niet. Laat hierboven even je gegevens achter.';
+      err.style.display='block';
+    }
+  }).catch(function(){
+    btn.disabled=false; btn.textContent=label;
+    err.textContent='Controleren lukt nu even niet. Vul het formulier hierboven in.';
+    err.style.display='block';
+  });
+  return false;
+}
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeBrochure(); });
 setLang('nl');
 </script>
@@ -269,6 +302,9 @@ setLang('nl');
   .mrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .merr{color:#b5462b;font-size:13px;margin:3px 0 0;display:none}
   .mtrust{margin-top:12px;font-size:12px;color:var(--muted)}
+  .mreturn{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+  .mreturn-link{background:none;border:none;padding:0;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:underline;cursor:pointer}
+  .mreturn-link:hover{opacity:.75}
   @media(max-width:520px){ .mrow{grid-template-columns:1fr} }
   .msuccess{text-align:center;padding:16px 6px 8px}
   .checkwrap{width:82px;height:82px;margin:4px auto 14px;animation:pop .45s ease}
@@ -341,6 +377,14 @@ setLang('nl');
       <button class="btn" style="width:100%;justify-content:center;margin-top:6px" type="submit">Bekijk de brochure</button>
       <div class="mtrust">Geen spam. We gebruiken je gegevens alleen om je de juiste informatie te sturen en je vragen te beantwoorden.</div>
     </form>
+    <div class="mreturn">
+      <button type="button" class="mreturn-link" onclick="toggleReturn()">Al eerder aangemeld? Vul alleen je e-mail in</button>
+      <form id="retForm" hidden onsubmit="return submitReturn(event)">
+        <div class="mfield" style="margin-top:10px"><label>E-mailadres</label><input id="retEmail" type="email" placeholder="jij@voorbeeld.com" required></div>
+        <div class="merr" id="retErr"></div>
+        <button class="btn" style="width:100%;justify-content:center;margin-top:6px" type="submit" id="retBtn">Open de brochure</button>
+      </form>
+    </div>
   </div>
 </div>
 <div class="lb" id="lb" onclick="if(event.target===this)closeLb()">

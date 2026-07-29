@@ -119,6 +119,9 @@
   .gsubmit{width:100%;justify-content:center;margin-top:6px}
   .gtrust{margin-top:13px;font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
   .gtrust svg{flex:none;margin-top:2px;color:var(--ink)}
+  .greturn{margin-top:16px;border-top:1px solid var(--line);padding-top:13px}
+  .greturn-link{background:none;border:none;padding:0;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:underline;cursor:pointer}
+  .greturn-link:hover{opacity:.75}
 
   .btn-ink{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border:none;font-family:inherit;font-weight:700;font-size:14.5px;border-radius:8px;padding:13px 22px;cursor:pointer;text-decoration:none}
   .btn-ink:hover{background:#000}
@@ -749,6 +752,17 @@
           <span>Geen spam. We gebruiken je gegevens alleen om je de juiste informatie te sturen en je vragen te beantwoorden.</span>
         </div>
       </form>
+      <div class="greturn">
+        <button type="button" class="greturn-link" onclick="toggleReturn()">Al eerder aangemeld? Vul alleen je e-mail in</button>
+        <form id="retForm" hidden onsubmit="return submitReturn(event)">
+          <div class="gfield" style="margin-top:10px">
+            <label for="retEmail">E-mailadres</label>
+            <input id="retEmail" type="email" placeholder="jij@voorbeeld.com" required>
+          </div>
+          <div class="gerr" id="retErr"></div>
+          <button class="wa gsubmit" type="submit" id="retBtn" style="background:var(--ink)">Open het portaal</button>
+        </form>
+      </div>
     </div>
   </div>
 </section>
@@ -1648,6 +1662,38 @@ function unlock(e){
   try{ localStorage.setItem('maison_brochure_lead', JSON.stringify(lead)); }catch(err){}
   submitLead({ ...lead, lang:"nl" }).catch(()=>{});
   reveal(lead);
+  return false;
+}
+// ---- terugkerende bezoeker: alleen e-mail, direct door (check via Supabase) ----
+function toggleReturn(){
+  var f=el('retForm'); f.hidden=!f.hidden;
+  if(!f.hidden){ el('retEmail').focus(); }
+}
+function submitReturn(e){
+  e.preventDefault();
+  var email=el('retEmail').value.trim();
+  var btn=el('retBtn'), err=el('retErr');
+  if(!email) return false;
+  err.style.display='none';
+  btn.disabled=true; var label=btn.textContent; btn.textContent='Even controleren...';
+  fetch('https://gcpachivrwalsneuvlsa.supabase.co/functions/v1/brochure-access-check',{
+    method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify({email:email})
+  }).then(function(r){ return r.json(); }).then(function(d){
+    if(d && d.found){
+      var lead={ project:"The Maison", name:"", phone:"", email:email, budget:"", when:"", returning:true };
+      try{ localStorage.setItem('maison_brochure_lead', JSON.stringify(lead)); }catch(e2){}
+      try{ sessionStorage.setItem('maison_brochure_lead', JSON.stringify(lead)); }catch(e2){}
+      reveal(lead);
+    } else {
+      btn.disabled=false; btn.textContent=label;
+      err.textContent='Dit adres kennen we nog niet. Laat hierboven even je gegevens achter.';
+      err.style.display='block';
+    }
+  }).catch(function(){
+    btn.disabled=false; btn.textContent=label;
+    err.textContent='Controleren lukt nu even niet. Vul het formulier hierboven in.';
+    err.style.display='block';
+  });
   return false;
 }
 // Al eens ontgrendeld op dit toestel? Dan tonen we het portaal meteen weer.
