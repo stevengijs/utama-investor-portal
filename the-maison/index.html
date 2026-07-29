@@ -78,10 +78,10 @@
             <div class="bb-eyebrow" data-t="bbEyebrow">Bouwstatus</div>
             <div class="bb-title"><span class="dot"></span><span data-t="bbTitle">In aanbouw sinds 15 mei 2026</span></div>
           </div>
-          <a class="bb-cam" id="bbCam" target="_blank" rel="noopener">
+          <span class="bb-cam soon" id="bbCam">
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="15" height="14" rx="2.5"/><path d="M23 7.5l-7 4.5 7 4.5v-9z"/></svg>
-            <span data-t="bbCam">Live bouwcamera</span>
-          </a>
+            <span data-t="bbCam">Live bouwcamera vanaf 5 augustus</span>
+          </span>
         </div>
         <button type="button" class="btn" style="margin-top:16px" onclick="openBrochure()" data-t="mHeroCta2">Bekijk volledige brochure</button>
       </div>
@@ -164,7 +164,7 @@ const T={
   available:"{sold} van {y} verkocht · nog {x} beschikbaar",availShort:"{x} van {y}",render:"Render: voeg je beeld toe",
   recentSold:"{x} verkocht",
   calcCtaTitle:"Benieuwd naar je exacte rendement?",calcCtaSub:"In de volledige brochure vind je de interactieve rekentool, drie scenario's en het complete rendementsmodel van The Maison.",calcCtaBtn:"Bekijk de ROI-berekening →",
-  bbEyebrow:"Bouwstatus",bbTitle:"In aanbouw sinds 15 mei 2026",bbCam:"Live bouwcamera"},
+  bbEyebrow:"Bouwstatus",bbTitle:"In aanbouw sinds 15 mei 2026",bbCam:"Live bouwcamera vanaf 5 augustus"},
  en:{navProjects:"Projects",navContact:"Contact",back:"Projects",
   mHeroSub:"With The Maison we're building six design villas with 2 bedrooms, a private plunge pool and a rooftop lounge, in the heart of Pererenan. You own the villa, we develop, manage and rent it out for you.",
   mHeroCta1:"Chat on WhatsApp",mHeroCta2:"View full brochure",mt1:"guide price, selling now",mt2:"net yield (realistic)",mt3:"already sold",mStatus:"Selling now · completion April 2027",
@@ -175,7 +175,7 @@ const T={
   available:"{sold} of {y} sold · {x} left",availShort:"{x} of {y}",render:"Render: add your image",
   recentSold:"{x} sold",
   calcCtaTitle:"Curious about your exact return?",calcCtaSub:"The full brochure includes the interactive calculator, three scenarios and the complete return model for The Maison.",calcCtaBtn:"View the ROI calculation →",
-  bbEyebrow:"Construction status",bbTitle:"Under construction since 15 May 2026",bbCam:"Live construction camera"}
+  bbEyebrow:"Construction status",bbTitle:"Under construction since 15 May 2026",bbCam:"Live camera from 5 August"}
 };
 let lang="nl";
 const el=id=>document.getElementById(id);
@@ -190,7 +190,6 @@ function renderStatic(){
     : imgBlock('big',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render);
   el('hl').innerHTML=MAISON.highlights[lang].slice(0,3).map(x=>`<div>${x}</div>`).join("");
   el('pill').textContent=tr(T[lang].available,{x:avail,y:MAISON.unitsTotal,sold:MAISON.unitsSold});
-  el('bbCam').href="https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(lang==='nl'?"Hi Ashley! Mag ik de link naar de live bouwcamera van The Maison?":"Hi Ashley! Could I get the link to The Maison's live construction camera?");
   el('momentum').textContent = MAISON.recentSold ? tr(T[lang].recentSold,{x:MAISON.recentSold}) : '';
   el('mAvail').textContent=tr(T[lang].availShort,{x:MAISON.unitsSold,y:MAISON.unitsTotal});
   el('dprice').textContent=(lang==='nl'?"vanaf ":"from ")+money(CURRENT_PRICE);
@@ -314,6 +313,7 @@ setLang('nl');
   @keyframes bbpulse{0%{box-shadow:0 0 0 0 rgba(46,125,91,.5)}70%{box-shadow:0 0 0 7px rgba(46,125,91,0)}100%{box-shadow:0 0 0 0 rgba(46,125,91,0)}}
   .bb-cam{display:inline-flex;align-items:center;gap:7px;background:var(--green);color:#fff;padding:10px 16px;border-radius:var(--radius-pill);font-size:13.5px;font-weight:600;text-decoration:none;white-space:nowrap;flex:none}
   .bb-cam:hover{background:var(--green-2)}
+  .bb-cam.soon{background:rgba(23,20,15,.08);color:var(--muted);cursor:default}
   @media(max-width:560px){.build-banner{flex-direction:column;align-items:flex-start}.bb-cam{width:100%;justify-content:center}}
   .calc-cta{margin-top:0;background:#FBF1E9;border:1px solid var(--line);border-radius:14px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
   .calc-cta h3{font-size:18px;margin-bottom:6px;max-width:46ch;font-family:'Inter',system-ui,-apple-system,sans-serif;font-weight:800}
