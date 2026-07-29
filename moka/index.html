@@ -226,13 +226,13 @@ function submitBrochure(e){
   setTimeout(function(){ window.location.href="/moka/brochure/"; }, 1650);
   return false;
 }
-function showBrochureSuccess(name){
+function showBrochureSuccess(name, msg, titel){
   const m=document.querySelector('#broModal .modal'); if(!m) return;
   const first=name?name.split(' ')[0]:'';
   m.innerHTML='<div class="msuccess">'+
     '<div class="checkwrap"><svg viewBox="0 0 52 52" class="chk"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg></div>'+
-    '<h3>Gelukt'+(first?', '+first:'')+'!</h3>'+
-    '<p>Je persoonlijke brochure van MOKA staat klaar. We openen ’m nu voor je.</p>'+
+    '<h3>'+(titel||('Gelukt'+(first?', '+first:'')))+'!</h3>'+
+    '<p>'+(msg||'Je persoonlijke brochure van MOKA staat klaar. We openen ’m nu voor je.')+'</p>'+
     '</div>';
   launchConfetti();
 }
@@ -251,17 +251,35 @@ function launchConfetti(){
   }
 }
 // ---- terugkerende bezoeker: alleen e-mail, direct door (check via Supabase) ----
+// Wisselt het volledige formulier om voor één e-mailveld (en terug).
+var retOpen=false, msubOrig=null;
 function toggleReturn(){
-  var f=el('retForm'); f.hidden=!f.hidden;
-  if(!f.hidden){ el('retEmail').focus(); }
+  retOpen=!retOpen;
+  var main=document.querySelector('#broModal form'), ret=el('retForm');
+  var link=document.querySelector('.mreturn-link');
+  var wrap=document.querySelector('.mreturn');
+  var sub=document.querySelector('#broModal .msub');
+  if(msubOrig===null && sub) msubOrig=sub.textContent;
+  main.hidden=retOpen; ret.hidden=!retOpen;
+  link.textContent=retOpen ? 'Nieuw hier? Laat je gegevens achter' : 'Al eerder aangemeld? Vul alleen je e-mail in';
+  if(wrap){ wrap.style.borderTop=retOpen?'none':''; wrap.style.paddingTop=retOpen?'0':''; }
+  if(sub) sub.textContent=retOpen ? 'Vul het e-mailadres in waarmee je je eerder hebt aangemeld. Dan openen we de brochure direct.' : msubOrig;
+  if(retOpen){ el('retEmail').focus(); }
 }
 function submitReturn(e){
   e.preventDefault();
   var email=el('retEmail').value.trim();
-  var btn=el('retBtn'), err=el('retErr');
+  var btn=el('retBtn');
   if(!email) return false;
-  err.style.display='none';
   btn.disabled=true; var label=btn.textContent; btn.textContent='Even controleren...';
+  function terugNaarFormulier(msg){
+    btn.disabled=false; btn.textContent=label;
+    if(retOpen) toggleReturn();
+    if(el('bmEmail') && !el('bmEmail').value) el('bmEmail').value=email;
+    var mainErr=el('bmErr');
+    mainErr.textContent=msg;
+    mainErr.style.display='block';
+  }
   fetch('https://gcpachivrwalsneuvlsa.supabase.co/functions/v1/brochure-access-check',{
     method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify({email:email})
   }).then(function(r){ return r.json(); }).then(function(d){
@@ -269,17 +287,13 @@ function submitReturn(e){
       var lead={ project:"MOKA", name:"", phone:"", email:email, budget:"", when:"", returning:true };
       try{ localStorage.setItem('moka_brochure_lead', JSON.stringify(lead)); }catch(e2){}
       try{ sessionStorage.setItem('moka_brochure_lead', JSON.stringify(lead)); }catch(e2){}
-      showBrochureSuccess('');
-      setTimeout(function(){ window.location.href="/moka/brochure/"; }, 1200);
+      showBrochureSuccess('', 'E-mailadres herkend: je hebt de brochure al eerder aangevraagd. We openen hem nu voor je.', 'Welkom terug');
+      setTimeout(function(){ window.location.href="/moka/brochure/"; }, 1600);
     } else {
-      btn.disabled=false; btn.textContent=label;
-      err.textContent='Dit adres kennen we nog niet. Laat hierboven even je gegevens achter.';
-      err.style.display='block';
+      terugNaarFormulier('Dit adres kennen we nog niet. Laat je gegevens achter voor directe toegang.');
     }
   }).catch(function(){
-    btn.disabled=false; btn.textContent=label;
-    err.textContent='Controleren lukt nu even niet. Vul het formulier hierboven in.';
-    err.style.display='block';
+    terugNaarFormulier('Controleren lukt nu even niet. Vul het formulier in voor directe toegang.');
   });
   return false;
 }

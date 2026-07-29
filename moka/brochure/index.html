@@ -122,6 +122,7 @@
   .greturn{margin-top:16px;border-top:1px solid var(--line);padding-top:13px}
   .greturn-link{background:none;border:none;padding:0;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:underline;cursor:pointer}
   .greturn-link:hover{opacity:.75}
+  .gok{display:none;color:var(--ok);font-size:13px;margin:8px 0 0;font-weight:600}
 
   .btn-ink{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border:none;font-family:inherit;font-weight:700;font-size:14.5px;border-radius:8px;padding:13px 22px;cursor:pointer;text-decoration:none}
   .btn-ink:hover{background:#000}
@@ -766,6 +767,7 @@
             <input id="retEmail" type="email" placeholder="jij@voorbeeld.com" required>
           </div>
           <div class="gerr" id="retErr"></div>
+          <div class="gok" id="retOk"></div>
           <button class="wa gsubmit" type="submit" id="retBtn" style="background:var(--ink)">Open het portaal</button>
         </form>
       </div>
@@ -1571,17 +1573,35 @@ function unlock(e){
   return false;
 }
 // ---- terugkerende bezoeker: alleen e-mail, direct door (check via Supabase) ----
+// Wisselt het volledige formulier om voor één e-mailveld (en terug).
+var retOpen=false, gsubOrig=null;
 function toggleReturn(){
-  var f=el('retForm'); f.hidden=!f.hidden;
-  if(!f.hidden){ el('retEmail').focus(); }
+  retOpen=!retOpen;
+  var main=el('gform'), ret=el('retForm');
+  var link=document.querySelector('.greturn-link');
+  var wrap=document.querySelector('.greturn');
+  var sub=document.querySelector('.gcard .sub');
+  if(gsubOrig===null && sub) gsubOrig=sub.textContent;
+  main.hidden=retOpen; ret.hidden=!retOpen;
+  link.textContent=retOpen ? 'Nieuw hier? Laat je gegevens achter' : 'Al eerder aangemeld? Vul alleen je e-mail in';
+  if(wrap){ wrap.style.borderTop=retOpen?'none':''; wrap.style.paddingTop=retOpen?'0':''; }
+  if(sub) sub.textContent=retOpen ? 'Vul het e-mailadres in waarmee je je eerder hebt aangemeld. Dan openen we het portaal direct.' : gsubOrig;
+  if(retOpen){ el('retEmail').focus(); }
 }
 function submitReturn(e){
   e.preventDefault();
   var email=el('retEmail').value.trim();
-  var btn=el('retBtn'), err=el('retErr');
+  var btn=el('retBtn');
   if(!email) return false;
-  err.style.display='none';
   btn.disabled=true; var label=btn.textContent; btn.textContent='Even controleren...';
+  function terugNaarFormulier(msg){
+    btn.disabled=false; btn.textContent=label;
+    if(retOpen) toggleReturn();
+    if(el('qEmail') && !el('qEmail').value) el('qEmail').value=email;
+    var mainErr=el('qErr');
+    mainErr.textContent=msg;
+    mainErr.style.display='block';
+  }
   fetch('https://gcpachivrwalsneuvlsa.supabase.co/functions/v1/brochure-access-check',{
     method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify({email:email})
   }).then(function(r){ return r.json(); }).then(function(d){
@@ -1589,16 +1609,15 @@ function submitReturn(e){
       var lead={ project:"MOKA", name:"", phone:"", email:email, budget:"", when:"", returning:true };
       try{ localStorage.setItem('moka_brochure_lead', JSON.stringify(lead)); }catch(e2){}
       try{ sessionStorage.setItem('moka_brochure_lead', JSON.stringify(lead)); }catch(e2){}
-      reveal(lead);
+      btn.textContent='Herkend!';
+      var ok=el('retOk');
+      if(ok){ ok.textContent='E-mailadres herkend: je hebt de brochure al eerder aangevraagd. We openen het portaal.'; ok.style.display='block'; }
+      setTimeout(function(){ reveal(lead); }, 1400);
     } else {
-      btn.disabled=false; btn.textContent=label;
-      err.textContent='Dit adres kennen we nog niet. Laat hierboven even je gegevens achter.';
-      err.style.display='block';
+      terugNaarFormulier('Dit adres kennen we nog niet. Laat je gegevens achter voor directe toegang.');
     }
   }).catch(function(){
-    btn.disabled=false; btn.textContent=label;
-    err.textContent='Controleren lukt nu even niet. Vul het formulier hierboven in.';
-    err.style.display='block';
+    terugNaarFormulier('Controleren lukt nu even niet. Vul het formulier in voor directe toegang.');
   });
   return false;
 }
