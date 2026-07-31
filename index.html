@@ -448,6 +448,11 @@ function _pickInitialLang(){
     if(saved==='nl'||saved==='en') return saved;
   }catch(e){}
   try{
+    /* Bezoekers fysiek in Nederland (via server-side IP-geolocatie,
+       middleware.js) zien standaard Nederlands, ongeacht browsertaal. */
+    if(/(?:^|; )utama_geo=NL(?:;|$)/.test(document.cookie)) return 'nl';
+  }catch(e){}
+  try{
     var bl=(navigator.language||(navigator.languages&&navigator.languages[0])||'').toLowerCase();
     if(bl.indexOf('nl')===0) return 'nl';
   }catch(e){}
