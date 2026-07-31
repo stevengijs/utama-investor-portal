@@ -196,8 +196,23 @@ function renderStatic(){
   el('soldNote').textContent=T[lang].soldNote;
   el('tAvail').textContent=tr(T[lang].availShort,{x:MOKA.unitsSold,y:MOKA.unitsTotal});
 }
+/* Bepaalt de starttaal: een eerder handmatig gekozen taal (onthouden in
+   localStorage) wint altijd; anders volgt de site de browsertaal van de
+   bezoeker (Nederlandstalige browser -> NL, elke andere taal -> EN). */
+function _pickInitialLang(){
+  try{
+    var saved=localStorage.getItem('utama_lang');
+    if(saved==='nl'||saved==='en') return saved;
+  }catch(e){}
+  try{
+    var bl=(navigator.language||(navigator.languages&&navigator.languages[0])||'').toLowerCase();
+    if(bl.indexOf('nl')===0) return 'nl';
+  }catch(e){}
+  return 'en';
+}
 function setLang(l){
   lang=l; el('btnNL').classList.toggle('on',l==='nl'); el('btnEN').classList.toggle('on',l==='en'); document.documentElement.lang=l;
+  try{ localStorage.setItem('utama_lang', l); }catch(e){}
   document.querySelectorAll('[data-t]').forEach(e=>{const k=e.getAttribute('data-t'); if(T[l][k]!==undefined)e.textContent=T[l][k];});
   renderStatic();
 }
@@ -301,7 +316,7 @@ function submitReturn(e){
   return false;
 }
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeBrochure(); });
-setLang('nl');
+setLang(_pickInitialLang());
 </script>
 <style>
   .modal-ov{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(33,30,24,.4);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}

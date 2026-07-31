@@ -2872,11 +2872,26 @@ window.addEventListener('afterprint', function(){
 });
 
 // ---- taalwissel (NL/EN) ----
+/* Bepaalt de starttaal: een eerder handmatig gekozen taal (onthouden in
+   localStorage) wint altijd; anders volgt de site de browsertaal van de
+   bezoeker (Nederlandstalige browser -> NL, elke andere taal -> EN). */
+function _pickInitialLang(){
+  try{
+    var saved=localStorage.getItem('utama_lang');
+    if(saved==='nl'||saved==='en') return saved;
+  }catch(e){}
+  try{
+    var bl=(navigator.language||(navigator.languages&&navigator.languages[0])||'').toLowerCase();
+    if(bl.indexOf('nl')===0) return 'nl';
+  }catch(e){}
+  return 'en';
+}
 function setLang(l){
   lang = l;
   if(el('btnNL')) el('btnNL').classList.toggle('on', l==='nl');
   if(el('btnEN')) el('btnEN').classList.toggle('on', l==='en');
   document.documentElement.lang = l;
+  try{ localStorage.setItem('utama_lang', l); }catch(e){}
   document.querySelectorAll('[data-t]').forEach(function(e){ const k=e.getAttribute('data-t'); if(T[l][k]!==undefined) e.textContent=T[l][k]; });
   document.querySelectorAll('[data-tp]').forEach(function(e){ const k=e.getAttribute('data-tp'); if(T[l][k]!==undefined) e.placeholder=T[l][k]; });
   updateReturnFormText();
@@ -2889,7 +2904,7 @@ function setLang(l){
   renderSpPills();
   updateRmSelectedDisplay();
 }
-setLang('nl');
+setLang(_pickInitialLang());
 </script>
 </body>
 </html>
