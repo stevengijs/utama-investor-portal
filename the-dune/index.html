@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Dune, Cemagi | UTAMA</title>
+<meta name="description" content="The Dune: 4 luxe 3-slaapkamer Sanctuary-villa's met rooftop jacuzzi, sauna en ice bath, 300 m van het strand in Cemagi, Bali. Vanaf €325.000, 12-17% netto rendement. Volledig beheerd.">
+<meta property="og:title" content="The Dune, Cemagi | UTAMA">
+<meta property="og:description" content="4 luxe 3-slaapkamer Sanctuary-villa's met rooftop jacuzzi, sauna en ice bath, 300 m van het strand in Cemagi. Vanaf €325.000, 12-17% netto rendement. Volledig beheerd.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://invest.utamabali.com/the-dune">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="/images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png">
+<link rel="apple-touch-icon" href="/images/favicon-180.png">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<nav>
+  <div class="wrap row">
+    <a class="brand" href="/">UT<span>A</span>MA</a>
+    <div class="links">
+      <a href="/" data-t="navProjects">Projecten</a>
+      <a href="#contact" data-t="navContact">Contact</a>
+    </div>
+    <div class="lang">
+      <button id="btnNL" class="on" onclick="setLang('nl')">NL</button>
+      <button id="btnEN" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="inner">
+      <div class="eyebrow"><a href="/" style="color:var(--ink);text-decoration:none" data-t="back">Projecten</a> · Cemagi, Bali</div>
+      <h1>The Dune</h1>
+      <p data-t="mHeroSub">Met The Dune bouwen we vier luxe 3-slaapkamer Sanctuary-villa's op 300 meter van het strand in Cemagi. Rooftop met jacuzzi, ice bath en sauna, privé zwembad en tuin. Jij bezit de villa, wij ontwikkelen, beheren en verhuren hem voor je.</p>
+      <div class="btns">
+        <button type="button" class="btn" onclick="openBrochure()" data-t="mHeroCta2">Bekijk volledige brochure</button>
+        <button type="button" class="btn ghost" onclick="waDirect()" data-t="mHeroCta1">Contact via WhatsApp</button>
+      </div>
+      <div class="trustrow">
+        <div><b>vanaf €325.000</b><span data-t="mt1">richtprijs, nu in verkoop</span></div>
+        <div><b>12–17%</b><span data-t="mt2">netto rendement (realistisch)</span></div>
+        <div><b id="mAvail">4 van 4</b><span data-t="mt3">nog beschikbaar</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-photo" style="background-image:url('/the-dune/images/dune-hero.jpg')">
+        <div class="hero-founder-chip">
+          <img src="/images/steven.jpg" alt="Steven Gijsman" onerror="this.style.display='none'">
+          <div><b>Steven Gijsman</b><span data-t="heroFounderRole">Oprichter UTAMA</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section style="padding-top:34px">
+  <div class="wrap">
+    <div class="detail">
+      <div class="gallery" id="gallery"></div>
+      <div class="body">
+        <div class="d-head">
+          <div><h2>The Dune</h2><div class="loc">Cemagi, Bali</div><div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="pill" id="pill"></span><span class="momentum" id="momentum"></span></div></div>
+          <div class="d-price"><div class="p" id="dprice">vanaf €325.000</div><div class="a" data-t="mStatus">In verkoop · oplevering medio 2027</div></div>
+        </div>
+        <div class="hl" id="hl"></div>
+        <div class="build-banner">
+          <div class="bb-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19a8 8 0 0 1 16 0"/><path d="M2 19h20"/><path d="M12 6v4"/><circle cx="12" cy="4" r="1.6" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <div class="bb-body">
+            <div class="bb-eyebrow" data-t="bbEyebrow">Bouwstatus</div>
+            <div class="bb-title"><span class="dot"></span><span data-t="bbTitle">In aanbouw sinds 15 mei 2026</span></div>
+          </div>
+          <span class="bb-cam soon" id="bbCam">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="15" height="14" rx="2.5"/><path d="M23 7.5l-7 4.5 7 4.5v-9z"/></svg>
+            <span data-t="bbCam">Live bouwcamera volgt binnenkort</span>
+          </span>
+        </div>
+        <button type="button" class="btn" style="margin-top:16px" onclick="openBrochure()" data-t="mHeroCta2">Bekijk volledige brochure</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:12px">
+  <div class="wrap">
+    <div class="calc-cta">
+      <div>
+        <h3 data-t="calcCtaTitle">Benieuwd naar je exacte rendement?</h3>
+        <p data-t="calcCtaSub">In de volledige brochure vind je de interactieve rekentool, drie scenario's en het complete rendementsmodel van The Dune.</p>
+      </div>
+      <button type="button" class="btn" onclick="openBrochure()" data-t="calcCtaBtn">Bekijk de ROI-berekening →</button>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="cta">
+      <div class="cta-agent">
+        <div class="cta-agent-person">
+          <img src="/images/ashley.jpg" alt="Ashley Vermoten, Sales Manager UTAMA">
+          <div><div class="cta-agent-name">Ashley Vermoten</div><div class="cta-agent-role" data-t="agentRole">Sales Manager, UTAMA</div></div>
+        </div>
+        <div class="cta-agent-person">
+          <img src="/images/steven.jpg" alt="Steven Gijsman, Director UTAMA" onerror="this.style.display='none'">
+          <div><div class="cta-agent-name">Steven Gijsman</div><div class="cta-agent-role">Director, UTAMA</div></div>
+        </div>
+      </div>
+      <h2 data-t="ctaTitle">Klaar voor de volgende stap?</h2>
+      <p data-t="ctaSub">Bekijk de volledige digitale brochure met alle renders, plattegronden, exacte prijzen en het rendementsmodel, of stel je vraag direct aan Ashley.</p>
+      <div class="cta-btns">
+        <button type="button" class="btn" onclick="openBrochure()" data-t="mHeroCta2">Bekijk volledige brochure</button>
+        <button type="button" class="btn wa-btn" onclick="waDirect()"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg><span data-t="ctaWa">Praat met Ashley via WhatsApp</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    UTAMA · <span data-t="footer">Investeren in Bali-vastgoed, transparant en zorgeloos.</span> &middot; <a href="/referral/" data-t="footerRef" style="color:var(--terra);text-decoration:none;font-weight:600">Verdien &euro;2.500 als je iemand aanbrengt</a>
+    <div class="disc" data-t="disc">Deze site geeft indicatieve informatie en geen fiscaal of juridisch advies. Rendementen zijn schattingen, geen garanties. Laat contracten altijd controleren door een bevoegde notaris (PPAT) en je eigen adviseur.</div>
+    <button class="fab-wa" onclick="waDirect()" title="WhatsApp" aria-label="WhatsApp"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg></button>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="/supabase-client.js"></script>
+<script>
+const CONFIG = { whatsapp:"31624845014", email:"steven@utamabali.com", calendly:"", locale:"nl-NL", currency:"EUR" };
+const CURRENT_PRICE = 325000;
+
+const DUNE = {
+  unitsTotal:4, unitsSold:0, recentSold:0,
+  highlights:{
+    nl:["55 m² rooftop met jacuzzi, ice bath, sauna en zeezicht, 300 m van het strand","Volledig gemeubileerd en direct verhuurklaar, turnkey opgeleverd",
+        "3 ensuite slaapkamers, 3,5 badkamers, 2 keukens, privé tuin en zwembad","217 m² totaal (145 m² binnen, 55 m² rooftop, 39,5 m² tuin &amp; pool)",
+        "Pink Zone: legale short-stay verhuur, alle vergunningen op orde","30 + 30 jaar leasehold met gegarandeerde verlenging",
+        "10 jaar bouwgarantie, Duitse bouwbegeleiding","Volledig beheer via House of Reservations (250+ villa's)"],
+    en:["55 m² rooftop with jacuzzi, ice bath, sauna and sea views, 300 m from the beach","Fully furnished and rental-ready, delivered turnkey",
+        "3 ensuite bedrooms, 3.5 bathrooms, 2 kitchens, private garden and pool","217 m² total (145 m² inside, 55 m² rooftop, 39.5 m² garden &amp; pool)",
+        "Pink Zone: legal short-stay rental, all permits in place","30 + 30 year leasehold with guaranteed extension",
+        "10-year build warranty, German-led construction management","Full management via House of Reservations (250+ villas)"]
+  },
+  images:["/the-dune/images/dune-aerial.jpg","/the-dune/images/dune-living.jpg","/the-dune/images/dune-kitchen.jpg","/the-dune/images/dune-bedroom.jpg","/the-dune/images/dune-rooftop.jpg"],
+};
+
+const T={
+ nl:{navProjects:"Projecten",navContact:"Contact",back:"Projecten",
+  mHeroSub:"Met The Dune bouwen we vier luxe 3-slaapkamer Sanctuary-villa's op 300 meter van het strand in Cemagi. Rooftop met jacuzzi, ice bath en sauna, privé zwembad en tuin. Jij bezit de villa, wij ontwikkelen, beheren en verhuren hem voor je.",
+  mHeroCta1:"Contact via WhatsApp",mHeroCta2:"Bekijk volledige brochure",mt1:"richtprijs, nu in verkoop",mt2:"netto rendement (realistisch)",mt3:"al verkocht",mStatus:"In verkoop · oplevering medio 2027",
+  ctaTitle:"Klaar voor de volgende stap?",ctaSub:"Bekijk de volledige digitale brochure met alle renders, plattegronden, exacte prijzen en het rendementsmodel, of stel je vraag direct aan Ashley.",
+  ctaWa:"Praat met Ashley via WhatsApp",agentRole:"Sales Manager, UTAMA",heroFounderRole:"Oprichter UTAMA",
+  footer:"Investeren in Bali-vastgoed, transparant en zorgeloos.",footerRef:"Verdien €2.500 als je iemand aanbrengt",
+  disc:"Deze site geeft indicatieve informatie en geen fiscaal of juridisch advies. Rendementen zijn schattingen, geen garanties. Laat contracten altijd controleren door een bevoegde notaris (PPAT) en je eigen adviseur.",
+  available:"{sold} van {y} verkocht · nog {x} beschikbaar",availShort:"{x} van {y}",render:"Render: voeg je beeld toe",
+  recentSold:"{x} verkocht",
+  calcCtaTitle:"Benieuwd naar je exacte rendement?",calcCtaSub:"In de volledige brochure vind je de interactieve rekentool, drie scenario's en het complete rendementsmodel van The Dune.",calcCtaBtn:"Bekijk de ROI-berekening →",
+  bbEyebrow:"Bouwstatus",bbTitle:"In aanbouw sinds 15 mei 2026",bbCam:"Live bouwcamera volgt binnenkort"},
+ en:{navProjects:"Projects",navContact:"Contact",back:"Projects",
+  mHeroSub:"With The Dune we're building four luxury 3-bedroom Sanctuary villas 300 meters from the beach in Cemagi. Rooftop with jacuzzi, ice bath and sauna, private pool and garden. You own the villa, we develop, manage and rent it out for you.",
+  mHeroCta1:"Chat on WhatsApp",mHeroCta2:"View full brochure",mt1:"guide price, selling now",mt2:"net yield (realistic)",mt3:"already sold",mStatus:"Selling now · completion mid-2027",
+  ctaTitle:"Ready for the next step?",ctaSub:"View the full digital brochure with all renders, floor plans, exact prices and the return model, or ask Ashley directly.",
+  ctaWa:"Chat with Ashley on WhatsApp",agentRole:"Sales Manager, UTAMA",heroFounderRole:"Founder of UTAMA",
+  footer:"Investing in Bali real estate, transparent and hassle-free.",footerRef:"Earn €2,500 for every friend you bring in",
+  disc:"This site provides indicative information and no tax or legal advice. Returns are estimates, not guarantees. Always have contracts checked by an authorised notary (PPAT) and your own adviser.",
+  available:"{sold} of {y} sold · {x} left",availShort:"{x} of {y}",render:"Render: add your image",
+  recentSold:"{x} sold",
+  calcCtaTitle:"Curious about your exact return?",calcCtaSub:"The full brochure includes the interactive calculator, three scenarios and the complete return model for The Dune.",calcCtaBtn:"View the ROI calculation →",
+  bbEyebrow:"Construction status",bbTitle:"Under construction since 15 May 2026",bbCam:"Live camera coming soon"}
+};
+let lang="nl";
+const el=id=>document.getElementById(id);
+function money(v){return new Intl.NumberFormat(lang==='nl'?'nl-NL':'en-GB',{style:"currency",currency:CONFIG.currency,maximumFractionDigits:0}).format(Math.round(v));}
+function tr(s,o){let r=s;for(const k in o)r=r.split("{"+k+"}").join(o[k]);return r;}
+function imgBlock(cls,label){return `<div class="g ${cls} ph-img ${cls==='big'?'':'alt'}"><span class="ph-tag">${label}</span></div>`;}
+
+function renderStatic(){
+  const avail=DUNE.unitsTotal-DUNE.unitsSold;
+  el('gallery').innerHTML = (DUNE.images&&DUNE.images.length)
+    ? `<div class="g big" style="background-image:url('${DUNE.images[0]}');background-size:cover;background-position:center" onclick="openLb(0)"></div>`+[1,2,3,4].map(i=>DUNE.images[i]?`<div class="g" style="background-image:url('${DUNE.images[i]}');background-size:cover;background-position:center" onclick="openLb(${i})"></div>`:imgBlock('','')).join("")
+    : imgBlock('big',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render);
+  el('hl').innerHTML=DUNE.highlights[lang].slice(0,3).map(x=>`<div>${x}</div>`).join("");
+  el('pill').textContent=tr(T[lang].available,{x:avail,y:DUNE.unitsTotal,sold:DUNE.unitsSold});
+  el('momentum').textContent = DUNE.recentSold ? tr(T[lang].recentSold,{x:DUNE.recentSold}) : '';
+  el('mAvail').textContent=tr(T[lang].availShort,{x:DUNE.unitsSold,y:DUNE.unitsTotal});
+  el('dprice').textContent=(lang==='nl'?"vanaf ":"from ")+money(CURRENT_PRICE);
+}
+function setLang(l){
+  lang=l; el('btnNL').classList.toggle('on',l==='nl'); el('btnEN').classList.toggle('on',l==='en'); document.documentElement.lang=l;
+  document.querySelectorAll('[data-t]').forEach(e=>{const k=e.getAttribute('data-t'); if(T[l][k]!==undefined)e.textContent=T[l][k];});
+  document.querySelectorAll('[data-tp]').forEach(e=>{const k=e.getAttribute('data-tp'); if(T[l][k]!==undefined)e.placeholder=T[l][k];});
+  renderStatic();
+}
+function fb(txt,ok){try{const ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();document.execCommand('copy');document.body.removeChild(ta);ok();}catch(e){}}
+function sendLead(via){
+  const name=el('leadName').value.trim(), email=el('leadEmail').value.trim(), phone=el('leadPhone').value.trim();
+  const ok=el('ctaOk');
+  if(!name||(!email&&!phone)){ok.style.display="block";ok.textContent=T[lang].fill;return;}
+  const body=(lang==='nl'?"Nieuwe lead via de website: The Dune":"New lead via the website: The Dune")+"%0A"+
+    (lang==='nl'?"Naam":"Name")+": "+(name||"-")+"%0AWhatsApp: "+(phone||"-")+"%0AE-mail: "+(email||"-")+"%0A"+
+    (lang==='nl'?"Prijs":"Price")+": "+last.price+" · "+T[lang].netYield+": "+last.y;
+  if(via==='wa'){ window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+body,"_blank"); }
+  else{ const subj=encodeURIComponent(lang==='nl'?"Info-aanvraag The Dune":"Info request The Dune"); window.location.href="mailto:"+CONFIG.email+"?subject="+subj+"&body="+body; }
+  ok.style.display="block"; ok.textContent=T[lang].okMsg;
+}
+function openCal(){ if(CONFIG.calendly){window.open(CONFIG.calendly,"_blank");} else {sendLead('wa');} }
+function waDirect(){ const msg=(lang==='nl'?"Hi! Ik heb interesse in The Dune in Cemagi.":"Hi! I'm interested in The Dune in Cemagi."); window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg),"_blank"); }
+function openBrochure(){
+  // Al eens ontgrendeld op dit toestel? Dan hoeft dit formulier niet nog eens -
+  // ga direct door naar de brochure, die zichzelf herkent via dezelfde opslag.
+  try{
+    if(localStorage.getItem('dune_brochure_lead')){ window.location.href="/the-dune/brochure/"; return; }
+  }catch(e){}
+  el('broModal').classList.add('open'); document.body.style.overflow='hidden';
+}
+function closeBrochure(){ el('broModal').classList.remove('open'); document.body.style.overflow=''; }
+function submitBrochure(e){
+  e.preventDefault();
+  const name=el('bmName').value.trim(), phone=el('bmPhone').value.trim(), email=el('bmEmail').value.trim();
+  const budget=el('bmBudget').value, when=el('bmWhen').value;
+  if(!name||!phone||!email||!budget||!when){ el('bmErr').style.display='block'; return false; }
+  const lead={ project:"The Dune", name, phone, email, budget, when };
+  // localStorage = blijft bewaard op dit toestel, ook een dag later of in een nieuw
+  // tabblad - dat is wat openBrochure() hierboven checkt om het formulier over te
+  // slaan. sessionStorage blijft ernaast bestaan als eenmalige hand-off naar de
+  // brochurepagina (die zelf ook al naar localStorage kijkt, dus dit is redundant
+  // maar onschadelijk).
+  try{ localStorage.setItem('dune_brochure_lead', JSON.stringify(lead)); }catch(err){}
+  try{ sessionStorage.setItem('dune_brochure_lead', JSON.stringify(lead)); }catch(err){}
+  submitLead({ ...lead, lang }).catch(()=>{});
+  showBrochureSuccess(name);
+  setTimeout(function(){ window.location.href="/the-dune/brochure/"; }, 1650);
+  return false;
+}
+function showBrochureSuccess(name, msg, titel){
+  const m=document.querySelector('#broModal .modal'); if(!m) return;
+  const first=name?name.split(' ')[0]:'';
+  m.innerHTML='<div class="msuccess">'+
+    '<div class="checkwrap"><svg viewBox="0 0 52 52" class="chk"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg></div>'+
+    '<h3>'+(titel||('Gelukt'+(first?', '+first:'')))+'!</h3>'+
+    '<p>'+(msg||'Je persoonlijke brochure van The Dune staat klaar. We openen ’m nu voor je.')+'</p>'+
+    '</div>';
+  launchConfetti();
+}
+function launchConfetti(){
+  const host=el('broModal'); if(!host) return;
+  const colors=['#243F35','#C06B3A','#B0873E','#2E7D5B','#EFE7D8'];
+  for(let i=0;i<80;i++){
+    const c=document.createElement('div'); c.className='confetti';
+    c.style.left=(Math.random()*100)+'%';
+    c.style.background=colors[i%colors.length];
+    c.style.width=(6+Math.random()*6)+'px';
+    c.style.height=(9+Math.random()*9)+'px';
+    c.style.animationDuration=(1.1+Math.random()*1.3)+'s';
+    c.style.animationDelay=(Math.random()*0.3)+'s';
+    host.appendChild(c);
+  }
+}
+// ---- terugkerende bezoeker: alleen e-mail, direct door (check via Supabase) ----
+// Wisselt het volledige formulier om voor één e-mailveld (en terug).
+var retOpen=false, msubOrig=null;
+function toggleReturn(){
+  retOpen=!retOpen;
+  var main=document.querySelector('#broModal form'), ret=el('retForm');
+  var link=document.querySelector('.mreturn-link');
+  var wrap=document.querySelector('.mreturn');
+  var sub=document.querySelector('#broModal .msub');
+  if(msubOrig===null && sub) msubOrig=sub.textContent;
+  main.hidden=retOpen; ret.hidden=!retOpen;
+  link.textContent=retOpen ? 'Nieuw hier? Laat je gegevens achter' : 'Al eerder aangemeld? Vul alleen je e-mail in';
+  if(wrap){ wrap.style.borderTop=retOpen?'none':''; wrap.style.paddingTop=retOpen?'0':''; }
+  if(sub) sub.textContent=retOpen ? 'Vul het e-mailadres in waarmee je je eerder hebt aangemeld. Dan openen we de brochure direct.' : msubOrig;
+  if(retOpen){ el('retEmail').focus(); }
+}
+function submitReturn(e){
+  e.preventDefault();
+  var email=el('retEmail').value.trim();
+  var btn=el('retBtn');
+  if(!email) return false;
+  btn.disabled=true; var label=btn.textContent; btn.textContent='Even controleren...';
+  function terugNaarFormulier(msg){
+    btn.disabled=false; btn.textContent=label;
+    if(retOpen) toggleReturn();
+    if(el('bmEmail') && !el('bmEmail').value) el('bmEmail').value=email;
+    var mainErr=el('bmErr');
+    mainErr.textContent=msg;
+    mainErr.style.display='block';
+  }
+  fetch('https://gcpachivrwalsneuvlsa.supabase.co/functions/v1/brochure-access-check',{
+    method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify({email:email})
+  }).then(function(r){ return r.json(); }).then(function(d){
+    if(d && d.found){
+      var lead={ project:"The Dune", name:"", phone:"", email:email, budget:"", when:"", returning:true };
+      try{ localStorage.setItem('dune_brochure_lead', JSON.stringify(lead)); }catch(e2){}
+      try{ sessionStorage.setItem('dune_brochure_lead', JSON.stringify(lead)); }catch(e2){}
+      showBrochureSuccess('', 'E-mailadres herkend: je hebt de brochure al eerder aangevraagd. We openen hem nu voor je.', 'Welkom terug');
+      setTimeout(function(){ window.location.href="/the-dune/brochure/"; }, 1600);
+    } else {
+      terugNaarFormulier('Dit adres kennen we nog niet. Laat je gegevens achter voor directe toegang.');
+    }
+  }).catch(function(){
+    terugNaarFormulier('Controleren lukt nu even niet. Vul het formulier in voor directe toegang.');
+  });
+  return false;
+}
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeBrochure(); });
+setLang('nl');
+</script>
+<style>
+  .modal-ov{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(33,30,24,.4);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+  .modal-ov.open{display:flex}
+  .modal{background:var(--paper);border:1px solid var(--line);border-radius:20px;max-width:470px;width:100%;padding:30px 30px 26px;position:relative;box-shadow:var(--shadow);max-height:92vh;overflow:auto}
+  .modal .x{position:absolute;top:12px;right:15px;background:none;border:none;font-size:24px;line-height:1;color:var(--muted);cursor:pointer}
+  .modal .x:hover{color:var(--ink)}
+  .modal .eb{color:var(--ink);font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
+  .modal h3{font-size:24px;margin-bottom:6px;font-family:'Inter',system-ui,-apple-system,sans-serif;font-weight:800}
+  .modal .msub{color:var(--muted);font-size:14px;margin-bottom:18px}
+  .mfield{margin-bottom:12px}
+  .mfield label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:5px}
+  .mfield input,.mfield select{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:15px;background:var(--paper);color:var(--ink)}
+  .mfield input:focus,.mfield select:focus{outline:none;border-color:var(--green)}
+  .mrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .merr{color:#b5462b;font-size:13px;margin:3px 0 0;display:none}
+  .mtrust{margin-top:12px;font-size:12px;color:var(--muted)}
+  .mreturn{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+  .mreturn-link{background:none;border:none;padding:0;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:underline;cursor:pointer}
+  .mreturn-link:hover{opacity:.75}
+  @media(max-width:520px){ .mrow{grid-template-columns:1fr} }
+  .msuccess{text-align:center;padding:16px 6px 8px}
+  .checkwrap{width:82px;height:82px;margin:4px auto 14px;animation:pop .45s ease}
+  .chk{width:82px;height:82px}
+  .chk circle{fill:none;stroke:var(--ok);stroke-width:3;opacity:.22}
+  .chk path{fill:none;stroke:var(--ok);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:60;stroke-dashoffset:60;animation:draw .5s .18s ease forwards}
+  .msuccess h3{font-family:'Inter',system-ui,-apple-system,sans-serif;font-weight:800;font-size:26px;margin-bottom:6px}
+  .msuccess p{color:var(--muted);font-size:14.5px;margin:0 auto;max-width:330px}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes pop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+  .confetti{position:absolute;top:-12px;border-radius:2px;opacity:.9;z-index:1;animation-name:cfall;animation-timing-function:cubic-bezier(.3,.6,.4,1);animation-fill-mode:forwards}
+  @keyframes cfall{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(105vh) rotate(680deg);opacity:.85}}
+  .gallery .g{cursor:zoom-in;transition:transform .15s}
+  .gallery .g:hover{transform:translateY(-2px)}
+  .cta-agent{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:16px;position:relative;z-index:1}
+  .cta-agent-person{display:flex;align-items:center;gap:12px}
+  .cta-agent img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.32);flex:none}
+  .cta-agent-name{font-size:13.5px;font-weight:600;color:#fff}
+  .cta-agent-role{font-size:12px;color:#eee4d4;opacity:.8;margin-top:1px}
+  .momentum{font-size:12px;font-weight:700;color:var(--ink);background:var(--sand-2);border-radius:var(--radius-pill);padding:5px 12px}
+  .build-banner{display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#FBF1E9,#F3ECD9);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin-top:20px;flex-wrap:wrap}
+  .bb-icon{flex:none;width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;color:var(--opt-deep);box-shadow:var(--shadow)}
+  .bb-body{flex:1;min-width:170px}
+  .bb-eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--opt-deep)}
+  .bb-title{font-size:14.5px;font-weight:700;color:var(--ink);margin-top:3px;display:flex;align-items:center;gap:8px}
+  .bb-title .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);flex:none;box-shadow:0 0 0 0 rgba(46,125,91,.5);animation:bbpulse 1.6s ease-in-out infinite}
+  @keyframes bbpulse{0%{box-shadow:0 0 0 0 rgba(46,125,91,.5)}70%{box-shadow:0 0 0 7px rgba(46,125,91,0)}100%{box-shadow:0 0 0 0 rgba(46,125,91,0)}}
+  .bb-cam{display:inline-flex;align-items:center;gap:7px;background:var(--green);color:#fff;padding:10px 16px;border-radius:var(--radius-pill);font-size:13.5px;font-weight:600;text-decoration:none;white-space:nowrap;flex:none}
+  .bb-cam:hover{background:var(--green-2)}
+  .bb-cam.soon{background:rgba(23,20,15,.08);color:var(--muted);cursor:default}
+  @media(max-width:560px){.build-banner{flex-direction:column;align-items:flex-start}.bb-cam{width:100%;justify-content:center}}
+  .calc-cta{margin-top:0;background:#FBF1E9;border:1px solid var(--line);border-radius:14px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .calc-cta h3{font-size:18px;margin-bottom:6px;max-width:46ch;font-family:'Inter',system-ui,-apple-system,sans-serif;font-weight:800}
+  .calc-cta p{color:var(--muted);font-size:13.5px;margin:0;max-width:50ch}
+  .calc-cta .btn{flex:none;white-space:nowrap}
+  @media(max-width:640px){.calc-cta{flex-direction:column;align-items:flex-start}.calc-cta .btn{width:100%;max-width:calc(100% - 40px);text-align:center}}
+  .lb{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(20,18,14,.93);padding:24px}
+  .lb.open{display:flex}
+  .lb img{max-width:94vw;max-height:90vh;border-radius:14px;box-shadow:var(--shadow);object-fit:contain}
+  .lb .x{position:absolute;top:16px;right:22px;background:none;border:none;color:#fff;font-size:36px;line-height:1;cursor:pointer;opacity:.85}
+  .lb .x:hover{opacity:1}
+  .lb .nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.14);border:none;color:#fff;width:50px;height:50px;border-radius:50%;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .lb .nav:hover{background:rgba(255,255,255,.28)}
+  .lb .prev{left:16px}.lb .next{right:16px}
+  .lb .cap{position:absolute;bottom:16px;left:0;right:0;text-align:center;color:#eee;font-size:13px;opacity:.8}
+  @media(max-width:600px){ .lb .nav{width:42px;height:42px} }
+</style>
+<div class="modal-ov" id="broModal" onclick="if(event.target===this)closeBrochure()">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="x" onclick="closeBrochure()" aria-label="Sluiten">&times;</button>
+    <div class="eb">Digitale brochure</div>
+    <h3>Bekijk de volledige brochure</h3>
+    <div class="msub">Laat je gegevens achter, dan open je direct de volledige brochure van The Dune, afgestemd op jouw situatie.</div>
+    <form onsubmit="return submitBrochure(event)">
+      <div class="mfield"><label>Naam</label><input id="bmName" type="text" placeholder="Je volledige naam" required></div>
+      <div class="mrow">
+        <div class="mfield"><label>WhatsApp-nummer</label><input id="bmPhone" type="tel" placeholder="+31 6 ..." required></div>
+        <div class="mfield"><label>E-mailadres</label><input id="bmEmail" type="email" placeholder="jij@voorbeeld.com" required></div>
+      </div>
+      <div class="mrow">
+        <div class="mfield"><label>Budget</label>
+          <select id="bmBudget" required>
+            <option value="" disabled selected>Kies je budget</option>
+            <option>Tot &euro;325K</option>
+            <option>&euro;325K - &euro;375K</option>
+            <option>&euro;375K - &euro;500K</option>
+            <option>&euro;500K+</option>
+            <option>Nog niet zeker</option>
+          </select>
+        </div>
+        <div class="mfield"><label>Wanneer wil je kopen?</label>
+          <select id="bmWhen" required>
+            <option value="" disabled selected>Kies je horizon</option>
+            <option>Zo snel mogelijk</option>
+            <option>Binnen 3 maanden</option>
+            <option>3 tot 6 maanden</option>
+            <option>6 tot 12 maanden</option>
+            <option>Ik ori&euml;nteer me nog</option>
+          </select>
+        </div>
+      </div>
+      <div class="merr" id="bmErr">Vul je naam, WhatsApp-nummer en e-mailadres in.</div>
+      <button class="btn" style="width:100%;justify-content:center;margin-top:6px" type="submit">Bekijk de brochure</button>
+      <div class="mtrust">Geen spam. We gebruiken je gegevens alleen om je de juiste informatie te sturen en je vragen te beantwoorden.</div>
+    </form>
+    <div class="mreturn">
+      <button type="button" class="mreturn-link" onclick="toggleReturn()">Al eerder aangemeld? Vul alleen je e-mail in</button>
+      <form id="retForm" hidden onsubmit="return submitReturn(event)">
+        <div class="mfield" style="margin-top:10px"><label>E-mailadres</label><input id="retEmail" type="email" placeholder="jij@voorbeeld.com" required></div>
+        <div class="merr" id="retErr"></div>
+        <button class="btn" style="width:100%;justify-content:center;margin-top:6px" type="submit" id="retBtn">Open de brochure</button>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="lb" id="lb" onclick="if(event.target===this)closeLb()">
+  <button class="x" onclick="closeLb()" aria-label="Sluiten">&times;</button>
+  <button class="nav prev" onclick="stepLb(-1)" aria-label="Vorige">&#8249;</button>
+  <img id="lbImg" src="" alt="The Dune render">
+  <button class="nav next" onclick="stepLb(1)" aria-label="Volgende">&#8250;</button>
+  <div class="cap" id="lbCap"></div>
+</div>
+<script>
+function openLb(i){ if(!DUNE.images||!DUNE.images[i]) return; lbIdx=i; el('lbImg').src=DUNE.images[i]; el('lbCap').textContent=(i+1)+' / '+DUNE.images.length; el('lb').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeLb(){ el('lb').classList.remove('open'); document.body.style.overflow=''; }
+function stepLb(d){ const n=DUNE.images.length; lbIdx=(lbIdx+d+n)%n; el('lbImg').src=DUNE.images[lbIdx]; el('lbCap').textContent=(lbIdx+1)+' / '+n; }
+let lbIdx=0;
+document.addEventListener('keydown',function(e){ const lb=el('lb'); if(!lb||!lb.classList.contains('open'))return; if(e.key==='Escape')closeLb(); if(e.key==='ArrowRight')stepLb(1); if(e.key==='ArrowLeft')stepLb(-1); });
+</script>
+</body>
+</html>
