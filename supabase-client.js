@@ -75,10 +75,47 @@ function _getStoredReferralCode(){
  * fields: { email, name, phone, project, unit, budget, when, lang }
  * Dedupes contacts by email server-side (see submit_lead in schema.sql) - * the same person requesting brochures for two projects becomes one contact
  * with two lead rows, not two contacts.
+ *
+ * Also fires a server-side Meta Conversions API "Lead" event (see the
+ * meta-capi edge function) alongside the browser pixel, sharing one eventId
+ * between the two so Meta dedupes them into a single conversion. This is
+ * best-effort and never blocks or fails the actual lead submission - if
+ * Meta/CAPI is slow or down, the visitor's brochure request still goes
+ * through exactly as before. Callers should pass the returned eventId into
+ * fbTrackLead(project, eventId) right after this resolves.
  */
+function _genEventId(){
+  try{ if(window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID(); }catch(e){}
+  return 'ev_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+}
+function _readCookie(name){
+  try{
+    const m = document.cookie.match('(?:^|; )' + name + '=([^;]*)');
+    return m ? decodeURIComponent(m[1]) : null;
+  }catch(e){ return null; }
+}
+function _sendCapiLead(fields, eventId){
+  try{
+    fetch('https://gcpachivrwalsneuvlsa.supabase.co/functions/v1/meta-capi', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        event_name: 'Lead',
+        event_id: eventId,
+        email: fields.email,
+        phone: fields.phone,
+        project: fields.project,
+        source_page: window.location.pathname,
+        fbp: _readCookie('_fbp'),
+        fbc: _readCookie('_fbc')
+      })
+    }).catch(()=>{});
+  }catch(e){}
+}
 async function submitLead(fields){
+  const eventId = _genEventId();
   const sb = getSupabaseClient();
-  if(!sb) return { ok:false, reason:"not-configured" };
+  if(!sb){ _sendCapiLead(fields, eventId); return { ok:false, reason:"not-configured", eventId }; }
   try{
     const { data, error } = await sb.rpc('submit_lead', {
       p_email: fields.email,
@@ -93,11 +130,12 @@ async function submitLead(fields){
       p_ref_code: _getStoredReferralCode(),
       p_type: fields.type || null
     });
-    if(error){ console.error("submitLead error", error); return { ok:false, error }; }
-    return { ok:true, contactId:data };
+    if(error){ console.error("submitLead error", error); return { ok:false, error, eventId }; }
+    _sendCapiLead(fields, eventId);
+    return { ok:true, contactId:data, eventId };
   }catch(err){
     console.error("submitLead exception", err);
-    return { ok:false, error:err };
+    return { ok:false, error:err, eventId };
   }
 }
 

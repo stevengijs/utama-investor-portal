@@ -453,8 +453,7 @@ function submitContact(e){
   e.preventDefault();
   const name=el('cmName').value.trim(), phone=el('cmPhone').value.trim(), email=el('cmEmail').value.trim(), project=el('cmProject').value;
   if(!name||!phone||!email||!project){ el('cmErr').style.display='block'; return false; }
-  submitLead({ project, name, phone, email, lang, type:'inquiry' }).catch(()=>{});
-  fbTrackLead(project);
+  submitLead({ project, name, phone, email, lang, type:'inquiry' }).then(function(r){ fbTrackLead(project, r && r.eventId); }).catch(function(){ fbTrackLead(project); });
   const body=(lang==='nl'?"Nieuwe brochure-aanvraag via de website":"New brochure request via the website")+"%0A"+
     (lang==='nl'?"Project":"Project")+": "+project+"%0A"+(lang==='nl'?"Naam":"Name")+": "+name+"%0AWhatsApp: "+phone+"%0AE-mail: "+email;
   window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+body,"_blank");
@@ -479,8 +478,7 @@ function submitEarlyAccess(e){
   const budget=el('eaBudget').value, when=el('eaWhen').value;
   if(!name||!phone||!email||!budget||!when){ el('eaErr').style.display='block'; return false; }
   const lead={ project:"Volgend project (early access)", name, phone, email, budget, when };
-  submitLead({ ...lead, lang }).catch(()=>{});
-  fbTrackLead('Early access');
+  submitLead({ ...lead, lang }).then(function(r){ fbTrackLead('Early access', r && r.eventId); }).catch(function(){ fbTrackLead('Early access'); });
   showEarlySuccess(name);
   return false;
 }

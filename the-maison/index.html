@@ -238,8 +238,7 @@ function submitBrochure(e){
   // maar onschadelijk).
   try{ localStorage.setItem('maison_brochure_lead', JSON.stringify(lead)); }catch(err){}
   try{ sessionStorage.setItem('maison_brochure_lead', JSON.stringify(lead)); }catch(err){}
-  submitLead({ ...lead, lang }).catch(()=>{});
-  fbTrackLead('The Maison');
+  submitLead({ ...lead, lang }).then(function(r){ fbTrackLead('The Maison', r && r.eventId); }).catch(function(){ fbTrackLead('The Maison'); });
   showBrochureSuccess(name);
   setTimeout(function(){ window.location.href="/the-maison/brochure/"; }, 1650);
   return false;

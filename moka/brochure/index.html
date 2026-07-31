@@ -2435,8 +2435,7 @@ function unlock(e){
   if(!name||!phone||!email||!budget||!when){ el('qErr').style.display='block'; return false; }
   const lead={ project:"MOKA", name, phone, email, budget, when };
   try{ localStorage.setItem('moka_brochure_lead', JSON.stringify(lead)); }catch(err){}
-  submitLead({ ...lead, lang }).catch(()=>{});
-  fbTrackLead('MOKA');
+  submitLead({ ...lead, lang }).then(function(r){ fbTrackLead('MOKA', r && r.eventId); }).catch(function(){ fbTrackLead('MOKA'); });
   reveal(lead);
   return false;
 }

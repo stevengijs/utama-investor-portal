@@ -2577,8 +2577,7 @@ function unlock(e){
   if(!name||!phone||!email||!budget||!when){ el('qErr').style.display='block'; return false; }
   const lead={ project:"The Maison", name, phone, email, budget, when };
   try{ localStorage.setItem('maison_brochure_lead', JSON.stringify(lead)); }catch(err){}
-  submitLead({ ...lead, lang }).catch(()=>{});
-  fbTrackLead('The Maison');
+  submitLead({ ...lead, lang }).then(function(r){ fbTrackLead('The Maison', r && r.eventId); }).catch(function(){ fbTrackLead('The Maison'); });
   reveal(lead);
   return false;
 }

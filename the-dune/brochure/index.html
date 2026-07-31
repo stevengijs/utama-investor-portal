@@ -2780,8 +2780,7 @@ function unlock(e){
   if(!name||!phone||!email||!budget||!when){ el('qErr').style.display='block'; return false; }
   const lead={ project:"The Dune", name, phone, email, budget, when };
   try{ localStorage.setItem('dune_brochure_lead', JSON.stringify(lead)); }catch(err){}
-  submitLead({ ...lead, lang }).catch(()=>{});
-  fbTrackLead('The Dune');
+  submitLead({ ...lead, lang }).then(function(r){ fbTrackLead('The Dune', r && r.eventId); }).catch(function(){ fbTrackLead('The Dune'); });
   reveal(lead);
   return false;
 }

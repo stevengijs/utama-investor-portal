@@ -238,8 +238,7 @@ function submitBrochure(e){
   // maar onschadelijk).
   try{ localStorage.setItem('dune_brochure_lead', JSON.stringify(lead)); }catch(err){}
   try{ sessionStorage.setItem('dune_brochure_lead', JSON.stringify(lead)); }catch(err){}
-  submitLead({ ...lead, lang }).catch(()=>{});
-  fbTrackLead('The Dune');
+  submitLead({ ...lead, lang }).then(function(r){ fbTrackLead('The Dune', r && r.eventId); }).catch(function(){ fbTrackLead('The Dune'); });
   showBrochureSuccess(name);
   setTimeout(function(){ window.location.href="/the-dune/brochure/"; }, 1650);
   return false;

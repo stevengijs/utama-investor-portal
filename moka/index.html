@@ -223,8 +223,7 @@ function submitBrochure(e){
   // localStorage kijkt, dus dit is redundant maar onschadelijk).
   try{ localStorage.setItem('moka_brochure_lead', JSON.stringify(lead)); }catch(err){}
   try{ sessionStorage.setItem('moka_brochure_lead', JSON.stringify(lead)); }catch(err){}
-  submitLead({ ...lead, lang }).catch(()=>{});
-  fbTrackLead('MOKA');
+  submitLead({ ...lead, lang }).then(function(r){ fbTrackLead('MOKA', r && r.eventId); }).catch(function(){ fbTrackLead('MOKA'); });
   showBrochureSuccess(name);
   setTimeout(function(){ window.location.href="/moka/brochure/"; }, 1650);
   return false;

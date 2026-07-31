@@ -37,10 +37,19 @@ var PIXEL_ID = "419037194248722";
 })();
 
 /* Helper: roep dit aan zodra een bezoeker een leadformulier invult en de brochure
-   unlockt (de belangrijkste conversie van de campagne). project = projectnaam string. */
-function fbTrackLead(project) {
+   unlockt (de belangrijkste conversie van de campagne). project = projectnaam string.
+   eventId = optioneel, meestal het eventId dat submitLead() teruggeeft: als je die
+   meegeeft, dedupt Meta dit browser-event automatisch tegen het server-side
+   Conversions API-event dat submitLead() ernaast al verstuurt (zie meta-capi
+   edge function + supabase-client.js). Zonder eventId werkt dit nog steeds prima,
+   je verliest dan alleen die dedup-koppeling. */
+function fbTrackLead(project, eventId) {
   try {
-    if (typeof fbq === "function") fbq("track", "Lead", project ? { content_name: project } : {});
+    if (typeof fbq === "function") {
+      var params = project ? { content_name: project } : {};
+      if (eventId) fbq("track", "Lead", params, { eventID: eventId });
+      else fbq("track", "Lead", params);
+    }
   } catch (e) {}
 }
 
