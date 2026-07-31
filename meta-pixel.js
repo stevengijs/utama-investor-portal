@@ -1,13 +1,12 @@
 /* Meta (Facebook/Instagram) Pixel - gedeeld over het hele platform.
    Ingeladen op elke publieke pagina via <script src="/meta-pixel.js"></script> in de <head>.
 
-   PIXEL_ID moet nog worden ingevuld door Steven (Events Manager -> Data Sources -> Pixel).
-   Zolang dit "REPLACE_WITH_PIXEL_ID" is, laadt dit bestand fbq() wel in maar vuurt er
-   bewust niets: zo breekt er niets op de live site, maar wordt er ook geen data naar
-   een verkeerd/leeg pixel-ID gestuurd. Vervang de waarde hieronder en alles hierboven
-   (PageView, Lead, Contact) begint direct te vuren, zonder dat er iets anders hoeft te
-   veranderen op de losse pagina's. */
-var PIXEL_ID = "REPLACE_WITH_PIXEL_ID";
+   Pixel ID 419037194248722, aangeleverd door Steven (Events Manager -> Data Sources
+   -> Pixel). Als dit veld ooit weer op "REPLACE_WITH_PIXEL_ID" gezet wordt (bijv. voor
+   een test-omgeving), laadt dit bestand fbq() nog steeds in maar vuurt er bewust niets:
+   zo breekt er niets op de live site, maar wordt er ook geen data naar een verkeerd/leeg
+   pixel-ID gestuurd. */
+var PIXEL_ID = "419037194248722";
 
 (function () {
   if (!PIXEL_ID || PIXEL_ID.indexOf("REPLACE_WITH") === 0) {
