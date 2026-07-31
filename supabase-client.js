@@ -112,6 +112,11 @@ function _sendCapiLead(fields, eventId){
     }).catch(()=>{});
   }catch(e){}
 }
+/* Read the first-party analytics session id (set by t.js in sessionStorage as _ua_sid).
+ * Storing it on the lead lets the admin match a live website visitor to their CRM contact. */
+function _getAnalyticsSession(){
+  try{ return sessionStorage.getItem('_ua_sid') || null; }catch(e){ return null; }
+}
 async function submitLead(fields){
   const eventId = _genEventId();
   const sb = getSupabaseClient();
@@ -128,7 +133,8 @@ async function submitLead(fields){
       p_source_page: window.location.pathname,
       p_lang: fields.lang || null,
       p_ref_code: _getStoredReferralCode(),
-      p_type: fields.type || null
+      p_type: fields.type || null,
+      p_session_id: _getAnalyticsSession()
     });
     if(error){ console.error("submitLead error", error); return { ok:false, error, eventId }; }
     _sendCapiLead(fields, eventId);
