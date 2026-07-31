@@ -16,8 +16,10 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png">
 <link rel="apple-touch-icon" href="/images/favicon-180.png">
 <link rel="stylesheet" href="/styles.css">
+<script src="/meta-pixel.js"></script>
 </head>
 <body>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=PIXEL_ID_NOSCRIPT&ev=PageView&noscript=1" /></noscript>
 
 <nav>
   <div class="wrap row">
@@ -213,7 +215,7 @@ function sendLead(via){
   ok.style.display="block"; ok.textContent=T[lang].okMsg;
 }
 function openCal(){ if(CONFIG.calendly){window.open(CONFIG.calendly,"_blank");} else {sendLead('wa');} }
-function waDirect(){ const msg=(lang==='nl'?"Hi! Ik heb interesse in The Maison in Pererenan.":"Hi! I'm interested in The Maison in Pererenan."); window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg),"_blank"); }
+function waDirect(){ fbTrackContact('The Maison'); const msg=(lang==='nl'?"Hi! Ik heb interesse in The Maison in Pererenan.":"Hi! I'm interested in The Maison in Pererenan."); window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg),"_blank"); }
 function openBrochure(){
   // Al eens ontgrendeld op dit toestel? Dan hoeft dit formulier niet nog eens -
   // ga direct door naar de brochure, die zichzelf herkent via dezelfde opslag.
@@ -237,6 +239,7 @@ function submitBrochure(e){
   try{ localStorage.setItem('maison_brochure_lead', JSON.stringify(lead)); }catch(err){}
   try{ sessionStorage.setItem('maison_brochure_lead', JSON.stringify(lead)); }catch(err){}
   submitLead({ ...lead, lang }).catch(()=>{});
+  fbTrackLead('The Maison');
   showBrochureSuccess(name);
   setTimeout(function(){ window.location.href="/the-maison/brochure/"; }, 1650);
   return false;

@@ -16,6 +16,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png">
 <link rel="apple-touch-icon" href="/images/favicon-180.png">
 <link rel="stylesheet" href="/styles.css">
+<script src="/meta-pixel.js"></script>
 <style>
   .founder-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:34px;display:grid;grid-template-columns:180px 1fr;gap:30px;align-items:start}
   .founder-photo img{width:180px;height:180px;border-radius:50%;object-fit:cover;border:3px solid var(--sand-2)}
@@ -96,6 +97,7 @@
 </style>
 </head>
 <body>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=PIXEL_ID_NOSCRIPT&ev=PageView&noscript=1" /></noscript>
 
 <nav>
   <div class="wrap row">
@@ -444,7 +446,7 @@ function setLang(l){
   renderSoldOut();
 }
 function fb(txt,ok){try{const ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();document.execCommand('copy');document.body.removeChild(ta);ok();}catch(e){}}
-function waDirect(){ const msg=(lang==='nl'?"Hi! Ik heb interesse in jullie Bali-villa's.":"Hi! I'm interested in your Bali villas."); window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg),"_blank"); }
+function waDirect(){ fbTrackContact(); const msg=(lang==='nl'?"Hi! Ik heb interesse in jullie Bali-villa's.":"Hi! I'm interested in your Bali villas."); window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg),"_blank"); }
 function openContactModal(){ el('contactModal').classList.add('open'); document.body.style.overflow='hidden'; }
 function closeContactModal(){ el('contactModal').classList.remove('open'); document.body.style.overflow=''; }
 function submitContact(e){
@@ -452,6 +454,7 @@ function submitContact(e){
   const name=el('cmName').value.trim(), phone=el('cmPhone').value.trim(), email=el('cmEmail').value.trim(), project=el('cmProject').value;
   if(!name||!phone||!email||!project){ el('cmErr').style.display='block'; return false; }
   submitLead({ project, name, phone, email, lang, type:'inquiry' }).catch(()=>{});
+  fbTrackLead(project);
   const body=(lang==='nl'?"Nieuwe brochure-aanvraag via de website":"New brochure request via the website")+"%0A"+
     (lang==='nl'?"Project":"Project")+": "+project+"%0A"+(lang==='nl'?"Naam":"Name")+": "+name+"%0AWhatsApp: "+phone+"%0AE-mail: "+email;
   window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+body,"_blank");
@@ -477,6 +480,7 @@ function submitEarlyAccess(e){
   if(!name||!phone||!email||!budget||!when){ el('eaErr').style.display='block'; return false; }
   const lead={ project:"Volgend project (early access)", name, phone, email, budget, when };
   submitLead({ ...lead, lang }).catch(()=>{});
+  fbTrackLead('Early access');
   showEarlySuccess(name);
   return false;
 }

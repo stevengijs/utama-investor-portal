@@ -12,6 +12,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png">
 <link rel="apple-touch-icon" href="/images/favicon-180.png">
 <link rel="stylesheet" href="/styles.css">
+<script src="/meta-pixel.js"></script>
 <style>
   /* ---------------------------------------------------------------------
      Standaard UTAMA-brochurepagina ("investeerdersportaal"): geen lange
@@ -597,6 +598,7 @@
 </style>
 </head>
 <body>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=PIXEL_ID_NOSCRIPT&ev=PageView&noscript=1" /></noscript>
 <nav class="bnav">
   <a href="/" class="brand">UTAMA</a>
   <div class="bnav-mid">
@@ -2779,6 +2781,7 @@ function unlock(e){
   const lead={ project:"The Dune", name, phone, email, budget, when };
   try{ localStorage.setItem('dune_brochure_lead', JSON.stringify(lead)); }catch(err){}
   submitLead({ ...lead, lang }).catch(()=>{});
+  fbTrackLead('The Dune');
   reveal(lead);
   return false;
 }
