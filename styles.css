@@ -139,17 +139,18 @@ section{padding:52px 0}
 .hl div{font-size:14px;padding-left:22px;position:relative;color:#3f3a30}
 .hl div::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:700}
 
-/* ROI-badge naast de "Bekijk volledige brochure"-knop: klikbaar, opent direct
-   de brochuremodal. --opt-deep (olijf) is platformbreed al de kleur voor
-   rendement/groei (zie .big-yield/.results in de brochure-rekentool) - niet
-   --green (dat is een alias voor inkt/zwart, en zou wegvallen naast de
-   zwarte CTA-knop) en niet --terra (gereserveerd voor referral-content). */
-.cta-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px}
-.roi-badge{display:inline-flex;align-items:center;gap:8px;background:var(--opt-deep);border:none;border-radius:var(--radius-pill);padding:12px 18px;cursor:pointer;font-family:inherit;text-align:left;box-shadow:var(--shadow);transition:opacity .15s,transform .15s}
-.roi-badge:hover{opacity:.9;transform:translateY(-1px)}
-.roi-badge .num{font-family:'Inter',system-ui,-apple-system,sans-serif !important;font-weight:800 !important;font-size:16px;color:var(--opt-ink);white-space:nowrap}
-.roi-badge .lbl{font-size:11.5px;font-weight:600;color:rgba(255,255,255,.88);line-height:1.25;max-width:21ch}
-@media(max-width:560px){.cta-row{flex-direction:column;align-items:stretch}.cta-row .btn{justify-content:center}.roi-badge{justify-content:center;text-align:center}.roi-badge .lbl{max-width:none}}
+/* Eén samengestelde CTA-knop i.p.v. twee losse elementen naast elkaar: één
+   klikoppervlak, twee kleurzones. --opt-deep (olijf) is platformbreed al de
+   kleur voor rendement/groei (zie .big-yield/.results in de brochure-
+   rekentool) - niet --green (alias voor inkt/zwart) en niet --terra
+   (gereserveerd voor referral-content). Zelfde --radius-btn als .btn, zodat
+   het echt als één vloeiende knop oogt i.p.v. een pill naast een rechthoek. */
+.cta-combo{display:inline-flex;align-items:stretch;border:none;border-radius:var(--radius-btn);overflow:hidden;cursor:pointer;font-family:inherit;padding:0;margin-top:16px;box-shadow:var(--shadow);transition:opacity .15s}
+.cta-combo:hover{opacity:.92}
+.cta-combo-main{background:var(--ink);color:#fff;font-weight:600;font-size:15px;padding:13px 22px;display:flex;align-items:center;white-space:nowrap}
+.cta-combo-roi{background:var(--opt-deep);color:var(--opt-ink);font-weight:600;font-size:13.5px;padding:13px 20px;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.cta-combo-roi b{font-size:16px;font-weight:800}
+@media(max-width:480px){.cta-combo{flex-direction:column;width:100%}.cta-combo-main,.cta-combo-roi{justify-content:center;width:100%}}
 
 /* "In de brochure vind je" - maakt concreet wat een klik oplevert, ipv "meer info". */
 .brochure-preview{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
