@@ -203,6 +203,13 @@
   @media(min-width:640px){.tab-pane{padding:34px 36px}}
   .tab-pane.active{display:block;animation:fadein .2s ease}
   @keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+  /* Mobiel: geen los klikbaar tabblad, maar één doorlopende pagina - alle
+     secties staan onder elkaar en de tab-balk hierboven (sticky) highlight
+     vanzelf welke sectie net in beeld is (zie scrollspy-script onderaan). */
+  @media(max-width:979px){
+    .tab-pane{display:block !important;animation:none !important}
+    .tab-pane + .tab-pane{border-top:1px solid var(--line);margin-top:10px}
+  }
   .pane-kicker{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
   .pk-row{display:flex;align-items:center;gap:10px;margin-bottom:2px}
   .pk-icon{flex:none;width:34px;height:34px;border-radius:50%;background:var(--opt);display:flex;align-items:center;justify-content:center}
@@ -2640,6 +2647,24 @@ try{
 }catch(e){}
 
 // ---- tabbladen ----
+/* Onder 980px staan alle secties doorlopend onder elkaar (zie CSS) i.p.v. één
+   los tabblad - "mobiel" sluit hiermee aan bij de bestaande 980px-grens die
+   elders al de single-column layout en de sticky-cta bepaalt. */
+var _mqMobile = window.matchMedia('(max-width:979px)');
+/* De sticky tabs-balk gebruikt top:61px in CSS, maar .bnav wrapt op smalle
+   schermen (en na het ontgrendelen van de brochure, als de pdf-chip
+   verschijnt) naar meerdere regels en wordt dan flink hoger dan 61px -
+   zonder correctie verdwijnt de tabs-balk dan achter de bnav. Meet de
+   werkelijke bnav-hoogte en houd 'm live in sync. */
+(function(){
+  const bnavEl = document.querySelector('.bnav');
+  const tabsWrapEl = document.querySelector('.tabs-wrap');
+  if(!bnavEl || !tabsWrapEl) return;
+  function syncStickyTop(){ tabsWrapEl.style.top = bnavEl.offsetHeight + 'px'; }
+  syncStickyTop();
+  if(window.ResizeObserver) new ResizeObserver(syncStickyTop).observe(bnavEl);
+  else window.addEventListener('resize', syncStickyTop);
+})();
 function showTab(id, skipHash){
   document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.toggle('active', p.id==='pane-'+id); });
   document.querySelectorAll('#tabsNav button').forEach(function(b){ b.classList.toggle('active', b.dataset.tab===id); });
@@ -2647,11 +2672,14 @@ function showTab(id, skipHash){
   /* scrollIntoView({block:'start'}) zou de workspace-top exact op y=0 leggen, maar de sticky
      bnav + tabs-wrap liggen daar bovenop - dan verdwijnt de paneelkop erachter. Reken de hoogte
      van beide sticky balken mee zodat de kop er altijd nét onder landt. */
-  const ws = document.querySelector('.workspace');
   const bnavEl = document.querySelector('.bnav');
   const tabsWrapEl = document.querySelector('.tabs-wrap');
   const stickyOffset = (bnavEl ? bnavEl.offsetHeight : 0) + (tabsWrapEl ? tabsWrapEl.offsetHeight : 0);
-  const targetY = ws.getBoundingClientRect().top + window.scrollY - stickyOffset - 8;
+  /* Op mobiel staan alle panelen al onder elkaar (continue scroll), dus moet er
+     naar het specifieke paneel gescrold worden - anders landt een klik altijd
+     bovenaan de workspace (= het eerste paneel), ongeacht welke tab is aangeklikt. */
+  const scrollTarget = (_mqMobile.matches && document.getElementById('pane-'+id)) || document.querySelector('.workspace');
+  const targetY = scrollTarget.getBoundingClientRect().top + window.scrollY - stickyOffset - 8;
   window.scrollTo({top: Math.max(0, targetY), behavior:'smooth'});
   /* het rendement-paneel (met de slider-pins) heeft width 0 zolang het display:none is,
      dus zodra het zichtbaar wordt moeten de pins/scenario's opnieuw gerenderd worden */
@@ -2664,6 +2692,51 @@ document.querySelectorAll('#tabsNav button').forEach(function(b){ b.addEventList
   const initial = (location.hash||'').replace('#','');
   const valid = ['project','locatie','rendement','planning','team','beheer','vertrouwen','vragen'];
   if(valid.includes(initial)) showTab(initial, true);
+})();
+
+/* ---- mobiel: doorlopende scroll met vanzelf meebewegende hoofdstuk-tab ----
+   Bepaalt welk paneel net onder de sticky bnav+tabs-balk staat en highlight
+   dat tabblad, zonder dat de bezoeker ooit hoeft te klikken. */
+(function(){
+  var lastId = null;
+  function currentSectionId(){
+    const bnavEl = document.querySelector('.bnav');
+    const tabsWrapEl = document.querySelector('.tabs-wrap');
+    const refY = (bnavEl ? bnavEl.offsetHeight : 0) + (tabsWrapEl ? tabsWrapEl.offsetHeight : 0) + 24;
+    const panes = document.querySelectorAll('.tab-pane');
+    let id = panes.length ? panes[0].id.replace('pane-','') : null;
+    for(let i=0;i<panes.length;i++){
+      if(panes[i].getBoundingClientRect().top <= refY) id = panes[i].id.replace('pane-','');
+      else break;
+    }
+    return id;
+  }
+  /* Alleen de horizontale scroll van de tab-balk zelf aanpassen, nooit
+     element.scrollIntoView() gebruiken - die scant alle scrollbare
+     voorouders (dus ook de verticale paginascroll) en zou daarmee de
+     scrollpositie van de bezoeker terugtrekken terwijl die aan het lezen is. */
+  function centerActiveTab(btn){
+    const nav = document.getElementById('tabsNav');
+    if(!nav || !btn) return;
+    const target = btn.offsetLeft - (nav.clientWidth - btn.offsetWidth) / 2;
+    nav.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+  }
+  var ticking = false;
+  function onScrollTick(){
+    ticking = false;
+    if(!_mqMobile.matches) return;
+    const id = currentSectionId();
+    if(!id || id===lastId) return;
+    lastId = id;
+    document.querySelectorAll('#tabsNav button').forEach(function(b){ b.classList.toggle('active', b.dataset.tab===id); });
+    centerActiveTab(document.querySelector('#tabsNav button[data-tab="'+id+'"]'));
+  }
+  window.addEventListener('scroll', function(){
+    if(!_mqMobile.matches) return;
+    if(!ticking){ ticking = true; requestAnimationFrame(onScrollTick); }
+  }, {passive:true});
+  if(_mqMobile.addEventListener) _mqMobile.addEventListener('change', function(){ lastId = null; onScrollTick(); });
+  onScrollTick();
 })();
 
 // ROI-calculator (rendering)
