@@ -117,6 +117,9 @@ function _sendCapiLead(fields, eventId){
 function _getAnalyticsSession(){
   try{ return sessionStorage.getItem('_ua_sid') || null; }catch(e){ return null; }
 }
+function _getAnalyticsVid(){
+  try{ return localStorage.getItem('_ua_vid') || null; }catch(e){ return null; }
+}
 async function submitLead(fields){
   const eventId = _genEventId();
   const sb = getSupabaseClient();
@@ -134,7 +137,8 @@ async function submitLead(fields){
       p_lang: fields.lang || null,
       p_ref_code: _getStoredReferralCode(),
       p_type: fields.type || null,
-      p_session_id: _getAnalyticsSession()
+      p_session_id: _getAnalyticsSession(),
+      p_vid: _getAnalyticsVid()
     });
     if(error){ console.error("submitLead error", error); return { ok:false, error, eventId }; }
     _sendCapiLead(fields, eventId);

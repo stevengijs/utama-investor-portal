@@ -20,6 +20,13 @@
     if (!sid) { sid = rnd(); sessionStorage.setItem("_ua_sid", sid); ns = true; }
   } catch (e) { sid = rnd(); ns = true; }
 
+  /* persistent first-party visitor id (survives across sessions; recognises returning sign-ups) */
+  var vid = "";
+  try {
+    vid = localStorage.getItem("_ua_vid");
+    if (!vid) { vid = uuid(); localStorage.setItem("_ua_vid", vid); }
+  } catch (e) { vid = ""; }
+
   var UA = navigator.userAgent || "";
   function device() {
     if (/iPad|Tablet|PlayBook|Silk/i.test(UA) || (/Android/i.test(UA) && !/Mobile/i.test(UA))) return "tablet";
@@ -105,7 +112,7 @@
     try { if (ref) refhost = new URL(ref).hostname.replace(/^www\./, ""); } catch (e) {}
     var host = location.hostname.replace(/^www\./, "");
     send({
-      t: "pv", eid: eid, sid: sid, ns: ns,
+      t: "pv", eid: eid, sid: sid, vid: vid, ns: ns,
       site: host,
       path: location.pathname + location.search,
       title: (document.title || "").slice(0, 200),
@@ -153,7 +160,7 @@
     function ev(kind, label) {
       label = (label || "").replace(/\s+/g, " ").trim();
       if (!label) return;
-      send({ t: "ev", eid: uuid(), sid: sid, site: location.hostname.replace(/^www\./, ""), path: location.pathname, project: projSlug(), kind: kind, label: label.slice(0, 300) });
+      send({ t: "ev", eid: uuid(), sid: sid, vid: vid, site: location.hostname.replace(/^www\./, ""), path: location.pathname, project: projSlug(), kind: kind, label: label.slice(0, 300) });
     }
     var nav = document.getElementById("tabsNav");
     if (nav) {
