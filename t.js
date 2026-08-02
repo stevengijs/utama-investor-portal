@@ -162,17 +162,21 @@
       if (!label) return;
       send({ t: "ev", eid: uuid(), sid: sid, vid: vid, site: location.hostname.replace(/^www\./, ""), path: location.pathname, project: projSlug(), kind: kind, label: label.slice(0, 300) });
     }
+    var CHAP = { project: "01 Het project", locatie: "02 Locatie", rendement: "03 Rendement & prijs", planning: "04 Planning", team: "05 Bouwmanagement", beheer: "06 Beheer", vertrouwen: "07 Zekerheden", vragen: "08 Vragen" };
+    function chapFromHash() { return CHAP[(location.hash || "").replace(/^#/, "")] || null; }
+    var lastChap = "";
+    function fireChap(c) { if (c && c !== lastChap) { lastChap = c; ev("chapter", c); } }
     var nav = document.getElementById("tabsNav");
     if (nav) {
+      // which chapter you land on (deep-link like #rendement, or the default first tab)
+      fireChap(chapFromHash() || CHAP.project);
+      // clicking a tab
       nav.addEventListener("click", function (e) {
         var btn = e.target.closest("button[data-tab]");
-        if (!btn) return;
-        var tn = btn.querySelector(".tn"); var num = tn ? tn.textContent.trim() : "";
-        var name = "";
-        btn.querySelectorAll("span").forEach(function (s) { if (!s.classList.contains("tn")) { var t = s.textContent.trim(); if (t) name = t; } });
-        if (!name) name = btn.textContent.replace(num, "").trim();
-        ev("chapter", (num ? num + " " : "") + name);
+        if (btn) fireChap(CHAP[btn.dataset.tab] || (btn.textContent || "").trim());
       });
+      // hash navigation (back/forward or manual #anchor)
+      window.addEventListener("hashchange", function () { fireChap(chapFromHash()); });
     }
     document.querySelectorAll(".faq details").forEach(function (d) {
       d.addEventListener("toggle", function () {
