@@ -70,12 +70,24 @@
       <div class="body">
         <div class="d-head">
           <div><h2 id="uName">Signature Villa</h2><div class="loc" id="uSub">3 slaapkamers · pool villa · Kedungu, Bali</div><div style="margin-top:8px"><span class="pill" id="pill"></span></div></div>
-          <div class="d-price"><div class="p" id="dprice">€325.000</div><div class="a" id="dstatus"></div></div>
+          <div class="d-price"><div class="p" id="dprice">€325.000</div><div class="a" id="dstatus"></div>
+            <button type="button" class="roi-badge" onclick="openBrochure()"><span class="num">10–18%</span><span class="lbl" data-t="roiBadgeLbl">rendement · bekijk de cijfers in de brochure</span></button>
+          </div>
         </div>
         <div class="facts" id="facts"></div>
         <div class="hl" id="hl"></div>
         <div class="checklist-note" id="soldNote">14 van de 15 units in MOKA zijn inmiddels verkocht: alle 4 Boutique Villa's en alle 4 Boutique Appartementen. Deze Signature Villa is de laatste beschikbare unit.</div>
+        <div class="brochure-preview">
+          <div class="bp-eyebrow" data-t="bpEyebrow">In de brochure vind je</div>
+          <div class="bp-items">
+            <div data-t="bpItem1">Plattegronden per villa</div>
+            <div data-t="bpItem2">Exacte prijs per unit</div>
+            <div data-t="bpItem3">Rendementsmodel &amp; 3 scenario's</div>
+            <div data-t="bpItem4">Betaalschema &amp; contractstructuur</div>
+          </div>
+        </div>
         <button type="button" class="btn" style="margin-top:16px" onclick="openBrochure()" data-t="heroCta2">Bekijk volledige brochure</button>
+        <div class="cta-trust" data-t="ctaTrust">Gratis en vrijblijvend · 1 minuut · direct toegang tot alle cijfers</div>
       </div>
     </div>
   </div>
@@ -155,6 +167,9 @@ const T={
  nl:{navProjects:"Projecten",navContact:"Contact",back:"Projecten",
   heroSub:"In MOKA ontwikkelen we een boutique community met een eigen café, wellness club en rooftop pool lounge, op 600 meter van het strand in Kedungu. Van de 15 units is alleen de laatste Signature Villa nog beschikbaar.",
   heroCta1:"Contact via WhatsApp",heroCta2:"Bekijk volledige brochure",t1:"units al verkocht",t2:"laatste beschikbare unit",t3:"netto rendement (realistisch)",
+  roiBadgeLbl:"rendement · bekijk de cijfers in de brochure",
+  bpEyebrow:"In de brochure vind je",bpItem1:"Plattegronden per villa",bpItem2:"Exacte prijs per unit",bpItem3:"Rendementsmodel & 3 scenario's",bpItem4:"Betaalschema & contractstructuur",
+  ctaTrust:"Gratis en vrijblijvend · 1 minuut · direct toegang tot alle cijfers",
   mStatus:"Laatste unit · nog te koop",
   ctaTitle:"Nog 1 unit beschikbaar in MOKA",ctaSub:"Vraag de laatste Signature Villa aan, bekijk de volledige digitale brochure met alle renders, plattegronden en het rendementsmodel, of stel je vraag direct aan Ashley.",
   ctaWa:"Praat met Ashley via WhatsApp",agentRole:"Sales Manager, UTAMA",heroFounderRole:"Oprichter UTAMA",
@@ -166,6 +181,9 @@ const T={
  en:{navProjects:"Projects",navContact:"Contact",back:"Projects",
   heroSub:"At MOKA we're building a boutique community with its own café, wellness club and rooftop pool lounge, 600 metres from the beach in Kedungu. Of the 15 homes, only the last Signature Villa is still available.",
   heroCta1:"Chat on WhatsApp",heroCta2:"View full brochure",t1:"units already sold",t2:"last available unit",t3:"net yield (realistic)",
+  roiBadgeLbl:"return · see the numbers in the brochure",
+  bpEyebrow:"Inside the brochure",bpItem1:"Floor plans per villa",bpItem2:"Exact price per unit",bpItem3:"Return model & 3 scenarios",bpItem4:"Payment schedule & contract structure",
+  ctaTrust:"Free and no obligation · 1 minute · instant access to all the numbers",
   mStatus:"Last unit · still for sale",
   ctaTitle:"1 unit still available in MOKA",ctaSub:"Ask about the last Signature Villa, view the full digital brochure with all renders, floor plans and the return model, or ask Ashley directly.",
   ctaWa:"Chat with Ashley on WhatsApp",agentRole:"Sales Manager, UTAMA",heroFounderRole:"Founder of UTAMA",

@@ -70,9 +70,20 @@
       <div class="body">
         <div class="d-head">
           <div><h2>The Dune</h2><div class="loc">Cemagi, Bali</div><div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="pill" id="pill"></span><span class="momentum" id="momentum"></span></div></div>
-          <div class="d-price"><div class="p" id="dprice">vanaf €325.000</div><div class="a" data-t="mStatus">In verkoop · oplevering medio 2027</div></div>
+          <div class="d-price"><div class="p" id="dprice">vanaf €325.000</div><div class="a" data-t="mStatus">In verkoop · oplevering medio 2027</div>
+            <button type="button" class="roi-badge" onclick="openBrochure()"><span class="num">12–17%</span><span class="lbl" data-t="roiBadgeLbl">rendement · bekijk de cijfers in de brochure</span></button>
+          </div>
         </div>
         <div class="hl" id="hl"></div>
+        <div class="brochure-preview">
+          <div class="bp-eyebrow" data-t="bpEyebrow">In de brochure vind je</div>
+          <div class="bp-items">
+            <div data-t="bpItem1">Plattegronden per villa</div>
+            <div data-t="bpItem2">Exacte prijs per unit</div>
+            <div data-t="bpItem3">Rendementsmodel &amp; 3 scenario's</div>
+            <div data-t="bpItem4">Betaalschema &amp; contractstructuur</div>
+          </div>
+        </div>
         <div class="build-banner">
           <div class="bb-icon">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19a8 8 0 0 1 16 0"/><path d="M2 19h20"/><path d="M12 6v4"/><circle cx="12" cy="4" r="1.6" fill="currentColor" stroke="none"/></svg>
@@ -87,6 +98,7 @@
           </span>
         </div>
         <button type="button" class="btn" style="margin-top:16px" onclick="openBrochure()" data-t="mHeroCta2">Bekijk volledige brochure</button>
+        <div class="cta-trust" data-t="ctaTrust">Gratis en vrijblijvend · 1 minuut · direct toegang tot alle cijfers</div>
       </div>
     </div>
   </div>
@@ -160,6 +172,9 @@ const T={
  nl:{navProjects:"Projecten",navContact:"Contact",back:"Projecten",
   mHeroSub:"Met The Dune bouwen we vier luxe 3-slaapkamer Sanctuary-villa's op 300 meter van het strand in Cemagi. Rooftop met jacuzzi, ice bath en sauna, privé zwembad en tuin. Jij bezit de villa, wij ontwikkelen, beheren en verhuren hem voor je.",
   mHeroCta1:"Contact via WhatsApp",mHeroCta2:"Bekijk volledige brochure",mt1:"richtprijs, nu in verkoop",mt2:"netto rendement (realistisch)",mt3:"al verkocht",mStatus:"In verkoop · oplevering medio 2027",
+  roiBadgeLbl:"rendement · bekijk de cijfers in de brochure",
+  bpEyebrow:"In de brochure vind je",bpItem1:"Plattegronden per villa",bpItem2:"Exacte prijs per unit",bpItem3:"Rendementsmodel & 3 scenario's",bpItem4:"Betaalschema & contractstructuur",
+  ctaTrust:"Gratis en vrijblijvend · 1 minuut · direct toegang tot alle cijfers",
   ctaTitle:"Klaar voor de volgende stap?",ctaSub:"Bekijk de volledige digitale brochure met alle renders, plattegronden, exacte prijzen en het rendementsmodel, of stel je vraag direct aan Ashley.",
   ctaWa:"Praat met Ashley via WhatsApp",agentRole:"Sales Manager, UTAMA",heroFounderRole:"Oprichter UTAMA",
   footer:"Investeren in Bali-vastgoed, transparant en zorgeloos.",footerRef:"Verdien €2.500 als je iemand aanbrengt",
@@ -171,6 +186,9 @@ const T={
  en:{navProjects:"Projects",navContact:"Contact",back:"Projects",
   mHeroSub:"With The Dune we're building four luxury 3-bedroom Sanctuary villas 300 meters from the beach in Cemagi. Rooftop with jacuzzi, ice bath and sauna, private pool and garden. You own the villa, we develop, manage and rent it out for you.",
   mHeroCta1:"Chat on WhatsApp",mHeroCta2:"View full brochure",mt1:"guide price, selling now",mt2:"net yield (realistic)",mt3:"already sold",mStatus:"Selling now · completion mid-2027",
+  roiBadgeLbl:"return · see the numbers in the brochure",
+  bpEyebrow:"Inside the brochure",bpItem1:"Floor plans per villa",bpItem2:"Exact price per unit",bpItem3:"Return model & 3 scenarios",bpItem4:"Payment schedule & contract structure",
+  ctaTrust:"Free and no obligation · 1 minute · instant access to all the numbers",
   ctaTitle:"Ready for the next step?",ctaSub:"View the full digital brochure with all renders, floor plans, exact prices and the return model, or ask Ashley directly.",
   ctaWa:"Chat with Ashley on WhatsApp",agentRole:"Sales Manager, UTAMA",heroFounderRole:"Founder of UTAMA",
   footer:"Investing in Bali real estate, transparent and hassle-free.",footerRef:"Earn €2,500 for every friend you bring in",
