@@ -69,9 +69,7 @@
       <div class="body">
         <div class="d-head">
           <div><h2>The Maison</h2><div class="loc">Pererenan, Bali</div><div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="pill" id="pill"></span><span class="momentum" id="momentum"></span></div></div>
-          <div class="d-price"><div class="p" id="dprice">vanaf €210.000</div><div class="a" data-t="mStatus">In verkoop · oplevering april 2027</div>
-            <button type="button" class="roi-badge" onclick="openBrochure()"><span class="num">12–17%</span><span class="lbl" data-t="roiBadgeLbl">rendement · bekijk de cijfers in de brochure</span></button>
-          </div>
+          <div class="d-price"><div class="p" id="dprice">vanaf €210.000</div><div class="a" data-t="mStatus">In verkoop · oplevering april 2027</div></div>
         </div>
         <div class="hl" id="hl"></div>
         <div class="brochure-preview">
@@ -96,7 +94,10 @@
             <span data-t="bbCam">Live bouwcamera vanaf 5 augustus</span>
           </span>
         </div>
-        <button type="button" class="btn" style="margin-top:16px" onclick="openBrochure()" data-t="mHeroCta2">Bekijk volledige brochure</button>
+        <div class="cta-row">
+          <button type="button" class="btn" onclick="openBrochure()" data-t="mHeroCta2">Bekijk volledige brochure</button>
+          <button type="button" class="roi-badge" onclick="openBrochure()"><span class="num">12–17%</span><span class="lbl" data-t="roiBadgeLbl">rendement · bekijk de cijfers in de brochure</span></button>
+        </div>
         <div class="cta-trust" data-t="ctaTrust">Gratis en vrijblijvend · 1 minuut · direct toegang tot alle cijfers</div>
       </div>
     </div>

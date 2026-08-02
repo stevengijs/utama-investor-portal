@@ -139,14 +139,17 @@ section{padding:52px 0}
 .hl div{font-size:14px;padding-left:22px;position:relative;color:#3f3a30}
 .hl div::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:700}
 
-/* ROI-badge naast de prijs: klein, klikbaar chip dat direct de brochuremodal
-   opent. Geen terracotta (dat is gereserveerd voor referral-content) - het
-   platformgroen sluit aan bij de rest van de financiele accenten. */
-.roi-badge{display:inline-flex;align-items:center;gap:8px;margin-top:10px;background:#FBF1E9;border:1px solid var(--line);border-radius:var(--radius-pill);padding:8px 14px 8px 12px;cursor:pointer;font-family:inherit;text-align:left;transition:border-color .15s}
-.roi-badge:hover{border-color:var(--green)}
-.roi-badge .num{font-family:'Inter',system-ui,-apple-system,sans-serif !important;font-weight:800 !important;font-size:15px;color:var(--green);white-space:nowrap}
-.roi-badge .lbl{font-size:11.5px;font-weight:600;color:var(--muted);line-height:1.3;max-width:22ch}
-@media(max-width:520px){.roi-badge{width:100%;justify-content:center;text-align:center}.roi-badge .lbl{max-width:none}}
+/* ROI-badge naast de "Bekijk volledige brochure"-knop: klikbaar, opent direct
+   de brochuremodal. --opt-deep (olijf) is platformbreed al de kleur voor
+   rendement/groei (zie .big-yield/.results in de brochure-rekentool) - niet
+   --green (dat is een alias voor inkt/zwart, en zou wegvallen naast de
+   zwarte CTA-knop) en niet --terra (gereserveerd voor referral-content). */
+.cta-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px}
+.roi-badge{display:inline-flex;align-items:center;gap:8px;background:var(--opt-deep);border:none;border-radius:var(--radius-pill);padding:12px 18px;cursor:pointer;font-family:inherit;text-align:left;box-shadow:var(--shadow);transition:opacity .15s,transform .15s}
+.roi-badge:hover{opacity:.9;transform:translateY(-1px)}
+.roi-badge .num{font-family:'Inter',system-ui,-apple-system,sans-serif !important;font-weight:800 !important;font-size:16px;color:var(--opt-ink);white-space:nowrap}
+.roi-badge .lbl{font-size:11.5px;font-weight:600;color:rgba(255,255,255,.88);line-height:1.25;max-width:21ch}
+@media(max-width:560px){.cta-row{flex-direction:column;align-items:stretch}.cta-row .btn{justify-content:center}.roi-badge{justify-content:center;text-align:center}.roi-badge .lbl{max-width:none}}
 
 /* "In de brochure vind je" - maakt concreet wat een klik oplevert, ipv "meer info". */
 .brochure-preview{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
