@@ -23,9 +23,12 @@
 <nav>
   <div class="wrap row">
     <span class="brand" style="cursor:default">UT<span>A</span>MA</span>
-    <div class="lang">
-      <button id="btnNL" class="on" onclick="setLang('nl')">NL</button>
-      <button id="btnEN" onclick="setLang('en')">EN</button>
+    <div class="nav-right">
+      <button type="button" class="btn nav-cta" onclick="openBrochure()" data-t="navCta">Bekijk brochure</button>
+      <div class="lang">
+        <button id="btnNL" class="on" onclick="setLang('nl')">NL</button>
+        <button id="btnEN" onclick="setLang('en')">EN</button>
+      </div>
     </div>
   </div>
 </nav>
@@ -40,7 +43,7 @@
     <div class="inner">
       <div class="eyebrow" data-t="eyebrow">Pererenan, Bali · Digitale brochure</div>
       <h1 data-t="h1">Eigen villa op Bali.<br>Wij verhuren hem voor je.</h1>
-      <p data-t="sub">Zes volledig verhuurklare designvilla's in Pererenan. Jij bezit de villa, House of Reservations (250+ villa's) verzorgt het complete verhuurbeheer. Geen omkijken, wel het rendement.</p>
+      <p data-t="sub">Zes volledig verhuurklare designvilla's in Pererenan. Jij bezit de villa, een gespecialiseerd verhuurteam verzorgt het complete verhuurbeheer. Geen omkijken, wel het rendement.</p>
       <div class="btns">
         <button type="button" class="btn btn-lg" onclick="openBrochure()" data-t="cta1">Bekijk volledige brochure</button>
       </div>
@@ -72,7 +75,7 @@
       <div class="mech-card">
         <div class="mech-n">01</div>
         <h3 data-t="mech1H">Jij koopt, wij bouwen</h3>
-        <p data-t="mech1P">Bali Prime Construction bouwt onder onafhankelijke supervisie, met 10 jaar garantie op de bouwkundige schil en een vaste bouwplanning.</p>
+        <p data-t="mech1P">Onze bouwpartner bouwt onder onafhankelijke supervisie, met 10 jaar garantie op de bouwkundige schil en een vaste bouwplanning.</p>
       </div>
       <div class="mech-card">
         <div class="mech-n">02</div>
@@ -82,7 +85,7 @@
       <div class="mech-card">
         <div class="mech-n">03</div>
         <h3 data-t="mech3H">Wij verhuren</h3>
-        <p data-t="mech3P">House of Reservations (250+ villa's) verzorgt listings, gastcommunicatie, housekeeping en onderhoud. Jij ontvangt de huurinkomsten.</p>
+        <p data-t="mech3P">Een gespecialiseerd verhuurteam (250+ villa's onder beheer) verzorgt listings, gastcommunicatie, housekeeping en onderhoud. Jij ontvangt de huurinkomsten.</p>
       </div>
       <div class="mech-card">
         <div class="mech-n">04</div>
@@ -156,7 +159,7 @@
       </details>
       <details>
         <summary data-t="faqQ3">Wat als de bouw vertraagt?</summary>
-        <p data-t="faqA3">Bali Prime Construction bouwt met 10 jaar garantie op de bouwkundige schil, onder onafhankelijke supervisie en met een vaste bouwplanning. De actuele bouwstatus is live te volgen.</p>
+        <p data-t="faqA3">Onze bouwpartner bouwt met 10 jaar garantie op de bouwkundige schil, onder onafhankelijke supervisie en met een vaste bouwplanning. De actuele bouwstatus is live te volgen.</p>
       </details>
       <details>
         <summary data-t="faqQ4">Waarvoor is de aanbetaling van €5.000?</summary>
@@ -183,7 +186,6 @@
       <p data-t="finalP">Bekijk de volledige digitale brochure met alle renders, plattegronden, exacte prijzen en het rendementsmodel, of stel je vraag direct aan Ashley.</p>
       <div class="cta-btns">
         <button type="button" class="btn" onclick="openBrochure()" data-t="cta1">Bekijk volledige brochure</button>
-        <button type="button" class="btn wa-btn" onclick="waDirect()"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg><span data-t="ctaWa">Praat met Ashley via WhatsApp</span></button>
       </div>
     </div>
   </div>
@@ -193,29 +195,29 @@
   <div class="wrap">
     UTAMA · <span data-t="footer">Investeren in Bali-vastgoed, transparant en zorgeloos.</span>
     <div class="disc" data-t="disc">Deze pagina geeft indicatieve informatie en geen fiscaal of juridisch advies. Rendementen zijn schattingen, geen garanties. Laat contracten altijd controleren door een bevoegde notaris (PPAT) en je eigen adviseur.</div>
-    <button class="fab-wa" onclick="waDirect()" title="WhatsApp" aria-label="WhatsApp"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg></button>
   </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="/supabase-client.js"></script>
 <script>
-const CONFIG = { whatsapp:"31624845014", email:"steven@utamabali.com", locale:"nl-NL", currency:"EUR" };
+const CONFIG = { email:"steven@utamabali.com", locale:"nl-NL", currency:"EUR" };
 
 const T={
  nl:{
+  navCta:"Bekijk brochure",
   urgText:"Prijs stijgt naar <b>€225.000</b> op 15 augustus",
   eyebrow:"Pererenan, Bali · Digitale brochure",
   h1:"Eigen villa op Bali.<br>Wij verhuren hem voor je.",
-  sub:"Zes volledig verhuurklare designvilla's in Pererenan. Jij bezit de villa, House of Reservations (250+ villa's) verzorgt het complete verhuurbeheer. Geen omkijken, wel het rendement.",
+  sub:"Zes volledig verhuurklare designvilla's in Pererenan. Jij bezit de villa, een gespecialiseerd verhuurteam verzorgt het complete verhuurbeheer. Geen omkijken, wel het rendement.",
   cta1:"Bekijk volledige brochure",
   ctaTrust:"Gratis en vrijblijvend · 1 minuut · direct toegang tot alle cijfers",
   mt1:"richtprijs, nu in verkoop",mt2:"verwacht rendement per jaar",mt3:"villa's nog beschikbaar",
   heroFounderRole:"Oprichter UTAMA",
   mechEyebrow:"Hoe dit werkt",mechH2:"Vier stappen, geen omkijken",
-  mech1H:"Jij koopt, wij bouwen",mech1P:"Bali Prime Construction bouwt onder onafhankelijke supervisie, met 10 jaar garantie op de bouwkundige schil en een vaste bouwplanning.",
+  mech1H:"Jij koopt, wij bouwen",mech1P:"Onze bouwpartner bouwt onder onafhankelijke supervisie, met 10 jaar garantie op de bouwkundige schil en een vaste bouwplanning.",
   mech2H:"Notarieel vastgelegd",mech2P:"30 + 30 jaar leasehold, notarieel op jouw naam, inclusief de PBG-bouwvergunning en SLF-gebruiksvergunning. Je rechten staan los van UTAMA.",
-  mech3H:"Wij verhuren",mech3P:"House of Reservations (250+ villa's) verzorgt listings, gastcommunicatie, housekeeping en onderhoud. Jij ontvangt de huurinkomsten.",
+  mech3H:"Wij verhuren",mech3P:"Een gespecialiseerd verhuurteam (250+ villa's onder beheer) verzorgt listings, gastcommunicatie, housekeeping en onderhoud. Jij ontvangt de huurinkomsten.",
   mech4H:"Volledig digitaal",mech4P:"Je hoeft niet naar Bali. Due diligence, contracten en ondertekening (met volmacht) verlopen net zo goed volledig op afstand.",
   proofEyebrow:"Track record",proofH2:"Geen beloftes. Een track record.",
   proof1:"Nederlandse investeerders",proof2:"opgeleverde projecten",proof3:"ontvangen al maandelijks huurinkomsten",
@@ -225,29 +227,29 @@ const T={
   faqEyebrow:"Veelgestelde vragen",faqH2:"Voordat je verder gaat",
   faqQ1:"Moet ik naar Bali komen?",faqA1:"Nee. Due diligence, contracten en ondertekening (met volmacht) verlopen volledig digitaal. Ben je toch op locatie, dan kan dat net zo goed op kantoor bij de notaris, jij kiest.",
   faqQ2:"Is dit juridisch veilig?",faqA2:"Onafhankelijke notarissen handelen elke transactie af, met due diligence vooraf. Je 30 + 30 jaar leasehold wordt notarieel op jouw naam vastgelegd, je rechten staan los van UTAMA.",
-  faqQ3:"Wat als de bouw vertraagt?",faqA3:"Bali Prime Construction bouwt met 10 jaar garantie op de bouwkundige schil, onder onafhankelijke supervisie en met een vaste bouwplanning. De actuele bouwstatus is live te volgen.",
+  faqQ3:"Wat als de bouw vertraagt?",faqA3:"Onze bouwpartner bouwt met 10 jaar garantie op de bouwkundige schil, onder onafhankelijke supervisie en met een vaste bouwplanning. De actuele bouwstatus is live te volgen.",
   faqQ4:"Waarvoor is de aanbetaling van €5.000?",faqA4:"Om je voorkeursvilla te reserveren en de huidige prijs vast te zetten. Het bedrag wordt volledig verrekend bij aankoop, en volledig terugbetaald als het papierwerk aan onze kant niet blijkt te kloppen.",
   agentRole:"Sales Manager, UTAMA",
   finalH2:"Klaar om te zien wat er mogelijk is?",
   finalP:"Bekijk de volledige digitale brochure met alle renders, plattegronden, exacte prijzen en het rendementsmodel, of stel je vraag direct aan Ashley.",
-  ctaWa:"Praat met Ashley via WhatsApp",
   footer:"Investeren in Bali-vastgoed, transparant en zorgeloos.",
   disc:"Deze pagina geeft indicatieve informatie en geen fiscaal of juridisch advies. Rendementen zijn schattingen, geen garanties. Laat contracten altijd controleren door een bevoegde notaris (PPAT) en je eigen adviseur.",
   urgDays:"Nog {n} dagen"
  },
  en:{
+  navCta:"View brochure",
   urgText:"Price rises to <b>€225,000</b> on 15 August",
   eyebrow:"Pererenan, Bali · Digital brochure",
   h1:"Your own villa in Bali.<br>We rent it out for you.",
-  sub:"Six fully rental-ready design villas in Pererenan. You own the villa, House of Reservations (250+ villas) handles the entire rental management. No hassle, just the return.",
+  sub:"Six fully rental-ready design villas in Pererenan. You own the villa, a specialised rental management team handles the entire rental process. No hassle, just the return.",
   cta1:"View full brochure",
   ctaTrust:"Free and no obligation · 1 minute · instant access to all the numbers",
   mt1:"guide price, selling now",mt2:"expected annual return",mt3:"villas still available",
   heroFounderRole:"Founder of UTAMA",
   mechEyebrow:"How this works",mechH2:"Four steps, zero hassle",
-  mech1H:"You buy, we build",mech1P:"Bali Prime Construction builds under independent supervision, with a 10-year warranty on the structural shell and a fixed construction schedule.",
+  mech1H:"You buy, we build",mech1P:"Our building partner builds under independent supervision, with a 10-year warranty on the structural shell and a fixed construction schedule.",
   mech2H:"Notarised in your name",mech2P:"30 + 30 year leasehold, notarised in your name, including the PBG building permit and SLF occupancy permit. Your rights exist independently of UTAMA.",
-  mech3H:"We rent it out",mech3P:"House of Reservations (250+ villas) handles listings, guest communication, housekeeping and maintenance. You receive the rental income.",
+  mech3H:"We rent it out",mech3P:"A specialised rental team (250+ villas under management) handles listings, guest communication, housekeeping and maintenance. You receive the rental income.",
   mech4H:"Fully digital",mech4P:"You don't need to be in Bali. Due diligence, contracts and signing (via power of attorney) can all be done remotely too.",
   proofEyebrow:"Track record",proofH2:"No promises. A track record.",
   proof1:"Dutch investors",proof2:"completed projects",proof3:"already receiving monthly rental income",
@@ -257,12 +259,11 @@ const T={
   faqEyebrow:"Frequently asked",faqH2:"Before you go on",
   faqQ1:"Do I need to come to Bali?",faqA1:"No. Due diligence, contracts and signing (via power of attorney) are fully digital. If you happen to be on location, you can also sign at the notary's office, it's your choice.",
   faqQ2:"Is this legally safe?",faqA2:"Independent notaries handle every transaction, with due diligence upfront. Your 30 + 30 year leasehold is notarised in your name, your rights exist independently of UTAMA.",
-  faqQ3:"What if construction is delayed?",faqA3:"Bali Prime Construction builds with a 10-year warranty on the structural shell, under independent supervision and a fixed construction schedule. Current build status is tracked live.",
+  faqQ3:"What if construction is delayed?",faqA3:"Our building partner builds with a 10-year warranty on the structural shell, under independent supervision and a fixed construction schedule. Current build status is tracked live.",
   faqQ4:"What's the €5,000 deposit for?",faqA4:"To reserve your preferred villa and lock in the current price. The amount is fully deducted at purchase, and fully refunded if the paperwork on our end turns out not to check out.",
   agentRole:"Sales Manager, UTAMA",
   finalH2:"Ready to see what's possible?",
   finalP:"View the full digital brochure with all renders, floor plans, exact prices and the return model, or ask Ashley directly.",
-  ctaWa:"Chat with Ashley on WhatsApp",
   footer:"Investing in Bali real estate, transparent and hassle-free.",
   disc:"This page provides indicative information and no tax or legal advice. Returns are estimates, not guarantees. Always have contracts checked by an authorised notary (PPAT) and your own adviser.",
   urgDays:"{n} days left"
@@ -296,7 +297,6 @@ function setLang(l){
   });
   renderUrgency();
 }
-function waDirect(){ fbTrackContact('The Maison'); var msg=(lang==='nl'?"Hi! Ik heb interesse in The Maison in Pererenan.":"Hi! I'm interested in The Maison in Pererenan."); window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg),"_blank"); }
 function openBrochure(){
   try{ if(localStorage.getItem('maison_brochure_lead')){ window.location.href="/the-maison/brochure/"; return; } }catch(e){}
   el('broModal').classList.add('open'); document.body.style.overflow='hidden';
@@ -355,8 +355,40 @@ setLang(_pickInitialLang());
   .urg-bar b{font-weight:800}
   .urg-days{background:rgba(255,255,255,.14);border-radius:var(--radius-pill);padding:3px 10px;font-weight:700;font-size:12px}
 
-  .btn-lg{padding:15px 28px;font-size:16px}
+  /* CRO-testvariant: eigen, opvallende CTA-kleur i.p.v. de platform-ink-knop -
+     bewust NIET var(--terra)/--gold (die zijn platformbreed exclusief voor
+     referral) en niet var(--ok) (gereserveerd voor status). #C2410C/#9A3412
+     halen ruim WCAG AA-contrast (5.18:1 / 7.31:1) met witte knoptekst. Alleen
+     op deze testpagina, geen wijziging aan styles.css. */
+  :root{ --cta-bg:#C2410C; --cta-bg-hover:#9A3412; }
+  .btn{background:var(--cta-bg)}
+  .btn:hover{background:var(--cta-bg-hover)}
+  .btn-lg{padding:17px 30px;font-size:16.5px;border-radius:12px;font-weight:700}
   .cta-trust{margin-top:10px;font-size:12.5px;color:var(--muted)}
+
+  /* Nav-knop in de mee-scrollende (sticky) headerbalk */
+  .nav-right{display:flex;align-items:center;gap:10px}
+  .nav-cta{padding:9px 16px;font-size:13px;border-radius:var(--radius-pill);white-space:nowrap}
+  @media(max-width:400px){.nav-cta{padding:8px 12px;font-size:12px}}
+
+  /* Mobielvriendelijk: knoppen breed, gecentreerd en groot voor betere CTR */
+  @media(max-width:560px){
+    .btns{justify-content:center}
+    .btns .btn-lg{width:100%;max-width:380px;margin:0 auto;display:block;text-align:center}
+    .cta-btns{justify-content:center}
+    .cta-btns .btn{width:100%;max-width:380px;margin:0 auto;display:block;text-align:center}
+  }
+
+  /* Hero-afbeelding blijft zichtbaar op mobiel (normaal platformbreed
+     display:none onder 940px) - een lander zonder beeld overtuigt niet.
+     Beeld staat op mobiel bovenaan, edge-to-edge, tekst volgt eronder. */
+  @media(max-width:939px){
+    .hero .inner{padding-top:22px}
+    .hero-grid{display:flex;flex-direction:column-reverse}
+    .hero-visual{display:block !important;padding:0;margin:0 -20px 22px}
+    .hero-photo{position:relative;height:280px;border-radius:0;box-shadow:none;background-position:center 62% !important}
+    .hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,20,15,0) 55%,rgba(23,20,15,.5) 100%)}
+  }
 
   .lp-section{padding:56px 0}
   .lp-section.proof-section{background:var(--sand-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
