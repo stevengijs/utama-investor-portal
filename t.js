@@ -179,5 +179,15 @@
         if (d.open) { var s = d.querySelector("summary"); ev("faq", s ? s.textContent : ""); }
       });
     });
+    // ROI calculator: fire once when the visitor first interacts with a slider/input
+    var calc = document.querySelector(".calc");
+    if (calc) {
+      var calcFired = false;
+      calc.addEventListener("input", function (e) {
+        if (calcFired) return;
+        var t = e.target;
+        if (t && (t.type === "range" || t.tagName === "INPUT" || t.tagName === "SELECT")) { calcFired = true; ev("tool", "ROI-calculator"); }
+      });
+    }
   })();
 })();
