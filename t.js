@@ -145,4 +145,32 @@
   window.addEventListener("popstate", function () { flush(); setTimeout(pageview, 0); });
 
   pageview();
+
+  /* ---- brochure interactions: chapter views + FAQ opens (brochure pages only) ---- */
+  (function () {
+    if (!/\/brochure(\/|$)/.test(location.pathname)) return;
+    function projSlug() { var m = location.pathname.match(/^\/([a-z0-9-]+)\//i); return m ? m[1] : ""; }
+    function ev(kind, label) {
+      label = (label || "").replace(/\s+/g, " ").trim();
+      if (!label) return;
+      send({ t: "ev", eid: uuid(), sid: sid, site: location.hostname.replace(/^www\./, ""), path: location.pathname, project: projSlug(), kind: kind, label: label.slice(0, 300) });
+    }
+    var nav = document.getElementById("tabsNav");
+    if (nav) {
+      nav.addEventListener("click", function (e) {
+        var btn = e.target.closest("button[data-tab]");
+        if (!btn) return;
+        var tn = btn.querySelector(".tn"); var num = tn ? tn.textContent.trim() : "";
+        var name = "";
+        btn.querySelectorAll("span").forEach(function (s) { if (!s.classList.contains("tn")) { var t = s.textContent.trim(); if (t) name = t; } });
+        if (!name) name = btn.textContent.replace(num, "").trim();
+        ev("chapter", (num ? num + " " : "") + name);
+      });
+    }
+    document.querySelectorAll(".faq details").forEach(function (d) {
+      d.addEventListener("toggle", function () {
+        if (d.open) { var s = d.querySelector("summary"); ev("faq", s ? s.textContent : ""); }
+      });
+    });
+  })();
 })();
