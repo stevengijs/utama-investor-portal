@@ -189,5 +189,10 @@
         if (t && (t.type === "range" || t.tagName === "INPUT" || t.tagName === "SELECT")) { calcFired = true; ev("tool", "ROI-calculator"); }
       });
     }
+    // Brochure PDF download: fire on click of any download link / .pdf link
+    document.addEventListener("click", function (e) {
+      var a = e.target && e.target.closest ? e.target.closest("a[download], a[href$='.pdf'], a[href*='.pdf?']") : null;
+      if (a) ev("download", "Brochure (PDF)");
+    });
   })();
 })();
