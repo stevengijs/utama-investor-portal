@@ -611,9 +611,9 @@
   <a href="/" class="brand">UTAMA</a>
   <div class="bnav-mid">
     <span class="tag" data-t="navTag">Digitale Brochure &middot; The Dune</span>
-    <a class="pdf-chip" id="navPdfChip" href="#" target="_blank" rel="noopener" style="display:none">
+    <a class="pdf-chip" id="navPdfChip" href="/the-dune/brochure/UTAMA-The-Dune-Investeerdersbrochure.pdf?v=20260803a" download="UTAMA-The-Dune-Investeerdersbrochure.pdf" style="display:none">
       <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-      <span class="pc-lbl" data-t="navPdfLbl">Vraag de PDF-brochure</span>
+      <span class="pc-lbl" data-t="navPdfLbl">Download de brochure als PDF</span>
     </a>
     <a class="dataroom-link" id="dataroomLink" href="/the-dune/dataroom/">
       <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
@@ -738,7 +738,7 @@
         <a class="wa block" id="waRailWa" target="_blank" rel="noopener"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg><span data-t="waAshleyBtn">WhatsApp Ashley</span></a>
         <button class="btn-outline block" id="waRailReserve" type="button" onclick="openReserveModal()" data-t="reserveBtn">Reserveer een villa</button>
       </div>
-      <button class="print-btn" type="button" onclick="window.print()"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg><span data-t="printBtn">Bewaar als PDF</span></button>
+      <a class="print-btn" href="/the-dune/brochure/UTAMA-The-Dune-Investeerdersbrochure.pdf?v=20260803a" download="UTAMA-The-Dune-Investeerdersbrochure.pdf"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg><span data-t="printBtn">Download als PDF</span></a>
     </div>
     <div class="rail-note"><span data-t="railNoteLbl">Live bouwstatus bekijken?</span> <a id="bbCam" target="_blank" rel="noopener" data-t="railNoteCta">Vraag de bouwcamera aan →</a></div>
   </div>
@@ -1560,7 +1560,7 @@ function tr(s,o){ let r=s; for(const k in o) r=r.split("{"+k+"}").join(o[k]); re
 const T = {
  "nl": {
   "navTag": "Digitale Brochure · The Dune",
-  "navPdfLbl": "Vraag de PDF-brochure",
+  "navPdfLbl": "Download de brochure als PDF",
   "navDataroom": "Data room",
   "navBack": "← Terug",
   "gateH2": "Open je persoonlijke deal room",
@@ -1628,7 +1628,7 @@ const T = {
   "railAvailVal": "4 van de 4",
   "waAshleyBtn": "WhatsApp Ashley",
   "reserveBtn": "Reserveer een villa",
-  "printBtn": "Bewaar als PDF",
+  "printBtn": "Download als PDF",
   "railNoteLbl": "Live bouwstatus bekijken?",
   "railNoteCta": "Vraag de bouwcamera aan →",
   "tabProject": "Het project",
@@ -2067,12 +2067,11 @@ const T = {
   "waLabelBudget": "Budget",
   "waLabelWhen": "Koophorizon",
   "waReserveMsgTpl": "Hi Ashley! Ik wil graag {unit} van The Dune reserveren en de intentieverklaring ontvangen.",
-  "waPdfMsg": "Hi Ashley! Mag ik de PDF-brochure van The Dune ontvangen?",
   "waCamMsg": "Hi Ashley! Mag ik de link naar de live bouwcamera van The Dune?"
  },
  "en": {
   "navTag": "Digital Brochure · The Dune",
-  "navPdfLbl": "Request the PDF brochure",
+  "navPdfLbl": "Download the brochure as PDF",
   "navDataroom": "Data room",
   "navBack": "← Back",
   "gateH2": "Open your personal deal room",
@@ -2140,7 +2139,7 @@ const T = {
   "railAvailVal": "4 of 4",
   "waAshleyBtn": "WhatsApp Ashley",
   "reserveBtn": "Reserve a villa",
-  "printBtn": "Save as PDF",
+  "printBtn": "Download as PDF",
   "railNoteLbl": "Want to see live construction status?",
   "railNoteCta": "Request the construction camera →",
   "tabProject": "The project",
@@ -2579,7 +2578,6 @@ const T = {
   "waLabelBudget": "Budget",
   "waLabelWhen": "Purchase timeframe",
   "waReserveMsgTpl": "Hi Ashley! I'd like to reserve {unit} of The Dune and receive the letter of intent.",
-  "waPdfMsg": "Hi Ashley! Could I receive the PDF brochure of The Dune?",
   "waCamMsg": "Hi Ashley! Could I get the link to the live construction camera of The Dune?"
  }
 };
@@ -2775,8 +2773,6 @@ function reveal(l){
   ['waRailWa','waFooterWa','waSticky'].forEach(function(id){ if(el(id)) el(id).href=wa; });
   el('gate').style.display='none';
   el('portal').hidden=false;
-  // navPdfChip: geen PDF-bestand beschikbaar voor The Dune, dus dit is bewust een
-  // WhatsApp-deeplink i.p.v. een download-link, om geen dode/404-link te tonen.
   if(el('navPdfChip')) el('navPdfChip').style.display='flex';
   window.scrollTo({top:0,behavior:'instant'});
   if(typeof bcalc==='function') bcalc();
@@ -3162,7 +3158,6 @@ function setLang(l){
   document.querySelectorAll('[data-t]').forEach(function(e){ const k=e.getAttribute('data-t'); if(T[l][k]!==undefined) e.textContent=T[l][k]; });
   document.querySelectorAll('[data-tp]').forEach(function(e){ const k=e.getAttribute('data-tp'); if(T[l][k]!==undefined) e.placeholder=T[l][k]; });
   updateReturnFormText();
-  if(el('navPdfChip')) el('navPdfChip').href = "https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(T[l].waPdfMsg);
   renderBPricesel();
   bcalc(); /* roept intern ook bRenderScenarios() aan */
   renderPayStatus();
