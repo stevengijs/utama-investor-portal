@@ -289,9 +289,9 @@ function setLang(l){
 }
 function openBrochure(){
   try{ if(localStorage.getItem('maison_brochure_lead')){ window.location.href="/the-maison/brochure/"; return; } }catch(e){}
-  el('broModal').classList.add('open'); document.body.style.overflow='hidden';
+  el('broModal').classList.add('open'); document.body.style.overflow='hidden'; document.body.classList.add('modal-open');
 }
-function closeBrochure(){ el('broModal').classList.remove('open'); document.body.style.overflow=''; }
+function closeBrochure(){ el('broModal').classList.remove('open'); document.body.style.overflow=''; document.body.classList.remove('modal-open'); }
 function submitBrochure(e){
   e.preventDefault();
   const name=el('bmName').value.trim(), phone=el('bmPhone').value.trim(), email=el('bmEmail').value.trim();
@@ -372,12 +372,16 @@ setLang(_pickInitialLang());
   /* Sticky mobiele CTA-balk (86% van het verkeer) - zelfde patroon als de
      .sticky-cta in de investeerdersportalen: vaste balk onderaan, alleen
      onder de 940px-grens die ook de hero-afbeelding regelt. footer krijgt
-     evenveel extra ruimte onderaan zodat de balk niets overlapt. */
+     evenveel extra ruimte onderaan zodat de balk niets overlapt. z-index
+     ligt bewust ONDER .modal-ov (120), en body.modal-open verbergt de balk
+     ook expliciet zodra de brochure-popup open staat - anders overlapt de
+     balk het formulier/de submit-knop daarin (gezien op een echt toestel). */
   .sticky-cta{display:none}
   @media(max-width:939px){
-    .sticky-cta{position:fixed;left:0;right:0;bottom:0;background:var(--paper);border-top:1px solid var(--line);padding:10px 16px;display:block;z-index:150;box-shadow:0 -6px 18px rgba(23,20,15,.08)}
+    .sticky-cta{position:fixed;left:0;right:0;bottom:0;background:var(--paper);border-top:1px solid var(--line);padding:10px 16px;display:block;z-index:100;box-shadow:0 -6px 18px rgba(23,20,15,.08)}
     .sticky-cta .btn{width:100%;justify-content:center;padding:13px 16px;font-size:14.5px}
     footer{padding-bottom:78px}
+    body.modal-open .sticky-cta{display:none}
   }
 
   /* Hero-afbeelding blijft zichtbaar op mobiel (normaal platformbreed
