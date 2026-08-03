@@ -40,7 +40,7 @@
      (via body.modal-open), zodat het formulier alle ruimte krijgt. -->
 <div class="sticky-top-cta" id="stickyTopCta">
   <span class="brand" style="cursor:default;font-size:16px">UT<span>A</span>MA</span>
-  <button type="button" class="btn" onclick="openBrochure()" data-t="cta1">Bekijk volledige brochure</button>
+  <button type="button" class="btn" onclick="stickyTopDismiss()" data-t="cta1">Bekijk volledige brochure</button>
 </div>
 
 <div class="urg-bar" id="urgBar">
@@ -340,12 +340,20 @@ setLang(_pickInitialLang());
 // vlak boven "Gratis en vrijblijvend...") niet meer in beeld is, en
 // verdwijnt weer als je terugscrolt naar de hero. body.modal-open (zie
 // openBrochure/closeBrochure) dekt het "verbergen tijdens de popup" deel af.
+// Klik op de sticky top-CTA: open de brochure én laat de balk daarna weg
+// blijven (de bezoeker heeft de actie gedaan; hem opnieuw tonen is ruis).
+function stickyTopDismiss(){
+  var topBar = el('stickyTopCta');
+  if(topBar){ topBar.classList.remove('show'); topBar.dataset.dismissed = '1'; }
+  openBrochure();
+}
 (function(){
   var heroCta = document.querySelector('.hero .btns .btn-lg');
   var topBar = el('stickyTopCta');
   if(!heroCta || !topBar || !('IntersectionObserver' in window)) return;
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
+      if(topBar.dataset.dismissed){ return; }        // na een klik blijft de balk weg
       if(entry.isIntersecting){ topBar.classList.remove('show'); }
       else if(entry.boundingClientRect.top < 0){ topBar.classList.add('show'); }
     });
