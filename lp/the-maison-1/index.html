@@ -42,7 +42,7 @@
   <div class="wrap hero-grid">
     <div class="inner">
       <div class="eyebrow" data-t="eyebrow">Pererenan, Bali · Digitale brochure</div>
-      <h1 data-t="h1">Jouw eigen villa op Bali.<br>Wij bouwen &amp; verhuren voor passief inkomen.</h1>
+      <h1 data-t="h1">Eigen villa op Bali.<br>Wij bouwen &amp; verhuren 'm.</h1>
       <p data-t="sub">Zes volledig verhuurklare designvilla's in Pererenan. Jij bezit de villa, een gespecialiseerd verhuurteam verzorgt het complete verhuurbeheer. Geen omkijken, wel het rendement.</p>
       <div class="btns">
         <button type="button" class="btn btn-lg" onclick="openBrochure()" data-t="cta1">Bekijk volledige brochure</button>
@@ -51,7 +51,7 @@
       <div class="trustrow">
         <div><b>vanaf €210.000</b><span data-t="mt1">richtprijs, nu in verkoop</span></div>
         <div><b>12–17%</b><span data-t="mt2">verwacht rendement per jaar</span></div>
-        <div><b>€2.488</b><span data-t="mt4">netto per maand op je rekening, realistisch scenario</span></div>
+        <div><b>€2.488</b><span data-t="mt4">netto per maand op je rekening</span></div>
         <div><b>4 van 6</b><span data-t="mt3">villa's nog beschikbaar</span></div>
       </div>
     </div>
@@ -202,11 +202,11 @@ const T={
   navCta:"Bekijk brochure",
   urgText:"Prijs stijgt naar <b>€225.000</b> op 15 augustus",
   eyebrow:"Pererenan, Bali · Digitale brochure",
-  h1:"Jouw eigen villa op Bali.<br>Wij bouwen &amp; verhuren voor passief inkomen.",
+  h1:"Eigen villa op Bali.<br>Wij bouwen &amp; verhuren 'm.",
   sub:"Zes volledig verhuurklare designvilla's in Pererenan. Jij bezit de villa, een gespecialiseerd verhuurteam verzorgt het complete verhuurbeheer. Geen omkijken, wel het rendement.",
   cta1:"Bekijk volledige brochure",
   ctaTrust:"Gratis en vrijblijvend · 1 minuut · direct toegang tot alle cijfers",
-  mt1:"richtprijs, nu in verkoop",mt2:"verwacht rendement per jaar",mt3:"villa's nog beschikbaar",mt4:"netto per maand op je rekening, realistisch scenario",
+  mt1:"richtprijs, nu in verkoop",mt2:"verwacht rendement per jaar",mt3:"villa's nog beschikbaar",mt4:"netto per maand op je rekening",
   heroFounderRole:"Oprichter UTAMA",
   mechEyebrow:"Hoe dit werkt",mechH2:"Vier stappen, geen omkijken",
   mech1H:"Bouw is al gestart",mech1P:"The Maison is één van onze projecten: meerdere short-stay villa's voor Nederlandse investeerders, gebouwd onder één naam. De bouw loopt al, onder onafhankelijke supervisie en met 10 jaar garantie op de bouwkundige schil. Oplevering: 15 april 2027.",
@@ -232,11 +232,11 @@ const T={
   navCta:"View brochure",
   urgText:"Price rises to <b>€225,000</b> on 15 August",
   eyebrow:"Pererenan, Bali · Digital brochure",
-  h1:"Your own villa in Bali.<br>We build &amp; rent it out for passive income.",
+  h1:"Your own villa in Bali.<br>We build &amp; rent it out.",
   sub:"Six fully rental-ready design villas in Pererenan. You own the villa, a specialised rental management team handles the entire rental process. No hassle, just the return.",
   cta1:"View full brochure",
   ctaTrust:"Free and no obligation · 1 minute · instant access to all the numbers",
-  mt1:"guide price, selling now",mt2:"expected annual return",mt3:"villas still available",mt4:"net per month to your account, realistic scenario",
+  mt1:"guide price, selling now",mt2:"expected annual return",mt3:"villas still available",mt4:"net per month to your account",
   heroFounderRole:"Founder of UTAMA",
   mechEyebrow:"How this works",mechH2:"Four steps, zero hassle",
   mech1H:"Construction is already underway",mech1P:"The Maison is one of our projects: multiple short-stay villas for Dutch investors, built under one name. Construction is already underway, under independent supervision and with a 10-year warranty on the structural shell. Completion: 15 April 2027.",
@@ -341,9 +341,17 @@ setLang(_pickInitialLang());
   .brand{font-family:'Inter',system-ui,sans-serif;font-weight:800;font-size:20px;color:var(--ink);letter-spacing:-.02em}
   .brand span{color:var(--opt-deep)}
 
-  .urg-bar{background:var(--ink);color:#fff;text-align:center;font-size:13px;font-weight:600;padding:9px 16px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+  .urg-bar{background:var(--ink);color:#fff;text-align:center;font-size:13px;font-weight:600;padding:9px 16px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:nowrap;white-space:nowrap;overflow:hidden}
   .urg-bar b{font-weight:800}
-  .urg-days{background:rgba(255,255,255,.14);border-radius:var(--radius-pill);padding:3px 10px;font-weight:700;font-size:12px}
+  .urg-days{background:rgba(255,255,255,.14);border-radius:var(--radius-pill);padding:3px 10px;font-weight:700;font-size:12px;flex:none}
+  /* Op smalle schermen past de volledige urgentietekst + dagen-pil niet meer
+     op één regel bij 13px - i.p.v. laten wrappen (kost een extra regel hoogte,
+     duwt de knop verder weg) verkleinen we tekst en pil zodat ze naast elkaar
+     blijven staan, zoals bedoeld. */
+  @media(max-width:480px){
+    .urg-bar{font-size:11px;padding:7px 10px;gap:6px}
+    .urg-days{font-size:10.5px;padding:2px 7px}
+  }
 
   /* CRO-testvariant: eigen, opvallende CTA-kleur i.p.v. de platform-ink-knop -
      bewust NIET var(--terra)/--gold (die zijn platformbreed exclusief voor
@@ -394,6 +402,12 @@ setLang(_pickInitialLang());
     .hero-photo{position:relative;height:280px;border-radius:0;box-shadow:none;background-size:cover !important;background-position:center 38% !important}
     .hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,20,15,0) 55%,rgba(23,20,15,.5) 100%)}
   }
+
+  /* Nav niet mee laten scrollen (sticky) op mobiel: de sticky CTA-balk
+     onderaan dekt de "altijd een knop binnen bereik"-behoefte al af, dus
+     een blijvend gefixeerde topbalk kost hier alleen scrollruimte zonder
+     extra functie. Platformbreed blijft nav wel sticky (styles.css). */
+  @media(max-width:939px){ nav{position:static} }
 
   .lp-section{padding:56px 0}
   .lp-head{text-align:center;max-width:56ch;margin:0 auto 30px}
