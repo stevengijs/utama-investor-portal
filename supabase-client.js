@@ -115,9 +115,11 @@ function _sendCapiLead(fields, eventId){
 /* Read the first-party analytics session id (set by t.js in sessionStorage as _ua_sid).
  * Storing it on the lead lets the admin match a live website visitor to their CRM contact. */
 function _getAnalyticsSession(){
+  try{ if(window._ua_sid) return window._ua_sid; }catch(e){}
   try{ return sessionStorage.getItem('_ua_sid') || null; }catch(e){ return null; }
 }
 function _getAnalyticsVid(){
+  try{ if(window._ua_vid) return window._ua_vid; }catch(e){}
   try{ return localStorage.getItem('_ua_vid') || null; }catch(e){ return null; }
 }
 async function submitLead(fields){

@@ -25,7 +25,12 @@
   try {
     vid = localStorage.getItem("_ua_vid");
     if (!vid) { vid = uuid(); localStorage.setItem("_ua_vid", vid); }
-  } catch (e) { vid = ""; }
+  } catch (e) { vid = uuid(); }
+  if (!vid) vid = uuid();
+
+  /* Expose the in-memory ids so the lead form can link a submission to this session
+     even when sessionStorage/localStorage is blocked (Safari private, Brave, iOS ITP). */
+  try { window._ua_sid = sid; window._ua_vid = vid; } catch (e) {}
 
   var UA = navigator.userAgent || "";
   function device() {
