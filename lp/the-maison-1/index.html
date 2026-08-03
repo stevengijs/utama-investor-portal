@@ -55,7 +55,7 @@
       </div>
     </div>
     <div class="hero-visual">
-      <div class="hero-photo" style="background-image:url('/the-maison/images/maison-outdoor.jpg')">
+      <div class="hero-photo" style="background-image:url('/the-maison/images/maison-exterior.jpg')">
         <div class="hero-founder-chip">
           <img src="/images/steven.jpg" alt="Steven Gijsman" onerror="this.style.display='none'">
           <div><b>Steven Gijsman</b><span data-t="heroFounderRole">Oprichter UTAMA</span></div>
@@ -197,6 +197,13 @@
     <div class="disc" data-t="disc">Deze pagina geeft indicatieve informatie en geen fiscaal of juridisch advies. Rendementen zijn schattingen, geen garanties. Laat contracten altijd controleren door een bevoegde notaris (PPAT) en je eigen adviseur.</div>
   </div>
 </footer>
+
+<!-- Mobiel-only sticky CTA-balk: 86% van het verkeer is mobiel en moet de knop
+     altijd binnen handbereik hebben, ook diep in de scroll, zonder terug te
+     hoeven scrollen naar de hero of de andere CTA's. -->
+<div class="sticky-cta">
+  <button type="button" class="btn" onclick="openBrochure()" data-t="cta1">Bekijk volledige brochure</button>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="/supabase-client.js"></script>
@@ -379,6 +386,17 @@ setLang(_pickInitialLang());
     .cta-btns .btn{width:100%;max-width:380px;margin:0 auto;display:block;text-align:center}
   }
 
+  /* Sticky mobiele CTA-balk (86% van het verkeer) - zelfde patroon als de
+     .sticky-cta in de investeerdersportalen: vaste balk onderaan, alleen
+     onder de 940px-grens die ook de hero-afbeelding regelt. footer krijgt
+     evenveel extra ruimte onderaan zodat de balk niets overlapt. */
+  .sticky-cta{display:none}
+  @media(max-width:939px){
+    .sticky-cta{position:fixed;left:0;right:0;bottom:0;background:var(--paper);border-top:1px solid var(--line);padding:10px 16px;display:block;z-index:150;box-shadow:0 -6px 18px rgba(23,20,15,.08)}
+    .sticky-cta .btn{width:100%;justify-content:center;padding:13px 16px;font-size:14.5px}
+    footer{padding-bottom:78px}
+  }
+
   /* Hero-afbeelding blijft zichtbaar op mobiel (normaal platformbreed
      display:none onder 940px) - een lander zonder beeld overtuigt niet.
      Beeld staat op mobiel bovenaan, edge-to-edge, tekst volgt eronder. */
@@ -386,7 +404,7 @@ setLang(_pickInitialLang());
     .hero .inner{padding-top:22px}
     .hero-grid{display:flex;flex-direction:column-reverse}
     .hero-visual{display:block !important;padding:0;margin:0 -20px 22px}
-    .hero-photo{position:relative;height:280px;border-radius:0;box-shadow:none;background-position:center 62% !important}
+    .hero-photo{position:relative;height:280px;border-radius:0;box-shadow:none;background-size:cover !important;background-position:center 38% !important}
     .hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,20,15,0) 55%,rgba(23,20,15,.5) 100%)}
   }
 
