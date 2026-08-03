@@ -7,8 +7,11 @@
  * (verwacht dat de site lokaal wordt geserveerd op localhost:8899, vanuit de
  * repo-root: `python3 -m http.server 8899` vanuit utama-investor-portal/)
  */
-const { chromium } = require('playwright');
-const path = require('path');
+import { chromium } from 'playwright';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 (async () => {
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || '/opt/pw-browsers/chromium' });
