@@ -33,6 +33,16 @@
   </div>
 </nav>
 
+<!-- Mobiel-only sticky top-CTA: verschijnt pas zodra de grote hero-CTA
+     voorbij is gescrold (zie IntersectionObserver onderaan), zodat de knop
+     daarna alsnog binnen handbereik blijft zonder dat de nav de hele tijd
+     ruimte inneemt. Verdwijnt zelf weer zodra de brochure-popup open staat
+     (via body.modal-open), zodat het formulier alle ruimte krijgt. -->
+<div class="sticky-top-cta" id="stickyTopCta">
+  <span class="brand" style="cursor:default;font-size:16px">UT<span>A</span>MA</span>
+  <button type="button" class="btn" onclick="openBrochure()" data-t="cta1">Bekijk volledige brochure</button>
+</div>
+
 <div class="urg-bar" id="urgBar">
   <span data-t="urgText">Prijs stijgt naar <b>€225.000</b> op 15 augustus</span>
   <span class="urg-days" id="urgDays"></span>
@@ -185,13 +195,6 @@
   </div>
 </footer>
 
-<!-- Mobiel-only sticky CTA-balk: 86% van het verkeer is mobiel en moet de knop
-     altijd binnen handbereik hebben, ook diep in de scroll, zonder terug te
-     hoeven scrollen naar de hero of de andere CTA's. -->
-<div class="sticky-cta">
-  <button type="button" class="btn" onclick="openBrochure()" data-t="cta1">Bekijk volledige brochure</button>
-</div>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="/supabase-client.js"></script>
 <script>
@@ -332,6 +335,23 @@ function launchConfetti(){
 }
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeBrochure(); });
 setLang(_pickInitialLang());
+
+// Sticky top-CTA: verschijnt pas zodra de grote hero-CTA (de eerste knop,
+// vlak boven "Gratis en vrijblijvend...") niet meer in beeld is, en
+// verdwijnt weer als je terugscrolt naar de hero. body.modal-open (zie
+// openBrochure/closeBrochure) dekt het "verbergen tijdens de popup" deel af.
+(function(){
+  var heroCta = document.querySelector('.hero .btns .btn-lg');
+  var topBar = el('stickyTopCta');
+  if(!heroCta || !topBar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ topBar.classList.remove('show'); }
+      else if(entry.boundingClientRect.top < 0){ topBar.classList.add('show'); }
+    });
+  }, { threshold: 0 });
+  io.observe(heroCta);
+})();
 </script>
 <style>
   /* Testpagina, bewust géén site-nav met uitgaande links (Projecten/Contact) -
@@ -377,19 +397,20 @@ setLang(_pickInitialLang());
     .cta-btns .btn{width:100%;max-width:380px;margin:0 auto;display:block;text-align:center}
   }
 
-  /* Sticky mobiele CTA-balk (86% van het verkeer) - zelfde patroon als de
-     .sticky-cta in de investeerdersportalen: vaste balk onderaan, alleen
-     onder de 940px-grens die ook de hero-afbeelding regelt. footer krijgt
-     evenveel extra ruimte onderaan zodat de balk niets overlapt. z-index
-     ligt bewust ONDER .modal-ov (120), en body.modal-open verbergt de balk
-     ook expliciet zodra de brochure-popup open staat - anders overlapt de
-     balk het formulier/de submit-knop daarin (gezien op een echt toestel). */
-  .sticky-cta{display:none}
+  /* Sticky top-CTA (86% van het verkeer is mobiel) - i.p.v. een balk die de
+     hele tijd onderaan blijft staan, verschijnt deze pas zodra de grote
+     hero-CTA voorbij is gescrold (class "show", gezet door de
+     IntersectionObserver onderaan de <script>). Altijd aanwezig in de DOM
+     als position:fixed + translateY, zodat de transition soepel is en er
+     geen reflow/jump ontstaat. z-index ligt bewust ONDER .modal-ov (120),
+     en body.modal-open schuift 'm ook expliciet weer weg zodra de
+     brochure-popup open staat, zodat het formulier alle ruimte krijgt. */
+  .sticky-top-cta{display:none}
   @media(max-width:939px){
-    .sticky-cta{position:fixed;left:0;right:0;bottom:0;background:var(--paper);border-top:1px solid var(--line);padding:10px 16px;display:block;z-index:100;box-shadow:0 -6px 18px rgba(23,20,15,.08)}
-    .sticky-cta .btn{width:100%;justify-content:center;padding:13px 16px;font-size:14.5px}
-    footer{padding-bottom:78px}
-    body.modal-open .sticky-cta{display:none}
+    .sticky-top-cta{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--paper);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 6px 18px rgba(23,20,15,.08);transform:translateY(-100%);transition:transform .25s ease}
+    .sticky-top-cta.show{transform:translateY(0)}
+    .sticky-top-cta .btn{padding:10px 18px;font-size:13.5px;white-space:nowrap}
+    body.modal-open .sticky-top-cta{transform:translateY(-100%) !important}
   }
 
   /* Hero-afbeelding blijft zichtbaar op mobiel (normaal platformbreed
