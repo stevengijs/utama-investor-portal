@@ -83,6 +83,11 @@
 
   /* ============ TOP NAV ============ */
   .bnav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 5vw;border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:120;flex-wrap:wrap;row-gap:10px}
+  /* "Terug" en de taalswitcher horen bij elkaar (secundaire navigatie) - als losse
+     flex-children van .bnav werden ze door justify-content:space-between naar
+     de uiterste randen van hun EIGEN regel geduwd zodra de balk op mobiel wrapt,
+     wat de hele header uit elkaar liet vallen. Nu bewegen ze als één blok mee. */
+  .bnav-right{display:flex;align-items:center;gap:14px;flex-wrap:wrap;row-gap:8px}
   .bnav a.back{color:var(--muted);text-decoration:none;font-size:13.5px}
   .bnav a.back:hover{color:var(--ink)}
   .bnav .tag{font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--ink);background:var(--sand-2);padding:5px 10px;border-radius:999px}
@@ -700,10 +705,12 @@
       <span data-t="navDataroom">Data room</span>
     </a>
   </div>
-  <a href="/the-maison" class="back" data-t="navBack">&larr; Terug</a>
-  <div class="lang">
-    <button id="btnNL" class="on" onclick="setLang('nl')">NL</button>
-    <button id="btnEN" onclick="setLang('en')">EN</button>
+  <div class="bnav-right">
+    <a href="/the-maison" class="back" data-t="navBack">&larr; Terug</a>
+    <div class="lang">
+      <button id="btnNL" class="on" onclick="setLang('nl')">NL</button>
+      <button id="btnEN" onclick="setLang('en')">EN</button>
+    </div>
   </div>
 </nav>
 
