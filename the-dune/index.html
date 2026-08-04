@@ -356,6 +356,23 @@ function submitReturn(e){
 }
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeBrochure(); });
 setLang(_pickInitialLang());
+
+/* Foto's/renders komen uit de admin-galerij (Supabase). Staat er niets in de
+   admin, dan blijven de vaste foto's hierboven staan als terugval. Alleen de
+   galerij wordt zo beheerd — de rest van de pagina blijft ongewijzigd. */
+(function loadDuneGallery(){
+  try{
+    var sb = (typeof getSupabaseClient==='function') ? getSupabaseClient() : null;
+    if(!sb) return;
+    sb.rpc('project_media_public',{ p_slug:'the-dune' }).then(function(res){
+      var rows = res && res.data;
+      if(!rows || !rows.length) return;
+      var base='https://gcpachivrwalsneuvlsa.supabase.co/storage/v1/object/public/project-media/';
+      DUNE.images = rows.map(function(r){ return base + r.path; });
+      renderStatic();
+    }).catch(function(){});
+  }catch(e){}
+})();
 </script>
 <style>
   .modal-ov{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(33,30,24,.4);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
