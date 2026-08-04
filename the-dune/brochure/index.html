@@ -74,7 +74,15 @@
   .hp-i span{font-size:12.5px;color:var(--muted)}
   .hp-i.big b{font-size:18px;color:var(--opt-deep);white-space:nowrap}
 
-  .bnav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 5vw;border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:120;flex-wrap:wrap;row-gap:10px}
+  /* .bnav is enkel de volle-breedte achtergrond/sticky-balk; .bnav-inner regelt
+     de layout en gebruikt DEZELFDE max-width:1280px + horizontale padding als
+     main.portal hieronder (20px tot 980px, dan 24px) - eerder gebruikte de balk
+     5vw-padding, wat op de meeste schermbreedtes niet gelijk uitkomt met de
+     vaste padding van de content, waardoor "Terug"/NL-EN niet uitlijnde met de
+     rand van het paneel eronder. */
+  .bnav{border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:120}
+  .bnav-inner{max-width:1280px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;row-gap:10px}
+  @media(min-width:980px){.bnav-inner{padding:16px 24px}}
   /* "Terug" en de taalswitcher horen bij elkaar (secundaire navigatie) - als losse
      flex-children van .bnav werden ze door justify-content:space-between naar
      de uiterste randen van hun EIGEN regel geduwd zodra de balk op mobiel wrapt,
@@ -87,7 +95,16 @@
   .bnav .pdf-chip{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:.02em;color:#fff;background:var(--ink);padding:6px 13px 6px 10px;border-radius:999px;text-decoration:none;white-space:nowrap;transition:opacity .15s,transform .15s}
   .bnav .pdf-chip:hover{opacity:.85}
   .bnav .pdf-chip svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;flex:none}
-  @media(max-width:480px){.bnav .pdf-chip .pc-lbl{display:none}.bnav .pdf-chip{padding:8px;border-radius:999px}}
+  /* Mobiel: header focust puur op de conversie-actie (brochure downloaden),
+     geen afleiding - logo, badge, "Terug" en taalswitcher gaan weg, alleen de
+     (compacte, icon-only) downloadknop blijft over, gecentreerd. */
+  @media(max-width:640px){
+    .bnav-inner{padding:10px 16px;justify-content:center}
+    .bnav .brand,.bnav .tag,.bnav-right{display:none}
+    .bnav-mid{gap:0}
+    .bnav .pdf-chip .pc-lbl{display:none}
+    .bnav .pdf-chip{padding:10px;border-radius:999px}
+  }
   .bnav .dataroom-link{display:none;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:var(--opt-deep);text-decoration:none;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--paper);white-space:nowrap}
   .bnav .dataroom-link:hover{border-color:var(--opt-deep)}
   .bnav .dataroom-link.show{display:flex}
@@ -613,23 +630,25 @@
 <body>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=419037194248722&ev=PageView&noscript=1" /></noscript>
 <nav class="bnav">
-  <a href="/" class="brand">UTAMA</a>
-  <div class="bnav-mid">
-    <span class="tag" data-t="navTag">Digitale Brochure &middot; The Dune</span>
-    <a class="pdf-chip" id="navPdfChip" href="/the-dune/brochure/UTAMA-The-Dune-Investeerdersbrochure.pdf?v=20260803a" download="UTAMA-The-Dune-Investeerdersbrochure.pdf" style="display:none">
-      <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-      <span class="pc-lbl" data-t="navPdfLbl">Download de brochure als PDF</span>
-    </a>
-    <a class="dataroom-link" id="dataroomLink" href="/the-dune/dataroom/">
-      <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-      <span data-t="navDataroom">Data room</span>
-    </a>
-  </div>
-  <div class="bnav-right">
-    <a href="/the-dune" class="back" data-t="navBack">&larr; Terug</a>
-    <div class="lang">
-      <button id="btnNL" class="on" onclick="setLang('nl')">NL</button>
-      <button id="btnEN" onclick="setLang('en')">EN</button>
+  <div class="bnav-inner">
+    <a href="/" class="brand">UTAMA</a>
+    <div class="bnav-mid">
+      <span class="tag" data-t="navTag">Digitale Brochure &middot; The Dune</span>
+      <a class="pdf-chip" id="navPdfChip" href="/the-dune/brochure/UTAMA-The-Dune-Investeerdersbrochure.pdf?v=20260803a" download="UTAMA-The-Dune-Investeerdersbrochure.pdf" style="display:none">
+        <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+        <span class="pc-lbl" data-t="navPdfLbl">Download de brochure als PDF</span>
+      </a>
+      <a class="dataroom-link" id="dataroomLink" href="/the-dune/dataroom/">
+        <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        <span data-t="navDataroom">Data room</span>
+      </a>
+    </div>
+    <div class="bnav-right">
+      <a href="/the-dune" class="back" data-t="navBack">&larr; Terug</a>
+      <div class="lang">
+        <button id="btnNL" class="on" onclick="setLang('nl')">NL</button>
+        <button id="btnEN" onclick="setLang('en')">EN</button>
+      </div>
     </div>
   </div>
 </nav>
