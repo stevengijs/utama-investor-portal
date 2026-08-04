@@ -53,7 +53,7 @@
       </div>
     </div>
     <div class="hero-visual">
-      <div class="hero-photo" style="background-image:url('/the-dune/images/dune-hero.jpg')">
+      <div class="hero-photo" id="heroPhoto" style="background-image:url('/the-dune/images/dune-hero.jpg')">
         <div class="hero-founder-chip">
           <img src="/images/steven.jpg" alt="Steven Gijsman" onerror="this.style.display='none'">
           <div><b>Steven Gijsman</b><span data-t="heroFounderRole">Oprichter UTAMA</span></div>
@@ -368,7 +368,14 @@ setLang(_pickInitialLang());
       var rows = res && res.data;
       if(!rows || !rows.length) return;
       var base='https://gcpachivrwalsneuvlsa.supabase.co/storage/v1/object/public/project-media/';
-      DUNE.images = rows.map(function(r){ return base + r.path; });
+      // Omslag/hero = de gemarkeerde foto (of anders de eerste). De rest vult de galerij.
+      var hero = null;
+      for(var i=0;i<rows.length;i++){ if(rows[i].is_hero){ hero=rows[i]; break; } }
+      if(!hero) hero=rows[0];
+      var rest = rows.filter(function(r){ return r!==hero; });
+      var hp=document.getElementById('heroPhoto');
+      if(hp && hero) hp.style.backgroundImage="url('"+base+hero.path+"')";
+      DUNE.images = rest.map(function(r){ return base + r.path; });
       renderStatic();
     }).catch(function(){});
   }catch(e){}
