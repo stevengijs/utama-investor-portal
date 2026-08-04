@@ -380,6 +380,28 @@ setLang(_pickInitialLang());
     }).catch(function(){});
   }catch(e){}
 })();
+
+/* Bouwstatus-banner komt uit de admin-planning (Planning: start / finish),
+   zodat een datumwijziging in de admin de tekst hier automatisch aanpast. */
+(function loadProjectStatus(slug){
+  try{
+    var sb = (typeof getSupabaseClient==='function') ? getSupabaseClient() : null;
+    if(!sb) return;
+    sb.rpc('project_public',{ p_slug:slug }).then(function(res){
+      var p = res && res.data; if(!p) return;
+      var host=document.querySelector('.build-banner'); if(!host) return;
+      var el=host.querySelector('[data-t="bbTitle"]');
+      if(!p.planning_start){ host.style.display='none'; return; }
+      var ps=new Date(p.planning_start+'T00:00:00'), now=new Date(), pf=p.planning_finish?new Date(p.planning_finish+'T00:00:00'):null;
+      var dNL=ps.toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'}), dEN=ps.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}), nl, en;
+      if(pf && pf<now){ var mNL=pf.toLocaleDateString('nl-NL',{month:'long',year:'numeric'}), mEN=pf.toLocaleDateString('en-GB',{month:'long',year:'numeric'}); nl='Opgeleverd '+mNL; en='Completed '+mEN; }
+      else if(ps>now){ nl='Bouw start '+dNL; en='Construction starts '+dEN; }
+      else { nl='In aanbouw sinds '+dNL; en='Under construction since '+dEN; }
+      try{ if(typeof T!=='undefined'){ if(T.nl)T.nl.bbTitle=nl; if(T.en)T.en.bbTitle=en; } }catch(_e){}
+      if(el) el.textContent=((typeof lang!=='undefined'&&lang==='en')?en:nl);
+    }).catch(function(){});
+  }catch(e){}
+})('the-dune');
 </script>
 <style>
   .modal-ov{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(33,30,24,.4);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
