@@ -529,6 +529,28 @@ function launchConfetti(hostId){
 }
 document.addEventListener('keydown',function(e){ if(e.key!=='Escape') return; closeEarlyAccess(); closeContactModal(); });
 setLang(_pickInitialLang());
+
+/* Projectkaart-foto's komen automatisch uit de admin-galerij: de gemarkeerde
+   omslagfoto (of anders de eerste foto) van elk project. Heeft een project nog
+   geen foto's in de admin, dan blijft de vaste foto hieronder staan als terugval. */
+(function loadProjectHeroes(){
+  try{
+    var sb = (typeof getSupabaseClient==='function') ? getSupabaseClient() : null;
+    if(!sb) return;
+    var base='https://gcpachivrwalsneuvlsa.supabase.co/storage/v1/object/public/project-media/';
+    var jobs = PROJECTS.map(function(p){
+      var slug=(p.link||'').replace(/^\//,'').toLowerCase();
+      if(!slug) return Promise.resolve();
+      return sb.rpc('project_media_public',{ p_slug:slug }).then(function(res){
+        var rows=res && res.data; if(!rows || !rows.length) return;
+        var hero=null; for(var i=0;i<rows.length;i++){ if(rows[i].is_hero){ hero=rows[i]; break; } }
+        if(!hero) hero=rows[0];
+        if(hero) p.img = base + hero.path;
+      }).catch(function(){});
+    });
+    Promise.all(jobs).then(function(){ renderCards(); }).catch(function(){});
+  }catch(e){}
+})();
 </script>
 </body>
 </html>
