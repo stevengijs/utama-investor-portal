@@ -53,7 +53,7 @@
       </div>
     </div>
     <div class="hero-visual">
-      <div class="hero-photo" style="background-image:url('/images/moka/villa3-rooftop-sunset.jpg')">
+      <div class="hero-photo" id="heroPhoto" style="background-image:url('/images/moka/villa3-rooftop-sunset.jpg')">
         <div class="hero-founder-chip">
           <img src="/images/steven.jpg" alt="Steven Gijsman" onerror="this.style.display='none'">
           <div><b>Steven Gijsman</b><span data-t="heroFounderRole">Oprichter UTAMA</span></div>
@@ -341,6 +341,26 @@ function submitReturn(e){
 }
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeBrochure(); });
 setLang(_pickInitialLang());
+
+/* Foto's/renders + omslag komen uit de admin-galerij (Supabase), net als bij de
+   andere projecten. Staat er niets in de admin, dan blijven de vaste foto's staan. */
+(function loadMokaGallery(){
+  try{
+    var sb = (typeof getSupabaseClient==='function') ? getSupabaseClient() : null;
+    if(!sb) return;
+    sb.rpc('project_media_public',{ p_slug:'moka' }).then(function(res){
+      var rows = res && res.data; if(!rows || !rows.length) return;
+      var base='https://gcpachivrwalsneuvlsa.supabase.co/storage/v1/object/public/project-media/';
+      var hero=null; for(var i=0;i<rows.length;i++){ if(rows[i].is_hero){ hero=rows[i]; break; } }
+      if(!hero) hero=rows[0];
+      var rest = rows.filter(function(r){ return r!==hero; });
+      var hp=document.getElementById('heroPhoto');
+      if(hp && hero) hp.style.backgroundImage="url('"+base+hero.path+"')";
+      MOKA.images = rest.map(function(r){ return base + r.path; });
+      renderStatic();
+    }).catch(function(){});
+  }catch(e){}
+})();
 </script>
 <style>
   .modal-ov{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(33,30,24,.4);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
