@@ -2418,6 +2418,18 @@ const BPRICES=[
   {v:225000, l:{nl:"Vanaf 15 aug", en:"From 15 Aug"}, s:{nl:"prijs stijgt", en:"price increases"}}
 ];
 let bSelPrice=210000;
+// Automatische rollover: op 15 augustus 2026 (00:00 NL-tijd) wordt €225.000 de
+// actuele prijs en verdwijnen de "prijs stijgt"-elementen. Voorheen bleef de
+// brochure na de deadline met de vervallen prijs rekenen.
+const PRICE_DEADLINE_MS = Date.parse('2026-08-14T22:00:00Z'); /* = 15 aug 00:00 Europe/Amsterdam (CEST) */
+if (Date.now() >= PRICE_DEADLINE_MS) {
+  BPRICES.length = 0;
+  BPRICES.push({v:225000, l:{nl:"Nu", en:"Now"}, s:{nl:"huidige prijs", en:"current price"}, current:true});
+  bSelPrice = 225000;
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('[data-t="railPriceNote"], .pc.next').forEach(function(el){ el.style.display='none'; });
+  });
+}
 const BSCENARIOS=[
   {label:{nl:"Voorzichtig", en:"Conservative"}, occ:76, nightly:165},
   {label:{nl:"Realistisch", en:"Realistic"}, occ:85, nightly:175, current:true},

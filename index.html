@@ -457,8 +457,11 @@ function submitContact(e){
   const name=el('cmName').value.trim(), phone=el('cmPhone').value.trim(), email=el('cmEmail').value.trim(), project=el('cmProject').value;
   if(!name||!phone||!email||!project){ el('cmErr').style.display='block'; return false; }
   submitLead({ project, name, phone, email, lang, type:'inquiry' }).then(function(r){ fbTrackLead(project, r && r.eventId); }).catch(function(){ fbTrackLead(project); });
-  const body=(lang==='nl'?"Nieuwe brochure-aanvraag via de website":"New brochure request via the website")+"%0A"+
-    (lang==='nl'?"Project":"Project")+": "+project+"%0A"+(lang==='nl'?"Naam":"Name")+": "+name+"%0AWhatsApp: "+phone+"%0AE-mail: "+email;
+  // Elk veld apart encoderen: een '+' of '&' in naam/nummer/e-mail brak anders
+  // de wa.me-URL en daarmee het voorbereide bericht (zelfde patroon als buildWa()).
+  const body=encodeURIComponent(
+    (lang==='nl'?"Nieuwe brochure-aanvraag via de website":"New brochure request via the website")+"\n"+
+    (lang==='nl'?"Project":"Project")+": "+project+"\n"+(lang==='nl'?"Naam":"Name")+": "+name+"\nWhatsApp: "+phone+"\nE-mail: "+email);
   window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+body,"_blank");
   showContactSuccess(name);
   return false;

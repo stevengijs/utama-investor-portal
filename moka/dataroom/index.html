@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UTAMA - MOKA - Data room</title>
+<meta name="description" content="Due diligence-documentatie en voorbeeldcontracten voor MOKA.">
+<link rel="icon" href="/images/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  body{min-height:100vh}
+  .drwrap{max-width:640px;margin:0 auto;padding:70px 20px 90px}
+  .drback{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:26px}
+  .drback:hover{color:var(--green)}
+  .drcard{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:34px}
+  .drcard.centered{text-align:center}
+  .drcard h1{font-size:clamp(24px,4vw,30px);margin:10px 0 12px}
+  .drcard .sub{color:#4c463b;font-size:15.5px;line-height:1.6;margin:0 0 26px}
+  .dreyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);font-weight:700}
+  .dricon{width:56px;height:56px;border-radius:50%;background:var(--sand);display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+  .drcard.centered .dricon{margin:0 auto 18px}
+  .dricon svg{width:26px;height:26px;stroke:var(--opt-deep);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .drnote{font-size:12.5px;color:var(--muted);margin-top:22px;line-height:1.6}
+
+  .drcat{margin-top:28px;text-align:left}
+  .drcat:first-of-type{margin-top:8px}
+  .drcat-title{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 10px}
+  .drfile{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;text-decoration:none;color:inherit;margin-bottom:8px;transition:border-color .15s}
+  .drfile:hover{border-color:var(--opt-deep)}
+  .drfile-icon{flex:0 0 auto;width:34px;height:34px;border-radius:8px;background:var(--sand);display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .drfile-icon svg{width:16px;height:16px;stroke:var(--opt-deep);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .drfile-body{flex:1;min-width:0}
+  .drfile-title{font-weight:600;font-size:14.5px;color:var(--ink,#2c281f)}
+  .drfile-desc{font-size:13px;color:var(--muted);margin-top:2px;line-height:1.5}
+  .drfile-arrow{flex:0 0 auto;color:var(--muted);margin-top:8px}
+
+  .drempty{text-align:center;padding:20px 10px}
+  .drempty .dricon{margin:0 auto 16px}
+  .drloading{text-align:center;padding:30px 10px;color:var(--muted);font-size:14px}
+</style>
+  <script src="/t.js" defer></script>
+</head>
+<body>
+<div class="drwrap">
+  <a href="/moka" class="drback">&larr; Terug naar MOKA</a>
+
+  <div id="drCard" class="drcard centered">
+    <div class="dricon"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+    <div class="dreyebrow">Data room &middot; MOKA</div>
+    <h1>Due diligence &amp; contractdocumentatie</h1>
+    <p class="sub">Hieronder vind je de documenten voor MOKA - due diligence-stukken en voorbeeldcontracten. Klik op een document om het te openen.</p>
+    <div id="drFiles" class="drloading">Documenten laden&hellip;</div>
+    <p class="drnote">Geen toegang, of iets ontbreekt? Neem contact op met Ashley of Steven.</p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase-client.js"></script>
+<script>
+  const CATEGORY_ORDER = ['due_diligence', 'contract_voorbeeld', 'overig'];
+  const CATEGORY_LABEL = {
+    due_diligence: 'Due diligence',
+    contract_voorbeeld: 'Voorbeeldcontracten',
+    overig: 'Overig'
+  };
+
+  function fileIconSvg(){
+    return '<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>';
+  }
+  function arrowSvg(){
+    return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>';
+  }
+
+  function renderFiles(files){
+    const el = document.getElementById('drFiles');
+    if(!files || files.length === 0){
+      el.className = 'drempty';
+      el.innerHTML = '<p class="sub" style="margin:0">Er staan momenteel nog geen documenten klaar. Kom later terug, of neem contact op.</p>';
+      return;
+    }
+
+    const byCat = {};
+    files.forEach(f => {
+      const cat = CATEGORY_ORDER.includes(f.category) ? f.category : 'overig';
+      (byCat[cat] = byCat[cat] || []).push(f);
+    });
+
+    let html = '';
+    CATEGORY_ORDER.forEach(cat => {
+      const items = byCat[cat];
+      if(!items || items.length === 0) return;
+      html += '<div class="drcat"><div class="drcat-title">' + CATEGORY_LABEL[cat] + '</div>';
+      items.forEach(f => {
+        html += '<a class="drfile" href="' + f.view_url + '" target="_blank" rel="noopener">'
+          + '<span class="drfile-icon">' + fileIconSvg() + '</span>'
+          + '<span class="drfile-body"><span class="drfile-title">' + escapeHtml(f.title) + '</span>'
+          + (f.description ? '<div class="drfile-desc">' + escapeHtml(f.description) + '</div>' : '')
+          + '</span>'
+          + '<span class="drfile-arrow">' + arrowSvg() + '</span>'
+          + '</a>';
+      });
+      html += '</div>';
+    });
+
+    el.className = '';
+    el.innerHTML = html;
+    document.getElementById('drCard').classList.remove('centered');
+    document.getElementById('drCard').classList.add('centered');
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+  }
+
+  (async function(){
+    const result = await listDataroomFiles('MOKA');
+    if(!result.ok){
+      const el = document.getElementById('drFiles');
+      el.className = 'drempty';
+      el.innerHTML = '<p class="sub" style="margin:0">De documenten konden niet geladen worden. Probeer het later opnieuw of neem contact op.</p>';
+      return;
+    }
+    renderFiles(result.files);
+  })();
+</script>
+</body>
+</html>
