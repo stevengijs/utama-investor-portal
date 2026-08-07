@@ -207,7 +207,18 @@ table.pay tfoot td{font-weight:700;border-top:2px solid var(--line);border-botto
 @media(max-width:860px){
   .shell{grid-template-columns:1fr}
   .side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center}
-  .side nav{flex-direction:row;flex-wrap:wrap;flex-basis:100%;order:3;margin-top:12px}
+  /* De zeven menu-items wikkelden over vier regels en vulden zo het halve
+     eerste scherm van een telefoon, nog voor je de eerste kaart zag. Nu een
+     strook die je opzij scrolt, met de actieve knop altijd in beeld. */
+  .side nav{flex-direction:row;flex-wrap:nowrap;flex-basis:100%;order:3;margin-top:12px;
+    overflow-x:auto;overflow-y:hidden;gap:6px;padding-bottom:4px;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;
+    /* zonder deze twee krimpt een flex-item niet onder zijn inhoud en duwt de
+       strook de hele pagina breder dan het scherm */
+    min-width:0;max-width:100%}
+  .side{min-width:0;max-width:100%}
+  .side nav::-webkit-scrollbar{display:none}
+  .side nav a{flex:0 0 auto;white-space:nowrap;padding:9px 13px;scroll-snap-align:start}
   .side .who{border-top:none;margin:0 0 0 auto;padding-top:0}
   .login-wrap{grid-template-columns:1fr}
   .login-visual{min-height:200px}
@@ -218,4 +229,10 @@ table.pay tfoot td{font-weight:700;border-top:2px solid var(--line);border-botto
   .refstats{grid-template-columns:1fr}
   .refteaser{flex-wrap:wrap}
   .main{padding:22px 18px 50px}
+}
+/* Onder 480px is twee kolommen statistiek te krap: bedragen braken over de rand. */
+@media(max-width:480px){
+  .stats{grid-template-columns:1fr}
+  .side{padding:16px 14px}
+  .side .brand{margin:2px 4px 16px}
 }
