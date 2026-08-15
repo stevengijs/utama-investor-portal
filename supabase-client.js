@@ -94,17 +94,29 @@ function _readCookie(name){
     return m ? decodeURIComponent(m[1]) : null;
   }catch(e){ return null; }
 }
-/* Koopintentie -> waarde voor Meta. Meta optimaliseert op deze waarde ("Value
- * optimization"), zodat de campagne mensen zoekt die op koopklare leads lijken
- * i.p.v. op willekeurige formulier-invullers. De timeline-tekst komt in NL/EN/ID
- * binnen; de verhouding telt, niet de absolute euro's. */
-function _leadIntentValue(timeline){
+/* Waarde voor Meta ("Value optimization"): de campagne zoekt dan mensen die op
+ * je waardevolste leads lijken i.p.v. op willekeurige formulier-invullers. Het
+ * gaat om de VERHOUDING tussen de waarden, niet om echte euro's. Twee signalen:
+ *  1) koopintentie (timeline): 100/60/40/20 voor zsm / 3-6mnd / 6-12mnd / oriënteert.
+ *  2) budget: alleen écht hoge budgetten (>=350K, premium/meerdere units) krijgen
+ *     een bonus (x1.4). Je kernmarkt van 200-250K blijft de basiswaarde, die
+ *     straffen we niet af. Zo is een snelle koper met veel budget de topwaarde. */
+function _budgetMaxEur(budget){
+  var s = String(budget || '').toLowerCase().replace(/[.\s]/g, ''); // "€200k-€250k" / "tot€350000"
+  var m = s.match(/\d+k?/g);
+  if (!m) return 0;
+  var max = 0;
+  m.forEach(function(tok){ var n = parseInt(tok, 10) * (/k/.test(tok) ? 1000 : 1); if (n > max) max = n; });
+  return max;
+}
+function _leadValue(timeline, budget){
   var t = String(timeline || '').toLowerCase();
-  if (/snel mogelijk|as soon|secepatnya/.test(t)) return 250;
-  if (/binnen 3|within 3|dalam 3|< ?3/.test(t)) return 250;
-  if (/3 ?(tot|-|to|–) ?6|3-6/.test(t)) return 120;
-  if (/6 ?(tot|-|to|–) ?12|6-12/.test(t)) return 60;
-  return 20; // oriënteert nog / onbekend
+  var base = 20; // oriënteert nog / onbekend
+  if (/snel mogelijk|as soon|secepatnya|binnen 3|within 3|dalam 3|< ?3/.test(t)) base = 100;
+  else if (/3 ?(tot|-|to|–) ?6|3-6/.test(t)) base = 60;
+  else if (/6 ?(tot|-|to|–) ?12|6-12/.test(t)) base = 40;
+  var factor = _budgetMaxEur(budget) >= 350000 ? 1.4 : 1.0;
+  return Math.round(base * factor);
 }
 function _sendCapiLead(fields, eventId){
   try{
@@ -118,7 +130,7 @@ function _sendCapiLead(fields, eventId){
         phone: fields.phone,
         project: fields.project,
         source_page: window.location.pathname,
-        value: _leadIntentValue(fields.when),
+        value: _leadValue(fields.when, fields.budget),
         currency: 'EUR',
         fbp: _readCookie('_fbp'),
         fbc: _readCookie('_fbc')
