@@ -94,6 +94,18 @@ function _readCookie(name){
     return m ? decodeURIComponent(m[1]) : null;
   }catch(e){ return null; }
 }
+/* Koopintentie -> waarde voor Meta. Meta optimaliseert op deze waarde ("Value
+ * optimization"), zodat de campagne mensen zoekt die op koopklare leads lijken
+ * i.p.v. op willekeurige formulier-invullers. De timeline-tekst komt in NL/EN/ID
+ * binnen; de verhouding telt, niet de absolute euro's. */
+function _leadIntentValue(timeline){
+  var t = String(timeline || '').toLowerCase();
+  if (/snel mogelijk|as soon|secepatnya/.test(t)) return 250;
+  if (/binnen 3|within 3|dalam 3|< ?3/.test(t)) return 250;
+  if (/3 ?(tot|-|to|–) ?6|3-6/.test(t)) return 120;
+  if (/6 ?(tot|-|to|–) ?12|6-12/.test(t)) return 60;
+  return 20; // oriënteert nog / onbekend
+}
 function _sendCapiLead(fields, eventId){
   try{
     fetch('https://gcpachivrwalsneuvlsa.supabase.co/functions/v1/meta-capi', {
@@ -106,6 +118,8 @@ function _sendCapiLead(fields, eventId){
         phone: fields.phone,
         project: fields.project,
         source_page: window.location.pathname,
+        value: _leadIntentValue(fields.when),
+        currency: 'EUR',
         fbp: _readCookie('_fbp'),
         fbc: _readCookie('_fbc')
       })
@@ -140,7 +154,9 @@ async function submitLead(fields){
       p_ref_code: _getStoredReferralCode(),
       p_type: fields.type || null,
       p_session_id: _getAnalyticsSession(),
-      p_vid: _getAnalyticsVid()
+      p_vid: _getAnalyticsVid(),
+      p_fbp: _readCookie('_fbp'),
+      p_fbc: _readCookie('_fbc')
     });
     if(error){ console.error("submitLead error", error); return { ok:false, error, eventId }; }
     _sendCapiLead(fields, eventId);
