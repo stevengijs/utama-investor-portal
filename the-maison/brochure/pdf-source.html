@@ -296,6 +296,17 @@
   .cperson-sec a{font-size:10.5px;color:var(--muted);margin-left:auto;flex:none}
   .legalnote{font-size:9.5px;color:var(--muted);line-height:1.55;margin-top:16px}
 </style>
+<style>
+.pdf-spwrap .pdf-sphot{position:absolute;top:14%;height:58%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;padding-top:1.5%}
+.pdf-spwrap .pdf-spn{width:26px;height:26px;border-radius:50%;background:rgba(254,251,246,.96);border:2px solid #17140f;color:#17140f;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.25);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pdf-spwrap .pdf-splbl{font-size:8px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#fff;padding:2px 7px;border-radius:999px;white-space:nowrap;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pdf-sphot.sold .pdf-spn{background:rgba(23,20,15,.78);border-color:rgba(23,20,15,.78);color:#fff}
+.pdf-sphot.sold .pdf-splbl{background:rgba(23,20,15,.82)}
+.pdf-sphot.reserved .pdf-spn{background:#37507a;border-color:#37507a;color:#fff}
+.pdf-sphot.reserved .pdf-splbl{background:#37507a}
+.pdf-sphot.available .pdf-spn{background:#2f6b4f;border-color:#2f6b4f;color:#fff}
+.pdf-sphot.available .pdf-splbl{background:#2f6b4f}
+</style>
 </head>
 <body>
 
@@ -403,8 +414,14 @@
     <div class="am"><span>Obsidian Gym</span><span class="av">4 min</span></div>
     <div class="am"><span>Body Factory Bali</span><span class="av">5 min</span></div>
   </div>
-  <div style="margin-top:22px;border:1px solid var(--line);border-radius:14px;overflow:hidden">
-    <img src="/the-maison/images/site-plan.jpg" style="width:100%;height:220px;object-fit:cover;display:block" alt="Situatietekening The Maison">
+  <div class="pdf-spwrap" style="margin-top:16px;position:relative;border:1px solid var(--line);border-radius:14px;overflow:hidden">
+    <img src="/the-maison/images/site-plan.jpg" style="width:100%;height:auto;display:block" alt="Siteplan The Maison">
+    <div class="pdf-sphot" data-unit="1" style="left:12.7%;width:13.46%"><span class="pdf-spn">1</span><span class="pdf-splbl"></span></div>
+    <div class="pdf-sphot" data-unit="2" style="left:26.16%;width:13.46%"><span class="pdf-spn">2</span><span class="pdf-splbl"></span></div>
+    <div class="pdf-sphot" data-unit="3" style="left:39.62%;width:13.46%"><span class="pdf-spn">3</span><span class="pdf-splbl"></span></div>
+    <div class="pdf-sphot" data-unit="4" style="left:53.08%;width:13.46%"><span class="pdf-spn">4</span><span class="pdf-splbl"></span></div>
+    <div class="pdf-sphot" data-unit="5" style="left:66.54%;width:13.46%"><span class="pdf-spn">5</span><span class="pdf-splbl"></span></div>
+    <div class="pdf-sphot" data-unit="6" style="left:80%;width:13.5%"><span class="pdf-spn">6</span><span class="pdf-splbl"></span></div>
   </div>
   <div id="pdfSiteLegend" style="margin-top:9px;font-size:11px;color:var(--muted)"></div>
 </div><div class="foot"><span>UTAMA · The Maison</span><span>Het project · 04</span></div></section>
@@ -722,6 +739,14 @@
           if(by.available.length) parts.push('<b style="color:#12211c">Beschikbaar:</b> '+by.available.join(', '));
           leg.innerHTML=parts.join(' &nbsp;·&nbsp; ');
         }
+        d.units.forEach(function(u){
+          var hot=document.querySelector('.pdf-sphot[data-unit="'+u.n+'"]');
+          if(hot){
+            hot.classList.remove('sold','reserved','available'); hot.classList.add(u.status);
+            var lbl=hot.querySelector('.pdf-splbl');
+            if(lbl) lbl.textContent = u.status==='sold'?'Verkocht':(u.status==='reserved'?'Gereserveerd':'Beschikbaar');
+          }
+        });
       }
     }
   }catch(e){}
