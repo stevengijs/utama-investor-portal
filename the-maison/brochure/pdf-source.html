@@ -313,7 +313,7 @@
       <div><div style="font-size:24px;font-weight:800">€210.000</div><div style="font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px">Huidige prijs</div></div>
       <div><div style="font-size:24px;font-weight:800">12–17%</div><div style="font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px">Verwacht rendement / jr</div></div>
       <div><div style="font-size:24px;font-weight:800">30+30 jr</div><div style="font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px">Leaseperiode</div></div>
-      <div><div style="font-size:24px;font-weight:800">4 / 6</div><div style="font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px">Villa's beschikbaar</div></div>
+      <div><div id="pdfAvailStat" style="font-size:24px;font-weight:800">4 / 6</div><div style="font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px">Villa's beschikbaar</div></div>
     </div>
   </div>
 </section>
@@ -406,6 +406,7 @@
   <div style="margin-top:22px;border:1px solid var(--line);border-radius:14px;overflow:hidden">
     <img src="/the-maison/images/site-plan.jpg" style="width:100%;height:220px;object-fit:cover;display:block" alt="Situatietekening The Maison">
   </div>
+  <div id="pdfSiteLegend" style="margin-top:9px;font-size:11px;color:var(--muted)"></div>
 </div><div class="foot"><span>UTAMA · The Maison</span><span>Het project · 04</span></div></section>
 
 <!-- ============ 05 · RENDEMENT INTRO + PRIJZEN ============ -->
@@ -631,7 +632,7 @@
 <section class="pdfpage"><div class="pg">
   <div class="kicker"><span class="kicker-ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="kn">06</span> Zekerheden</div>
   <h1 class="h1" style="font-size:26px;margin-bottom:10px">Vertrouw de structuur, niet de belofte</h1>
-  <p class="lead" style="margin-bottom:14px">Je rechten als investeerder rusten niet op een persoonlijke toezegging, maar op juridische overeenkomsten die onafhankelijk worden vastgelegd en gecontroleerd. Dit is geen model op papier: het draait vandaag al voor 250+ villa's op Bali, met nog 4 van de 6 villa's beschikbaar.</p>
+  <p class="lead" style="margin-bottom:14px">Je rechten als investeerder rusten niet op een persoonlijke toezegging, maar op juridische overeenkomsten die onafhankelijk worden vastgelegd en gecontroleerd. Dit is geen model op papier: het draait vandaag al voor 250+ villa's op Bali, met nog <span id="pdfAvailProse">4 van de 6</span> villa's beschikbaar.</p>
   <div class="trustlist">
     <div class="trustitem"><div class="tick">✓</div><p><b>30+30 jaar lease</b> met verlenging juridisch vastgelegd, geen open einde.</p></div>
     <div class="trustitem"><div class="tick">✓</div><p><b>Pink- en Orange C2-zone</b>, met geldige vergunning voor short-stay, géén grijs gebied.</p></div>
@@ -701,5 +702,36 @@
   <div class="legalnote" style="margin-top:10px">Dit document bevat indicatieve informatie en vormt geen fiscaal of juridisch advies. Rendementsberekeningen zijn schattingen en geen garanties. Laat de contracten altijd controleren door een bevoegde notaris, PPAT en je eigen juridisch of fiscaal adviseur.</div>
 </div><div class="foot"><span>UTAMA · The Maison</span><span>Vragen · 14</span></div></section>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="/supabase-client.js"></script>
+<script>
+(async function(){
+  try{
+    if(window.utamaAvailability){
+      var d = await window.utamaAvailability('the-maison');
+      if(d && typeof d.total==='number'){
+        var stat=document.getElementById('pdfAvailStat'); if(stat) stat.textContent=d.available+' / '+d.total;
+        var prose=document.getElementById('pdfAvailProse'); if(prose) prose.textContent=d.available+' van de '+d.total;
+        var leg=document.getElementById('pdfSiteLegend');
+        if(leg && Array.isArray(d.units)){
+          var by={sold:[],reserved:[],available:[]};
+          d.units.forEach(function(u){ (by[u.status]||by.available).push(u.n); });
+          var parts=[];
+          if(by.sold.length) parts.push('<b style="color:#12211c">Verkocht:</b> '+by.sold.join(', '));
+          if(by.reserved.length) parts.push('<b style="color:#12211c">Gereserveerd:</b> '+by.reserved.join(', '));
+          if(by.available.length) parts.push('<b style="color:#12211c">Beschikbaar:</b> '+by.available.join(', '));
+          leg.innerHTML=parts.join(' &nbsp;·&nbsp; ');
+        }
+      }
+    }
+  }catch(e){}
+  try{
+    if(new URLSearchParams(location.search).get('print')==='1'){
+      var go=function(){ setTimeout(function(){ window.print(); }, 700); };
+      if(document.readyState==='complete') go(); else window.addEventListener('load', go);
+    }
+  }catch(e){}
+})();
+</script>
 </body>
 </html>
