@@ -23,6 +23,23 @@ function getSupabaseClient(){
 }
 
 /*
+ * Live unit-beschikbaarheid per project uit één bron (project_availability).
+ * Geeft {total, sold, reserved, available, units:[{n,status}]} of null bij fout.
+ * Marketing telt aanbetaald als verkocht; 'available' = niet verkocht en niet
+ * gereserveerd. Alle publieke pagina's + de digitale brochure lezen dit, zodat
+ * een reservering overal meteen consistent doorwerkt.
+ */
+async function utamaAvailability(slug){
+  const sb = getSupabaseClient();
+  if(!sb) return null;
+  try{
+    const { data, error } = await sb.rpc('project_availability', { p_slug: slug });
+    return error ? null : data;
+  }catch(e){ return null; }
+}
+if(typeof window!=='undefined') window.utamaAvailability = utamaAvailability;
+
+/*
  * Referral programme - lightweight attribution that runs on every page that
  * loads this file (no extra wiring needed per-page). Anyone landing with
  * ?ref=CODE in the URL gets that code remembered in localStorage for 90

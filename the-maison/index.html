@@ -178,6 +178,7 @@ const T={
   disc:"Deze site geeft indicatieve informatie en geen fiscaal of juridisch advies. Rendementen zijn schattingen, geen garanties. Laat contracten altijd controleren door een bevoegde notaris (PPAT) en je eigen adviseur.",
   available:"{sold} van {y} verkocht · nog {x} beschikbaar",availShort:"{x} van {y}",render:"Render: voeg je beeld toe",
   recentSold:"{x} verkocht",
+  presale:"Nu in pre-sale · nog {x} van {y} beschikbaar",presaleTag:"Nieuw in verkoop",presaleShort:"Pre-sale",
   calcCtaTitle:"Benieuwd naar je exacte rendement?",calcCtaSub:"In de volledige brochure vind je de interactieve rekentool, drie scenario's en het complete rendementsmodel van The Maison.",calcCtaBtn:"Bekijk de ROI-berekening →",
   bbEyebrow:"Bouwstatus",bbTitle:"In aanbouw sinds 15 mei 2026",bbCam:"Live bouwcamera vanaf 5 augustus",
   roiBadgeLbl:"rendement",
@@ -192,6 +193,7 @@ const T={
   disc:"This site provides indicative information and no tax or legal advice. Returns are estimates, not guarantees. Always have contracts checked by an authorised notary (PPAT) and your own adviser.",
   available:"{sold} of {y} sold · {x} left",availShort:"{x} of {y}",render:"Render: add your image",
   recentSold:"{x} sold",
+  presale:"Now in pre-sale · {x} of {y} still available",presaleTag:"Newly launched",presaleShort:"Pre-sale",
   calcCtaTitle:"Curious about your exact return?",calcCtaSub:"The full brochure includes the interactive calculator, three scenarios and the complete return model for The Maison.",calcCtaBtn:"View the ROI calculation →",
   bbEyebrow:"Construction status",bbTitle:"Under construction since 15 May 2026",bbCam:"Live camera from 5 August",
   roiBadgeLbl:"return",
@@ -205,19 +207,28 @@ function tr(s,o){let r=s;for(const k in o)r=r.split("{"+k+"}").join(o[k]);return
 function imgBlock(cls,label){return `<div class="g ${cls} ph-img ${cls==='big'?'':'alt'}"><span class="ph-tag">${label}</span></div>`;}
 
 function renderStatic(){
-  const avail=MAISON.unitsTotal-MAISON.unitsSold;
+  const sold=MAISON.unitsSold, total=MAISON.unitsTotal;
+  const avail=(MAISON.unitsAvailable!=null)?MAISON.unitsAvailable:(total-sold);
+  const presale=sold<=0;
   el('gallery').innerHTML = (MAISON.images&&MAISON.images.length)
     ? `<div class="g big" style="background-image:url('${MAISON.images[0]}');background-size:cover;background-position:center" onclick="openLb(0)"></div>`+[1,2,3,4].map(i=>MAISON.images[i]?`<div class="g" style="background-image:url('${MAISON.images[i]}');background-size:cover;background-position:center" onclick="openLb(${i})"></div>`:imgBlock('','')).join("")
     : imgBlock('big',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render);
   el('hl').innerHTML=MAISON.highlights[lang].slice(0,3).map(x=>`<div>${x}</div>`).join("");
-  el('pill').textContent=tr(T[lang].available,{x:avail,y:MAISON.unitsTotal,sold:MAISON.unitsSold});
-  el('momentum').textContent = MAISON.recentSold ? tr(T[lang].recentSold,{x:MAISON.recentSold}) : '';
-  el('mAvail').textContent=tr(T[lang].availShort,{x:MAISON.unitsSold,y:MAISON.unitsTotal});
+  el('pill').textContent=presale?tr(T[lang].presale,{x:avail,y:total}):tr(T[lang].available,{x:avail,y:total,sold:sold});
+  el('momentum').textContent=presale?T[lang].presaleTag:(sold?tr(T[lang].recentSold,{x:sold}):'');
+  el('mAvail').textContent=presale?T[lang].presaleShort:tr(T[lang].availShort,{x:sold,y:total});
   el('dprice').textContent=(lang==='nl'?"vanaf ":"from ")+money(CURRENT_PRICE);
 }
 /* Bepaalt de starttaal: een eerder handmatig gekozen taal (onthouden in
    localStorage) wint altijd; anders volgt de site de browsertaal van de
    bezoeker (Nederlandstalige browser -> NL, elke andere taal -> EN). */
+async function loadAvailability(){
+  if(!window.utamaAvailability) return;
+  const d=await window.utamaAvailability('the-maison');
+  if(!d||typeof d.total!=='number') return;
+  MAISON.unitsTotal=d.total; MAISON.unitsSold=d.sold; MAISON.unitsAvailable=d.available; MAISON.unitsReserved=d.reserved;
+  renderStatic();
+}
 function _pickInitialLang(){
   try{
     var saved=localStorage.getItem('utama_lang');
@@ -355,6 +366,7 @@ function submitReturn(e){
 }
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeBrochure(); });
 setLang(_pickInitialLang());
+loadAvailability();
 
 /* Foto's/renders + omslag komen uit de admin-galerij (Supabase), net als bij de
    andere projecten. Staat er niets in de admin, dan blijven de vaste foto's staan. */
