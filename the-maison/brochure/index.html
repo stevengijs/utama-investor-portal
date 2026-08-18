@@ -1924,7 +1924,7 @@ const T = {
   "stickyReserveBtn": "Reserveren",
   "rmEb": "Reserveren",
   "rmH3Step1": "Kies je unit",
-  "rmLeadStep1": "Unit 1 en 6 zijn inmiddels verkocht. Kies een beschikbare unit op het siteplan of uit de lijst.",
+  "rmLeadStep1": "Sommige units zijn al vergeven. Kies een beschikbare unit op het siteplan of uit de lijst.",
   "rmLegendAvail": "Beschikbaar",
   "rmLegendSel": "Geselecteerd",
   "rmLegendRes": "Gereserveerd",
@@ -2355,7 +2355,7 @@ const T = {
   "stickyReserveBtn": "Reserve",
   "rmEb": "Reserve",
   "rmH3Step1": "Choose your unit",
-  "rmLeadStep1": "Units 1 and 6 have already been sold. Choose an available unit on the site plan or from the list.",
+  "rmLeadStep1": "Some units are already taken. Choose an available unit on the site plan or from the list.",
   "rmLegendAvail": "Available",
   "rmLegendSel": "Selected",
   "rmLegendRes": "Reserved",
@@ -2853,10 +2853,30 @@ document.addEventListener('keydown',function(e){ if(!el('lb').classList.contains
    door een API-call. Zodra een unit onder een intentieverklaring + aanbetaling staat maar nog
    niet notarieel is afgerond, zet 'm in RESERVED_UNITS (i.p.v. meteen in SOLD_UNITS) - dan krijgt
    die unit de "Gereserveerd"-status i.p.v. "Verkocht" op het siteplan en in de lijst. */
-const TOTAL_UNITS = 6;
-const SOLD_UNITS = [1, 6];
-const RESERVED_UNITS = [];
+let TOTAL_UNITS = 6;
+let SOLD_UNITS = [1, 6];
+let RESERVED_UNITS = [];
 let rmSelectedUnit = null;
+
+// Live beschikbaarheid uit project_availability (verkocht = aanbetaald/notarieel,
+// gereserveerd = getekend maar niet betaald). Vervangt de hardcoded lijsten,
+// zodat het siteplan en de unitlijst overal met de reserveringen meelopen.
+async function loadBrochureAvailability(){
+  if(!window.utamaAvailability) return;
+  try{
+    const d = await window.utamaAvailability('the-maison');
+    if(!d || !Array.isArray(d.units)) return;
+    TOTAL_UNITS = d.total || TOTAL_UNITS;
+    SOLD_UNITS = d.units.filter(function(u){ return u.status === 'sold'; }).map(function(u){ return u.n; });
+    RESERVED_UNITS = d.units.filter(function(u){ return u.status === 'reserved'; }).map(function(u){ return u.n; });
+    try{ renderSpPills(); }catch(e){}
+    document.querySelectorAll('.sp-hot').forEach(function(h){
+      const n = +h.dataset.unit;
+      h.classList.toggle('sold', SOLD_UNITS.indexOf(n) !== -1);
+      h.classList.toggle('reserved', SOLD_UNITS.indexOf(n) === -1 && RESERVED_UNITS.indexOf(n) !== -1);
+    });
+  }catch(e){}
+}
 
 function rmUnitLabel(n){ return "Unit " + n; }
 
@@ -2894,6 +2914,7 @@ function selectUnit(n){
 }
 
 function openReserveModal(){
+  loadBrochureAvailability();
   rmSelectedUnit = null;
   document.querySelectorAll('.sp-hot').forEach(function(h){
     h.classList.remove('sel');
@@ -3021,6 +3042,7 @@ function setLang(l){
   updateRmSelectedDisplay();
 }
 setLang(_pickInitialLang());
+loadBrochureAvailability();
 </script>
 </body>
 </html>
