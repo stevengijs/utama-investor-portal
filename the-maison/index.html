@@ -207,16 +207,15 @@ function tr(s,o){let r=s;for(const k in o)r=r.split("{"+k+"}").join(o[k]);return
 function imgBlock(cls,label){return `<div class="g ${cls} ph-img ${cls==='big'?'':'alt'}"><span class="ph-tag">${label}</span></div>`;}
 
 function renderStatic(){
-  const sold=MAISON.unitsSold, total=MAISON.unitsTotal;
-  const avail=(MAISON.unitsAvailable!=null)?MAISON.unitsAvailable:(total-sold);
-  const presale=sold<=0;
+  const _d=MAISON._avail||{total:MAISON.unitsTotal,sold:MAISON.unitsSold,reserved:MAISON.unitsReserved||0,available:MAISON.unitsAvailable};
+  const av=(window.availabilityText?window.availabilityText(_d,lang):null)||{line:'',tag:'',short:'',presale:false};
   el('gallery').innerHTML = (MAISON.images&&MAISON.images.length)
     ? `<div class="g big" style="background-image:url('${MAISON.images[0]}');background-size:cover;background-position:center" onclick="openLb(0)"></div>`+[1,2,3,4].map(i=>MAISON.images[i]?`<div class="g" style="background-image:url('${MAISON.images[i]}');background-size:cover;background-position:center" onclick="openLb(${i})"></div>`:imgBlock('','')).join("")
     : imgBlock('big',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render);
   el('hl').innerHTML=MAISON.highlights[lang].slice(0,3).map(x=>`<div>${x}</div>`).join("");
-  el('pill').textContent=presale?tr(T[lang].presale,{x:avail,y:total}):tr(T[lang].available,{x:avail,y:total,sold:sold});
-  el('momentum').textContent=presale?T[lang].presaleTag:(sold?tr(T[lang].recentSold,{x:sold}):'');
-  el('mAvail').textContent=presale?T[lang].presaleShort:tr(T[lang].availShort,{x:sold,y:total});
+  el('pill').textContent=av.line;
+  el('momentum').textContent=av.presale?av.tag:'';
+  el('mAvail').textContent=av.short;
   el('dprice').textContent=(lang==='nl'?"vanaf ":"from ")+money(CURRENT_PRICE);
 }
 /* Bepaalt de starttaal: een eerder handmatig gekozen taal (onthouden in
@@ -226,7 +225,7 @@ async function loadAvailability(){
   if(!window.utamaAvailability) return;
   const d=await window.utamaAvailability('the-maison');
   if(!d||typeof d.total!=='number') return;
-  MAISON.unitsTotal=d.total; MAISON.unitsSold=d.sold; MAISON.unitsAvailable=d.available; MAISON.unitsReserved=d.reserved;
+  MAISON.unitsTotal=d.total; MAISON.unitsSold=d.sold; MAISON.unitsAvailable=d.available; MAISON.unitsReserved=d.reserved; MAISON._avail=d;
   renderStatic();
 }
 function _pickInitialLang(){

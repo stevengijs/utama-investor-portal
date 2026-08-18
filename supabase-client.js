@@ -40,6 +40,41 @@ async function utamaAvailability(slug){
 if(typeof window!=='undefined') window.utamaAvailability = utamaAvailability;
 
 /*
+ * DE enige bron voor beschikbaarheids-tekst. Alle pagina's (homepage, project-
+ * pagina's, brochure) gebruiken dit, zodat de cijfers overal identiek zijn en
+ * altijd optellen. "Vergeven" = verkocht + gereserveerd, zodat vergeven + nog
+ * beschikbaar = totaal (geen "3 verkocht maar 2 beschikbaar"-verwarring meer).
+ * Neemt {total, sold, reserved, available}; geeft {line, tag, short, presale, soldout}.
+ */
+function availabilityText(d, lang){
+  lang = (lang === 'en') ? 'en' : 'nl';
+  if(!d) return null;
+  const total = +d.total || 0;
+  const sold = +d.sold || 0;
+  const reserved = +d.reserved || 0;
+  const available = (d.available != null) ? (+d.available) : Math.max(0, total - sold - reserved);
+  const taken = sold + reserved;
+  if(taken <= 0){
+    return { presale:true, soldout:false, total, taken:0, available,
+      line:  (lang==='nl') ? 'In pre-sale' : 'In pre-sale',
+      tag:   (lang==='nl') ? 'Nieuw in verkoop' : 'Newly launched',
+      short: 'Pre-sale' };
+  }
+  if(available <= 0){
+    return { presale:false, soldout:true, total, taken, available:0,
+      line:  (lang==='nl') ? ('Volledig verkocht ('+total+' van '+total+')') : ('Fully sold out ('+total+' of '+total+')'),
+      tag:   '',
+      short: (lang==='nl') ? 'Uitverkocht' : 'Sold out' };
+  }
+  return { presale:false, soldout:false, total, taken, available,
+    line:  (lang==='nl') ? (taken+' van '+total+' verkocht · nog '+available+' beschikbaar')
+                         : (taken+' of '+total+' sold · '+available+' still available'),
+    tag:   (lang==='nl') ? (taken+' verkocht') : (taken+' sold'),
+    short: taken + (lang==='nl' ? ' van ' : ' of ') + total };
+}
+if(typeof window!=='undefined') window.availabilityText = availabilityText;
+
+/*
  * Referral programme - lightweight attribution that runs on every page that
  * loads this file (no extra wiring needed per-page). Anyone landing with
  * ?ref=CODE in the URL gets that code remembered in localStorage for 90

@@ -208,16 +208,15 @@ function tr(s,o){let r=s;for(const k in o)r=r.split("{"+k+"}").join(o[k]);return
 function imgBlock(cls,label){return `<div class="g ${cls} ph-img ${cls==='big'?'':'alt'}"><span class="ph-tag">${label}</span></div>`;}
 
 function renderStatic(){
-  const sold=DUNE.unitsSold, total=DUNE.unitsTotal;
-  const avail=(DUNE.unitsAvailable!=null)?DUNE.unitsAvailable:(total-sold);
-  const presale=sold<=0;
+  const _d=DUNE._avail||{total:DUNE.unitsTotal,sold:DUNE.unitsSold,reserved:DUNE.unitsReserved||0,available:DUNE.unitsAvailable};
+  const av=(window.availabilityText?window.availabilityText(_d,lang):null)||{line:'',tag:'',short:'',presale:false};
   el('gallery').innerHTML = (DUNE.images&&DUNE.images.length)
     ? `<div class="g big" style="background-image:url('${DUNE.images[0]}');background-size:cover;background-position:center" onclick="openLb(0)"></div>`+[1,2,3,4].map(i=>DUNE.images[i]?`<div class="g" style="background-image:url('${DUNE.images[i]}');background-size:cover;background-position:center" onclick="openLb(${i})"></div>`:imgBlock('','')).join("")
     : imgBlock('big',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render)+imgBlock('',T[lang].render);
   el('hl').innerHTML=DUNE.highlights[lang].slice(0,3).map(x=>`<div>${x}</div>`).join("");
-  el('pill').textContent=presale?tr(T[lang].presale,{x:avail,y:total}):tr(T[lang].available,{x:avail,y:total,sold:sold});
-  el('momentum').textContent=presale?T[lang].presaleTag:(sold?tr(T[lang].recentSold,{x:sold}):'');
-  el('mAvail').textContent=presale?T[lang].presaleShort:tr(T[lang].availShort,{x:sold,y:total});
+  el('pill').textContent=av.line;
+  el('momentum').textContent=av.presale?av.tag:'';
+  el('mAvail').textContent=av.short;
   el('dprice').textContent=(lang==='nl'?"vanaf ":"from ")+money(CURRENT_PRICE);
 }
 /* Bepaalt de starttaal: een eerder handmatig gekozen taal (onthouden in
@@ -227,7 +226,7 @@ async function loadAvailability(){
   if(!window.utamaAvailability) return;
   const d=await window.utamaAvailability('the-dune');
   if(!d||typeof d.total!=='number') return;
-  DUNE.unitsTotal=d.total; DUNE.unitsSold=d.sold; DUNE.unitsAvailable=d.available; DUNE.unitsReserved=d.reserved;
+  DUNE.unitsTotal=d.total; DUNE.unitsSold=d.sold; DUNE.unitsAvailable=d.available; DUNE.unitsReserved=d.reserved; DUNE._avail=d;
   renderStatic();
 }
 function _pickInitialLang(){

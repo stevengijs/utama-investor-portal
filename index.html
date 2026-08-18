@@ -382,18 +382,29 @@ const el=id=>document.getElementById(id);
 function money(v){return new Intl.NumberFormat(CONFIG.locale,{style:"currency",currency:CONFIG.currency,maximumFractionDigits:0}).format(Math.round(v));}
 function tr(s,o){let r=s;for(const k in o)r=r.split("{"+k+"}").join(o[k]);return r;}
 
+async function loadHomeAvailability(){
+  if(!window.utamaAvailability) return;
+  const map={maison:'the-maison',dune:'the-dune'};
+  await Promise.all(PROJECTS.map(async p=>{
+    const slug=map[p.id]; if(!slug) return;
+    const d=await window.utamaAvailability(slug);
+    if(d&&typeof d.sold==='number'){ p.unitsSold=d.sold; p.unitsTotal=d.total; p.unitsAvailable=d.available; p.unitsReserved=d.reserved; }
+  }));
+  renderCards();
+}
 function renderCards(){
   let h="";
   PROJECTS.forEach(p=>{
-    const avail=p.unitsTotal-p.unitsSold;
+    const _d={total:p.unitsTotal,sold:p.unitsSold,reserved:p.unitsReserved||0,available:(p.unitsAvailable!=null)?p.unitsAvailable:(p.unitsTotal-p.unitsSold-(p.unitsReserved||0))};
+    const av=(window.availabilityText?window.availabilityText(_d,lang):null)||{line:'',tag:'',short:'',presale:false};
     const imgCls=p.img?'img':'img ph-img';
     const imgStyle=p.img?`background-image:url('${p.img}');background-size:cover;background-position:center`:'';
     h+=`<a class="pcard" href="${p.link}">
-      <div class="${imgCls}" style="${imgStyle}"><span class="badge">${p.status[lang]}</span>${avail===1?`<span class="almost-badge">Almost sold out</span>`:''}</div>
+      <div class="${imgCls}" style="${imgStyle}"><span class="badge">${p.status[lang]}</span>${(!av.presale&&av.available===1)?`<span class="almost-badge">Almost sold out</span>`:''}</div>
       <div class="pinfo">
         <h3>${p.name}</h3><div class="loc">${p.loc[lang]}</div>
-        <div class="prow"><div class="price">${T[lang].from} ${money(p.priceFrom)}</div><div class="avail">${avail>0?`<b class="avail-sold">${tr(T[lang].soldPart,{sold:p.unitsSold,y:p.unitsTotal})}</b><span class="avail-left"> · ${tr(T[lang].leftPart,{x:avail})}</span>`:`<b class="soldout-badge">${tr(T[lang].soldOutLine,{y:p.unitsTotal})}</b>`}</div></div>
-        ${p.recentSold?`<div class="momentum">${tr(T[lang].recentSold,{x:p.recentSold})}</div>`:''}
+        <div class="prow"><div class="price">${T[lang].from} ${money(p.priceFrom)}</div><div class="avail"><b class="avail-sold"${av.presale?' style="color:#0f6b4f"':''}>${av.line}</b></div></div>
+        ${av.presale?`<div class="momentum">${av.tag}</div>`:''}
         <div class="more">${T[lang].more}</div>
       </div></a>`;
   });
@@ -514,6 +525,7 @@ function launchConfetti(hostId){
 }
 document.addEventListener('keydown',function(e){ if(e.key!=='Escape') return; closeEarlyAccess(); closeContactModal(); });
 setLang(_pickInitialLang());
+loadHomeAvailability();
 
 /* Projectkaart-foto's komen automatisch uit de admin-galerij: de gemarkeerde
    omslagfoto (of anders de eerste foto) van elk project. Heeft een project nog
