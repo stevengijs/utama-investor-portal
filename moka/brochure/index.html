@@ -271,6 +271,8 @@
   .bgal .g{background-size:cover;background-position:center;border-radius:14px;cursor:zoom-in;transition:opacity .15s}
   .bgal .g.big{grid-row:span 2;grid-column:span 1}
   .bgal .g:hover{opacity:.9}
+  .fplan-pdf{display:inline-flex;align-items:center;gap:9px;margin-top:16px;text-decoration:none}
+  .fplan-pdf svg{width:17px;height:17px;flex:none}
   @media(max-width:640px){.bgal{grid-template-columns:1fr 1fr;grid-auto-rows:100px}.bgal .g.big{grid-column:span 2;grid-row:span 1}}
 
   .feature-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px 16px;margin:22px 0 6px}
@@ -852,6 +854,7 @@
     <div class="tabs-wrap">
       <div class="tabs-nav" id="tabsNav">
         <button data-tab="project" class="active"><span class="tn">01</span><span data-t="tabProject">Het project</span></button>
+        <button data-tab="plattegronden"><span class="tn">02</span><span data-t="tabPlattegronden">Plattegronden</span></button>
         <button data-tab="locatie"><span class="tn">02</span><span data-t="tabLocatie">Locatie</span></button>
         <button data-tab="rendement"><span class="tn">03</span><span data-t="tabRendement">Rendement &amp; prijs</span></button>
         <button data-tab="planning"><span class="tn">04</span><span data-t="tabPlanning">Planning</span></button>
@@ -936,6 +939,17 @@
       </div>
 
       <!-- 02 · LOCATIE -->
+      <!-- PLATTEGRONDEN (eigen hoofdstuk) -->
+      <div class="tab-pane" id="pane-plattegronden">
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M4 11h16M11 4v16"/></svg></span><div class="pane-kicker" data-t="pPlatKicker">Plattegronden</div></div>
+        <h2 class="pane-h" data-t="pPlatH2">Plattegronden per verdieping</h2>
+        <p class="pane-lead" data-t="pPlatLead">Bekijk de indeling van de woning. Klik op de knop voor de technische tekeningen.</p>
+        <a class="btn-outline fplan-pdf" href="https://drive.google.com/file/d/1yzW9o46nIcLkouhsBLfBYUGBlZTVoTs4/view" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span data-t="pPlatPdf">Bekijk de technische plattegronden</span>
+        </a>
+      </div>
+
       <div class="tab-pane" id="pane-locatie">
         <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg></span><div class="pane-kicker" data-t="p02Kicker">02 · Locatie</div></div>
         <h2 class="pane-h" data-t="p02H2">Kedungu: de opvolger van Canggu en Pererenan</h2>
@@ -1574,6 +1588,11 @@ const T = {
   "reserveBtn": "Reserveer de laatste unit",
   "printBtn": "Download als PDF",
   "tabProject": "Het project",
+  "tabPlattegronden": "Plattegronden",
+  "pPlatKicker": "Plattegronden",
+  "pPlatH2": "Plattegronden per verdieping",
+  "pPlatLead": "Bekijk de indeling van de woning. Klik op de knop voor de technische tekeningen.",
+  "pPlatPdf": "Bekijk de technische plattegronden",
   "tabLocatie": "Locatie",
   "tabRendement": "Rendement & prijs",
   "tabPlanning": "Planning",
@@ -1998,6 +2017,11 @@ const T = {
   "reserveBtn": "Reserve the last unit",
   "printBtn": "Download as PDF",
   "tabProject": "The project",
+  "tabPlattegronden": "Floor plans",
+  "pPlatKicker": "Floor plans",
+  "pPlatH2": "Floor plans per level",
+  "pPlatLead": "See the layout of the home. Click the button for the technical drawings.",
+  "pPlatPdf": "View the technical floor plans",
   "tabLocatie": "Location",
   "tabRendement": "Returns & price",
   "tabPlanning": "Timeline",
@@ -2569,7 +2593,7 @@ function showTab(id, skipHash){
 document.querySelectorAll('#tabsNav button').forEach(function(b){ b.addEventListener('click', function(){ showTab(b.dataset.tab); }); });
 (function(){
   const initial = (location.hash||'').replace('#','');
-  const valid = ['project','locatie','rendement','planning','team','beheer','vertrouwen','vragen'];
+  const valid = ['project','plattegronden','locatie','rendement','planning','team','beheer','vertrouwen','vragen'];
   if(valid.includes(initial)) showTab(initial, true);
 })();
 
@@ -2843,6 +2867,18 @@ function _pickInitialLang(){
   }catch(e){}
   return 'en';
 }
+// Nummert de hoofdstukken op volgorde van de zichtbare tabs, zodat er nooit
+// handmatig hernummerd hoeft te worden als er een hoofdstuk bij komt.
+function renumberChapters(){
+  var i=0;
+  document.querySelectorAll('#tabsNav button').forEach(function(b){
+    if(b.style.display==='none') return;
+    i++; var n=('0'+i).slice(-2);
+    var tn=b.querySelector('.tn'); if(tn) tn.textContent=n;
+    var pane=document.getElementById('pane-'+b.dataset.tab);
+    if(pane){ var k=pane.querySelector('.pane-kicker'); if(k) k.textContent=n+' \u00b7 '+k.textContent.replace(/^\s*\d+\s*\u00b7\s*/,''); }
+  });
+}
 function setLang(l){
   lang = l;
   if(el('btnNL')) el('btnNL').classList.toggle('on', l==='nl');
@@ -2855,6 +2891,7 @@ function setLang(l){
   renderUnit(); /* re-rendert galerij, facts, highlights, scenariokaarten en roept intern bcalc() aan */
   renderReportBlock();
   renderPrintFooter();
+  renumberChapters();
 }
 setLang(_pickInitialLang());
 </script>
