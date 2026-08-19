@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pagina niet gevonden · UTAMA</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Deze pagina bestaat niet meer. Ga terug naar de UTAMA homepage of bekijk onze projecten op Bali.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%2317140F'/><text x='16' y='23' font-family='Inter,Arial,sans-serif' font-size='19' font-weight='800' letter-spacing='0.5' fill='%23FAF5EA' text-anchor='middle'>U</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sand:#FAF5EA; --sand-2:#F1E9DB; --paper:#FEFBF6;
+    --ink:#17140F; --body:#4c463b; --muted:#6b6459; --line:#E7DECD;
+    --ok:#2E7D5B; --olive:#5B6A45;
+    --radius-btn:9px; --radius-pill:9999px; --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; min-height:100vh; background:
+      radial-gradient(760px 340px at 82% -8%, rgba(91,106,69,.10), transparent 62%),
+      radial-gradient(680px 320px at 8% 108%, rgba(23,20,15,.05), transparent 60%),
+      var(--sand);
+    color:var(--body);
+    font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+    display:flex; flex-direction:column;
+  }
+  a{color:inherit; text-decoration:none}
+
+  /* top bar */
+  .top{display:flex; align-items:center; justify-content:space-between; padding:22px clamp(18px,5vw,44px)}
+  .brand{font-weight:800; font-size:20px; letter-spacing:.34em; text-transform:uppercase; color:var(--ink)}
+  .lang{display:flex; gap:2px; background:var(--paper); border:1px solid var(--line); border-radius:var(--radius-pill); padding:3px}
+  .lang button{border:none; background:transparent; font-family:inherit; font-size:12.5px; font-weight:700; color:var(--muted); padding:6px 12px; border-radius:var(--radius-pill); cursor:pointer; transition:color .18s}
+  .lang button.on{background:var(--ink); color:#fff}
+
+  /* main */
+  main{flex:1; display:flex; align-items:center; justify-content:center; padding:24px clamp(18px,5vw,44px) 40px}
+  .box{width:100%; max-width:600px; text-align:center}
+  .code{
+    font-weight:800; font-size:clamp(66px,13vw,112px); line-height:.92; letter-spacing:-.04em;
+    color:var(--ink); margin:0 0 6px;
+  }
+  .code b{color:var(--olive); font-weight:800}
+  h1{font-family:inherit; font-weight:800; letter-spacing:-.015em; line-height:1.16;
+     font-size:clamp(23px,3.6vw,31px); color:var(--ink); margin:6px 0 12px; text-wrap:balance}
+  .sub{font-size:17px; color:var(--body); margin:0 auto 26px; max-width:44ch; text-wrap:pretty}
+
+  .actions{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-bottom:30px}
+  .btn{display:inline-flex; align-items:center; gap:9px; font-family:inherit; font-weight:700; font-size:15px;
+       padding:13px 22px; border-radius:var(--radius-btn); border:1px solid transparent; cursor:pointer;
+       transition:transform .16s cubic-bezier(.22,1,.36,1), box-shadow .16s, background .16s, border-color .16s}
+  .btn.primary{background:var(--ink); color:#fff; box-shadow:0 1px 2px rgba(23,20,15,.18)}
+  .btn.primary:hover{transform:translateY(-2px); box-shadow:0 8px 20px rgba(23,20,15,.20)}
+  .btn.ghost{background:var(--paper); color:var(--ink); border-color:var(--line)}
+  .btn.ghost:hover{border-color:rgba(23,20,15,.34); transform:translateY(-2px)}
+  .btn svg{width:17px; height:17px}
+
+  .proj{border-top:1px solid var(--line); padding-top:22px}
+  .proj-lbl{font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-weight:700; margin:0 0 13px}
+  .chips{display:flex; flex-wrap:wrap; gap:9px; justify-content:center}
+  .chip{display:inline-flex; align-items:center; gap:7px; background:var(--paper); border:1px solid var(--line);
+        border-radius:var(--radius-pill); padding:9px 16px; font-weight:600; font-size:14px; color:var(--ink);
+        transition:border-color .16s, transform .16s, background .16s}
+  .chip:hover{border-color:rgba(23,20,15,.32); transform:translateY(-1px); background:#fff}
+  .chip .dot{width:7px; height:7px; border-radius:50%; background:var(--olive); flex:none}
+  .chip .dot.sand{background:var(--sand-2); border:1px solid var(--line)}
+
+  .contact{margin-top:24px; font-size:14.5px; color:var(--muted)}
+  .contact a{color:var(--ok); font-weight:700; border-bottom:1px solid rgba(46,125,91,.32)}
+  .contact a:hover{border-bottom-color:var(--ok)}
+
+  footer{text-align:center; padding:20px; font-size:12.5px; color:var(--muted); letter-spacing:.02em}
+
+  /* entrance: enhances an already-visible layout, never hides it */
+  @media (prefers-reduced-motion: no-preference){
+    .reveal{opacity:0; transform:translateY(14px); animation:rise .6s cubic-bezier(.22,1,.36,1) forwards}
+    .reveal:nth-child(1){animation-delay:.04s}
+    .code.reveal{animation-delay:.02s}
+    h1.reveal{animation-delay:.10s}
+    .sub.reveal{animation-delay:.16s}
+    .actions.reveal{animation-delay:.22s}
+    .proj.reveal{animation-delay:.30s}
+    .contact.reveal{animation-delay:.36s}
+    @keyframes rise{to{opacity:1; transform:none}}
+  }
+</style>
+</head>
+<body>
+  <div class="top">
+    <a class="brand" href="https://utamabali.com/">UTAMA</a>
+    <div class="lang" role="group" aria-label="Taal / Language">
+      <button id="btnNL" type="button" onclick="setLang('nl')">NL</button>
+      <button id="btnEN" type="button" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+
+  <main>
+    <div class="box">
+      <div class="code reveal" aria-hidden="true">4<b>0</b>4</div>
+      <h1 class="reveal" data-t="h1">Deze pagina konden we niet vinden.</h1>
+      <p class="sub reveal" data-t="sub">De link klopt niet meer of de pagina is verplaatst. Geen zorgen, hieronder vind je snel de weg terug.</p>
+
+      <div class="actions reveal">
+        <a class="btn primary" href="https://utamabali.com/" data-t="ctaHome">Naar de homepage</a>
+        <a class="btn ghost" href="https://invest.utamabali.com/" data-t="ctaProjects">Bekijk alle projecten</a>
+      </div>
+
+      <div class="proj reveal">
+        <p class="proj-lbl" data-t="projLbl">Of ga direct naar een project</p>
+        <div class="chips">
+          <a class="chip" href="https://invest.utamabali.com/the-maison/"><span class="dot"></span>The Maison</a>
+          <a class="chip" href="https://invest.utamabali.com/the-dune/"><span class="dot"></span>The Dune</a>
+          <a class="chip" href="https://invest.utamabali.com/moka/"><span class="dot"></span>MOKA</a>
+        </div>
+      </div>
+
+      <p class="contact reveal">
+        <span data-t="contactPre">Liever direct contact?</span>
+        <a href="https://wa.me/31624845014" data-t="contactLink">WhatsApp ons</a>
+      </p>
+    </div>
+  </main>
+
+  <footer><span data-t="foot">UTAMA · Investeren in Bali-vastgoed, transparant en zorgeloos.</span></footer>
+
+<script>
+  var T={
+    nl:{
+      h1:"Deze pagina konden we niet vinden.",
+      sub:"De link klopt niet meer of de pagina is verplaatst. Geen zorgen, hieronder vind je snel de weg terug.",
+      ctaHome:"Naar de homepage",
+      ctaProjects:"Bekijk alle projecten",
+      projLbl:"Of ga direct naar een project",
+      contactPre:"Liever direct contact?",
+      contactLink:"WhatsApp ons",
+      foot:"UTAMA · Investeren in Bali-vastgoed, transparant en zorgeloos."
+    },
+    en:{
+      h1:"We couldn't find this page.",
+      sub:"The link is broken or the page has moved. No worries, here's the quickest way back.",
+      ctaHome:"Back to homepage",
+      ctaProjects:"View all projects",
+      projLbl:"Or go straight to a project",
+      contactPre:"Prefer to talk?",
+      contactLink:"WhatsApp us",
+      foot:"UTAMA · Investing in Bali real estate, transparent and hassle-free."
+    }
+  };
+  var lang="nl";
+  function setLang(l){
+    lang=l;
+    var nl=document.getElementById('btnNL'), en=document.getElementById('btnEN');
+    if(nl) nl.classList.toggle('on', l==='nl');
+    if(en) en.classList.toggle('on', l==='en');
+    document.documentElement.lang=l;
+    try{ localStorage.setItem('utama_lang', l); }catch(e){}
+    document.querySelectorAll('[data-t]').forEach(function(e){
+      var k=e.getAttribute('data-t'); if(T[l][k]!==undefined) e.textContent=T[l][k];
+    });
+  }
+  function pickLang(){
+    try{ var s=localStorage.getItem('utama_lang'); if(s==='nl'||s==='en') return s; }catch(e){}
+    try{ if(/(?:^|; )utama_geo=NL(?:;|$)/.test(document.cookie)) return 'nl'; }catch(e){}
+    try{ var b=(navigator.language||(navigator.languages&&navigator.languages[0])||'').toLowerCase(); if(b.indexOf('nl')===0) return 'nl'; }catch(e){}
+    return 'en';
+  }
+  setLang(pickLang());
+</script>
+</body>
+</html>

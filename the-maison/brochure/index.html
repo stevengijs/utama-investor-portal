@@ -823,8 +823,8 @@
         <h2>The Maison</h2>
         <div class="loc">Pererenan, Bali</div>
 
-        <div class="row price"><div class="rl" data-t="railPriceLbl">Huidige prijs</div><div class="rv"><span data-t="railPriceVal">€210.000</span></div></div>
-        <div class="price-note" data-t="railPriceNote">Stijgt naar €225.000 op 15 augustus</div>
+        <div class="row price"><div class="rl" data-t="railPriceLbl">Huidige prijs</div><div class="rv"><span data-t="railPriceVal">€225.000</span></div></div>
+        <div class="price-note" data-t="railPriceNote">Prijs stijgt verder tijdens de bouw</div>
         <div class="row yield"><div class="rl" data-t="railYieldLbl">Verwacht rendement</div><div class="rv"><span data-t="railYieldVal">12–17%/jr</span></div></div>
         <div class="row"><div class="rl" data-t="railLeaseLbl">Leaseperiode</div><div class="rv">30+30 jr</div></div>
         <div class="row"><div class="rl" data-t="railVillasLbl">Aantal villa's</div><div class="rv">6</div></div>
@@ -836,8 +836,8 @@
         </div>
 
         <div class="avail-wrap">
-          <div class="al" data-t="railAvailLbl">Beschikbaarheid <b data-t="railAvailVal">4 van de 6</b></div>
-          <div class="avail-bar"><span style="width:66%"></span></div>
+          <div class="al"><span data-t="railAvailLbl">Beschikbaarheid</span> <b data-t="railAvailVal">4 van de 6</b></div>
+          <div class="avail-bar"><span id="availBar" style="width:66%"></span></div>
         </div>
       </div>
       <div class="deal-cta">
@@ -990,14 +990,14 @@
       <!-- 03 · RENDEMENT & PRIJS -->
       <div class="tab-pane" id="pane-rendement">
         <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><path d="M4 16l5-5 4 3 6-7"/><path d="M15 6h4v4"/></svg></span><div class="pane-kicker" data-t="p03Kicker">03 · Rendement &amp; prijs</div></div>
-        <h2 class="pane-h" data-t="p03H2">Instappen vanaf €210.000, bereken je rendement</h2>
+        <h2 class="pane-h" data-t="p03H2">Instappen vanaf €225.000, bereken je rendement</h2>
         <p class="pane-lead" data-t="p03Lead">Alle prijzen zijn turnkey: volledig afgewerkt, ingericht en klaar voor verhuur. Geen verborgen kosten achteraf. Pas hieronder de aannames aan naar jouw eigen scenario, eerlijk berekend, geen opgeblazen beloftes.</p>
 
         <div class="prices">
-          <div class="pc cur hero"><div class="pv">€210.000</div><div class="pl" data-t="p03PriceCurLbl">Huidige prijs</div><div class="ps" data-t="p03PriceCurSub">Beschikbaar om nu te reserveren</div></div>
-          <div class="pc next"><div class="pv">€225.000</div><div class="pl" data-t="p03PriceNextLbl">Vanaf 15 augustus</div><div class="ps" data-t="p03PriceNextSub">+€15.000 na de stijging</div></div>
+          <div class="pc cur hero"><div class="pv">€225.000</div><div class="pl" data-t="p03PriceCurLbl">Huidige prijs</div><div class="ps" data-t="p03PriceCurSub">Beschikbaar om nu te reserveren</div></div>
+          <div class="pc"><div class="pv">€195.000</div><div class="pl" data-t="p03PricePreLbl">Pre-sale, gesloten</div><div class="ps" data-t="p03PricePreSub">waar de verkoop startte</div></div>
         </div>
-        <p class="price-trend" data-t="p03PriceTrend">Ter referentie: de pre-sale ging van start op €195.000. De prijs is sindsdien al met €15.000 gestegen, en loopt door naarmate de bouw vordert.</p>
+        <p class="price-trend" data-t="p03PriceTrend">Ter referentie: de pre-sale ging van start op €195.000. De prijs is sindsdien al met €30.000 gestegen, en loopt door naarmate de bouw vordert.</p>
 
         <div class="scen-wrap">
           <div class="scen-h" data-t="p03ScenH">Drie scenario's voor The Maison</div>
@@ -1326,7 +1326,7 @@
         <div class="faq">
           <details data-cat="juridisch">
             <summary data-t="p08Q1">Wat houdt de reservering van €5.000 in?</summary>
-            <p data-t="p08A1">Met een intentieverklaring en een aanbetaling van €5.000 reserveer je je voorkeursvilla. Dit bedrag wordt volledig verrekend bij de aankoop, na de notariële overdracht, zo zet je de huidige prijs vast voordat deze op 15 augustus stijgt.</p>
+            <p data-t="p08A1">Met een intentieverklaring en een aanbetaling van €5.000 reserveer je je voorkeursvilla. Dit bedrag wordt volledig verrekend bij de aankoop, na de notariële overdracht, zo zet je de huidige prijs vast voordat deze verder stijgt.</p>
           </details>
           <details data-cat="beheer">
             <summary data-t="p08Q2">Moet ik zelf iets regelen rond verhuur?</summary>
@@ -1465,7 +1465,7 @@
       <div class="eb" data-t="rmEb">Reserveren</div>
       <h3 data-t="rmH3Step2">Bijna klaar</h3>
       <p class="rm-lead" id="rmStep2Lead">Laat je gegevens achter, dan sturen we de intentieverklaring voor jouw unit toe.</p>
-      <div class="rm-explain"><b data-t="rmExplainB">Wat teken je precies?</b> <span data-t="rmExplainP">De intentieverklaring is kort, ongeveer 1 A4, in gewone taal, en beschrijft wat je bij ons koopt en de belangrijkste afspraken. Zodra je hebt getekend én de €5.000 aanbetaling is voldaan (volledig retourneerbaar als het papierwerk aan onze kant niet blijkt te kloppen), stellen we samen met de notaris de koopcontracten op. Je reservering zet bovendien de huidige prijs vast, vóór de verhoging van 15 augustus.</span></div>
+      <div class="rm-explain"><b data-t="rmExplainB">Wat teken je precies?</b> <span data-t="rmExplainP">De intentieverklaring is kort, ongeveer 1 A4, in gewone taal, en beschrijft wat je bij ons koopt en de belangrijkste afspraken. Zodra je hebt getekend én de €5.000 aanbetaling is voldaan (volledig retourneerbaar als het papierwerk aan onze kant niet blijkt te kloppen), stellen we samen met de notaris de koopcontracten op. Je reservering zet bovendien de huidige prijs vast, voordat deze verder stijgt.</span></div>
       <form id="rmForm" onsubmit="return rmSubmit(event)">
         <div class="gfield">
           <label for="rName" data-t="lblName">Naam</label>
@@ -1586,9 +1586,9 @@ const T = {
   "railStatus": "In aanbouw · oplevering april 2027",
   "railKicker": "Investeerdersportaal",
   "railPriceLbl": "Huidige prijs",
-  "railPriceVal": "€210.000",
+  "railPriceVal": "€225.000",
   "railYieldVal": "12–17%/jr",
-  "railPriceNote": "Stijgt naar €225.000 op 15 augustus",
+  "railPriceNote": "Prijs stijgt verder tijdens de bouw",
   "repHeroAmt": "€2.491",
   "repGrossAmt": "€4.530",
   "repFee1Amt": "-€680",
@@ -1683,13 +1683,13 @@ const T = {
   "p02Why4H": "Na Canggu komt Pererenan",
   "p02Why4P": "Dezelfde groei die Canggu maakte, nu zichtbaar in Pererenan.",
   "p03Kicker": "03 · Rendement & prijs",
-  "p03H2": "Instappen vanaf €210.000, bereken je rendement",
+  "p03H2": "Instappen vanaf €225.000, bereken je rendement",
   "p03Lead": "Alle prijzen zijn turnkey: volledig afgewerkt, ingericht en klaar voor verhuur. Geen verborgen kosten achteraf. Pas hieronder de aannames aan naar jouw eigen scenario, eerlijk berekend, geen opgeblazen beloftes.",
   "p03PriceCurLbl": "Huidige prijs",
   "p03PriceCurSub": "Beschikbaar om nu te reserveren",
-  "p03PriceNextLbl": "Vanaf 15 augustus",
-  "p03PriceNextSub": "+€15.000 na de stijging",
-  "p03PriceTrend": "Ter referentie: de pre-sale ging van start op €195.000. De prijs is sindsdien al met €15.000 gestegen, en loopt door naarmate de bouw vordert.",
+  "p03PricePreLbl": "Pre-sale, gesloten",
+  "p03PricePreSub": "waar de verkoop startte",
+  "p03PriceTrend": "Ter referentie: de pre-sale ging van start op €195.000. De prijs is sindsdien al met €30.000 gestegen, en loopt door naarmate de bouw vordert.",
   "p03ScenH": "Drie scenario's voor The Maison",
   "p03ScenNote": "Nettorendement per jaar, incl. beheer en kosten. Aan de hand van omgevingsdata.",
   "p03CalcSub": "Bereken je rendement",
@@ -1889,7 +1889,7 @@ const T = {
   "p08FaqRole": "· Director UTAMA",
   "p08FaqLead": "Staat je vraag er niet bij? Stuur ons een appje, we beantwoorden hem persoonlijk via WhatsApp.",
   "p08Q1": "Wat houdt de reservering van €5.000 in?",
-  "p08A1": "Met een intentieverklaring en een aanbetaling van €5.000 reserveer je je voorkeursvilla. Dit bedrag wordt volledig verrekend bij de aankoop, na de notariële overdracht, zo zet je de huidige prijs vast voordat deze op 15 augustus stijgt.",
+  "p08A1": "Met een intentieverklaring en een aanbetaling van €5.000 reserveer je je voorkeursvilla. Dit bedrag wordt volledig verrekend bij de aankoop, na de notariële overdracht, zo zet je de huidige prijs vast voordat deze verder stijgt.",
   "p08Q2": "Moet ik zelf iets regelen rond verhuur?",
   "p08A2": "Nee. Na oplevering verzorgt House of Reservations het volledige verhuurbeheer: listings op Airbnb, Booking.com, Agoda en Vrbo, gastcommunicatie, housekeeping en onderhoud. Je kunt de villa ook zelf beheren of voor een andere beheerder kiezen.",
   "p08Q3": "Kan ik de woning zelf gebruiken?",
@@ -1933,7 +1933,7 @@ const T = {
   "rmNextBtn": "Volgende stap",
   "rmH3Step2": "Bijna klaar",
   "rmExplainB": "Wat teken je precies?",
-  "rmExplainP": "De intentieverklaring is kort, ongeveer 1 A4, in gewone taal, en beschrijft wat je bij ons koopt en de belangrijkste afspraken. Zodra je hebt getekend én de €5.000 aanbetaling is voldaan (volledig retourneerbaar als het papierwerk aan onze kant niet blijkt te kloppen), stellen we samen met de notaris de koopcontracten op. Je reservering zet bovendien de huidige prijs vast, vóór de verhoging van 15 augustus.",
+  "rmExplainP": "De intentieverklaring is kort, ongeveer 1 A4, in gewone taal, en beschrijft wat je bij ons koopt en de belangrijkste afspraken. Zodra je hebt getekend én de €5.000 aanbetaling is voldaan (volledig retourneerbaar als het papierwerk aan onze kant niet blijkt te kloppen), stellen we samen met de notaris de koopcontracten op. Je reservering zet bovendien de huidige prijs vast, voordat deze verder stijgt.",
   "rmSubmitBtn": "Vraag de intentieverklaring aan",
   "rmBackBtn": "← Andere unit kiezen",
   "rmDoneLead": "We sturen je de intentieverklaring voor jouw unit toe. Ashley neemt ook persoonlijk contact op om de vervolgstappen te bespreken.",
@@ -2017,9 +2017,9 @@ const T = {
   "railStatus": "Under construction · completion April 2027",
   "railKicker": "Investor portal",
   "railPriceLbl": "Current price",
-  "railPriceVal": "€210,000",
+  "railPriceVal": "€225,000",
   "railYieldVal": "12–17%/yr",
-  "railPriceNote": "Rises to €225,000 on 15 August",
+  "railPriceNote": "Price rises further during construction",
   "repHeroAmt": "€2,491",
   "repGrossAmt": "€4,530",
   "repFee1Amt": "-€680",
@@ -2114,13 +2114,13 @@ const T = {
   "p02Why4H": "After Canggu comes Pererenan",
   "p02Why4P": "The same growth that made Canggu, now visible in Pererenan.",
   "p03Kicker": "03 · Returns & price",
-  "p03H2": "Enter from €210,000, calculate your return",
+  "p03H2": "Enter from €225,000, calculate your return",
   "p03Lead": "All prices are turnkey: fully finished, furnished and ready to rent. No hidden costs afterwards. Adjust the assumptions below to your own scenario, honestly calculated, no inflated promises.",
   "p03PriceCurLbl": "Current price",
   "p03PriceCurSub": "Available to reserve now",
-  "p03PriceNextLbl": "From 15 August",
-  "p03PriceNextSub": "+€15,000 after the increase",
-  "p03PriceTrend": "For reference: the pre-sale launched at €195,000. The price has already risen by €15,000 since then, and keeps rising as construction progresses.",
+  "p03PricePreLbl": "Pre-sale, closed",
+  "p03PricePreSub": "where sales began",
+  "p03PriceTrend": "For reference: the pre-sale launched at €195,000. The price has already risen by €30,000 since then, and keeps rising as construction progresses.",
   "p03ScenH": "Three scenarios for The Maison",
   "p03ScenNote": "Net return per year, including management and costs. Based on local market data.",
   "p03CalcSub": "Calculate your return",
@@ -2320,7 +2320,7 @@ const T = {
   "p08FaqRole": "· Director, UTAMA",
   "p08FaqLead": "Don't see your question? Send us a message, we'll answer it personally via WhatsApp.",
   "p08Q1": "What does the €5,000 reservation involve?",
-  "p08A1": "With a letter of intent and a €5,000 down payment, you reserve your preferred villa. This amount is fully deducted at purchase, after the notarised transfer, this way you lock in the current price before it rises on 15 August.",
+  "p08A1": "With a letter of intent and a €5,000 down payment, you reserve your preferred villa. This amount is fully deducted at purchase, after the notarised transfer, this way you lock in the current price before it rises further.",
   "p08Q2": "Do I need to arrange anything myself around renting it out?",
   "p08A2": "No. After completion, House of Reservations takes care of the full rental management: listings on Airbnb, Booking.com, Agoda and Vrbo, guest communication, housekeeping and maintenance. You can also manage the villa yourself or choose a different manager.",
   "p08Q3": "Can I use the property myself?",
@@ -2364,7 +2364,7 @@ const T = {
   "rmNextBtn": "Next step",
   "rmH3Step2": "Almost done",
   "rmExplainB": "What exactly are you signing?",
-  "rmExplainP": "The letter of intent is short, about one A4 page, in plain language, and describes what you're buying from us and the key agreements. Once you've signed and the €5,000 down payment has been received (fully refundable if the paperwork on our end turns out not to check out), we draw up the purchase contracts together with the notary. Your reservation also locks in the current price, before the increase on 15 August.",
+  "rmExplainP": "The letter of intent is short, about one A4 page, in plain language, and describes what you're buying from us and the key agreements. Once you've signed and the €5,000 down payment has been received (fully refundable if the paperwork on our end turns out not to check out), we draw up the purchase contracts together with the notary. Your reservation also locks in the current price, before it rises further.",
   "rmSubmitBtn": "Request the letter of intent",
   "rmBackBtn": "← Choose a different unit",
   "rmDoneLead": "We'll send you the letter of intent for your unit. Ashley will also reach out personally to discuss the next steps.",
@@ -2413,23 +2413,12 @@ const T = {
 // hieronder (voor terugkerende bezoekers, die synchroon bij het laden al reveal()
 // en dus bcalc() aanroept) een ReferenceError door de temporal dead zone.
 const GROWTH_RATE = 0.05; /* vaste jaarlijkse waardegroei-aanname, o.b.v. marktdata voor Pererenan/west-Bali (niet instelbaar) */
+// De prijsverhoging naar €225.000 (voorheen gepland voor 15 augustus 2026) is
+// doorgevoerd: €225.000 is nu de actuele prijs. Eén prijs, overal consistent.
 const BPRICES=[
-  {v:210000, l:{nl:"Nu", en:"Now"}, s:{nl:"huidige prijs", en:"current price"}, current:true},
-  {v:225000, l:{nl:"Vanaf 15 aug", en:"From 15 Aug"}, s:{nl:"prijs stijgt", en:"price increases"}}
+  {v:225000, l:{nl:"Nu", en:"Now"}, s:{nl:"huidige prijs", en:"current price"}, current:true}
 ];
-let bSelPrice=210000;
-// Automatische rollover: op 15 augustus 2026 (00:00 NL-tijd) wordt €225.000 de
-// actuele prijs en verdwijnen de "prijs stijgt"-elementen. Voorheen bleef de
-// brochure na de deadline met de vervallen prijs rekenen.
-const PRICE_DEADLINE_MS = Date.parse('2026-08-14T22:00:00Z'); /* = 15 aug 00:00 Europe/Amsterdam (CEST) */
-if (Date.now() >= PRICE_DEADLINE_MS) {
-  BPRICES.length = 0;
-  BPRICES.push({v:225000, l:{nl:"Nu", en:"Now"}, s:{nl:"huidige prijs", en:"current price"}, current:true});
-  bSelPrice = 225000;
-  document.addEventListener('DOMContentLoaded', function(){
-    document.querySelectorAll('[data-t="railPriceNote"], .pc.next').forEach(function(el){ el.style.display='none'; });
-  });
-}
+let bSelPrice=225000;
 const BSCENARIOS=[
   {label:{nl:"Voorzichtig", en:"Conservative"}, occ:76, nightly:165},
   {label:{nl:"Realistisch", en:"Realistic"}, occ:85, nightly:175, current:true},
@@ -2869,6 +2858,7 @@ async function loadBrochureAvailability(){
     TOTAL_UNITS = d.total || TOTAL_UNITS;
     SOLD_UNITS = d.units.filter(function(u){ return u.status === 'sold'; }).map(function(u){ return u.n; });
     RESERVED_UNITS = d.units.filter(function(u){ return u.status === 'reserved'; }).map(function(u){ return u.n; });
+    updateRailAvail();
     try{ renderSpPills(); }catch(e){}
     document.querySelectorAll('.sp-hot').forEach(function(h){
       const n = +h.dataset.unit;
@@ -2876,6 +2866,17 @@ async function loadBrochureAvailability(){
       h.classList.toggle('reserved', SOLD_UNITS.indexOf(n) === -1 && RESERVED_UNITS.indexOf(n) !== -1);
     });
   }catch(e){}
+}
+
+// Rail-stat "Beschikbaarheid: X van de Y" + balk, live uit de RPC. Werkt de
+// gedeelde T-teksten bij, zodat een taalwissel (setLang leest T[lang] opnieuw)
+// de live waarde in de juiste taal laat staan i.p.v. terug te vallen op "4 van de 6".
+function updateRailAvail(){
+  var av = Math.max(0, TOTAL_UNITS - SOLD_UNITS.length - RESERVED_UNITS.length);
+  T.nl.railAvailVal = av + ' van de ' + TOTAL_UNITS;
+  T.en.railAvailVal = av + ' of ' + TOTAL_UNITS;
+  var rv = document.querySelector('[data-t="railAvailVal"]'); if(rv) rv.textContent = T[lang].railAvailVal;
+  var bar = document.getElementById('availBar'); if(bar) bar.style.width = (TOTAL_UNITS ? Math.round(av / TOTAL_UNITS * 100) : 0) + '%';
 }
 
 function rmUnitLabel(n){ return "Unit " + n; }

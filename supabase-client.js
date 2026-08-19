@@ -25,9 +25,15 @@ function getSupabaseClient(){
 /*
  * Live unit-beschikbaarheid per project uit één bron (project_availability).
  * Geeft {total, sold, reserved, available, units:[{n,status}]} of null bij fout.
- * Marketing telt aanbetaald als verkocht; 'available' = niet verkocht en niet
- * gereserveerd. Alle publieke pagina's + de digitale brochure lezen dit, zodat
- * een reservering overal meteen consistent doorwerkt.
+ * Statusmodel (zie migratie ..._availability_aanbetaald_is_gereserveerd):
+ *   sold      = notarieel/historisch (projects.sold_units_manual)
+ *   reserved  = getekende ITP, incl. aanbetaald (deposit_paid telt als reserved,
+ *               NIET als sold)
+ *   available = de rest
+ * In marketing tonen we "vergeven" = verkocht + gereserveerd (zie availabilityText),
+ * dus aanbetaald telt wél mee in het vergeven-getal, alleen niet als "verkocht".
+ * Alle publieke pagina's + de digitale brochure lezen dit, zodat een reservering
+ * overal meteen consistent doorwerkt.
  */
 async function utamaAvailability(slug){
   const sb = getSupabaseClient();

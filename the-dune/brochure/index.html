@@ -756,8 +756,8 @@
         </div>
 
         <div class="avail-wrap">
-          <div class="al" data-t="railAvailLbl">Beschikbaarheid <b data-t="railAvailVal">4 van de 4</b></div>
-          <div class="avail-bar"><span style="width:100%"></span></div>
+          <div class="al"><span data-t="railAvailLbl">Beschikbaarheid</span> <b data-t="railAvailVal">4 van de 4</b></div>
+          <div class="avail-bar"><span id="availBar" style="width:100%"></span></div>
         </div>
       </div>
       <div class="deal-cta">
@@ -3031,10 +3031,36 @@ document.addEventListener('keydown',function(e){ if(!el('lb').classList.contains
 // Alle vier villa's staan nu op "beschikbaar" (0 verkocht, bevestigd door Steven).
 // Zodra een villa onder een intentieverklaring + aanbetaling staat maar nog niet
 // notarieel is afgerond, zet 'm in RESERVED_UNITS (i.p.v. meteen in SOLD_UNITS).
-const TOTAL_UNITS = 4;
-const SOLD_UNITS = [];
-const RESERVED_UNITS = [];
+let TOTAL_UNITS = 4;
+let SOLD_UNITS = [];
+let RESERVED_UNITS = [];
 let rmSelectedUnit = null;
+
+// Live beschikbaarheid uit project_availability, net als The Maison. The Dune
+// heeft geen siteplan-graphic (alleen de pillenlijst), dus geen .sp-hot-stap.
+async function loadBrochureAvailability(){
+  if(!window.utamaAvailability) return;
+  try{
+    const d = await window.utamaAvailability('the-dune');
+    if(!d || !Array.isArray(d.units)) return;
+    TOTAL_UNITS = d.total || TOTAL_UNITS;
+    SOLD_UNITS = d.units.filter(function(u){ return u.status === 'sold'; }).map(function(u){ return u.n; });
+    RESERVED_UNITS = d.units.filter(function(u){ return u.status === 'reserved'; }).map(function(u){ return u.n; });
+    updateRailAvail();
+    try{ renderSpPills(); }catch(e){}
+  }catch(e){}
+}
+
+// Rail-stat "Beschikbaarheid: X van de Y" + balk, live uit de RPC. Werkt de
+// gedeelde T-teksten bij, zodat een taalwissel (setLang leest T[lang] opnieuw)
+// de live waarde in de juiste taal laat staan i.p.v. terug te vallen op "4 van de 4".
+function updateRailAvail(){
+  var av = Math.max(0, TOTAL_UNITS - SOLD_UNITS.length - RESERVED_UNITS.length);
+  T.nl.railAvailVal = av + ' van de ' + TOTAL_UNITS;
+  T.en.railAvailVal = av + ' of ' + TOTAL_UNITS;
+  var rv = document.querySelector('[data-t="railAvailVal"]'); if(rv) rv.textContent = T[lang].railAvailVal;
+  var bar = document.getElementById('availBar'); if(bar) bar.style.width = (TOTAL_UNITS ? Math.round(av / TOTAL_UNITS * 100) : 0) + '%';
+}
 
 function rmUnitLabel(n){ return "Villa " + n; }
 
@@ -3071,6 +3097,7 @@ function selectUnit(n){
 }
 
 function openReserveModal(){
+  loadBrochureAvailability();
   rmSelectedUnit = null;
   renderSpPills();
   updateRmSelectedDisplay();
@@ -3194,6 +3221,7 @@ function setLang(l){
   updateRmSelectedDisplay();
 }
 setLang(_pickInitialLang());
+loadBrochureAvailability();
 </script>
 </body>
 </html>

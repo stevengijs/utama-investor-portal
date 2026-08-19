@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Maison, Pererenan — vanaf €210.000, 12–17% rendement | UTAMA</title>
-<meta name="description" content="Eigen villa op Bali, wij bouwen, beheren en verhuren hem voor je. Zes designvilla's in Pererenan, vanaf €210.000, 12–17% verwacht rendement. Bekijk de brochure.">
+<title>The Maison, Pererenan — vanaf €225.000, 12–17% rendement | UTAMA</title>
+<meta name="description" content="Eigen villa op Bali, wij bouwen, beheren en verhuren hem voor je. Zes designvilla's in Pererenan, vanaf €225.000, 12–17% verwacht rendement. Bekijk de brochure.">
 <meta name="robots" content="noindex,follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,8 +44,7 @@
 </div>
 
 <div class="urg-bar" id="urgBar">
-  <span data-t="urgText">Prijs stijgt naar <b>€225.000</b> op 15 augustus</span>
-  <span class="urg-days" id="urgDays"></span>
+  <span data-t="urgText">Nu in verkoop vanaf <b>€225.000</b>, prijs stijgt verder tijdens de bouw</span>
 </div>
 
 <header class="hero">
@@ -59,10 +58,10 @@
       </div>
       <div class="cta-trust" data-t="ctaTrust">Gratis en vrijblijvend · 1 minuut · direct toegang tot alle cijfers</div>
       <div class="trustrow">
-        <div><b>vanaf €210.000</b><span data-t="mt1">richtprijs, nu in verkoop</span></div>
+        <div><b>vanaf €225.000</b><span data-t="mt1">richtprijs, nu in verkoop</span></div>
         <div><b>12–17%</b><span data-t="mt2">verwacht rendement per jaar</span></div>
         <div><b>€2.488</b><span data-t="mt4">netto per maand op je rekening</span></div>
-        <div><b>4 van 6</b><span data-t="mt3">villa's nog beschikbaar</span></div>
+        <div><b id="mAvailVal">4 van 6</b><span data-t="mt3">villa's nog beschikbaar</span></div>
       </div>
     </div>
     <div class="hero-visual">
@@ -203,7 +202,7 @@ const CONFIG = { email:"steven@utamabali.com", locale:"nl-NL", currency:"EUR" };
 const T={
  nl:{
   navCta:"Bekijk brochure",
-  urgText:"Prijs stijgt naar <b>€225.000</b> op 15 augustus",
+  urgText:"Nu in verkoop vanaf <b>€225.000</b>, prijs stijgt verder tijdens de bouw",
   eyebrow:"Pererenan, Bali · Digitale brochure",
   h1:"Eigen villa op Bali.<br>Wij bouwen &amp; verhuren 'm.",
   sub:"Zes volledig verhuurklare designvilla's in Pererenan. Jij bezit de villa, een gespecialiseerd verhuurteam verzorgt het complete verhuurbeheer. Geen omkijken, wel het rendement.",
@@ -233,7 +232,7 @@ const T={
  },
  en:{
   navCta:"View brochure",
-  urgText:"Price rises to <b>€225,000</b> on 15 August",
+  urgText:"Now selling from <b>€225,000</b>, price rises further during construction",
   eyebrow:"Pererenan, Bali · Digital brochure",
   h1:"Your own villa in Bali.<br>We build &amp; rent it out.",
   sub:"Six fully rental-ready design villas in Pererenan. You own the villa, a specialised rental management team handles the entire rental process. No hassle, just the return.",
@@ -267,10 +266,9 @@ const el=id=>document.getElementById(id);
 function tr(s,o){let r=s;for(const k in o)r=r.split("{"+k+"}").join(o[k]);return r;}
 
 function renderUrgency(){
-  var deadline = new Date('2026-08-15T00:00:00+08:00');
-  var now = new Date();
-  var days = Math.max(0, Math.ceil((deadline-now)/86400000));
-  el('urgDays').textContent = tr(T[lang].urgDays,{n:days});
+  // De 15-augustus-deadline is verstreken en €225.000 is nu de actuele prijs.
+  // De aftelteller is verwijderd; de urgentiebalk toont nu evergreen-copy.
+  var d = el('urgDays'); if(d) d.textContent = '';
 }
 
 function _pickInitialLang(){
@@ -334,6 +332,24 @@ function launchConfetti(){
   }
 }
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeBrochure(); });
+// Live "X van 6 beschikbaar" uit project_availability, zodat deze landingspagina
+// niet blijft hangen op een hardcoded getal zodra er een villa gereserveerd wordt.
+var _mAvail = null;
+function renderAvailStat(){
+  var elv = el('mAvailVal'); if(!elv || !_mAvail) return;
+  elv.textContent = _mAvail.available + (lang==='nl' ? ' van ' : ' of ') + _mAvail.total;
+}
+(function(){
+  if(!window.utamaAvailability) return;
+  window.utamaAvailability('the-maison').then(function(d){
+    if(!d) return;
+    var total = +d.total || 0;
+    var available = (d.available!=null) ? +d.available : Math.max(0, total - (+d.sold||0) - (+d.reserved||0));
+    _mAvail = { available: available, total: total };
+    renderAvailStat();
+  }).catch(function(){});
+})();
+
 setLang(_pickInitialLang());
 
 // Sticky top-CTA: verschijnt pas zodra de grote hero-CTA (de eerste knop,
