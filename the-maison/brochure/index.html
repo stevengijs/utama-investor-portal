@@ -277,6 +277,8 @@
   .fplan{margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--paper);cursor:zoom-in}
   .fplan img{display:block;width:100%;height:auto}
   .fplan figcaption{font-size:12px;color:var(--muted);padding:8px 10px}
+  .fplan-pdf{display:inline-flex;align-items:center;gap:9px;margin-top:16px;text-decoration:none}
+  .fplan-pdf svg{width:17px;height:17px;flex:none}
   @media(max-width:640px){.bgal{grid-template-columns:1fr 1fr;grid-auto-rows:100px}.bgal .g.big{grid-column:span 2;grid-row:span 1}}
 
   .feature-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px 16px;margin:22px 0 6px}
@@ -898,7 +900,7 @@
         </div>
 
         <div class="feature-cols">
-          <div class="fcol"><h4 data-t="p01F1H">Turnkey</h4><p data-t="p01F1P">Volledig afgewerkt en ingericht opgeleverd, inclusief branded details.</p></div>
+          <div class="fcol"><h4 data-t="p01F1H">Volledig gemeubileerd</h4><p data-t="p01F1P">Volledig afgewerkt en ingericht opgeleverd, inclusief branded details.</p></div>
           <div class="fcol"><h4 data-t="p01F2H">Prime locatie</h4><p data-t="p01F2P">Middenin Pererenan, tussen de beste restaurants, cafés, gyms en beauty salons van de buurt, en op 3 minuten van het strand.</p></div>
           <div class="fcol"><h4 data-t="p01F3H">Volledig beheerd</h4><p data-t="p01F3P">Verhuur en operationeel beheer geregeld door House of Reservations.</p></div>
           <div class="fcol"><h4 data-t="p01F4H">30 + 30 jaar lease</h4><p data-t="p01F4P">Leasehold van 30 jaar, met een notarieel gegarandeerde optie tot verlenging van nog eens 30 jaar.</p></div>
@@ -940,6 +942,10 @@
         <h2 class="pane-h" data-t="pPlatH2">Plattegronden per verdieping</h2>
         <p class="pane-lead" data-t="pPlatLead">Bekijk de indeling van de villa, van woonlaag tot rooftop. Klik op een plattegrond voor groot.</p>
         <div class="fplans-grid" id="floorplansGrid"></div>
+        <a class="btn-outline fplan-pdf" href="/the-maison/UTAMA-The-Maison-plattegronden.pdf" target="_blank" rel="noopener" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          <span data-t="pPlatPdf">Download de technische plattegronden (PDF, 45 MB)</span>
+        </a>
       </div>
 
       <div class="tab-pane" id="pane-locatie">
@@ -1639,6 +1645,7 @@ const T = {
   "pPlatKicker": "Plattegronden",
   "pPlatH2": "Plattegronden per verdieping",
   "pPlatLead": "Bekijk de indeling van de villa, van woonlaag tot rooftop. Klik op een plattegrond voor groot.",
+  "pPlatPdf": "Download de technische plattegronden (PDF, 45 MB)",
   "tabLocatie": "Locatie",
   "tabRendement": "Rendement & prijs",
   "tabPlanning": "Planning",
@@ -1653,7 +1660,7 @@ const T = {
   "p01Trust1": "Orange C2-zone, met geldige vergunning",
   "p01Trust2": "Aankoop notarieel beveiligd",
   "p01Trust3": "PBG & SLF inbegrepen",
-  "p01F1H": "Turnkey",
+  "p01F1H": "Volledig gemeubileerd",
   "p01F1P": "Volledig afgewerkt en ingericht opgeleverd, inclusief branded details.",
   "p01F2H": "Prime locatie",
   "p01F2P": "Middenin Pererenan, tussen de beste restaurants, cafés, gyms en beauty salons van de buurt, en op 3 minuten van het strand.",
@@ -2073,6 +2080,7 @@ const T = {
   "pPlatKicker": "Floor plans",
   "pPlatH2": "Floor plans per level",
   "pPlatLead": "See the villa's layout, from living level to rooftop. Click a floor plan to enlarge.",
+  "pPlatPdf": "Download the technical floor plans (PDF, 45 MB)",
   "tabLocatie": "Location",
   "tabRendement": "Returns & price",
   "tabPlanning": "Timeline",
@@ -2087,7 +2095,7 @@ const T = {
   "p01Trust1": "Orange C2 zone, with a valid permit",
   "p01Trust2": "Purchase secured by a notary",
   "p01Trust3": "PBG & SLF included",
-  "p01F1H": "Turnkey",
+  "p01F1H": "Volledig gemeubileerd",
   "p01F1P": "Delivered fully finished and furnished, including branded details.",
   "p01F2H": "Prime location",
   "p01F2P": "Right in the heart of Pererenan, among the neighbourhood's best restaurants, cafés, gyms and beauty salons, and 3 minutes from the beach.",
