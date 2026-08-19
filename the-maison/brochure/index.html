@@ -446,7 +446,7 @@
   .scb{font-size:11.5px;margin-top:7px;font-weight:600;opacity:.9}
 
   .prices{display:grid;grid-template-columns:1fr;gap:9px;margin-top:6px}
-  @media(min-width:640px){.prices{grid-template-columns:1fr 1fr}}
+  @media(min-width:640px){.prices{grid-template-columns:1fr}}
   .pc{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px;text-align:center}
   .pc.cur{border-color:var(--opt);background:var(--sage-tint)}
   .pc .pv{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:var(--ink)}
@@ -995,9 +995,8 @@
 
         <div class="prices">
           <div class="pc cur hero"><div class="pv">€225.000</div><div class="pl" data-t="p03PriceCurLbl">Huidige prijs</div><div class="ps" data-t="p03PriceCurSub">Beschikbaar om nu te reserveren</div></div>
-          <div class="pc"><div class="pv">€195.000</div><div class="pl" data-t="p03PricePreLbl">Pre-sale, gesloten</div><div class="ps" data-t="p03PricePreSub">waar de verkoop startte</div></div>
         </div>
-        <p class="price-trend" data-t="p03PriceTrend">Ter referentie: de pre-sale ging van start op €195.000. De prijs is sindsdien al met €30.000 gestegen, en loopt door naarmate de bouw vordert.</p>
+        <p class="price-trend" data-t="p03PriceTrend">De prijs loopt op naarmate de bouw vordert. Reserveer nu om de huidige prijs vast te zetten.</p>
 
         <div class="scen-wrap">
           <div class="scen-h" data-t="p03ScenH">Drie scenario's voor The Maison</div>
@@ -1687,9 +1686,7 @@ const T = {
   "p03Lead": "Alle prijzen zijn turnkey: volledig afgewerkt, ingericht en klaar voor verhuur. Geen verborgen kosten achteraf. Pas hieronder de aannames aan naar jouw eigen scenario, eerlijk berekend, geen opgeblazen beloftes.",
   "p03PriceCurLbl": "Huidige prijs",
   "p03PriceCurSub": "Beschikbaar om nu te reserveren",
-  "p03PricePreLbl": "Pre-sale, gesloten",
-  "p03PricePreSub": "waar de verkoop startte",
-  "p03PriceTrend": "Ter referentie: de pre-sale ging van start op €195.000. De prijs is sindsdien al met €30.000 gestegen, en loopt door naarmate de bouw vordert.",
+  "p03PriceTrend": "De prijs loopt op naarmate de bouw vordert. Reserveer nu om de huidige prijs vast te zetten.",
   "p03ScenH": "Drie scenario's voor The Maison",
   "p03ScenNote": "Nettorendement per jaar, incl. beheer en kosten. Aan de hand van omgevingsdata.",
   "p03CalcSub": "Bereken je rendement",
@@ -2118,9 +2115,7 @@ const T = {
   "p03Lead": "All prices are turnkey: fully finished, furnished and ready to rent. No hidden costs afterwards. Adjust the assumptions below to your own scenario, honestly calculated, no inflated promises.",
   "p03PriceCurLbl": "Current price",
   "p03PriceCurSub": "Available to reserve now",
-  "p03PricePreLbl": "Pre-sale, closed",
-  "p03PricePreSub": "where sales began",
-  "p03PriceTrend": "For reference: the pre-sale launched at €195,000. The price has already risen by €30,000 since then, and keeps rising as construction progresses.",
+  "p03PriceTrend": "The price rises as construction progresses. Reserve now to lock in the current price.",
   "p03ScenH": "Three scenarios for The Maison",
   "p03ScenNote": "Net return per year, including management and costs. Based on local market data.",
   "p03CalcSub": "Calculate your return",
