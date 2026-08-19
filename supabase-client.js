@@ -151,7 +151,13 @@ function utamaLocationMap(elId, opts){
     pts.push([p.lat,p.lng]);
   });
   try{ map.fitBounds(pts,{padding:[46,46],maxZoom:15}); }catch(e){}
-  setTimeout(function(){ try{ map.invalidateSize(); }catch(e){} }, 250);
+  // De kaart zit vaak in een verborgen tab: Leaflet kent dan de afmetingen niet
+  // (0px hoog, tegels laden niet). Herbereken zodra de container zichtbaar wordt.
+  function refresh(){ try{ map.invalidateSize(); map.fitBounds(pts,{padding:[46,46],maxZoom:15}); }catch(e){} }
+  setTimeout(refresh, 250);
+  if(window.ResizeObserver){ try{ new ResizeObserver(function(){ if(host.offsetHeight>0) refresh(); }).observe(host); }catch(e){} }
+  window.addEventListener('resize', refresh);
+  host._urefresh = refresh;
   return map;
 }
 if(typeof window!=='undefined') window.utamaLocationMap = utamaLocationMap;
