@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * Genereert UTAMA-The-Dune-Investeerdersbrochure.pdf uit pdf-source.html.
+ * Genereert UTAMA-The-Reload-Investeerdersbrochure.pdf uit pdf-source.html.
  * Zie the-maison/brochure/render-pdf.js voor de volledige toelichting op deze
  * aanpak (vaste-layout paginas i.p.v. de live, responsive brochure printen).
  * Gebruik: node render-pdf.js
@@ -16,14 +16,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 (async () => {
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || '/opt/pw-browsers/chromium' });
   const page = await browser.newPage({ viewport: { width: 900, height: 1200 } });
-  await page.goto('http://localhost:8899/the-dune/brochure/pdf-source.html', { waitUntil: 'networkidle' });
+  await page.goto('http://localhost:8899/the-reload/brochure/pdf-source.html', { waitUntil: 'networkidle' });
   await page.evaluate(async () => {
     const pending = Array.from(document.images).filter(img => !img.complete);
     await Promise.all(pending.map(img => new Promise(res => { img.onload = img.onerror = res; })));
     if (document.fonts && document.fonts.ready) await document.fonts.ready;
   });
   await page.waitForTimeout(400);
-  const out = path.join(__dirname, 'UTAMA-The-Dune-Investeerdersbrochure.pdf');
+  const out = path.join(__dirname, 'UTAMA-The-Reload-Investeerdersbrochure.pdf');
   await page.pdf({ path: out, printBackground: true, preferCSSPageSize: true });
   await browser.close();
   console.log('geschreven:', out);

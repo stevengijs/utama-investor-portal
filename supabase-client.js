@@ -111,6 +111,52 @@ async function utamaProjectMedia(slug){
 if(typeof window!=='undefined') window.utamaProjectMedia = utamaProjectMedia;
 
 /*
+ * Herbruikbare, gestileerde locatiekaart (Leaflet + CARTO light tiles) met
+ * POI-markers en reistijden, in de UTAMA-huisstijl. Vervangt de Google Maps-
+ * iframe in de Locatie-tab. Elk project roept 'm aan met z'n eigen centrum +
+ * POI-lijst, dus schaalbaar. Leaflet moet in de pagina geladen zijn (CDN).
+ * opts = { center:[lat,lng], label:'The Maison', zoom, pois:[{name,lat,lng,cat,min,ico}] }
+ *   cat: 'food' | 'fit' | 'beach'  (bepaalt kleur + standaard-emoji)
+ */
+function utamaLocationMap(elId, opts){
+  if(typeof L==='undefined' || !opts) return null;
+  var host=document.getElementById(elId); if(!host || host._umap) return null;
+  if(!document.getElementById('utama-map-css')){
+    var st=document.createElement('style'); st.id='utama-map-css';
+    st.textContent=
+      '.leaflet-container{background:#f3f1ea;font-family:inherit;border-radius:14px}'+
+      '.leaflet-control-zoom a{color:#17140F}'+
+      '.upoi .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;border:2px solid #fff;box-shadow:0 2px 7px rgba(0,0,0,.28);transform:translate(-50%,-50%)}'+
+      '.upoi .lbl{position:absolute;left:0;top:0;transform:translate(-50%,calc(-50% - 27px));white-space:nowrap;background:#fff;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;color:#17140F;box-shadow:0 3px 10px rgba(0,0,0,.16)}'+
+      '.upoi.food .dot{background:#E8912A}.upoi.food .lbl b{color:#E8912A}'+
+      '.upoi.fit .dot{background:#2E9E6B}.upoi.fit .lbl b{color:#2E9E6B}'+
+      '.upoi.beach .dot{background:#3E86C9}.upoi.beach .lbl b{color:#3E86C9}'+
+      '.upoi.home .dot{width:44px;height:44px;font-size:20px;background:#8B5A3C;border:3px solid #fff}'+
+      '.upoi.home .lbl{font-size:13px;background:#8B5A3C;color:#fff;transform:translate(-50%,calc(-50% - 34px))}';
+    document.head.appendChild(st);
+  }
+  var map=L.map(elId,{scrollWheelZoom:false,zoomControl:true}).setView(opts.center, opts.zoom||14);
+  host._umap=map;
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:19,attribution:'© OpenStreetMap © CARTO'}).addTo(map);
+  var EMO={food:'🍽️',fit:'🧘',beach:'🏖️'};
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function mk(lat,lng,cls,ico,name,min){
+    var lbl='<div class="lbl">'+esc(name)+(min!=null?' <b>'+esc(min)+' min</b>':'')+'</div>';
+    return L.marker([lat,lng],{icon:L.divIcon({className:'upoi '+cls,html:lbl+'<div class="dot">'+ico+'</div>',iconSize:[0,0],iconAnchor:[0,0]}),keyboard:false}).addTo(map);
+  }
+  var pts=[opts.center];
+  mk(opts.center[0],opts.center[1],'home','🏠',opts.label||'',null);
+  (opts.pois||[]).forEach(function(p){
+    mk(p.lat,p.lng,p.cat||'food',p.ico||EMO[p.cat]||'📍',p.name,p.min);
+    pts.push([p.lat,p.lng]);
+  });
+  try{ map.fitBounds(pts,{padding:[46,46],maxZoom:15}); }catch(e){}
+  setTimeout(function(){ try{ map.invalidateSize(); }catch(e){} }, 250);
+  return map;
+}
+if(typeof window!=='undefined') window.utamaLocationMap = utamaLocationMap;
+
+/*
  * Referral programme - lightweight attribution that runs on every page that
  * loads this file (no extra wiring needed per-page). Anyone landing with
  * ?ref=CODE in the URL gets that code remembered in localStorage for 90

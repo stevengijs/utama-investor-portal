@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UTAMA - The Dune - Data room</title>
-<meta name="description" content="Due diligence-documentatie en voorbeeldcontracten voor The Dune.">
+<title>UTAMA - The Reload - Data room</title>
+<meta name="description" content="Due diligence-documentatie en voorbeeldcontracten voor The Reload.">
 <link rel="icon" href="/images/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,13 +45,13 @@
 </head>
 <body>
 <div class="drwrap">
-  <a href="/the-dune" class="drback">&larr; Terug naar The Dune</a>
+  <a href="/the-reload" class="drback">&larr; Terug naar The Reload</a>
 
   <div id="drCard" class="drcard centered">
     <div class="dricon"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
-    <div class="dreyebrow">Data room &middot; The Dune</div>
+    <div class="dreyebrow">Data room &middot; The Reload</div>
     <h1>Due diligence &amp; contractdocumentatie</h1>
-    <p class="sub">Hieronder vind je de documenten voor The Dune - due diligence-stukken en voorbeeldcontracten. Klik op een document om het te openen.</p>
+    <p class="sub">Hieronder vind je de documenten voor The Reload - due diligence-stukken en voorbeeldcontracten. Klik op een document om het te openen.</p>
     <div id="drFiles" class="drloading">Documenten laden&hellip;</div>
     <p class="drnote">Geen toegang, of iets ontbreekt? Neem contact op met Ashley of Steven.</p>
   </div>
@@ -116,7 +116,7 @@
   }
 
   (async function(){
-    const result = await listDataroomFiles('The Dune');
+    const result = await listDataroomFiles('The Reload');
     if(!result.ok){
       const el = document.getElementById('drFiles');
       el.className = 'drempty';

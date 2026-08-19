@@ -302,11 +302,11 @@ const PROJECTS = [
     status:{nl:"Laatste unit · oplevering september 2026", en:"Last unit · completion September 2026"},
     priceFrom:325000, unitsTotal:15, unitsSold:14,
     img:"/images/moka/villa3-exterior.jpg" },
-  { id:"dune", name:"The Dune", link:"/the-dune",
+  { id:"dune", name:"The Reload", link:"/the-reload",
     loc:{nl:"Cemagi, Bali", en:"Cemagi, Bali"},
     status:{nl:"In verkoop · oplevering medio 2027", en:"Selling now · completion mid-2027"},
     priceFrom:325000, unitsTotal:4, unitsSold:0,
-    img:"/the-dune/images/dune-exterior2.jpg" }
+    img:"/the-reload/images/dune-exterior2.jpg" }
 ];
 
 /* Eerder uitverkochte projecten: alleen voor social proof op de homepage, geen eigen
@@ -384,7 +384,7 @@ function tr(s,o){let r=s;for(const k in o)r=r.split("{"+k+"}").join(o[k]);return
 
 async function loadHomeAvailability(){
   if(!window.utamaAvailability) return;
-  const map={maison:'the-maison',dune:'the-dune'};
+  const map={maison:'the-maison',dune:'the-reload'};
   await Promise.all(PROJECTS.map(async p=>{
     const slug=map[p.id]; if(!slug) return;
     const d=await window.utamaAvailability(slug);
