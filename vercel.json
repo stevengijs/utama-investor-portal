@@ -1,6 +1,7 @@
 {
   "redirects": [
-    { "source": "/the-dune", "destination": "/the-reload", "permanent": true },
+    { "source": "/the-dune", "destination": "/the-reload/", "permanent": true },
+    { "source": "/the-dune/", "destination": "/the-reload/", "permanent": true },
     { "source": "/the-dune/:path*", "destination": "/the-reload/:path*", "permanent": true }
   ],
   "headers": [
