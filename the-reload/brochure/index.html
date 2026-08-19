@@ -758,7 +758,7 @@
         <div class="build-wrap">
           <div class="al" data-t="railBuildLbl">Bouwvoortgang</div>
           <div class="avail-bar"><span id="buildBar" style="width:0%"></span></div>
-          <div class="build-dates"><span data-t="railBuildStart">Start 15 mei 2026</span><span data-t="railBuildEnd">Oplevering medio 2027</span></div>
+          <div class="build-dates"><span data-t="railBuildStart">Start 15 september 2026</span><span data-t="railBuildEnd">Oplevering medio 2027</span></div>
         </div>
 
         <div class="avail-wrap">
@@ -1183,7 +1183,7 @@
         <div class="plan-block">
           <div class="subhead" data-t="p04Sub2">Van eerste schep in de grond tot eerste gast</div>
           <div class="vtl" id="buildTl">
-            <div class="vitem" data-milestone="2026-05-15"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag" data-t="p04Vtag1">15 mei 2026</div><h4 data-t="p04V1H">Start bouw</h4><p data-t="p04V1P">Land clearing en het bouwrijp maken van de kavels.</p></div></div>
+            <div class="vitem" data-milestone="2026-09-15"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag" data-t="p04Vtag1">15 september 2026</div><h4 data-t="p04V1H">Start bouw</h4><p data-t="p04V1P">Land clearing en het bouwrijp maken van de kavels.</p></div></div>
             <div class="vitem"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag" data-t="p04Vtag2">Doorlopend</div><h4 data-t="p04V2H">Bouw &amp; afbouw</h4><p data-t="p04V2P">Wekelijkse teammeetings, volledige supervisie op de bouwplaats over alle disciplines, Duitse bouwbegeleiding en moderne bouwmethodes.</p></div></div>
             <div class="vitem" data-milestone="2027-07-01"><div class="vmark"><span class="vdot"></span></div><div class="vc"><div class="vtag" data-t="p04Vtag3">Medio 2027</div><h4 data-t="p04V3H">Oplevering &amp; start verhuur</h4><p data-t="p04V3P">Turnkey sleuteloverdracht; listings live en eerste boekingen.</p></div></div>
           </div>
@@ -1663,7 +1663,7 @@ const T = {
   "railLeaseLbl": "Leaseperiode",
   "railVillasLbl": "Aantal villa's",
   "railBuildLbl": "Bouwvoortgang",
-  "railBuildStart": "Start 15 mei 2026",
+  "railBuildStart": "Start 15 september 2026",
   "railBuildEnd": "Oplevering medio 2027",
   "railAvailLbl": "Beschikbaarheid",
   "railAvailVal": "4 van de 4",
@@ -1921,7 +1921,7 @@ const T = {
   "p04N5H": "Oplevering",
   "p04N5P": "Je villa wordt turnkey overgedragen en de verhuur gaat direct van start.",
   "p04Sub2": "Van eerste schep in de grond tot eerste gast",
-  "p04Vtag1": "15 mei 2026",
+  "p04Vtag1": "15 september 2026",
   "p04V1H": "Start bouw",
   "p04V1P": "Land clearing en het bouwrijp maken van de kavels.",
   "p04Vtag2": "Doorlopend",
@@ -2179,7 +2179,7 @@ const T = {
   "railLeaseLbl": "Lease period",
   "railVillasLbl": "Number of villas",
   "railBuildLbl": "Construction progress",
-  "railBuildStart": "Start 15 May 2026",
+  "railBuildStart": "Start 15 September 2026",
   "railBuildEnd": "Completion mid-2027",
   "railAvailLbl": "Availability",
   "railAvailVal": "4 of 4",
@@ -2437,7 +2437,7 @@ const T = {
   "p04N5H": "Completion",
   "p04N5P": "Your villa is handed over turnkey and rental starts immediately.",
   "p04Sub2": "From first spade in the ground to first guest",
-  "p04Vtag1": "15 May 2026",
+  "p04Vtag1": "15 September 2026",
   "p04V1H": "Construction starts",
   "p04V1P": "Land clearing and preparing the plots for construction.",
   "p04Vtag2": "Ongoing",
@@ -2680,7 +2680,7 @@ if(el('bbCam')) el('bbCam').href="https://wa.me/"+CONFIG.whatsapp+"?text="+encod
 // buildEnd (15 juli 2027) is een interne rekenwaarde als proxy voor "medio 2027" - dit
 // getal wordt nergens letterlijk getoond, alleen gebruikt om de voortgangsbalk te vullen.
 (function(){
-  const buildStart = new Date(2026, 4, 15); /* 15 mei 2026 */
+  const buildStart = new Date(2026, 8, 15); /* 15 september 2026 */
   const buildEnd = new Date(2027, 6, 15); /* proxy voor "medio 2027" */
   const now = new Date();
   const pct = Math.round(Math.max(0, Math.min(1, (now - buildStart) / (buildEnd - buildStart))) * 100);
