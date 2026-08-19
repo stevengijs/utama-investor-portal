@@ -1674,6 +1674,10 @@ const T = {
   "railNoteCta": "Vraag de bouwcamera aan →",
   "fplansH": "Plattegronden",
   "tabProject": "Het project",
+  "tabPlattegronden": "Plattegronden",
+  "pPlatKicker": "Plattegronden",
+  "pPlatH2": "Plattegronden per verdieping",
+  "pPlatLead": "Bekijk de indeling van de villa, van woonlaag tot rooftop. Klik op een plattegrond voor groot.",
   "tabLocatie": "Locatie",
   "tabRendement": "Rendement & prijs",
   "tabPlanning": "Planning",
@@ -2186,6 +2190,10 @@ const T = {
   "railNoteCta": "Request the construction camera →",
   "fplansH": "Floor plans",
   "tabProject": "The project",
+  "tabPlattegronden": "Floor plans",
+  "pPlatKicker": "Floor plans",
+  "pPlatH2": "Floor plans per level",
+  "pPlatLead": "See the villa's layout, from living level to rooftop. Click a floor plan to enlarge.",
   "tabLocatie": "Location",
   "tabRendement": "Returns & price",
   "tabPlanning": "Timeline",
@@ -2926,7 +2934,7 @@ function showTab(id, skipHash){
 document.querySelectorAll('#tabsNav button').forEach(function(b){ b.addEventListener('click', function(){ showTab(b.dataset.tab); }); });
 (function(){
   const initial = (location.hash||'').replace('#','');
-  const valid = ['project','locatie','rendement','planning','team','beheer','vertrouwen','vragen'];
+  const valid = ['project','plattegronden','locatie','rendement','planning','team','beheer','vertrouwen','vragen'];
   if(valid.includes(initial)) showTab(initial, true);
 })();
 
@@ -3063,6 +3071,7 @@ function renderFloorplans(list){
   if(typeof renumberChapters==='function') renumberChapters();
 }
 async function loadBrochureMedia(){
+  renderFloorplans([]);            // standaard verbergen tot de admin plattegronden teruggeeft
   if(!window.utamaProjectMedia) return;
   try{
     var m=await window.utamaProjectMedia('the-reload');
@@ -3256,6 +3265,19 @@ function _pickInitialLang(){
   }catch(e){}
   return 'en';
 }
+// Nummert de hoofdstukken (tab-badge + paneel-kicker) op volgorde van de
+// zichtbare tabs. Zo hoeft er nooit handmatig hernummerd te worden als er een
+// hoofdstuk bij komt (zoals Plattegronden) of wegvalt.
+function renumberChapters(){
+  var i=0;
+  document.querySelectorAll('#tabsNav button').forEach(function(b){
+    if(b.style.display==='none') return;
+    i++; var n=('0'+i).slice(-2);
+    var tn=b.querySelector('.tn'); if(tn) tn.textContent=n;
+    var pane=document.getElementById('pane-'+b.dataset.tab);
+    if(pane){ var k=pane.querySelector('.pane-kicker'); if(k) k.textContent=n+' · '+k.textContent.replace(/^\s*\d+\s*·\s*/,''); }
+  });
+}
 function setLang(l){
   lang = l;
   if(el('btnNL')) el('btnNL').classList.toggle('on', l==='nl');
@@ -3273,6 +3295,7 @@ function setLang(l){
   renderPrintFooter();
   renderSpPills();
   updateRmSelectedDisplay();
+  renumberChapters();
 }
 setLang(_pickInitialLang());
 loadBrochureAvailability();

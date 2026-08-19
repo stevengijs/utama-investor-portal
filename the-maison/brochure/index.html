@@ -2876,6 +2876,7 @@ function renderFloorplans(list){
   if(typeof renumberChapters==='function') renumberChapters();
 }
 async function loadBrochureMedia(){
+  renderFloorplans([]);            // standaard verbergen tot de admin plattegronden teruggeeft
   if(!window.utamaProjectMedia) return;
   try{
     var m=await window.utamaProjectMedia('the-maison');
