@@ -244,6 +244,12 @@
   .bgal .g{background-size:cover;background-position:center;border-radius:14px;cursor:zoom-in;transition:opacity .15s}
   .bgal .g.big{grid-row:span 2;grid-column:span 1}
   .bgal .g:hover{opacity:.9}
+  .fplans{margin:20px 0 0}
+  .fplans-h{font-size:16px;font-weight:800;letter-spacing:-.01em;margin:0 0 10px;color:var(--ink)}
+  .fplans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .fplan{margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--paper);cursor:zoom-in}
+  .fplan img{display:block;width:100%;height:auto}
+  .fplan figcaption{font-size:12px;color:var(--muted);padding:8px 10px}
   @media(max-width:640px){.bgal{grid-template-columns:1fr 1fr;grid-auto-rows:100px}.bgal .g.big{grid-column:span 2;grid-row:span 1}}
 
   /* --- imgrow: nieuw, licht component voor losse fotoreeksen (team/locatie/detail)
@@ -799,13 +805,14 @@
           <div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><span data-t="p01Trust3">30+30 jaar leasehold</span></div>
         </div>
 
-        <div class="bgal">
+        <div class="bgal" id="bgal">
           <div class="g big" style="background-image:url('/the-dune/images/dune-hero.jpg')" onclick="openLb(0)"></div>
           <div class="g" style="background-image:url('/the-dune/images/dune-aerial.jpg')" onclick="openLb(1)"></div>
           <div class="g" style="background-image:url('/the-dune/images/dune-living.jpg')" onclick="openLb(2)"></div>
           <div class="g" style="background-image:url('/the-dune/images/dune-kitchen.jpg')" onclick="openLb(3)"></div>
           <div class="g" style="background-image:url('/the-dune/images/dune-bedroom.jpg')" onclick="openLb(4)"></div>
         </div>
+        <section class="fplans" id="floorplansSection" style="display:none"></section>
 
         <div class="feature-cols">
           <div class="fcol"><h4 data-t="p01F1H">Turnkey</h4><p data-t="p01F1P">Volledig gemeubileerd en direct verhuurklaar opgeleverd, geen setup nodig, direct inkomen.</p></div>
@@ -1657,6 +1664,7 @@ const T = {
   "printBtn": "Download als PDF",
   "railNoteLbl": "Live bouwstatus bekijken?",
   "railNoteCta": "Vraag de bouwcamera aan →",
+  "fplansH": "Plattegronden",
   "tabProject": "Het project",
   "tabLocatie": "Locatie",
   "tabRendement": "Rendement & prijs",
@@ -2168,6 +2176,7 @@ const T = {
   "printBtn": "Download as PDF",
   "railNoteLbl": "Want to see live construction status?",
   "railNoteCta": "Request the construction camera →",
+  "fplansH": "Floor plans",
   "tabProject": "The project",
   "tabLocatie": "Location",
   "tabRendement": "Returns & price",
@@ -3018,13 +3027,46 @@ function bcalc(){
 }
 
 // Lightbox (tab 01-galerij)
-const GAL=[].slice.call(document.querySelectorAll('.bgal .g'));
-const GIMG=GAL.map(function(g){ const m=(g.style.backgroundImage||'').match(/url\(["']?(.*?)["']?\)/); return m?m[1]:''; });
-let lbIdx=0;
-function openLb(i){ lbIdx=i; el('lbImg').src=GIMG[i]; el('lbCap').textContent=(i+1)+' / '+GIMG.length; el('lb').classList.add('open'); document.body.style.overflow='hidden'; }
+let GAL=[], GIMG=[], lbIdx=0;
+function bindGallery(){
+  GAL=[].slice.call(document.querySelectorAll('#bgal .g'));
+  GIMG=GAL.map(function(g){ var m=(g.style.backgroundImage||'').match(/url\(["']?(.*?)["']?\)/); return m?m[1]:''; });
+  GAL.forEach(function(g,i){ g.onclick=function(){ openLb(i); }; });
+}
+function openLbSrc(src, cap){ el('lbImg').src=src; el('lbCap').textContent=cap||''; el('lb').classList.add('open'); document.body.style.overflow='hidden'; }
+function openLb(i){ lbIdx=i; openLbSrc(GIMG[i], (i+1)+' / '+GIMG.length); }
 function closeLb(){ el('lb').classList.remove('open'); document.body.style.overflow=''; }
 function stepLb(d){ lbIdx=(lbIdx+d+GIMG.length)%GIMG.length; el('lbImg').src=GIMG[lbIdx]; el('lbCap').textContent=(lbIdx+1)+' / '+GIMG.length; }
 document.addEventListener('keydown',function(e){ if(!el('lb').classList.contains('open'))return; if(e.key==='Escape')closeLb(); if(e.key==='ArrowRight')stepLb(1); if(e.key==='ArrowLeft')stepLb(-1); });
+bindGallery();
+
+// Galerij + plattegronden uit de admin (project_media). Staat er niets in de
+// admin, dan blijven de vaste foto's als terugval staan.
+function renderFloorplans(list){
+  var sec=el('floorplansSection'); if(!sec) return;
+  if(!list || !list.length){ sec.style.display='none'; sec.innerHTML=''; return; }
+  var title=(window.T && T[lang] && T[lang].fplansH) || 'Plattegronden';
+  sec.style.display='';
+  sec.innerHTML='<h3 class="fplans-h" data-t="fplansH">'+title+'</h3><div class="fplans-grid">'+
+    list.map(function(f){ var u=String(f.url).replace(/"/g,'%22'); return '<figure class="fplan"><img src="'+u+'" loading="lazy" alt="'+title+'" onclick="openLbSrc(this.src, this.getAttribute(\'alt\'))">'+(f.caption?'<figcaption>'+f.caption+'</figcaption>':'')+'</figure>'; }).join('')+'</div>';
+}
+async function loadBrochureMedia(){
+  if(!window.utamaProjectMedia) return;
+  try{
+    var m=await window.utamaProjectMedia('the-dune');
+    if(!m) return;
+    if(m.renders && m.renders.length){
+      var imgs = m.hero ? [m.hero].concat(m.gallery) : m.renders;
+      var bg=el('bgal');
+      if(bg){
+        bg.innerHTML=imgs.map(function(it,i){ return '<div class="g'+(i===0?' big':'')+'" style="background-image:url(\''+String(it.url).replace(/'/g,'%27')+'\')"></div>'; }).join('');
+        bindGallery();
+      }
+    }
+    renderFloorplans(m.floorplans||[]);
+  }catch(e){}
+}
+loadBrochureMedia();
 
 // ---- reserveringsmodule: pillenlijst i.p.v. siteplan-hotspots (geen siteplan-graphic
 //      beschikbaar voor The Dune), + gegevens voor de intentieverklaring ----

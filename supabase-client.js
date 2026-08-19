@@ -81,6 +81,36 @@ function availabilityText(d, lang){
 if(typeof window!=='undefined') window.availabilityText = availabilityText;
 
 /*
+ * DE enige bron voor projectbeelden (renders/foto's + plattegronden), uit de
+ * admin-galerij (project_media). Alle oppervlaktes lezen dit: de projectpagina,
+ * de digitale brochure EN de PDF-brochure, zodat de beelden overal identiek zijn
+ * en niks meer hardcoded loshangt. Upload je in de admin een nieuwe render of
+ * plattegrond, dan verschijnt die automatisch overal.
+ *   kind 'render'    -> foto's/renders (galerij + omslag/hero)
+ *   kind 'floorplan' -> plattegronden (aparte "Plattegronden"-sectie)
+ * Geeft {all, renders, floorplans, hero, gallery} met kant-en-klare publieke
+ * URL's, of null bij fout. gallery = renders zonder de hero.
+ */
+const PROJECT_MEDIA_BASE = 'https://gcpachivrwalsneuvlsa.supabase.co/storage/v1/object/public/project-media/';
+async function utamaProjectMedia(slug){
+  const sb = getSupabaseClient();
+  if(!sb) return null;
+  try{
+    const { data, error } = await sb.rpc('project_media_public', { p_slug: slug });
+    if(error || !Array.isArray(data)) return null;
+    const all = data.map(function(r){
+      return { url: PROJECT_MEDIA_BASE + r.path, caption: r.caption || '', hero: !!r.is_hero, kind: r.kind || 'render' };
+    });
+    const renders = all.filter(function(m){ return m.kind !== 'floorplan'; });
+    const floorplans = all.filter(function(m){ return m.kind === 'floorplan'; });
+    const hero = renders.filter(function(m){ return m.hero; })[0] || renders[0] || all[0] || null;
+    const gallery = renders.filter(function(m){ return m !== hero; });
+    return { all: all, renders: renders, floorplans: floorplans, hero: hero, gallery: gallery };
+  }catch(e){ return null; }
+}
+if(typeof window!=='undefined') window.utamaProjectMedia = utamaProjectMedia;
+
+/*
  * Referral programme - lightweight attribution that runs on every page that
  * loads this file (no extra wiring needed per-page). Anyone landing with
  * ?ref=CODE in the URL gets that code remembered in localStorage for 90

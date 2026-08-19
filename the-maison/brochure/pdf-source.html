@@ -749,6 +749,28 @@
       }
     }
   }catch(e){}
+  // Foto's + plattegronden uit de admin (project_media), zodat de PDF dezelfde
+  // beelden toont als de projectpagina en de digitale brochure.
+  try{
+    if(window.utamaProjectMedia){
+      var pm = await window.utamaProjectMedia('the-maison');
+      if(pm && pm.renders && pm.renders.length){
+        var mUrls=(pm.hero?[pm.hero].concat(pm.gallery):pm.renders).map(function(x){return x.url;});
+        [].slice.call(document.querySelectorAll('img[src*="/the-maison/images/maison-"]')).forEach(function(im){ im.src=mUrls[0]; });
+        var mk=0;
+        [].slice.call(document.querySelectorAll('[style*="the-maison/images/maison-"]')).forEach(function(elm){ elm.style.backgroundImage="url('"+String(mUrls[mk%mUrls.length]).replace(/'/g,"%27")+"')"; mk++; });
+      }
+      if(pm && pm.floorplans && pm.floorplans.length){
+        var fp=document.createElement('section'); fp.className='pdfpage';
+        fp.innerHTML='<div class="pg"><div class="kicker"><span class="kn">·</span> Plattegronden</div>'
+          +'<h1 class="h1" style="font-size:26px">Plattegronden</h1>'
+          +'<div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px">'
+          +pm.floorplans.map(function(f){ return '<img src="'+String(f.url).replace(/"/g,'%22')+'" alt="Plattegrond" style="width:100%;height:auto;border:1px solid var(--line);border-radius:12px;display:block">'; }).join('')
+          +'</div></div>';
+        document.body.appendChild(fp);
+      }
+    }
+  }catch(e){}
   try{
     if(new URLSearchParams(location.search).get('print')==='1'){
       var go=function(){ setTimeout(function(){ window.print(); }, 700); };
