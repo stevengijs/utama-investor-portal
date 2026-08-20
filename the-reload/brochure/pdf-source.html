@@ -315,7 +315,7 @@
       <div><div style="font-size:24px;font-weight:800">€325.000</div><div style="font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px">Huidige prijs</div></div>
       <div><div style="font-size:24px;font-weight:800">12–17%</div><div style="font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px">Verwacht rendement / jr</div></div>
       <div><div style="font-size:24px;font-weight:800">30+30 jr</div><div style="font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px">Leaseperiode</div></div>
-      <div><div style="font-size:24px;font-weight:800">4 / 4</div><div style="font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px">Villa's beschikbaar</div></div>
+      <div><div style="font-size:24px;font-weight:800" id="pdfAvailStat">4 / 4</div><div style="font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px">Villa's beschikbaar</div></div>
     </div>
   </div>
 </section>
@@ -702,6 +702,17 @@
 // Foto's + plattegronden uit de admin (project_media), zodat de PDF dezelfde
 // beelden toont als de projectpagina en de digitale brochure.
 (async function(){
+  // Beschikbaarheid live uit project_availability, zodat de PDF hetzelfde toont
+  // als de projectpagina en de digitale brochure.
+  try{
+    if(window.utamaAvailability){
+      var av = await window.utamaAvailability('the-reload');
+      if(av && typeof av.total==='number'){
+        var st=document.getElementById('pdfAvailStat');
+        if(st) st.textContent = av.available+' / '+av.total;
+      }
+    }
+  }catch(e){}
   try{
     if(window.utamaProjectMedia){
       var pm = await window.utamaProjectMedia('the-reload');

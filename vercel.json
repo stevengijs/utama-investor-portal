@@ -1,36 +1,123 @@
 {
   "redirects": [
-    { "source": "/the-dune", "destination": "/the-reload/", "permanent": true },
-    { "source": "/the-dune/", "destination": "/the-reload/", "permanent": true },
-    { "source": "/the-dune/:path*/", "destination": "/the-reload/:path*/", "permanent": true },
-    { "source": "/the-dune/:path*", "destination": "/the-reload/:path*", "permanent": true }
+    {
+      "source": "/the-dune",
+      "destination": "/the-reload/",
+      "permanent": true
+    },
+    {
+      "source": "/the-dune/",
+      "destination": "/the-reload/",
+      "permanent": true
+    },
+    {
+      "source": "/the-dune/:path*/",
+      "destination": "/the-reload/:path*/",
+      "permanent": true
+    },
+    {
+      "source": "/the-dune/:path*",
+      "destination": "/the-reload/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/the-maison/brochure/pdf",
+      "destination": "/the-maison/brochure/pdf-source.html",
+      "permanent": false
+    },
+    {
+      "source": "/the-maison/brochure/pdf/",
+      "destination": "/the-maison/brochure/pdf-source.html",
+      "permanent": false
+    },
+    {
+      "source": "/the-maison/brochure/UTAMA-The-Maison-Investeerdersbrochure.pdf",
+      "destination": "/the-maison/brochure/pdf-source.html",
+      "permanent": false
+    },
+    {
+      "source": "/the-reload/brochure/pdf",
+      "destination": "/the-reload/brochure/pdf-source.html",
+      "permanent": false
+    },
+    {
+      "source": "/the-reload/brochure/pdf/",
+      "destination": "/the-reload/brochure/pdf-source.html",
+      "permanent": false
+    },
+    {
+      "source": "/the-reload/brochure/UTAMA-The-Reload-Investeerdersbrochure.pdf",
+      "destination": "/the-reload/brochure/pdf-source.html",
+      "permanent": false
+    },
+    {
+      "source": "/moka/brochure/pdf",
+      "destination": "/moka/brochure/pdf-source.html",
+      "permanent": false
+    },
+    {
+      "source": "/moka/brochure/pdf/",
+      "destination": "/moka/brochure/pdf-source.html",
+      "permanent": false
+    },
+    {
+      "source": "/moka/brochure/UTAMA-MOKA-Investeerdersbrochure.pdf",
+      "destination": "/moka/brochure/pdf-source.html",
+      "permanent": false
+    },
+    {
+      "source": "/the-reload/brochure/UTAMA-The-Dune-Investeerdersbrochure.pdf",
+      "destination": "/the-reload/brochure/pdf-source.html",
+      "permanent": false
+    }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self' https: data: blob: 'unsafe-inline' 'unsafe-eval'; object-src 'none'; base-uri 'none'; frame-ancestors 'self'" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self' https: data: blob: 'unsafe-inline' 'unsafe-eval'; object-src 'none'; base-uri 'none'; frame-ancestors 'self'"
+        }
       ]
     },
     {
       "source": "/(.*).pdf",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
       ]
     },
     {
       "source": "/(.*).html",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
       ]
     },
     {
       "source": "/",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
       ]
     }
   ]
