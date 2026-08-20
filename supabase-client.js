@@ -127,12 +127,13 @@ function utamaLocationMap(elId, opts){
       '.leaflet-container{background:#f3f1ea;font-family:inherit;border-radius:14px}'+
       '.leaflet-control-zoom a{color:#17140F}'+
       '.upoi .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;border:2px solid #fff;box-shadow:0 2px 7px rgba(0,0,0,.28);transform:translate(-50%,-50%)}'+
-      '.upoi .lbl{position:absolute;left:0;top:0;transform:translate(-50%,calc(-50% - 27px));white-space:nowrap;background:#fff;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;color:#17140F;box-shadow:0 3px 10px rgba(0,0,0,.16)}'+
+      '.upoi .lbl{position:absolute;left:0;top:0;transform:translate(-50%,calc(-50% - 27px - var(--dy,0px)));white-space:nowrap;background:#fff;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;color:#17140F;box-shadow:0 3px 10px rgba(0,0,0,.16);transition:transform .12s ease}'+
+      '.upoi.hidelbl .lbl{display:none}'+
       '.upoi.food .dot{background:#E8912A}.upoi.food .lbl b{color:#E8912A}'+
       '.upoi.fit .dot{background:#2E9E6B}.upoi.fit .lbl b{color:#2E9E6B}'+
       '.upoi.beach .dot{background:#3E86C9}.upoi.beach .lbl b{color:#3E86C9}'+
       '.upoi.home .dot{width:44px;height:44px;font-size:20px;background:#8B5A3C;border:3px solid #fff}'+
-      '.upoi.home .lbl{font-size:13px;background:#8B5A3C;color:#fff;transform:translate(-50%,calc(-50% - 34px))}';
+      '.upoi.home .lbl{font-size:13px;background:#8B5A3C;color:#fff;transform:translate(-50%,calc(-50% - 34px - var(--dy,0px)));z-index:5}';
     document.head.appendChild(st);
   }
   var map=L.map(elId,{scrollWheelZoom:false,zoomControl:true}).setView(opts.center, opts.zoom||14);
@@ -151,9 +152,39 @@ function utamaLocationMap(elId, opts){
     pts.push([p.lat,p.lng]);
   });
   try{ map.fitBounds(pts,{padding:[46,46],maxZoom:15}); }catch(e){}
+
+  // Labels van dichtbij elkaar liggende POI's overlappen snel. Schuif elk label
+  // verticaal tot het vrij ligt; lukt dat niet, verberg het label (de gekleurde
+  // stip blijft staan). Het projectlabel heeft altijd voorrang.
+  function layoutLabels(){
+    // Bij een nog verborgen kaart (0x0) vallen alle labels samen; dan niets doen,
+    // anders zou alles als 'botsend' worden verborgen.
+    if(!host.offsetWidth || !host.offsetHeight) return;
+    var items=[].slice.call(host.querySelectorAll('.upoi'));
+    items.sort(function(a,b){ return (b.classList.contains('home')?1:0)-(a.classList.contains('home')?1:0); });
+    var placed=[];
+    var offsets=[0,-20,20,-40,40,-60,60];
+    items.forEach(function(el){
+      var lbl=el.querySelector('.lbl'); if(!lbl) return;
+      el.classList.remove('hidelbl');
+      var done=false;
+      for(var i=0;i<offsets.length && !done;i++){
+        lbl.style.setProperty('--dy', offsets[i]+'px');
+        var r=lbl.getBoundingClientRect();
+        var clash=placed.some(function(q){
+          return !(r.right < q.left-4 || r.left > q.right+4 || r.bottom < q.top-3 || r.top > q.bottom+3);
+        });
+        if(!clash){ placed.push({left:r.left,right:r.right,top:r.top,bottom:r.bottom}); done=true; }
+      }
+      if(!done) el.classList.add('hidelbl');
+    });
+  }
+  map.on('zoomend moveend', layoutLabels);
+  setTimeout(layoutLabels, 350);
+
   // De kaart zit vaak in een verborgen tab: Leaflet kent dan de afmetingen niet
   // (0px hoog, tegels laden niet). Herbereken zodra de container zichtbaar wordt.
-  function refresh(){ try{ map.invalidateSize(); map.fitBounds(pts,{padding:[46,46],maxZoom:15}); }catch(e){} }
+  function refresh(){ try{ map.invalidateSize(); map.fitBounds(pts,{padding:[46,46],maxZoom:15}); setTimeout(layoutLabels,120); }catch(e){} }
   setTimeout(refresh, 250);
   if(window.ResizeObserver){ try{ new ResizeObserver(function(){ if(host.offsetHeight>0) refresh(); }).observe(host); }catch(e){} }
   window.addEventListener('resize', refresh);
