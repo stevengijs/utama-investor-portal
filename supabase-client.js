@@ -116,7 +116,7 @@ if(typeof window!=='undefined') window.utamaProjectMedia = utamaProjectMedia;
  * iframe in de Locatie-tab. Elk project roept 'm aan met z'n eigen centrum +
  * POI-lijst, dus schaalbaar. Leaflet moet in de pagina geladen zijn (CDN).
  * opts = { center:[lat,lng], label:'The Maison', zoom, pois:[{name,lat,lng,cat,min,ico}] }
- *   cat: 'food' | 'fit' | 'beach'  (bepaalt kleur + standaard-emoji)
+ *   cat: 'food' | 'fit' | 'beach' | 'spot'  (bepaalt kleur + standaard-emoji)
  */
 function utamaLocationMap(elId, opts){
   if(typeof L==='undefined' || !opts) return null;
@@ -134,6 +134,7 @@ function utamaLocationMap(elId, opts){
       '.upoi.food .dot{background:#E8912A}.upoi.food .lbl b{color:#E8912A}'+
       '.upoi.fit .dot{background:#2E9E6B}.upoi.fit .lbl b{color:#2E9E6B}'+
       '.upoi.beach .dot{background:#3E86C9}.upoi.beach .lbl b{color:#3E86C9}'+
+      '.upoi.spot .dot{background:#8B5A3C}.upoi.spot .lbl b{color:#8B5A3C}'+
       '.upoi.home .dot{width:44px;height:44px;font-size:20px;background:#8B5A3C;border:3px solid #fff}'+
       '.upoi.home .lbl{font-size:13px;background:#8B5A3C;color:#fff;transform:translate(-50%,calc(-50% - 34px))}';
     document.head.appendChild(st);
@@ -141,7 +142,7 @@ function utamaLocationMap(elId, opts){
   var map=L.map(elId,{scrollWheelZoom:false,zoomControl:true}).setView(opts.center, opts.zoom||14);
   host._umap=map;
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:19,attribution:'© OpenStreetMap © CARTO'}).addTo(map);
-  var EMO={food:'🍽️',fit:'🧘',beach:'🏖️'};
+  var EMO={food:'🍽️',fit:'🧘',beach:'🏖️',spot:'📍'};
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   function mk(lat,lng,cls,ico,name,min){
     var lbl='<div class="lbl">'+esc(name)+(min!=null?' <b>'+esc(min)+' min</b>':'')+'</div>';
