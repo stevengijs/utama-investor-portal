@@ -271,6 +271,36 @@
   .bgal .g{background-size:cover;background-position:center;border-radius:14px;cursor:zoom-in;transition:opacity .15s}
   .bgal .g.big{grid-row:span 2;grid-column:span 1}
   .bgal .g:hover{opacity:.9}
+  .spwrap{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);margin-bottom:10px}
+  .spwrap img{display:block;width:100%;height:auto}
+  .sp-hot{position:absolute;top:18%;height:48%;cursor:pointer;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6%;transition:background .15s}
+  .sp-hot .spn{width:26px;height:26px;border-radius:50%;background:rgba(254,251,246,.95);border:2px solid var(--ink);color:var(--ink);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)}
+  .sp-hot:hover{background:rgba(91,106,69,.16)}
+  .sp-hot.sel{background:rgba(91,106,69,.22)}
+  .sp-hot.sel .spn{background:var(--opt-deep);border-color:var(--opt-deep);color:#fff}
+  .sp-hot.sold{cursor:not-allowed}
+  .sp-hot.sold .spn{background:rgba(23,20,15,.7);border-color:rgba(23,20,15,.7);color:#fff}
+  .sp-hot.sold:hover{background:transparent}
+  .sp-hot.reserved{cursor:not-allowed}
+  .sp-hot.reserved .spn{background:var(--pess-ink);border-color:var(--pess-ink);color:#fff}
+  .sp-hot.reserved:hover{background:transparent}
+  .sp-hot .sold-lbl,.sp-hot .reserved-lbl{display:none;position:absolute;top:8%;left:50%;transform:translateX(-50%);font-size:8px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#fff;padding:2px 7px;border-radius:999px;white-space:nowrap}
+  .sp-hot .sold-lbl{background:rgba(23,20,15,.78)}
+  .sp-hot .reserved-lbl{background:var(--pess-ink)}
+  .sp-hot.sold .sold-lbl{display:block}
+  .sp-hot.reserved .reserved-lbl{display:block}
+  .sp-legend{display:flex;flex-wrap:wrap;gap:14px;font-size:11px;color:var(--muted);margin:0 0 16px}
+  .sp-legend span{display:inline-flex;align-items:center;gap:6px}
+  .sp-legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .sp-legend .d-av{background:var(--paper);border:2px solid var(--ink)}
+  .sp-legend .d-sel{background:var(--opt-deep)}
+  .sp-legend .d-res{background:var(--pess-ink)}
+  .sp-legend .d-sold{background:rgba(23,20,15,.7)}
+  .sp-pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+  .sp-pill{padding:8px 15px;border-radius:999px;border:1px solid var(--line);background:var(--paper);font-family:inherit;font-size:12.5px;font-weight:700;color:var(--ink);cursor:pointer}
+  .sp-pill.sold{background:rgba(23,20,15,.05);color:var(--muted);cursor:not-allowed;text-decoration:line-through}
+  .sp-pill.reserved{background:rgba(174,191,199,.18);color:var(--muted);cursor:not-allowed}
+  .sp-pill.sel{background:var(--opt-deep);color:#fff;border-color:var(--opt-deep)}
   .rm-units{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
   .rm-unit{border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:9px 16px;font-family:inherit;font-weight:700;font-size:13.5px;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:7px}
   .rm-unit .dot{width:8px;height:8px;border-radius:50%;background:var(--ok,#2E7D5B);flex:none}
@@ -1455,6 +1485,21 @@
       <div class="eb" data-t="rmEb">Reserveren</div>
       <h3 data-t="rmH3">Reserveer de laatste unit</h3>
       <p class="rm-lead" data-t="rmLead">Je reserveert de laatste beschikbare Signature Villa (€325.000) in MOKA. Laat je gegevens achter, dan sturen we de intentieverklaring toe.</p>
+      <div class="spwrap" id="spwrap">
+        <img src="/moka/images/site-plan.jpg" alt="Siteplan MOKA, lot 1 tot en met 7">
+        <div class="sp-hot" data-unit="1" style="left:0.05%;width:11.3%"><span class="spn">1</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
+        <div class="sp-hot" data-unit="2" style="left:11.7%;width:11.3%"><span class="spn">2</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
+        <div class="sp-hot" data-unit="3" style="left:23.35%;width:11.3%"><span class="spn">3</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
+        <div class="sp-hot" data-unit="4" style="left:35.05%;width:11.3%"><span class="spn">4</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
+        <div class="sp-hot" data-unit="5" style="left:46.7%;width:11.3%"><span class="spn">5</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
+        <div class="sp-hot" data-unit="6" style="left:58.4%;width:11.3%"><span class="spn">6</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
+        <div class="sp-hot" data-unit="7" style="left:70.05%;width:11.3%"><span class="spn">7</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
+      </div>
+      <div class="sp-legend">
+        <span><i class="d-av"></i><span data-t="rmLegendAvail">Beschikbaar</span></span>
+        <span><i class="d-sel"></i><span data-t="rmLegendSel">Geselecteerd</span></span>
+        <span><i class="d-sold"></i><span data-t="rmLegendSold">Verkocht</span></span>
+      </div>
       <div class="rm-units" id="rmUnits"></div>
       <div class="rm-selected" id="rmSelected"></div>
       <div class="rm-explain"><b data-t="rmExplainB">Wat teken je precies?</b> <span data-t="rmExplainP">De intentieverklaring is kort - ongeveer 1 A4, in gewone taal - en beschrijft wat je bij ons koopt en de belangrijkste afspraken. Zodra je hebt getekend én de €5.000 aanbetaling is voldaan (volledig retourneerbaar als het papierwerk aan onze kant niet blijkt te kloppen), stellen we samen met de notaris de koopcontracten op.</span></div>
@@ -2823,6 +2868,22 @@ async function rmLoadUnits(){
   }).join('');
   wrap.querySelectorAll('.rm-unit').forEach(function(b){
     b.onclick=function(){ rmSelectedUnit=b.dataset.u; rmLoadUnits(); };
+  });
+  // Siteplan: lot 1 t/m 7 kleuren op basis van dezelfde beschikbaarheid.
+  // Het lotnummer halen we uit de unitnaam ("3BR Villa #2" -> 2), zodat de
+  // admin leidend blijft en dit meebeweegt als er iets verkocht wordt.
+  var vrij = {};
+  // Let op: "3BR Villa #2" bevat twee getallen. Het lotnummer staat achter de #;
+  // valt die weg, dan pakken we het laatste getal (nooit de "3" van 3BR).
+  list.forEach(function(u){
+    var t=String(u), m=t.match(/#\s*(\d+)/) || t.match(/(\d+)(?!.*\d)/);
+    if(m) vrij[m[1]] = u;
+  });
+  document.querySelectorAll('#spwrap .sp-hot').forEach(function(h){
+    var n=h.dataset.unit, unitNaam=vrij[n];
+    h.classList.toggle('sold', !unitNaam);
+    h.classList.toggle('sel', !!unitNaam && unitNaam===rmSelectedUnit);
+    h.onclick = unitNaam ? function(){ rmSelectedUnit=unitNaam; rmLoadUnits(); } : null;
   });
   if(lbl) lbl.textContent = (lang==='en')
     ? 'Selected: '+rmSelectedUnit+(list.length===1?' (last available unit)':'')
