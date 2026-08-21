@@ -271,6 +271,12 @@
   .bgal .g{background-size:cover;background-position:center;border-radius:14px;cursor:zoom-in;transition:opacity .15s}
   .bgal .g.big{grid-row:span 2;grid-column:span 1}
   .bgal .g:hover{opacity:.9}
+  .rm-units{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+  .rm-unit{border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:9px 16px;font-family:inherit;font-weight:700;font-size:13.5px;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+  .rm-unit .dot{width:8px;height:8px;border-radius:50%;background:var(--ok,#2E7D5B);flex:none}
+  .rm-unit.sel{border-color:var(--ink);background:var(--ink);color:#fff}
+  .rm-unit.sel .dot{background:#fff}
+  .rm-selected{font-size:12.5px;color:var(--muted);margin-bottom:4px}
   .fplans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
   .fplan{margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--paper);cursor:zoom-in}
   .fplan img{display:block;width:100%;height:auto}
@@ -1449,6 +1455,8 @@
       <div class="eb" data-t="rmEb">Reserveren</div>
       <h3 data-t="rmH3">Reserveer de laatste unit</h3>
       <p class="rm-lead" data-t="rmLead">Je reserveert de laatste beschikbare Signature Villa (€325.000) in MOKA. Laat je gegevens achter, dan sturen we de intentieverklaring toe.</p>
+      <div class="rm-units" id="rmUnits"></div>
+      <div class="rm-selected" id="rmSelected"></div>
       <div class="rm-explain"><b data-t="rmExplainB">Wat teken je precies?</b> <span data-t="rmExplainP">De intentieverklaring is kort - ongeveer 1 A4, in gewone taal - en beschrijft wat je bij ons koopt en de belangrijkste afspraken. Zodra je hebt getekend én de €5.000 aanbetaling is voldaan (volledig retourneerbaar als het papierwerk aan onze kant niet blijkt te kloppen), stellen we samen met de notaris de koopcontracten op.</span></div>
       <form id="rmForm" onsubmit="return rmSubmit(event)">
         <div class="gfield">
@@ -2798,7 +2806,30 @@ function stepLb(d){ if(!LBSET.length) return; lbIdx=(lbIdx+d+LBSET.length)%LBSET
 document.addEventListener('keydown',function(e){ if(!el('lb').classList.contains('open'))return; if(e.key==='Escape')closeLb(); if(e.key==='ArrowRight')stepLb(1); if(e.key==='ArrowLeft')stepLb(-1); });
 
 // ---- reserveringsmodule: er is nog maar 1 unit (Signature Villa), dus direct het formulier ----
+// Beschikbare units komen uit project_availability, dezelfde bron als de rest
+// van de site. Werkt voor genummerde en benoemde units.
+let rmSelectedUnit = null;
+async function rmLoadUnits(){
+  var wrap=el('rmUnits'), lbl=el('rmSelected'); if(!wrap) return;
+  var list=[];
+  try{
+    var d = window.utamaAvailability ? await window.utamaAvailability('moka') : null;
+    if(d && Array.isArray(d.available_list)) list = d.available_list;
+  }catch(e){}
+  if(!list.length){ wrap.innerHTML=''; if(lbl) lbl.textContent=''; return; }
+  if(!rmSelectedUnit || list.indexOf(rmSelectedUnit)===-1) rmSelectedUnit = list[0];
+  wrap.innerHTML = list.map(function(u){
+    return '<button type="button" class="rm-unit'+(u===rmSelectedUnit?' sel':'')+'" data-u="'+String(u).replace(/"/g,'&quot;')+'"><span class="dot"></span>'+u+'</button>';
+  }).join('');
+  wrap.querySelectorAll('.rm-unit').forEach(function(b){
+    b.onclick=function(){ rmSelectedUnit=b.dataset.u; rmLoadUnits(); };
+  });
+  if(lbl) lbl.textContent = (lang==='en')
+    ? 'Selected: '+rmSelectedUnit+(list.length===1?' (last available unit)':'')
+    : 'Geselecteerd: '+rmSelectedUnit+(list.length===1?' (laatste beschikbare unit)':'');
+}
 function openReserveModal(){
+  rmLoadUnits();
   el('rmStep2').style.display = '';
   el('rmStep3').style.display = 'none';
   el('rmodal').classList.add('open');
@@ -2812,7 +2843,7 @@ function rmSubmit(e){
   e.preventDefault();
   const name = el('rName').value.trim(), phone = el('rPhone').value.trim(), email = el('rEmail').value.trim();
   if(!name || !phone || !email){ el('rErr').style.display = 'block'; return false; }
-  const lead = { project: "MOKA", name, phone, email, unit: "Signature Villa", type: "reservation" };
+  const lead = { project: "MOKA", name, phone, email, unit: rmSelectedUnit || "Signature Villa", type: "reservation" };
   submitLead({ ...lead, lang }).catch(function(){});
   const waMsg = T[lang].waReserveMsg + "%0A%0A" +
     T[lang].waLabelName + ": " + encodeURIComponent(name) + "%0A" +
