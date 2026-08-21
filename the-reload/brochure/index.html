@@ -1596,6 +1596,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="/supabase-client.js"></script>
+<script src="/brochure-media.js"></script>
 <script src="/calc-shared.js"></script>
 <script>
 const CONFIG = { whatsapp:"31624845014", email:"steven@utamabali.com" };
@@ -3060,46 +3061,16 @@ function bindGallery(){
   GAL.forEach(function(g,i){ g.onclick=function(){ openLbArr(GIMG,i); }; });
 }
 // De lightbox bladert door de set waarin je begon: renders óf plattegronden.
-function openLbArr(arr, i){ LBSET=arr||[]; if(!LBSET.length)return; lbIdx=i||0; el('lbImg').src=LBSET[lbIdx]; el('lbCap').textContent=(lbIdx+1)+' / '+LBSET.length; el('lb').classList.add('open'); document.body.style.overflow='hidden'; }
+function lbItem(x){ return (typeof x==='string')?{src:x,cap:''}:x; }
+function openLbArr(arr, i){ LBSET=(arr||[]).map(lbItem); if(!LBSET.length)return; lbIdx=i||0; lbShow(); }
+function lbShow(){ var it=LBSET[lbIdx]; if(!it) return; el('lbImg').src=it.src; el('lbCap').textContent=(it.cap?it.cap+' ':'')+'('+(lbIdx+1)+'/'+LBSET.length+')'; el('lb').classList.add('open'); document.body.style.overflow='hidden'; }
 function openLb(i){ openLbArr(GIMG, i); }
 function openLbSrc(src){ openLbArr([src], 0); }
 function closeLb(){ el('lb').classList.remove('open'); document.body.style.overflow=''; }
-function stepLb(d){ if(!LBSET.length)return; lbIdx=(lbIdx+d+LBSET.length)%LBSET.length; el('lbImg').src=LBSET[lbIdx]; el('lbCap').textContent=(lbIdx+1)+' / '+LBSET.length; }
+function stepLb(d){ if(!LBSET.length)return; lbIdx=(lbIdx+d+LBSET.length)%LBSET.length; lbShow(); }
 document.addEventListener('keydown',function(e){ if(!el('lb').classList.contains('open'))return; if(e.key==='Escape')closeLb(); if(e.key==='ArrowRight')stepLb(1); if(e.key==='ArrowLeft')stepLb(-1); });
 bindGallery();
 
-// Galerij + plattegronden uit de admin (project_media). Staat er niets in de
-// admin, dan blijven de vaste foto's als terugval staan.
-// Plattegronden vullen het eigen "Plattegronden"-hoofdstuk. Geen plattegronden
-// in de admin -> het hoofdstuk (tab + paneel) verdwijnt automatisch.
-function renderFloorplans(list){
-  var grid=el('floorplansGrid'), tab=document.querySelector('#tabsNav button[data-tab="plattegronden"]');
-  FPIMG=(list||[]).map(function(f){ return f.url; });
-  // Het hoofdstuk verschijnt zodra er plattegronden in de admin staan OF er een
-  // technische plattegrond-PDF (Google Drive) is gekoppeld.
-  var has=!!((list && list.length) || (typeof FLOORPLAN_PDF_URL!=='undefined' && FLOORPLAN_PDF_URL));
-  if(tab) tab.style.display = has ? '' : 'none';
-  if(grid) grid.innerHTML = has ? list.map(function(f,i){ var u=String(f.url).replace(/"/g,'%22'); return '<figure class="fplan"><img src="'+u+'" loading="lazy" alt="Plattegrond" onclick="openLbArr(FPIMG,'+i+')">'+(f.caption?'<figcaption>'+f.caption+'</figcaption>':'')+'</figure>'; }).join('') : '';
-  if(typeof renumberChapters==='function') renumberChapters();
-}
-async function loadBrochureMedia(){
-  renderFloorplans([]);            // standaard verbergen tot de admin plattegronden teruggeeft
-  if(!window.utamaProjectMedia) return;
-  try{
-    var m=await window.utamaProjectMedia('the-reload');
-    if(!m) return;
-    if(m.renders && m.renders.length){
-      var imgs = m.hero ? [m.hero].concat(m.gallery) : m.renders;
-      var bg=el('bgal');
-      if(bg){
-        bg.innerHTML=imgs.map(function(it,i){ return '<div class="g'+(i===0?' big':'')+'" style="background-image:url(\''+String(it.url).replace(/'/g,'%27')+'\')"></div>'; }).join('');
-        bindGallery();
-      }
-    }
-    renderFloorplans(m.floorplans||[]);
-  }catch(e){}
-}
-loadBrochureMedia();
 
 // ---- reserveringsmodule: pillenlijst i.p.v. siteplan-hotspots (geen siteplan-graphic
 //      beschikbaar voor The Reload), + gegevens voor de intentieverklaring ----
@@ -3310,6 +3281,7 @@ function setLang(l){
   renumberChapters();
 }
 setLang(_pickInitialLang());
+utamaBrochureMedia('the-reload');
 loadBrochureAvailability();
 </script>
 </body>
