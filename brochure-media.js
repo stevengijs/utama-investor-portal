@@ -14,6 +14,17 @@
  * Staat er niets in de admin, dan blijft de vaste HTML als terugval staan.
  * Vereist: supabase-client.js (voor utamaProjectMedia) op de pagina.
  */
+// De brochures hebben zelf een `let BGIMG/FPIMG`, wat window.BGIMG/FPIMG afschermt.
+// Daarom houdt de module de lijsten zelf bij en biedt hij één aanroeppunt aan de
+// onclick-handlers; zo kan er geen naamconflict meer ontstaan.
+var _umBg = [], _umFp = [];
+function utamaOpenLb(kind, i){
+  var arr = (kind === 'fp') ? _umFp : _umBg;
+  if (!arr.length) return;
+  if (typeof window.openLbArr === 'function') window.openLbArr(arr, i);
+}
+if(typeof window!=='undefined') window.utamaOpenLb = utamaOpenLb;
+
 async function utamaBrochureMedia(slug){
   if(!slug || typeof window.utamaProjectMedia !== 'function') return null;
   var m = null;
@@ -23,25 +34,27 @@ async function utamaBrochureMedia(slug){
   // 1) Projectgalerij
   if(m.renders && m.renders.length){
     var imgs = m.hero ? [m.hero].concat(m.gallery) : m.renders;
-    window.BGIMG = imgs.map(function(x){ return { src:x.url, cap:x.caption||'' }; });
+    _umBg = imgs.map(function(x){ return { src:x.url, cap:x.caption||'' }; });
+    window.BGIMG = _umBg;
     var bg = document.getElementById('bgal');
     if(bg){
       bg.innerHTML = imgs.map(function(it, i){
         return '<div class="g' + (i===0 ? ' big' : '') + '" style="background-image:url(\'' +
-               String(it.url).replace(/'/g, '%27') + '\')" onclick="openLbArr(BGIMG,' + i + ')"></div>';
+               String(it.url).replace(/'/g, '%27') + '\')" onclick="utamaOpenLb(\'bg\',' + i + ')"></div>';
       }).join('');
     }
   }
 
   // 2) Plattegronden (hoofdstuk verschijnt alleen als er iets is)
   var fps = m.floorplans || [];
-  window.FPIMG = fps.map(function(f){ return { src:f.url, cap:f.caption||'Plattegrond' }; });
+  _umFp = fps.map(function(f){ return { src:f.url, cap:f.caption||'Plattegrond' }; });
+  window.FPIMG = _umFp;
   var grid = document.getElementById('floorplansGrid');
   if(grid){
     grid.innerHTML = fps.map(function(f, i){
       return '<figure class="fplan"><img src="' + String(f.url).replace(/"/g, '%22') +
              '" loading="lazy" alt="' + String(f.caption||'Plattegrond').replace(/"/g,'%22') +
-             '" onclick="openLbArr(FPIMG,' + i + ')">' +
+             '" onclick="utamaOpenLb(\'fp\',' + i + ')">' +
              (f.caption ? '<figcaption>' + f.caption + '</figcaption>' : '') + '</figure>';
     }).join('');
   }
