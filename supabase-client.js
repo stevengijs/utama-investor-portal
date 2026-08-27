@@ -21,6 +21,10 @@ function getSupabaseClient(){
   }
   return _sbClient;
 }
+// De verbinding zelf beschikbaar maken. Pagina's die iets lezen wat hier nog
+// geen helper heeft (zoals de deal room) hoeven dan geen tweede client op te
+// zetten met een eigen kopie van de sleutel.
+if(typeof window!=='undefined') window.utamaSupabase = getSupabaseClient;
 
 /*
  * Live unit-beschikbaarheid per project uit één bron (project_availability).
