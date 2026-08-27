@@ -81,6 +81,32 @@ nav .links a:hover{color:var(--green)}
 .btn:hover{background:#000}
 .btn.sec{background:var(--green)} .btn.sec:hover{background:var(--green-2)}
 .btn.ghost{background:#fff;border:1px solid var(--line);color:var(--green)}
+/* ---- statuslabels ----
+   Korte, harde feiten over beschikbaarheid en bouwfase, bedoeld om een lap
+   tekst te vervangen: iemand die de pagina scant moet in twee seconden zien
+   hoeveel er nog is en wanneer het klaar is. Staat hier en niet in de
+   projectpagina zelf, zodat elk project dezelfde vormtaal gebruikt zodra het
+   in dezelfde fase komt. */
+.statuslabels{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.slabel{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;
+        font-size:12.5px;font-weight:700;line-height:1;white-space:nowrap;
+        border-radius:var(--radius-pill);border:1px solid var(--line);
+        background:var(--paper);color:var(--ink)}
+.slabel .sdot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+/* Eén label mag schreeuwen, de rest niet. Meer dan een accentkleur op een rij
+   en je leest weer niets. */
+.slabel.urgent{background:var(--terra);border-color:var(--terra);color:#fff}
+.slabel.klaar{color:var(--ok);border-color:rgba(46,125,91,.35);background:rgba(46,125,91,.07)}
+.slabel .sdot.bouw{background:var(--terra)}
+@keyframes slabelPuls{0%,72%,100%{box-shadow:0 0 0 0 rgba(139,90,60,.5)}
+                      36%{box-shadow:0 0 0 8px rgba(139,90,60,0)}}
+.slabel.urgent{animation:slabelPuls 3.2s ease-out infinite}
+@media(prefers-reduced-motion:reduce){.slabel.urgent{animation:none}}
+@media(max-width:520px){
+  .statuslabels{gap:6px}
+  .slabel{font-size:11.5px;padding:6px 10px;gap:6px}
+}
+
 .trustrow{display:flex;gap:24px;flex-wrap:wrap;margin-top:26px}
 .trustrow div{font-size:13px;color:var(--muted)}
 .trustrow b{font-family:'Inter',system-ui,-apple-system,sans-serif !important;font-weight:800 !important;color:var(--green);font-size:20px;display:block}

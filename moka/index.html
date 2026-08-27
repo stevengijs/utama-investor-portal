@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MOKA, Kedungu | UTAMA</title>
-<meta name="description" content="MOKA: boutique community met café, wellness club en rooftop pool lounge in Kedungu, Bali. Nog 1 Signature Villa beschikbaar, vanaf €325.000, ±14% netto rendement.">
+<meta name="description" content="MOKA: boutique community met café, wellness club en rooftop pool lounge in Kedungu, Bali. Laatste van 15 units, in volle aanbouw, oplevering oktober 2026. Vanaf €325.000, ±14% netto rendement.">
 <meta property="og:title" content="MOKA, Kedungu | UTAMA">
-<meta property="og:description" content="Boutique community in Kedungu, Bali. 14 van de 15 units verkocht. Nog 1 Signature Villa beschikbaar.">
+<meta property="og:description" content="Boutique community in Kedungu, Bali. 14 van de 15 units verkocht, in volle aanbouw, oplevering oktober 2026. Laatste Signature Villa beschikbaar.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://invest.utamabali.com/moka">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,6 +40,12 @@
   <div class="wrap hero-grid">
     <div class="inner">
       <div class="eyebrow"><a href="/" style="color:var(--ink);text-decoration:none" data-t="back">Projecten</a> · Kedungu, Bali</div>
+      <div class="statuslabels">
+        <span class="slabel urgent"><span class="sdot"></span><span data-t="lblLaatste">Laatste unit · 1 van 15</span></span>
+        <span class="slabel"><span class="sdot bouw"></span><span data-t="lblBouw">Resort in volle aanbouw</span></span>
+        <span class="slabel klaar"><span class="sdot"></span><span data-t="lblGereed">Villa vrijwel gereed</span></span>
+        <span class="slabel"><span class="sdot"></span><span data-t="lblOplevering">Oplevering oktober 2026</span></span>
+      </div>
       <h1>MOKA</h1>
       <p data-t="heroSub">In MOKA ontwikkelen we een boutique community met een eigen café, wellness club en rooftop pool lounge, op 600 meter van het strand in Kedungu. Van de 15 units is alleen de laatste Signature Villa nog beschikbaar.</p>
       <div class="btns">
@@ -48,7 +54,7 @@
       </div>
       <div class="trustrow">
         <div><b id="tAvail">14 van 15</b><span data-t="t1">units al verkocht</span></div>
-        <div><b>vanaf €325.000</b><span data-t="t2">laatste beschikbare unit</span></div>
+        <div><b data-t="tPrijs">vanaf €325.000</b><span data-t="t2">laatste beschikbare unit</span></div>
         <div><b>±14%</b><span data-t="t3">netto rendement (realistisch)</span></div>
       </div>
     </div>
@@ -155,7 +161,7 @@ const MOKA = {
     {l:{nl:"Type",en:"Type"}, v:{nl:"3 ensuite slaapkamers · 3,5 badkamers",en:"3 ensuite bedrooms · 3.5 bathrooms"}},
     {l:{nl:"Woonoppervlak",en:"Living space"}, v:{nl:"162 m² + 55 m² rooftop (217 m² totaal)",en:"162 m² + 55 m² rooftop (217 m² total)"}},
     {l:{nl:"Zwembad",en:"Pool"}, v:{nl:"Privé zwembad, 15,5 m²",en:"Private pool, 15.5 m²"}},
-    {l:{nl:"Oplevering",en:"Completion"}, v:{nl:"September 2026",en:"September 2026"}}
+    {l:{nl:"Oplevering",en:"Completion"}, v:{nl:"Oktober 2026",en:"October 2026"}}
   ],
   highlights:{
     nl:["Laatste beschikbare unit van de 15 units in MOKA","Privé zwembad en 55 m² rooftop met jacuzzi","30 + 30 jaar leasehold met gegarandeerde verlenging","Volledig gemeubileerd en direct verhuurklaar"],
@@ -166,9 +172,12 @@ const MOKA = {
 
 const T={
  nl:{navProjects:"Projecten",navContact:"Contact",back:"Projecten",
-  heroSub:"In MOKA ontwikkelen we een boutique community met een eigen café, wellness club en rooftop pool lounge, op 600 meter van het strand in Kedungu. Van de 15 units is alleen de laatste Signature Villa nog beschikbaar.",
+  heroSub:"Een boutique community met een eigen café, wellness club en rooftop pool lounge, op 600 meter van het strand in Kedungu. Het resort staat er: 14 van de 15 units zijn verkocht en de bouw is in volle gang. Dit is de laatste kans om er nog in te stappen.",
   heroCta1:"Contact via WhatsApp",heroCta2:"Bekijk volledige brochure",t1:"units al verkocht",t2:"laatste beschikbare unit",t3:"netto rendement (realistisch)",
   roiBadgeLbl:"rendement",
+  lblLaatste:"Laatste unit · 1 van 15",lblBouw:"Resort in volle aanbouw",
+  lblGereed:"Villa vrijwel gereed",lblOplevering:"Oplevering oktober 2026",
+  tPrijs:"vanaf €325.000",
   bpEyebrow:"In de brochure vind je",bpItem1:"Plattegronden per villa",bpItem2:"Exacte prijs per unit",bpItem3:"Rendementsmodel & 3 scenario's",bpItem4:"Betaalschema & contractstructuur",
   ctaTrust:"Gratis en vrijblijvend · 1 minuut · direct toegang tot alle cijfers",
   mStatus:"Laatste unit · nog te koop",
@@ -180,9 +189,12 @@ const T={
   calcCtaTitle:"Benieuwd naar je exacte rendement?",calcCtaSub:"In de volledige brochure vind je de interactieve rekentool, drie scenario's en het complete rendementsmodel van MOKA.",calcCtaBtn:"Bekijk de ROI-berekening →",
   soldNote:"14 van de 15 units in MOKA zijn inmiddels verkocht: alle 4 Boutique Villa's en alle 4 Boutique Appartementen. Deze Signature Villa is de laatste beschikbare unit."},
  en:{navProjects:"Projects",navContact:"Contact",back:"Projects",
-  heroSub:"At MOKA we're building a boutique community with its own café, wellness club and rooftop pool lounge, 600 metres from the beach in Kedungu. Of the 15 homes, only the last Signature Villa is still available.",
+  heroSub:"A boutique community with its own café, wellness club and rooftop pool lounge, 600 metres from the beach in Kedungu. The resort is going up: 14 of the 15 homes are sold and construction is in full swing. This is the last chance to get in.",
   heroCta1:"Chat on WhatsApp",heroCta2:"View full brochure",t1:"units already sold",t2:"last available unit",t3:"net yield (realistic)",
   roiBadgeLbl:"return",
+  lblLaatste:"Last unit · 1 of 15",lblBouw:"Resort under construction",
+  lblGereed:"Villa nearly finished",lblOplevering:"Completion October 2026",
+  tPrijs:"from €325,000",
   bpEyebrow:"Inside the brochure",bpItem1:"Floor plans per villa",bpItem2:"Exact price per unit",bpItem3:"Return model & 3 scenarios",bpItem4:"Payment schedule & contract structure",
   ctaTrust:"Free and no obligation · 1 minute · instant access to all the numbers",
   mStatus:"Last unit · still for sale",
