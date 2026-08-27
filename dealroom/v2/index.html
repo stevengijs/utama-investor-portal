@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Villa 3 · The Maison</title>
+<meta name="robots" content="noindex,nofollow">
+<!--
+  DEAL ROOM, tweede ontwerp. Bewust los van de bestaande merkregels.
+  Naast /dealroom/ neergezet zodat beide te vergelijken zijn.
+
+  De redenering:
+
+  Dit product is twee dingen tegelijk, een belegging en een fantasie. Het
+  bestaande ontwerp kiest geen van beide en wordt daarmee een nette brochure:
+  te zacht om als instrument te overtuigen, te ingetogen om Bali te tonen.
+
+  Daarom vechten beeld en cijfers hier niet om dezelfde ruimte. Het beeld staat
+  vast aan de linkerkant, de inhoud scrollt er langs. Je ziet dus nooit een
+  rendement zonder de villa, en nooit de villa zonder het bedrag.
+
+  Verder:
+  - Donkere grond, niet neutraal grijs maar een groenzwart. Foto's komen
+    daarop tot leven en getallen krijgen gewicht.
+  - Schreefletter voor bedragen en koppen. Geld en duur lezen beter in een
+    schreef; die draagt permanentie. De interfacetekst blijft schreefloos.
+  - Eén accentkleur, terracotta, uitsluitend voor "van jou" en "nu". Al het
+    andere is bot en schaduw.
+  - Getallen zijn hier het onderwerp, niet een voetnoot. Groot gezet, met de
+    afleiding eronder in plaats van erachter.
+
+  Data komt uit dezelfde bron als de eerste versie (project_publiek,
+  project_availability), zodat er geen tweede waarheid ontstaat.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#0C110F;        /* groenzwart, de grond */
+  --void-2:#131A17;      /* verhoogd vlak */
+  --void-3:#1B2320;      /* rand en scheiding */
+  --bone:#EDE7DC;        /* hoofdtekst */
+  --bone-dim:#9AA39C;    /* bijtekst */
+  --terra:#C77B4E;       /* het enige accent */
+  --terra-dim:rgba(199,123,78,.16);
+  --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --sans:Archivo,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--void);color:var(--bone);font-family:var(--sans);
+  font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased;
+  font-variant-numeric:tabular-nums}
+h1,h2,h3{margin:0;font-family:var(--serif);font-weight:400;letter-spacing:-.01em;line-height:1.05}
+a{color:inherit}
+img{display:block;max-width:100%}
+
+/* ---------- de tweedeling ---------- */
+.stage{display:grid;grid-template-columns:1fr;min-height:100vh}
+.visual{position:relative;overflow:hidden;background:var(--void-2)}
+/* Let op de volgorde: deze regel moet ná de basisregel van .visual staan.
+   Andersom overschrijft position:relative de sticky en scrolt het beeld
+   gewoon mee weg, precies wat dit ontwerp niet moet doen. */
+@media(min-width:1000px){
+  .stage{grid-template-columns:46fr 54fr}
+  .visual{position:sticky;top:0;height:100vh;align-self:start}
+}
+.visual .shot{position:absolute;inset:0;background-size:cover;background-position:center;
+  opacity:0;transition:opacity .9s ease}
+.visual .shot.on{opacity:1}
+.visual::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(12,17,15,.55) 0%,rgba(12,17,15,.12) 38%,rgba(12,17,15,.86) 100%)}
+.vtop{position:absolute;top:0;left:0;right:0;z-index:2;padding:26px 30px;
+  display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.mark{font-family:var(--sans);font-weight:700;letter-spacing:.34em;font-size:12px;text-transform:uppercase}
+.vtop .loc{font-size:12px;color:var(--bone-dim);letter-spacing:.06em}
+.vcap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:30px}
+.vcap .lbl{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--terra);font-weight:600}
+.vcap h1{font-size:clamp(38px,4.6vw,62px);margin:10px 0 0}
+.vcap h1 em{font-style:italic;color:var(--terra)}
+.vcap .sub{color:var(--bone-dim);font-size:14.5px;margin-top:8px;max-width:44ch}
+.vdots{position:absolute;right:30px;bottom:34px;z-index:3;display:flex;gap:7px}
+.vdots button{width:6px;height:6px;border-radius:50%;background:rgba(237,231,220,.28);
+  cursor:pointer;border:0;padding:0;transition:width .3s,background .3s}
+.vdots button.on{background:var(--terra);width:20px;border-radius:99px}
+@media(max-width:999px){
+  .visual{height:74vh;min-height:420px}
+  .vcap{padding:22px}
+}
+
+/* ---------- de kolom die scrollt ---------- */
+.read{padding:0 clamp(22px,4.4vw,68px)}
+.block{padding:76px 0;border-bottom:1px solid var(--void-3);max-width:640px}
+.block:last-child{border-bottom:0}
+.kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--terra);font-weight:600}
+.block h2{font-size:clamp(27px,3.2vw,38px);margin:12px 0 14px}
+.lede{color:var(--bone-dim);margin:0 0 30px}
+
+/* ---------- cijfers als onderwerp ---------- */
+.figs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--void-3);
+  border:1px solid var(--void-3);border-radius:2px;overflow:hidden}
+.fig{background:var(--void);padding:22px 20px}
+.fig .k{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--bone-dim);font-weight:600}
+.fig .v{font-family:var(--serif);font-size:clamp(28px,3.4vw,40px);line-height:1;margin-top:12px}
+.fig .n{font-size:12.5px;color:var(--bone-dim);margin-top:8px}
+
+/* ---------- het terrein ---------- */
+.lot{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px}
+@media(max-width:560px){.lot{grid-template-columns:repeat(3,1fr)}}
+.unit{aspect-ratio:3/4;border:1px solid var(--void-3);background:var(--void-2);border-radius:2px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  font-family:var(--serif);font-size:21px;color:var(--bone-dim);position:relative}
+.unit s{font-family:var(--sans);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;
+  text-decoration:none;font-weight:600}
+.unit.available{color:var(--bone);border-color:#2b3733}
+.unit.reserved{opacity:.5}
+.unit.sold{opacity:.28}
+.unit.mine{background:var(--terra-dim);border-color:var(--terra);color:var(--terra)}
+.key{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px;font-size:12px;color:var(--bone-dim)}
+
+/* ---------- het geld ---------- */
+.dial{margin:0 0 26px}
+.dial label{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;
+  color:var(--bone-dim);letter-spacing:.04em}
+.dial b{font-family:var(--serif);font-size:22px;color:var(--bone)}
+.dial input{width:100%;margin-top:10px;accent-color:var(--terra);height:2px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--void-3);
+  border:1px solid var(--void-3);border-radius:2px;overflow:hidden}
+@media(max-width:600px){.pair{grid-template-columns:1fr}}
+.side{background:var(--void);padding:22px 20px}
+.side .t{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--bone-dim);font-weight:600}
+.side .big{font-family:var(--serif);font-size:clamp(32px,4vw,46px);line-height:1;margin:14px 0 4px}
+.side.hi .big{color:var(--terra)}
+.side .pc{font-size:13px;color:var(--bone-dim)}
+.side dl{margin:18px 0 0;font-size:13px}
+.side .dr{display:flex;justify-content:space-between;gap:12px;padding:6px 0;color:var(--bone-dim)}
+.side .dr+.dr{border-top:1px solid var(--void-3)}
+.side .dr span:last-child{color:var(--bone)}
+.fine{font-size:12.5px;color:var(--bone-dim);margin-top:20px;line-height:1.6}
+
+/* ---------- de tijd ---------- */
+.rail{margin-top:6px}
+.leg{display:grid;grid-template-columns:88px 1fr;gap:18px;padding:16px 0;border-top:1px solid var(--void-3)}
+.leg:first-child{border-top:0}
+.leg .yr{font-size:11.5px;color:var(--bone-dim);letter-spacing:.08em;text-transform:uppercase;padding-top:3px}
+.leg h4{margin:0;font-size:16px;font-weight:600}
+.leg .pr{height:2px;background:var(--void-3);margin-top:10px;position:relative;overflow:hidden}
+.leg .pr i{position:absolute;inset:0 auto 0 0;background:var(--terra)}
+.leg.done .pr i{background:var(--bone-dim)}
+.leg .pct{font-size:11.5px;color:var(--bone-dim);margin-top:6px}
+.leg.now h4{color:var(--terra)}
+
+/* ---------- de constructie ---------- */
+.own{margin-top:6px}
+.tier{display:grid;grid-template-columns:34px 1fr;gap:16px;padding:18px 0;border-top:1px solid var(--void-3)}
+.tier:first-child{border-top:0}
+.tier .num{font-family:var(--serif);font-size:26px;color:var(--terra);line-height:1}
+.tier h4{margin:0 0 4px;font-size:16px;font-weight:600}
+.tier p{margin:0;color:var(--bone-dim);font-size:14px}
+
+/* ---------- het traject ---------- */
+.path{margin-top:6px}
+.leap{display:grid;grid-template-columns:22px 1fr;gap:16px;padding:14px 0;border-top:1px solid var(--void-3);
+  color:var(--bone-dim)}
+.leap:first-child{border-top:0}
+.leap .dot{width:9px;height:9px;border-radius:50%;border:1px solid var(--void-3);margin-top:7px}
+.leap.done{color:var(--bone)}
+.leap.done .dot{background:var(--bone-dim);border-color:var(--bone-dim)}
+.leap.now{color:var(--bone)}
+.leap.now .dot{background:var(--terra);border-color:var(--terra);box-shadow:0 0 0 4px var(--terra-dim)}
+.leap h4{margin:0 0 2px;font-size:15.5px;font-weight:600}
+.leap p{margin:0;font-size:13.5px}
+
+/* ---------- slot ---------- */
+.close{padding:76px 0 96px}
+.close h2{font-size:clamp(28px,3.6vw,42px);margin-bottom:14px}
+.close h2 em{font-style:italic;color:var(--terra)}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.act{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--bone);color:var(--bone);
+  background:transparent;border-radius:2px;padding:14px 24px;font:inherit;font-size:14px;font-weight:600;
+  text-decoration:none;cursor:pointer;transition:background .15s,color .15s}
+.act:hover{background:var(--bone);color:var(--void)}
+.act.fill{background:var(--terra);border-color:var(--terra);color:#160c06}
+.act.fill:hover{background:#d78a5c;border-color:#d78a5c;color:#160c06}
+.sig{margin-top:52px;padding-top:22px;border-top:1px solid var(--void-3);
+  font-size:12px;color:var(--bone-dim)}
+.demo{border:1px solid var(--void-3);border-left:2px solid var(--terra);
+  padding:12px 16px;font-size:12.5px;color:var(--bone-dim);margin:26px 0 0}
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <!-- vaste beeldkant -->
+  <aside class="visual" id="visual">
+    <div class="vtop">
+      <span class="mark">UTAMA</span>
+      <span class="loc" id="vLoc"></span>
+    </div>
+    <div class="vcap">
+      <div class="lbl" id="vLbl">Voorbeelddossier</div>
+      <h1 id="vTitle">Villa <em>3</em></h1>
+      <p class="sub" id="vSub"></p>
+    </div>
+    <div class="vdots" id="vDots"></div>
+  </aside>
+
+  <!-- lezende kant -->
+  <main class="read">
+
+    <section class="block">
+      <div class="kicker" id="k1">Het voorstel</div>
+      <h2 id="h1t">Wat je koopt</h2>
+      <p class="lede" id="lede1"></p>
+      <div class="figs" id="figs"></div>
+      <div class="demo" id="demoNote" hidden>
+        Voorbeeldweergave met echte projectcijfers. Met een reserveringslink erachter
+        (<code>?t=…</code>) staat hier de naam en unit van de koper zelf.
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="kicker">Het terrein</div>
+      <h2>Welke van de zes</h2>
+      <p class="lede" id="lotLede"></p>
+      <div class="lot" id="lot"></div>
+      <div class="key">
+        <span>Vrij</span><span style="opacity:.5">Gereserveerd</span>
+        <span style="opacity:.28">Verkocht</span><span style="color:var(--terra)">Van jou</span>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="kicker">De rekensom</div>
+      <h2>Wat het doet per jaar</h2>
+      <p class="lede">Twee scenario's, niet één. De schuif is er zodat je kunt zien
+        hoe gevoelig het is, want dat is eerlijker dan een enkel getal.</p>
+      <div class="dial">
+        <label>Bezetting per jaar <b id="occV">75%</b></label>
+        <input id="occ" type="range" min="45" max="90" value="75" step="1">
+      </div>
+      <div class="pair">
+        <div class="side" id="sLow"></div>
+        <div class="side hi" id="sHigh"></div>
+      </div>
+      <p class="fine" id="fine"></p>
+    </section>
+
+    <section class="block">
+      <div class="kicker">De bouw</div>
+      <h2>Waar het nu staat</h2>
+      <p class="lede">Dezelfde planning die het bouwteam bijhoudt, niet een aparte
+        versie voor verkoop.</p>
+      <div class="rail" id="rail"></div>
+    </section>
+
+    <section class="block">
+      <div class="kicker">De constructie</div>
+      <h2>Wie bezit wat</h2>
+      <p class="lede">De vraag waar het bij Bali altijd op vastloopt, in drie lagen.</p>
+      <div class="own" id="own"></div>
+      <p class="fine" id="ownNote"></p>
+    </section>
+
+    <section class="block">
+      <div class="kicker">Het traject</div>
+      <h2>Wat er daarna gebeurt</h2>
+      <p class="lede">Van vandaag tot de sleutel, met wie wat doet.</p>
+      <div class="path" id="path"></div>
+    </section>
+
+    <section class="close">
+      <h2 id="closeT">Nog iets <em>onduidelijk</em>?</h2>
+      <p class="lede" id="closeS">Bel of app gerust. Alles op papier kan ook, dan sturen we de volledige brochure.</p>
+      <div class="acts">
+        <a class="act fill" id="actA" href="#">Plan een gesprek</a>
+        <a class="act" id="actB" href="/the-maison/brochure/">Bekijk de brochure</a>
+      </div>
+      <div class="sig" id="sig"></div>
+    </section>
+
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="/supabase-client.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const eur=n=>"€"+Math.round(Number(n)||0).toLocaleString("nl-NL");
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const dnl=d=>d?new Date(d).toLocaleDateString("nl-NL",{day:"numeric",month:"long",year:"numeric"}):"";
+const jaar=d=>d?new Date(d).toLocaleDateString("nl-NL",{month:"short",year:"numeric"}):"";
+
+function unitNr(t){
+  const s=String(t||""); let m=s.match(/#\s*(\d+)/); if(m) return +m[1];
+  if(/^\s*\d+\s*$/.test(s)) return +s.trim();
+  const a=s.match(/\d+/g); return a?+a[a.length-1]:null;
+}
+
+async function laadReservering(token){
+  try{
+    const r=await fetch("https://gcpachivrwalsneuvlsa.supabase.co/functions/v1/reservation",{
+      method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({token,action:"get"})});
+    if(!r.ok) return null;
+    const d=await r.json(); return d&&!d.error?d:null;
+  }catch(e){ return null; }
+}
+async function laadProject(slug){
+  const sb=window.utamaSupabase&&window.utamaSupabase(); if(!sb) return null;
+  const {data,error}=await sb.rpc("project_publiek",{p_slug:slug});
+  if(error){ console.error(error.message); return null; }
+  return data||null;
+}
+
+/* het beeld: renders uit de admin, met puntjes om te wisselen */
+async function vulBeeld(slug){
+  const host=$("#visual"), dots=$("#vDots");
+  let beelden=[];
+  try{
+    const m=window.utamaProjectMedia?await window.utamaProjectMedia(slug):null;
+    if(m&&m.renders&&m.renders.length) beelden=m.renders.map(x=>x.url).slice(0,5);
+  }catch(e){}
+  if(!beelden.length){ host.style.background="var(--void-2)"; return; }
+  beelden.forEach((u,i)=>{
+    const d=document.createElement("div");
+    d.className="shot"+(i===0?" on":""); d.style.backgroundImage="url('"+u.replace(/'/g,"%27")+"')";
+    host.insertBefore(d,host.firstChild);
+    const b=document.createElement("button");
+    b.className=i===0?"on":""; b.setAttribute("aria-label","Beeld "+(i+1));
+    b.onclick=()=>toon(i); dots.appendChild(b);
+  });
+  function toon(i){
+    host.querySelectorAll(".shot").forEach((el,j)=>el.classList.toggle("on",j===i));
+    dots.querySelectorAll("button").forEach((el,j)=>el.classList.toggle("on",j===i));
+  }
+  if(beelden.length>1){ let i=0; setInterval(()=>{ i=(i+1)%beelden.length; toon(i); },7000); }
+}
+
+function vulCijfers(p,resv,besch){
+  const prijs=(resv&&Number(resv.unit_price))||Number(p.price_current)||0;
+  const rows=[
+    ["Investering",eur(prijs),resv?"contractprijs":"huidige vraagprijs"],
+    ["Rendement",p.yield_min+" tot "+p.yield_max+"%","bruto per jaar"],
+    ["Erfpacht","30 + 30","jaar, notarieel op naam"],
+    ["Oplevering",jaar(p.planning_delivery),besch?(besch.available+" van "+besch.total+" nog vrij"):""]
+  ];
+  $("#figs").innerHTML=rows.map(([k,v,n])=>
+    `<div class="fig"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div><div class="n">${esc(n)}</div></div>`).join("");
+}
+
+function vulTerrein(besch,mijn){
+  if(!besch||!besch.units) return;
+  $("#lot").innerHTML=besch.units.map(u=>{
+    const m=mijn&&u.n===mijn;
+    const s=m?"Van jou":u.status==="sold"?"Verkocht":u.status==="reserved"?"Gereserveerd":"Vrij";
+    return `<div class="unit ${m?"mine":u.status}">${u.n}<s>${s}</s></div>`;
+  }).join("");
+  $("#lotLede").textContent=mijn
+    ? "Villa "+mijn+" staat voor jou apart. Dit is hoe het terrein er vandaag bij ligt."
+    : "Dit is hoe het terrein er vandaag bij ligt. Wat vrij is, is ook echt nog vrij.";
+}
+
+function scen(prijs,bez,nacht,kosten){
+  const bruto=nacht*365*(bez/100), kost=bruto*kosten, netto=bruto-kost;
+  return {bruto,kost,netto,pct:prijs?netto/prijs*100:0};
+}
+function vulGeld(p,prijs){
+  const bez=+$("#occ").value; $("#occV").textContent=bez+"%";
+  const zet=(el,s,t)=>{
+    el.innerHTML=`<div class="t">${t}</div><div class="big">${s.pct.toFixed(1)}%</div>
+      <div class="pc">${eur(s.netto)} netto per jaar</div>
+      <dl><div class="dr"><span>Bruto huur</span><span>${eur(s.bruto)}</span></div>
+      <div class="dr"><span>Beheer, operatie, belasting</span><span>&minus;${eur(s.kost)}</span></div></dl>`;
+  };
+  zet($("#sLow"),scen(prijs,bez,180,.45),"Voorzichtig · €180 per nacht");
+  zet($("#sHigh"),scen(prijs,bez,260,.45),"Onze inschatting · €260 per nacht");
+  $("#fine").textContent="Gerekend met "+bez+"% bezetting en 45% aan beheer, operatie en belasting samen. "
+    +(p.management_notes||"");
+}
+
+function vulRail(ms){
+  if(!ms||!ms.length){ $("#rail").innerHTML='<p class="fine">Nog geen planning vastgelegd.</p>'; return; }
+  $("#rail").innerHTML=ms.map(m=>{
+    const pct=Number(m.pct_complete)||0;
+    const kl=(m.status==="done"||pct>=100)?"done":(m.status==="in_progress"?"now":"");
+    return `<div class="leg ${kl}">
+      <div class="yr">${esc(jaar(m.planned_start))}</div>
+      <div><h4>${esc(m.title)}</h4>
+        ${pct>0?`<div class="pr"><i style="width:${Math.min(100,pct)}%"></i></div>
+                 <div class="pct">${pct.toFixed(0)}% gereed</div>`:""}
+      </div></div>`;
+  }).join("");
+}
+
+function vulConstructie(p){
+  const pt=p.legal_entity||"de projectvennootschap";
+  $("#own").innerHTML=[
+    ["De grond","Blijft van de Indonesische eigenaar. Grond kopen kan een buitenlander in Indonesië niet, en iedereen die iets anders belooft omzeilt de wet."],
+    ["Het erfpachtrecht","Dit koop jij. Notarieel op jouw naam, 30 jaar met een verlenging van nog eens 30 die nu al is vastgelegd."],
+    ["De villa","Gebouwd en geleverd door "+pt+". Na oplevering is het jouw recht om te gebruiken en te verhuren."]
+  ].map(([t,d],i)=>`<div class="tier"><div class="num">${i+1}</div>
+      <div><h4>${esc(t)}</h4><p>${esc(d)}</p></div></div>`).join("");
+  $("#ownNote").textContent=(p.lease_structure?p.lease_structure+" ":"")
+    +"De verlenging is bij aanvang vastgelegd, dus niet afhankelijk van onderhandeling in jaar 30.";
+}
+
+function vulTraject(resv){
+  const betaald=resv&&(resv.status==="deposit_paid"||resv.payment_status==="paid");
+  const getekend=!!(resv&&resv.itp_signed_at);
+  const st=[
+    ["Unit vastgezet","We houden de villa apart zolang de reservering loopt.",!!resv],
+    ["Intentieverklaring","Je leest hem door en tekent digitaal. Geen koopakte, wel de afspraak.",getekend],
+    ["Aanbetaling","Telt volledig mee als eerste deel van de koopsom.",!!betaald],
+    ["Notaris stelt op","Erfpacht- en bouwovereenkomst, met alle termijnen erin.",false],
+    ["Tekenen","Op afstand kan, met volmacht. Daarna de eerste termijn.",false],
+    ["Bouw","Appgroep, en elke twee weken beeld van de voortgang.",false],
+    ["Sleutel","Oplevering, en het beheerteam zet de verhuur op.",false]
+  ];
+  let nu=false;
+  $("#path").innerHTML=st.map(([t,d,k])=>{
+    let kl=k?"done":""; if(!k&&!nu){ kl="now"; nu=true; }
+    return `<div class="leap ${kl}"><div class="dot"></div>
+      <div><h4>${esc(t)}</h4><p>${esc(d)}</p></div></div>`;
+  }).join("");
+}
+
+(async function(){
+  const q=new URLSearchParams(location.search), token=q.get("t");
+  const resv=token?await laadReservering(token):null;
+  if(!resv) $("#demoNote").hidden=false;
+
+  const slug=resv
+    ?(String(resv.project||"").toLowerCase().includes("moka")?"moka"
+      :String(resv.project||"").toLowerCase().includes("reload")?"the-reload":"the-maison")
+    :"the-maison";
+
+  const p=await laadProject(slug);
+  if(!p){ $("#h1t").textContent="Kon de projectgegevens niet laden."; return; }
+  const besch=window.utamaAvailability?await window.utamaAvailability(slug):null;
+  const mijn=resv?unitNr(resv.unit):3;
+  const prijs=(resv&&Number(resv.unit_price))||Number(p.price_current)||0;
+
+  document.title=(mijn?"Villa "+mijn+" · ":"")+p.name;
+  $("#vLoc").textContent=p.location||"";
+  $("#vLbl").textContent=resv?"Dossier":"Voorbeelddossier";
+  $("#vTitle").innerHTML=mijn?("Villa <em>"+mijn+"</em>"):esc(p.name);
+  $("#vSub").textContent=p.tagline||"";
+  $("#k1").textContent=resv?("Voor "+String(resv.name||"").split(" ")[0]):"Het voorstel";
+  $("#lede1").textContent=resv&&resv.itp_signed_at
+    ? "Je tekende op "+dnl(resv.itp_signed_at)+". Hieronder staat waar je nu staat."
+    : "Een erfpachtvilla in "+(p.location||"Bali")+", turnkey opgeleverd en verhuurd door het beheerteam.";
+  $("#sig").textContent="UTAMA Bali · "+(p.legal_entity||"")+" · invest.utamabali.com";
+  $("#actB").href="/"+slug+"/brochure/";
+  if(resv) $("#closeT").innerHTML="Nog iets <em>onduidelijk</em>, "+esc(String(resv.name||"").split(" ")[0])+"?";
+
+  vulBeeld(slug);
+  vulCijfers(p,resv,besch);
+  vulTerrein(besch,mijn);
+  vulGeld(p,prijs);
+  vulRail(p.milestones);
+  vulConstructie(p);
+  vulTraject(resv);
+  $("#occ").addEventListener("input",()=>vulGeld(p,prijs));
+})();
+</script>
+</body>
+</html>
