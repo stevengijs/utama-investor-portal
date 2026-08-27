@@ -191,6 +191,21 @@ section{padding:52px 0}
 
 .calc{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:8px}
 @media(max-width:840px){.calc{grid-template-columns:1fr}}
+/* ---- gedeelde voorzieningen ----
+   De community-faciliteiten van een resort: café, wellness, rooftop. Staat hier
+   en niet in één projectpagina, zodat The Maison en The Reload dezelfde vorm
+   krijgen zodra ook die hun voorzieningen tonen. Genummerd omdat de brochure ze
+   ook nummert; het is een rondgang over het terrein, geen willekeurige lijst. */
+.voorz{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+@media(max-width:760px){.voorz{grid-template-columns:1fr}}
+.voorz-item{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+            padding:20px 22px;display:flex;flex-direction:column;gap:6px}
+.voorz-nr{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--terra)}
+.voorz-item h3{font-size:17px;margin:0}
+.voorz-item p{margin:0;font-size:14px;color:var(--muted);line-height:1.55}
+.voorz-note{margin-top:16px;font-size:14px;color:var(--muted);display:flex;gap:9px;align-items:flex-start}
+.voorz-note::before{content:"✓";color:var(--ok);font-weight:700;flex:none}
+
 .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px}
 .card h3{font-size:19px;margin-bottom:4px}
 .card .csub{font-size:13px;color:var(--muted);margin-bottom:16px}
