@@ -196,12 +196,15 @@ function _captureReferralFromUrl(){
 
     // Log a visit at most once per code per browser session, so refreshing
     // or browsing multiple pages doesn't inflate the referrer's visit count.
+    // The Supabase query builder is lazy and only sends the request when
+    // .then() runs. It has no .catch(), so pass the error handler to .then().
     const visitFlag = "utama_ref_visit_logged_" + code;
     if(!sessionStorage.getItem(visitFlag)){
-      sessionStorage.setItem(visitFlag, "1");
       const sb = getSupabaseClient();
       if(sb){
-        sb.rpc('track_referral_visit', { p_code: code, p_source_page: window.location.pathname }).catch(()=>{});
+        sessionStorage.setItem(visitFlag, "1");
+        sb.rpc('track_referral_visit', { p_code: code, p_source_page: window.location.pathname })
+          .then(()=>{}, ()=>{ try{ sessionStorage.removeItem(visitFlag); }catch(e){} });
       }
     }
   }catch(e){}
