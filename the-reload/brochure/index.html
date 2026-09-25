@@ -598,6 +598,24 @@
   .sp-legend .d-res{background:var(--pess-ink)}
   .sp-legend .d-sold{background:rgba(23,20,15,.7)}
 
+  .spwrap{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);margin-bottom:10px}
+  .spwrap img{display:block;width:100%;height:auto}
+  .sp-hot{position:absolute;top:18%;height:48%;cursor:pointer;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6%;transition:background .15s}
+  .sp-hot .spn{width:26px;height:26px;border-radius:50%;background:rgba(254,251,246,.95);border:2px solid var(--ink);color:var(--ink);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)}
+  .sp-hot:hover{background:rgba(91,106,69,.16)}
+  .sp-hot.sel{background:rgba(91,106,69,.22)}
+  .sp-hot.sel .spn{background:var(--opt-deep);border-color:var(--opt-deep);color:#fff}
+  .sp-hot.sold{cursor:not-allowed}
+  .sp-hot.sold .spn{background:rgba(23,20,15,.7);border-color:rgba(23,20,15,.7);color:#fff}
+  .sp-hot.sold:hover{background:transparent}
+  .sp-hot.reserved{cursor:not-allowed}
+  .sp-hot.reserved .spn{background:var(--pess-ink);border-color:var(--pess-ink);color:#fff}
+  .sp-hot.reserved:hover{background:transparent}
+  .sp-hot .sold-lbl,.sp-hot .reserved-lbl{display:none;position:absolute;top:8%;left:50%;transform:translateX(-50%);font-size:8px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#fff;padding:2px 7px;border-radius:999px;white-space:nowrap}
+  .sp-hot .sold-lbl{background:rgba(23,20,15,.78)}
+  .sp-hot .reserved-lbl{background:var(--pess-ink)}
+  .sp-hot.sold .sold-lbl{display:block}
+  .sp-hot.reserved .reserved-lbl{display:block}
   .sp-pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
   .sp-pill{padding:8px 15px;border-radius:999px;border:1px solid var(--line);background:var(--paper);font-family:inherit;font-size:12.5px;font-weight:700;color:var(--ink);cursor:pointer}
   .sp-pill.sold{background:rgba(23,20,15,.05);color:var(--muted);cursor:not-allowed;text-decoration:line-through}
@@ -1520,8 +1538,15 @@
     <div id="rmStep1">
       <div class="eb" data-t="rmEb">Reserveren</div>
       <h3 data-t="rmH3Step1">Kies je villa</h3>
-      <p class="rm-lead" data-t="rmLeadStep1">Alle vier de villa's zijn nog beschikbaar. Kies je voorkeursvilla uit de lijst.</p>
+      <p class="rm-lead" data-t="rmLeadStep1">Alle vier de villa's zijn nog beschikbaar. Kies je voorkeursvilla op de afbeelding of uit de lijst.</p>
 
+      <div class="spwrap">
+        <img src="/the-reload/images/reload-site-plan.jpg" alt="The Reload, vier villa's aan de rijstvelden">
+        <div class="sp-hot" data-unit="1" style="left:9.8%;width:21%;top:25%;height:46%" onclick="selectUnit(1)"><span class="spn">1</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
+        <div class="sp-hot" data-unit="2" style="left:31%;width:20%;top:25%;height:46%" onclick="selectUnit(2)"><span class="spn">2</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
+        <div class="sp-hot" data-unit="3" style="left:51%;width:20.5%;top:25%;height:46%" onclick="selectUnit(3)"><span class="spn">3</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
+        <div class="sp-hot" data-unit="4" style="left:71.5%;width:21.5%;top:25%;height:46%" onclick="selectUnit(4)"><span class="spn">4</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
+      </div>
       <div class="sp-legend">
         <span><i class="d-av"></i><span data-t="rmLegendAvail">Beschikbaar</span></span>
         <span><i class="d-sel"></i><span data-t="rmLegendSel">Geselecteerd</span></span>
@@ -2101,7 +2126,7 @@ const T = {
   "stickyReserveBtn": "Reserveren",
   "rmEb": "Reserveren",
   "rmH3Step1": "Kies je villa",
-  "rmLeadStep1": "Alle vier de villa's zijn nog beschikbaar. Kies je voorkeursvilla uit de lijst.",
+  "rmLeadStep1": "Alle vier de villa's zijn nog beschikbaar. Kies je voorkeursvilla op de afbeelding of uit de lijst.",
   "rmLegendAvail": "Beschikbaar",
   "rmLegendSel": "Geselecteerd",
   "rmLegendRes": "Gereserveerd",
@@ -2632,7 +2657,7 @@ const T = {
   "stickyReserveBtn": "Reserve",
   "rmEb": "Reserve",
   "rmH3Step1": "Choose your villa",
-  "rmLeadStep1": "All four villas are still available. Choose your preferred villa from the list.",
+  "rmLeadStep1": "All four villas are still available. Choose your preferred villa on the image or from the list.",
   "rmLegendAvail": "Available",
   "rmLegendSel": "Selected",
   "rmLegendRes": "Reserved",
@@ -3132,8 +3157,8 @@ document.addEventListener('keydown',function(e){ if(!el('lb').classList.contains
 bindGallery();
 
 
-// ---- reserveringsmodule: pillenlijst i.p.v. siteplan-hotspots (geen siteplan-graphic
-//      beschikbaar voor The Reload), + gegevens voor de intentieverklaring ----
+// ---- reserveringsmodule: render van de vier villa's met klikbare vlakken (zoals The Maison)
+//      plus de pillenlijst, + gegevens voor de intentieverklaring ----
 // Alle vier villa's staan nu op "beschikbaar" (0 verkocht, bevestigd door Steven).
 // Zodra een villa onder een intentieverklaring + aanbetaling staat maar nog niet
 // notarieel is afgerond, zet 'm in RESERVED_UNITS (i.p.v. meteen in SOLD_UNITS).
@@ -3154,7 +3179,17 @@ async function loadBrochureAvailability(){
     RESERVED_UNITS = d.units.filter(function(u){ return u.status === 'reserved'; }).map(function(u){ return u.n; });
     updateRailAvail();
     try{ renderSpPills(); }catch(e){}
+    syncSpHot();
   }catch(e){}
+}
+
+function syncSpHot(){
+  document.querySelectorAll('.sp-hot').forEach(function(h){
+    const n = +h.dataset.unit;
+    h.classList.toggle('sold', SOLD_UNITS.indexOf(n) !== -1);
+    h.classList.toggle('reserved', SOLD_UNITS.indexOf(n) === -1 && RESERVED_UNITS.indexOf(n) !== -1);
+    h.classList.toggle('sel', rmSelectedUnit === n);
+  });
 }
 
 // Rail-stat "Beschikbaarheid: X van de Y" + balk, live uit de RPC. Werkt de
@@ -3197,6 +3232,7 @@ function selectUnit(n){
   if(SOLD_UNITS.indexOf(n) !== -1 || RESERVED_UNITS.indexOf(n) !== -1) return;
   rmSelectedUnit = n;
   renderSpPills();
+  syncSpHot();
   updateRmSelectedDisplay();
   const next = el('rmNext');
   if(next) next.disabled = false;
@@ -3205,6 +3241,7 @@ function selectUnit(n){
 function openReserveModal(){
   loadBrochureAvailability();
   rmSelectedUnit = null;
+  syncSpHot();
   renderSpPills();
   updateRmSelectedDisplay();
   const next = el('rmNext');
