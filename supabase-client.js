@@ -144,7 +144,9 @@ function utamaLocationMap(elId, opts){
       /* Optionele labelpositie per POI (pos:'below'|'left'|'right') tegen overlap bij dichte clusters. */
       '.upoi.below .lbl{transform:translate(-50%,calc(-50% + 27px))}'+
       '.upoi.left .lbl{transform:translate(calc(-100% - 20px),-50%)}'+
-      '.upoi.right .lbl{transform:translate(20px,-50%)}';
+      '.upoi.right .lbl{transform:translate(20px,-50%)}'+
+      '.upoi.home.glow .dot{box-shadow:0 0 0 6px rgba(255,255,255,.85),0 0 0 12px rgba(31,92,90,.22),0 4px 14px rgba(0,0,0,.3)}'+
+      '.upoi.home.glow .lbl{font-size:14px;padding:5px 13px}';
     document.head.appendChild(st);
   }
   var map=L.map(elId,{scrollWheelZoom:false,zoomControl:true}).setView(opts.center, opts.zoom||14);
@@ -157,10 +159,13 @@ function utamaLocationMap(elId, opts){
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   function mk(lat,lng,cls,ico,name,min){
     var lbl='<div class="lbl">'+esc(name)+(min!=null?' <b>'+esc(min)+' min</b>':'')+'</div>';
-    return L.marker([lat,lng],{icon:L.divIcon({className:'upoi '+cls,html:lbl+'<div class="dot">'+ico+'</div>',iconSize:[0,0],iconAnchor:[0,0]}),keyboard:false}).addTo(map);
+    var hs=(cls==='home'&&opts.homeColor)?' style="background:'+opts.homeColor+'"':'';
+    var html=cls==='home'&&opts.homeColor ? lbl.replace('class="lbl"','class="lbl"'+hs)+'<div class="dot"'+hs+'>'+ico+'</div>' : lbl+'<div class="dot">'+ico+'</div>';
+    return L.marker([lat,lng],{icon:L.divIcon({className:'upoi '+cls+(cls==='home'&&opts.homeGlow?' glow':''),html:html,iconSize:[0,0],iconAnchor:[0,0]}),keyboard:false,zIndexOffset:cls==='home'?1000:0}).addTo(map);
   }
   var pts=[opts.center];
-  mk(opts.center[0],opts.center[1],'home','🏠',opts.label||'',null);
+  /* Optioneel per project: homeColor, homeIcon en homeGlow laten de eigen pin opvallen. */
+  mk(opts.center[0],opts.center[1],'home',opts.homeIcon||'🏠',opts.label||'',null);
   (opts.pois||[]).forEach(function(p){
     mk(p.lat,p.lng,(p.cat||'food')+(p.pos?' '+p.pos:''),p.ico||EMO[p.cat]||'📍',p.name,p.min);
     pts.push([p.lat,p.lng]);

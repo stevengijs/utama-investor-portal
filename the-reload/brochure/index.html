@@ -436,7 +436,7 @@
   .scb{font-size:11.5px;margin-top:7px;font-weight:600;opacity:.9}
 
   .prices{display:grid;grid-template-columns:1fr;gap:9px;margin-top:6px}
-  @media(min-width:640px){.prices{grid-template-columns:1fr 1fr}}
+  @media(min-width:640px){.prices{grid-template-columns:1fr 1fr 1fr}}
   .prices.three{grid-template-columns:1fr}
   @media(min-width:640px){.prices.three{grid-template-columns:repeat(3,1fr)}}
   .pc{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px;text-align:center}
@@ -761,7 +761,7 @@
         <div class="loc">Cemagi, Bali</div>
 
         <div class="row price"><div class="rl" data-t="railPriceLbl">Huidige prijs</div><div class="rv"><span data-t="railPriceVal">€325.000</span></div></div>
-        <div class="price-note" data-t="railPriceNote">Volgende prijsstap: €350.000</div>
+        <div class="price-note" data-t="railPriceNote">Daarna €350.000 (villa 2 en 3) en €375.000 (villa 4)</div>
         <div class="row yield"><div class="rl" data-t="railYieldLbl">Huurrendement</div><div class="rv"><span data-t="railYieldVal">12–17%/jr</span></div></div>
         <div class="row"><div class="rl" data-t="railLeaseLbl">Leaseperiode</div><div class="rv">30+30 jr</div></div>
         <div class="row"><div class="rl" data-t="railVillasLbl">Aantal villa's</div><div class="rv">4</div></div>
@@ -966,7 +966,7 @@
           </div>
           <div class="why-card">
             <div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-            <div><h4 data-t="p02Why2H">Pink Zone: 100% legaal</h4><p data-t="p02Why2P">Maar een klein deel van Bali, naar schatting 7%, is Pink Zone: grond waarop short-stay verhuur legaal is. The Reload ligt erin, met alle vergunningen op orde, geen grijs gebied.</p></div>
+            <div><h4 data-t="p02Why2H">Pink Zone: 100% legaal</h4><p data-t="p02Why2P">Maar 7% van Bali is Pink Zone: grond waarop short-stay verhuur legaal is. The Reload ligt erin, met alle vergunningen op orde, geen grijs gebied.</p></div>
           </div>
           <div class="why-card">
             <div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></div>
@@ -1002,10 +1002,11 @@
         </div>
 
         <div class="prices">
-          <div class="pc cur hero"><div class="pv"><span data-t="p03PriceCurVal">€325.000</span></div><div class="pl" data-t="p03PriceCurLbl">Huidige prijs</div><div class="ps" data-t="p03PriceCurSub">Beschikbaar om nu te reserveren</div></div>
-          <div class="pc next"><div class="pv"><span data-t="p03PriceNextVal">€350.000</span></div><div class="pl" data-t="p03PriceNextLbl">Volgende prijsstap</div><div class="ps" data-t="p03PriceNextSub">+€25.000 na de stijging</div></div>
+          <div class="pc cur hero"><div class="pv"><span data-t="p03PriceCurVal">€325.000</span></div><div class="pl" data-t="p03PriceCurLbl">Huidige prijs</div><div class="ps" data-t="p03PriceCurSub">Eerste villa, nu te reserveren</div></div>
+          <div class="pc next"><div class="pv"><span data-t="p03PriceNextVal">€350.000</span></div><div class="pl" data-t="p03PriceNextLbl">Volgende prijsstap</div><div class="ps" data-t="p03PriceNextSub">Villa 2 en 3, +€25.000</div></div>
+          <div class="pc next"><div class="pv"><span data-t="p03PriceLastVal">€375.000</span></div><div class="pl" data-t="p03PriceLastLbl">Laatste villa</div><div class="ps" data-t="p03PriceLastSub">Villa 4, +€50.000</div></div>
         </div>
-        <p class="price-trend" data-t="p03PriceTrend">Wie nu instapt op €325.000 profiteert van een prijsvoordeel van €50.000 ten opzichte van de verwachte waarde van €375.000 bij oplevering, een vroeg-instapvoordeel van circa 15%. Bij de volgende prijsstap naar €350.000 is dat voordeel nog €25.000, circa 7%. Op dit moment zijn nog alle vier de villa's beschikbaar op de huidige instapprijs; zodra de eerste villa's zijn verkocht, geldt automatisch de volgende, hogere prijsstap.</p>
+        <p class="price-trend" data-t="p03PriceTrend">De eerste villa gaat voor €325.000, de volgende twee voor €350.000 en de laatste voor €375.000. Wie nu instapt op €325.000 heeft zo een prijsvoordeel van €50.000 ten opzichte van de laatste villa en van de verwachte waarde van €375.000 bij oplevering, circa 15%. Wie instapt op €350.000 heeft nog €25.000 voordeel, circa 7%. Op dit moment zijn alle vier de villa's beschikbaar; zodra de eerste is verkocht, geldt de volgende prijsstap.</p>
 
         <div class="scen-wrap">
           <div class="scen-h" data-t="p03ScenH">Drie scenario's voor The Reload</div>
@@ -1406,7 +1407,7 @@
         <div class="faq">
           <details data-cat="juridisch">
             <summary data-t="p08Q1">Wat houdt de reservering van €5.000 in?</summary>
-            <p data-t="p08A1">Met een intentieverklaring en een aanbetaling van €5.000 reserveer je je voorkeursvilla. Dit bedrag wordt volledig verrekend bij de aankoop, na de notariële overdracht, zo zet je de huidige instapprijs van €325.000 vast, voordat deze naar de volgende prijsstap van €350.000 stijgt.</p>
+            <p data-t="p08A1">Met een intentieverklaring en een aanbetaling van €5.000 reserveer je je voorkeursvilla. Dit bedrag wordt volledig verrekend bij de aankoop, na de notariële overdracht. Zo zet je de huidige instapprijs van €325.000 vast. De volgende twee villa's kosten €350.000, de laatste €375.000.</p>
           </details>
           <details data-cat="beheer">
             <summary data-t="p08Q2">Moet ik zelf iets regelen rond verhuur?</summary>
@@ -1662,7 +1663,7 @@ const T = {
   "railPriceLbl": "Huidige prijs",
   "railPriceVal": "€325.000",
   "railYieldVal": "12–17%/jr",
-  "railPriceNote": "Volgende prijsstap: €350.000",
+  "railPriceNote": "Daarna €350.000 (villa 2 en 3) en €375.000 (villa 4)",
   "repHeroAmt": "€3.776",
   "repGrossAmt": "€5.817",
   "repFee1Amt": "-€436",
@@ -1780,7 +1781,7 @@ const T = {
   "p02Why1H": "Metro en tram in voorbereiding",
   "p02Why1P": "In de plannen voor de Bali-metro is Cemagi het eindpunt van lijn 1 vanaf de luchthaven. Die metro ligt stil. In september 2026 tekenden Bali, Badung en spoorbedrijf KAI voor een elektrische tram van de luchthaven via Kuta en Seminyak richting Canggu, start bouw gepland in 2027. Route en stations zijn nog niet vastgesteld.",
   "p02Why2H": "Pink Zone: 100% legaal",
-  "p02Why2P": "Maar een klein deel van Bali, naar schatting 7%, is Pink Zone: grond waarop short-stay verhuur legaal is. The Reload ligt erin, met alle vergunningen op orde, geen grijs gebied.",
+  "p02Why2P": "Maar 7% van Bali is Pink Zone: grond waarop short-stay verhuur legaal is. The Reload ligt erin, met alle vergunningen op orde, geen grijs gebied.",
   "p02Why3H": "Het hele jaar vraag",
   "p02Why3P": "Een tropisch klimaat van 25 tot 32°C het hele jaar door, met pieken in juli en augustus en rond kerst. Ook buiten de pieken blijven de gasten komen.",
   "p02Why4H": "Tussen Nuanu en Canggu",
@@ -1808,11 +1809,14 @@ const T = {
   "p03KeyStat4L": "Verwachte bezetting",
   "p03PriceCurVal": "€325.000",
   "p03PriceCurLbl": "Huidige prijs",
-  "p03PriceCurSub": "Beschikbaar om nu te reserveren",
+  "p03PriceCurSub": "Eerste villa, nu te reserveren",
   "p03PriceNextVal": "€350.000",
   "p03PriceNextLbl": "Volgende prijsstap",
-  "p03PriceNextSub": "+€25.000 na de stijging",
-  "p03PriceTrend": "Wie nu instapt op €325.000 profiteert van een prijsvoordeel van €50.000 ten opzichte van de verwachte waarde van €375.000 bij oplevering, een vroeg-instapvoordeel van circa 15%. Bij de volgende prijsstap naar €350.000 is dat voordeel nog €25.000, circa 7%. Op dit moment zijn nog alle vier de villa's beschikbaar op de huidige instapprijs; zodra de eerste villa's zijn verkocht, geldt automatisch de volgende, hogere prijsstap.",
+  "p03PriceNextSub": "Villa 2 en 3, +€25.000",
+  "p03PriceLastVal": "€375.000",
+  "p03PriceLastLbl": "Laatste villa",
+  "p03PriceLastSub": "Villa 4, +€50.000",
+  "p03PriceTrend": "De eerste villa gaat voor €325.000, de volgende twee voor €350.000 en de laatste voor €375.000. Wie nu instapt op €325.000 heeft zo een prijsvoordeel van €50.000 ten opzichte van de laatste villa en van de verwachte waarde van €375.000 bij oplevering, circa 15%. Wie instapt op €350.000 heeft nog €25.000 voordeel, circa 7%. Op dit moment zijn alle vier de villa's beschikbaar; zodra de eerste is verkocht, geldt de volgende prijsstap.",
   "p03ScenH": "Drie scenario's voor The Reload",
   "p03ScenNote": "Nettorendement per jaar, incl. beheer en kosten. Aan de hand van omgevingsdata. De rekentool hieronder herberekent live zodra je de schuifregelaars aanpast.",
   "p03CalcSub": "Bereken je rendement",
@@ -2062,7 +2066,7 @@ const T = {
   "p08FaqRole": "· Director UTAMA",
   "p08FaqLead": "Staat je vraag er niet bij? Stuur ons een appje, we beantwoorden hem persoonlijk via WhatsApp.",
   "p08Q1": "Wat houdt de reservering van €5.000 in?",
-  "p08A1": "Met een intentieverklaring en een aanbetaling van €5.000 reserveer je je voorkeursvilla. Dit bedrag wordt volledig verrekend bij de aankoop, na de notariële overdracht, zo zet je de huidige instapprijs van €325.000 vast, voordat deze naar de volgende prijsstap van €350.000 stijgt.",
+  "p08A1": "Met een intentieverklaring en een aanbetaling van €5.000 reserveer je je voorkeursvilla. Dit bedrag wordt volledig verrekend bij de aankoop, na de notariële overdracht. Zo zet je de huidige instapprijs van €325.000 vast. De volgende twee villa's kosten €350.000, de laatste €375.000.",
   "p08Q2": "Moet ik zelf iets regelen rond verhuur?",
   "p08A2": "Nee. Na oplevering regelen wij alles: de dagelijkse operatie met een vast team voor de vier villa's, directe boekingen via onze eigen website en social media, en de platforms (Airbnb, Booking.com, Agoda, Expedia en Vrbo) samen met House of Reservations. Je kunt de villa ook zelf beheren of voor een andere beheerder kiezen.",
   "p08Q3": "Kan ik de woning zelf gebruiken?",
@@ -2190,7 +2194,7 @@ const T = {
   "railPriceLbl": "Current price",
   "railPriceVal": "€325,000",
   "railYieldVal": "12–17%/yr",
-  "railPriceNote": "Next price step: €350,000",
+  "railPriceNote": "Then €350,000 (villas 2 and 3) and €375,000 (villa 4)",
   "repHeroAmt": "€3,776",
   "repGrossAmt": "€5,817",
   "repFee1Amt": "-€436",
@@ -2308,7 +2312,7 @@ const T = {
   "p02Why1H": "Metro and tram in preparation",
   "p02Why1P": "In the plans for the Bali metro, Cemagi is the terminus of line 1 from the airport. That metro has stalled. In September 2026 Bali, Badung and rail company KAI signed for an electric tram from the airport via Kuta and Seminyak towards Canggu, with construction planned to start in 2027. Route and stations have not been fixed yet.",
   "p02Why2H": "Pink Zone: 100% legal",
-  "p02Why2P": "Only a small part of Bali, an estimated 7%, is Pink Zone: land where short-stay rental is legal. The Reload sits inside it, with all permits in place, no grey area.",
+  "p02Why2P": "Only 7% of Bali is Pink Zone: land where short-stay rental is legal. The Reload sits inside it, with all permits in place, no grey area.",
   "p02Why3H": "Demand all year round",
   "p02Why3P": "A tropical climate of 25 to 32°C all year, with peaks in July and August and around Christmas. Outside the peaks the guests keep coming.",
   "p02Why4H": "Between Nuanu and Canggu",
@@ -2336,11 +2340,14 @@ const T = {
   "p03KeyStat4L": "Expected occupancy",
   "p03PriceCurVal": "€325,000",
   "p03PriceCurLbl": "Current price",
-  "p03PriceCurSub": "Available to reserve now",
+  "p03PriceCurSub": "First villa, available to reserve now",
   "p03PriceNextVal": "€350,000",
   "p03PriceNextLbl": "Next price step",
-  "p03PriceNextSub": "+€25,000 after the increase",
-  "p03PriceTrend": "Whoever enters now at €325,000 benefits from a price advantage of €50,000 compared with the expected value of €375,000 on completion, an early-entry advantage of about 15%. At the next price step of €350,000, that advantage is still €25,000, about 7%. Right now all four villas are still available at the current entry price; once the first villas are sold, the next, higher price step automatically applies.",
+  "p03PriceNextSub": "Villas 2 and 3, +€25,000",
+  "p03PriceLastVal": "€375,000",
+  "p03PriceLastLbl": "Last villa",
+  "p03PriceLastSub": "Villa 4, +€50,000",
+  "p03PriceTrend": "The first villa goes for €325,000, the next two for €350,000 and the last one for €375,000. Whoever enters now at €325,000 has a price advantage of €50,000 over the last villa and over the expected value of €375,000 on completion, about 15%. Entering at €350,000 still gives a €25,000 advantage, about 7%. Right now all four villas are available; once the first one is sold, the next price step applies.",
   "p03ScenH": "Three scenarios for The Reload",
   "p03ScenNote": "Net return per year, including management and costs. Based on local market data. The calculator below recalculates live as you adjust the sliders.",
   "p03CalcSub": "Calculate your return",
@@ -2590,7 +2597,7 @@ const T = {
   "p08FaqRole": "· Director, UTAMA",
   "p08FaqLead": "Don't see your question? Send us a message, we'll answer it personally via WhatsApp.",
   "p08Q1": "What does the €5,000 reservation involve?",
-  "p08A1": "With a letter of intent and a €5,000 down payment, you reserve your preferred villa. This amount is fully deducted at purchase, after the notarised transfer, this way you lock in the current entry price of €325,000 before it rises to the next price step of €350,000.",
+  "p08A1": "With a letter of intent and a €5,000 down payment you reserve your preferred villa. This amount is fully deducted at purchase, after the notarised transfer. This way you lock in the current entry price of €325,000. The next two villas cost €350,000, the last one €375,000.",
   "p08Q2": "Do I need to arrange anything myself around renting it out?",
   "p08A2": "No. After completion we arrange everything: daily operations with a fixed team for the four villas, direct bookings through our own website and social media, and the platforms (Airbnb, Booking.com, Agoda, Expedia and Vrbo) together with House of Reservations. You can also manage the villa yourself or choose a different manager.",
   "p08Q3": "Can I use the property myself?",
@@ -2682,8 +2689,9 @@ const T = {
 // en dus bcalc() aanroept) een ReferenceError door de temporal dead zone.
 const GROWTH_RATE = 0.05; /* vaste jaarlijkse waardegroei-aanname (incl. inflatie), niet instelbaar */
 const BPRICES=[
-  {v:325000, l:{nl:"Nu", en:"Now"}, s:{nl:"huidige prijs", en:"current price"}, current:true},
-  {v:350000, l:{nl:"Volgende prijsstap", en:"Next price step"}, s:{nl:"prijs stijgt", en:"price increases"}}
+  {v:325000, l:{nl:"Nu", en:"Now"}, s:{nl:"eerste villa", en:"first villa"}, current:true},
+  {v:350000, l:{nl:"Volgende prijsstap", en:"Next price step"}, s:{nl:"villa 2 en 3", en:"villas 2 and 3"}},
+  {v:375000, l:{nl:"Laatste villa", en:"Last villa"}, s:{nl:"villa 4", en:"villa 4"}}
 ];
 let bSelPrice=325000;
 const BSCENARIOS=[
@@ -3344,7 +3352,7 @@ loadBrochureAvailability();
 const RELOAD_POIS=[
   {name:"Cemagi Beach",      lat:-8.641004, lng:115.102426, cat:"beach", min:2, pos:"left"},
   {name:"Riviera",           lat:-8.637311, lng:115.105400, cat:"food",  min:1, pos:"left"},
-  {name:"Bambou Café",       lat:-8.638398, lng:115.107146, cat:"food",  min:3, pos:"below"},
+  {name:"Bambou Café",       lat:-8.638398, lng:115.107146, cat:"food",  min:3, pos:"right"},
   {name:"Flowerboy",         lat:-8.638840, lng:115.113811, cat:"food",  min:3, pos:"right"},
   {name:"Island Sport Padel",lat:-8.629783, lng:115.110284, cat:"fit",   min:5},
   {name:"Nuanu",             lat:-8.627220, lng:115.099095, cat:"spot",  min:10},
@@ -3364,7 +3372,8 @@ const RELOAD_POIS=[
     s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
     s.onload=function(){
       if(window.utamaLocationMap) window.utamaLocationMap('locMap',{
-        center:[-8.638757,115.104719], label:'The Reload', zoom:14, pois:RELOAD_POIS
+        center:[-8.638757,115.104719], label:'The Reload', zoom:14, pois:RELOAD_POIS,
+        homeColor:'#1F5C5A', homeIcon:'♨️', homeGlow:true
       });
     };
     document.head.appendChild(s);
