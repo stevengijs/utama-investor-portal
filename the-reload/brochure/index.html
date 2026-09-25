@@ -906,7 +906,7 @@
 
       <div class="tab-pane" id="pane-locatie">
         <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg></span><div class="pane-kicker" data-t="p02Kicker">02 · Locatie</div></div>
-        <h2 class="pane-h" data-t="p02H2">Tussen Nuanu en Canggu, 300 meter van het strand</h2>
+        <h2 class="pane-h" data-t="p02H2">1 minuut van het strand, aan de hoofdstraat van Cemagi</h2>
         <p class="pane-lead" style="margin-bottom:14px" data-t="p02Lead">The Reload ligt aan de hoofdweg van Cemagi, in de Pink Zone: legale short-stay verhuur, alle vergunningen op orde. Rustig gelegen tussen de bekende gebieden Nuanu en Canggu, met het strand op 300 meter.</p>
 
 
@@ -928,7 +928,7 @@
         <div class="nearby-group">
           <div class="nearby-cat" data-t="p02CatFood">Eten &amp; koffie</div>
           <div class="amen-list">
-            <div class="amen"><span class="al">Riviera Coffee</span><span class="av">2 min</span></div>
+            <div class="amen"><span class="al">Riviera</span><span class="av">1 min</span></div>
             <div class="amen"><span class="al">Bambou Cafe</span><span class="av">3 min</span></div>
             <div class="amen"><span class="al">Flower Boy Coffee</span><span class="av">3 min</span></div>
           </div>
@@ -946,6 +946,7 @@
           <div class="nearby-cat" data-t="p02CatCreative">Creativiteit</div>
           <div class="amen-list">
             <div class="amen"><span class="al">Nuanu Creative Center</span><span class="av">10 min</span></div>
+            <div class="amen"><span class="al">House of Kairos</span><span class="av">9 min</span></div>
           </div>
         </div>
         <p class="note" style="font-size:12px;color:var(--muted);margin-top:2px" data-t="p02Note">Reistijden zijn per scooter, vanaf The Reload.</p>
@@ -1767,7 +1768,7 @@ const T = {
   "p01RouteBLbl": "Daarna",
   "p01RouteBTxt": "Doorverkopen tegen een hogere prijs",
   "p02Kicker": "02 · Locatie",
-  "p02H2": "Tussen Nuanu en Canggu, 300 meter van het strand",
+  "p02H2": "1 minuut van het strand, aan de hoofdstraat van Cemagi",
   "p02Lead": "The Reload ligt aan de hoofdweg van Cemagi, in de Pink Zone: legale short-stay verhuur, alle vergunningen op orde. Rustig gelegen tussen de bekende gebieden Nuanu en Canggu, met het strand op 300 meter.",
   "p02MapsCta": "Bekijk op Google Maps →",
   "p02CatBeach": "Strand",
@@ -2297,7 +2298,7 @@ const T = {
   "p01RouteBLbl": "After that",
   "p01RouteBTxt": "Resell at a higher price",
   "p02Kicker": "02 · Location",
-  "p02H2": "Between Nuanu and Canggu, 300 meters from the beach",
+  "p02H2": "1 minute from the beach, on Cemagi's main road",
   "p02Lead": "The Reload sits on the main road of Cemagi, in the Pink Zone: legal short-stay rental, all permits in place. Quietly located between the well-known areas of Nuanu and Canggu, with the beach 300 meters away.",
   "p02MapsCta": "View on Google Maps →",
   "p02CatBeach": "Beach",
@@ -3343,20 +3344,21 @@ utamaBrochureMedia('the-reload');
 loadBrochureAvailability();
 
 /* Locatiekaart: gestileerde kaart met de plekken uit de lijst hieronder en hun
-   scootertijden (dezelfde als in de lijst). K Club en Riviera Cafe staan alleen in de
-   lijst: op 200 m van de kavel vallen hun labels over het label van The Reload. Kavel: -8.638757, 115.104719 (Steven,
+   scootertijden (dezelfde als in de lijst). K Club en Seseh Recovery staan alleen in de lijst: hun labels vallen op deze
+   schaal over die van The Reload en House of Kairos. Kavel: -8.638757, 115.104719 (Steven,
    25 sep 2026). Coordinaten uit Google Maps; Nuanu op 10 min op Stevens aangeven.
    Leaflet wordt pas geladen als de Locatie-tab in beeld komt. */
 const RELOAD_POIS=[
   {name:"Cemagi Beach",      lat:-8.641004, lng:115.102426, cat:"beach", min:2, pos:"left"},
-  {name:"Bambou Café",       lat:-8.638398, lng:115.107146, cat:"food",  min:3, pos:"right"},
-  {name:"Flowerboy",         lat:-8.638840, lng:115.113811, cat:"food",  min:3},
+  {name:"Riviera",           lat:-8.637311, lng:115.105400, cat:"food",  min:1, pos:"left"},
+  {name:"Bambou Café",       lat:-8.638398, lng:115.107146, cat:"food",  min:3, pos:"below"},
+  {name:"Flowerboy",         lat:-8.638840, lng:115.113811, cat:"food",  min:3, pos:"right"},
   {name:"Island Sport Padel",lat:-8.629783, lng:115.110284, cat:"fit",   min:5},
   {name:"Nuanu",             lat:-8.627220, lng:115.099095, cat:"spot",  min:10},
   {name:"Luna Beach",        lat:-8.629645, lng:115.094173, cat:"beach", min:10, pos:"left"},
   {name:"Seseh Beach",       lat:-8.647912, lng:115.115819, cat:"beach", min:10, pos:"left"},
-  {name:"Seseh Recovery",    lat:-8.646059, lng:115.117098, cat:"fit", pos:"right"},
   {name:"Pererenan Beach",   lat:-8.651565, lng:115.121087, cat:"beach", min:15, pos:"below"},
+  {name:"House of Kairos",   lat:-8.644190, lng:115.118341, cat:"spot",  min:9, pos:"right"},
   {name:"OMNI Gym",          lat:-8.623014, lng:115.123289, cat:"fit"}
 ];
 (function initLocMap(){
