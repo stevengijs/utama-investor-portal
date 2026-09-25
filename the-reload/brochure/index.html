@@ -214,6 +214,13 @@
   .pk-icon svg{width:17px;height:17px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   .pane-h{font-size:clamp(21px,3.6vw,28px);margin:6px 0 10px;line-height:1.15}
   .pane-tag{font-size:clamp(15px,2vw,17px);font-weight:600;line-height:1.4;color:var(--ink);max-width:640px;margin:-4px 0 18px}
+  .well{margin:28px 0 8px;padding:24px 26px;border-radius:16px;background:rgba(23,20,15,.035);border:1px solid var(--line)}
+  .well .subhead{margin-top:0}
+  .well-h{font-size:clamp(18px,2.4vw,21px);line-height:1.25;margin:4px 0 14px}
+  .well-list{list-style:none;padding:0;margin:0 0 16px;display:grid;gap:10px}
+  .well-list li{position:relative;padding-left:22px;font-size:14px;line-height:1.55}
+  .well-list li::before{content:"";position:absolute;left:0;top:.55em;width:9px;height:9px;border-radius:50%;background:var(--opt-deep)}
+  .well .pane-lead{margin-bottom:10px}
   .pane-lead{font-size:15px;line-height:1.6;max-width:640px;margin:0 0 20px;color:var(--ink)}
   .subhead{font-size:19px;font-weight:800;letter-spacing:-.01em;text-transform:none;color:var(--ink);margin:32px 0 13px;display:flex;align-items:center;gap:8px;line-height:1.25}
   .subhead:first-of-type{margin-top:6px}
@@ -745,7 +752,7 @@
   <div class="rail">
     <div class="deal-card">
       <div class="photo" style="background-image:url('/the-reload/images/reload-exterior2.jpg')">
-        <div class="status" data-t="railStatus">In aanbouw · oplevering medio 2027</div>
+        <div class="status" data-t="railStatus">Bouwstart 25 oktober · oplevering najaar 2027</div>
       </div>
       <div class="body">
         <div class="kicker" data-t="railKicker">Investeerdersportaal</div>
@@ -761,7 +768,7 @@
         <div class="build-wrap">
           <div class="al" data-t="railBuildLbl">Bouwvoortgang</div>
           <div class="avail-bar"><span id="buildBar" style="width:0%"></span></div>
-          <div class="build-dates"><span data-t="railBuildStart">Start 15 september 2026</span><span data-t="railBuildEnd">Oplevering medio 2027</span></div>
+          <div class="build-dates"><span data-t="railBuildStart">Start 25 oktober 2026</span><span data-t="railBuildEnd">Oplevering najaar 2027</span></div>
         </div>
 
         <div class="avail-wrap">
@@ -800,8 +807,8 @@
       <div class="tab-pane active" id="pane-project">
         <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><path d="M4 11l8-6 8 6"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg></span><div class="pane-kicker" data-t="p01Kicker">01 · Het project</div></div>
         <h2 class="pane-h" data-t="p01H2">The Reload</h2>
-        <p class="pane-tag" data-t="p01Tag">Vier wellness-villa's. Sauna, ice bath en jacuzzi op je eigen dakterras.</p>
-        <p class="pane-lead" data-t="p01Lead1">Met The Reload bouwen we vier hoogwaardige 3-slaapkamer Sanctuary-villa's op 300 meter van het strand in Cemagi, tussen Nuanu en Canggu. Elke villa heeft een rooftop van 55 m² met buitenkeuken, jacuzzi, ice bath, sauna en zeezicht, een echte tweede woonlaag, geen gewoon dakterras. Ontworpen door Mahez Studio, volledig gemeubileerd en direct verhuurklaar opgeleverd. Hetzelfde beproefde villaconcept als ons vorige project The Maison, nu naar een hoger niveau getild met flinke upgrades.</p>
+        <p class="pane-tag" data-t="p01Tag">Vier wellness-villa's. Je eigen spa en gym op het dakterras.</p>
+        <p class="pane-lead" data-t="p01Lead1">The Reload zijn vier wellness-villa's in Cemagi, 300 meter van het strand, tussen Nuanu en Canggu. Elke villa heeft 220 m² binnen, drie slaapkamers met eigen badkamer en een privézwembad. Het dakterras van 70 m² is je eigen spa en gym: sauna, koud bad, jacuzzi, buitendouche en een gymhoek met gewichten. Warm, koud, rust, zonder de deur uit. Ontworpen door Mahez Studio, volledig ingericht en klaar voor verhuur.</p>
         <p class="pane-lead" style="font-weight:700" data-t="p01Lead2">Jij bezit de villa. Wij runnen hem.</p>
 
         <div class="proj-trust">
@@ -818,6 +825,19 @@
           <div class="g" style="background-image:url('/the-reload/images/reload-bedroom.jpg')" onclick="openLb(4)"></div>
         </div>
 
+        <div class="well">
+          <div class="subhead" data-t="p01WSub">Waarom wellness</div>
+          <h3 class="well-h" data-t="p01WH">Reizigers boeken op gezondheid. Wij bouwen ervoor.</h3>
+          <ul class="well-list">
+            <li data-t="p01W1">“Uitrusten en opladen” is in 2026 de belangrijkste reden om op vakantie te gaan: 56% (Hilton Trends Report 2026).</li>
+            <li data-t="p01W2">Wellnesstoerisme is een markt van 894 miljard dollar en groeit tot 2029 met ongeveer 9% per jaar (Global Wellness Institute).</li>
+            <li data-t="p01W3">Wellnesswoningen worden 10 tot 25% duurder verkocht dan vergelijkbare woningen (Global Wellness Institute, op basis van ruim 300 studies).</li>
+            <li data-t="p01W4">Bali ontving in 2025 een record van 6,95 miljoen buitenlandse bezoekers, 9,7% meer dan in 2024 (BPS Bali).</li>
+          </ul>
+          <p class="pane-lead" data-t="p01WP1">Wat hotels nu in hun suites proberen te bouwen, heeft jouw villa standaard: een eigen spa. Voor de gast is dat een reden om te boeken. Voor jou is het een reden waarom een koper later meer betaalt.</p>
+          <p class="pane-lead" style="font-weight:700" data-t="p01WP2">Onze rendementsscenario's van 12 tot 17% rekenen niet met een wellnesstoeslag. Wat wellness oplevert, komt daar bovenop.</p>
+        </div>
+
         <div class="feature-cols">
           <div class="fcol"><h4 data-t="p01F1H">Volledig gemeubileerd</h4><p data-t="p01F1P">Volledig gemeubileerd en direct verhuurklaar opgeleverd, geen setup nodig, direct inkomen.</p></div>
           <div class="fcol"><h4 data-t="p01F2H">Prime locatie</h4><p data-t="p01F2P">300 meter van het strand in Cemagi, tussen Nuanu en Canggu, op de hoofdweg in de Pink Zone.</p></div>
@@ -825,19 +845,19 @@
           <div class="fcol"><h4 data-t="p01F4H">30 + 30 jaar lease</h4><p data-t="p01F4P">Leasehold van 30 jaar, met een notarieel gegarandeerde optie tot verlenging van nog eens 30 jaar.</p></div>
         </div>
 
-        <div class="subhead" data-t="p01Sub3">De Sanctuary-villa in cijfers</div>
+        <div class="subhead" data-t="p01Sub3">De wellness-villa in cijfers</div>
         <div class="stat-row">
-          <div class="sr"><div class="sv">217 m²</div><div class="sl" data-t="p01Stat1">Totale kavel-footprint</div></div>
-          <div class="sr"><div class="sv">145 m²</div><div class="sl" data-t="p01Stat2">Woonoppervlak binnen</div></div>
-          <div class="sr"><div class="sv">55 m²</div><div class="sl" data-t="p01Stat3">Rooftop met jacuzzi, sauna &amp; ice bath</div></div>
-          <div class="sr"><div class="sv">39,5 m²</div><div class="sl" data-t="p01Stat4">Tuin &amp; privézwembad</div></div>
+          <div class="sr"><div class="sv">145 m²</div><div class="sl" data-t="p01Stat1">Kavel</div></div>
+          <div class="sr"><div class="sv">220 m²</div><div class="sl" data-t="p01Stat2">Woonoppervlak binnen</div></div>
+          <div class="sr"><div class="sv">70 m²</div><div class="sl" data-t="p01Stat3">Dakterras met sauna, koud bad, jacuzzi &amp; gym</div></div>
+          <div class="sr"><div class="sv">55 m²</div><div class="sl" data-t="p01Stat4">Tuin &amp; privézwembad</div></div>
         </div>
-        <p class="note" style="font-size:12px;color:var(--muted);margin-top:10px" data-t="p01StatNote">3 ensuite slaapkamers, 3,5 badkamers, 2 keukens, privé tuin, privézwembad en privéparkeerplaats. Cinema-systeem en 300 Mbps wifi met dekking in de hele villa, inclusief de rooftop.</p>
+        <p class="note" style="font-size:12px;color:var(--muted);margin-top:10px" data-t="p01StatNote">3 ensuite slaapkamers, 3,5 badkamers, 1 keuken, privétuin, privézwembad en privéparkeerplaats. Cinema-systeem en 300 Mbps wifi met dekking in de hele villa, inclusief het dakterras.</p>
 
         <div class="imgrow" style="--cols:4" id="uspRow">
-          <div class="g" style="background-image:url('/the-reload/images/reload-usp-rooftop.jpg')"><span class="cap" data-t="p01Usp1">Rooftop: jacuzzi, ice bath &amp; sauna</span></div>
+          <div class="g" style="background-image:url('/the-reload/images/reload-rooftop-wellness.jpg')"><span class="cap" data-t="p01Usp1">Dakterras: sauna, koud bad, jacuzzi &amp; gym</span></div>
           <div class="g" style="background-image:url('/the-reload/images/reload-usp-bedroom.jpg')"><span class="cap" data-t="p01Usp2">3 ensuite slaapkamers</span></div>
-          <div class="g" style="background-image:url('/the-reload/images/reload-usp-kitchen.jpg')"><span class="cap" data-t="p01Usp3">2 volledig uitgeruste keukens</span></div>
+          <div class="g" style="background-image:url('/the-reload/images/reload-usp-kitchen.jpg')"><span class="cap" data-t="p01Usp3">Volledig uitgeruste keuken</span></div>
           <div class="g" style="background-image:url('/the-reload/images/reload-usp-bathroom.jpg')"><span class="cap" data-t="p01Usp4">Spa-achtige badkamers</span></div>
         </div>
 
@@ -852,7 +872,7 @@
         <div class="checklist-dark">
           <div class="ch-title" data-t="p01ChTitle">Turnkey inbegrepen</div>
           <div class="ch-grid">
-            <div class="ch-item"><span class="ck">✓</span><span data-t="p01Ch1">Volledig gemeubileerde Sanctuary-villa</span></div>
+            <div class="ch-item"><span class="ck">✓</span><span data-t="p01Ch1">Volledig gemeubileerde wellness-villa</span></div>
             <div class="ch-item"><span class="ck">✓</span><span data-t="p01Ch2">Cinema-systeem &amp; 300 Mbps wifi, hele villa + rooftop</span></div>
             <div class="ch-item"><span class="ck">✓</span><span data-t="p01Ch3">Notariële vastlegging leaserechten</span></div>
             <div class="ch-item"><span class="ck">✓</span><span data-t="p01Ch4">Privéparkeerplaats &amp; aansluiting nutsvoorzieningen</span></div>
@@ -1071,7 +1091,7 @@
         <p class="note" style="font-size:12px;color:var(--muted);margin-top:12px" data-t="p03FeeNote">Dit percentage is al verwerkt in de rendementsberekening hierboven, geen verborgen kosten achteraf.</p>
 
         <div class="subhead" data-t="p03InvSub">Investeringsscenario's per villa</div>
-        <p class="pane-lead" style="margin-bottom:12px" data-t="p03InvLead">Drie tijdshorizonnen voor één Sanctuary-villa, uitgaand van de huidige instapprijs van €325.000.</p>
+        <p class="pane-lead" style="margin-bottom:12px" data-t="p03InvLead">Drie tijdshorizonnen voor één wellness-villa, uitgaand van de huidige instapprijs van €325.000.</p>
         <div class="subblock tint" style="margin-bottom:14px">
           <div style="font-weight:800;margin-bottom:10px;font-size:14.5px" data-t="p03InvShortH">Korte termijn (12 maanden, villa verkocht bij oplevering)</div>
           <div class="hold-row">
@@ -1155,13 +1175,11 @@
         <p class="note" style="font-size:12px;color:var(--muted);margin-top:12px" data-t="p03RefNote">Bruto huurinkomen = nachtprijs × 365 × bezettingsgraad. Alle bedragen in euro's. Inclusief huurinkomsten + 5% jaarlijkse waardegroei. Deze vaste cijfers kunnen licht afwijken van de live rekentool hierboven, die dezelfde formule toepast maar per instelling opnieuw berekent.</p>
 
         <div class="subhead" data-t="p03PaySub">Betaalschema</div>
-        <p class="pane-lead" style="margin-bottom:6px" data-t="p03PayLead1">Je betaalt in vier stappen: 60% bij ondertekening, 20% na 3 maanden, 10% na 6 maanden en 10% bij sleuteloverdracht.</p>
+        <p class="pane-lead" style="margin-bottom:6px" data-t="p03PayLead1">Je betaalt in twee delen: 45% bij ondertekening, daarna maandelijks naar bouwvoortgang tot de oplevering. De bouw duurt ongeveer 11 maanden.</p>
         <p class="pane-lead" style="margin-bottom:12px;font-size:12.5px;color:var(--muted)" data-t="p03PayLead2">Een aanbetaling van €5.000 reserveert je villa. Dit bedrag wordt volledig verrekend met de eerste betaaltermijn.</p>
         <div class="paybar" id="payBar">
-          <div class="payseg"><div class="step" data-t="p03Phase1">Stap 1</div><div class="pp">60%</div><div class="pl" data-t="p03Phase1Lbl">Bij ondertekening</div><div class="pd build-started" data-t="p03Phase1Badge">✓ Bouw al gestart</div><div class="pa"><span data-t="payAmt1">€195.000</span></div><div class="pnote" data-t="p03Phase1Note">Incl. €5.000 aanbetaling</div></div>
-          <div class="payseg"><div class="step" data-t="p03Phase2">Stap 2</div><div class="pp">20%</div><div class="pl" data-t="p03Phase2Lbl">Na 3 maanden</div><div class="pa"><span data-t="payAmt2">€65.000</span></div></div>
-          <div class="payseg"><div class="step" data-t="p03Phase3">Stap 3</div><div class="pp">10%</div><div class="pl" data-t="p03Phase3Lbl">Na 6 maanden</div><div class="pa"><span data-t="payAmt3">€32.500</span></div></div>
-          <div class="payseg final"><div class="step" data-t="p03Phase4">Stap 4</div><div class="pp">10%</div><div class="pl" data-t="p03Phase4Lbl">Bij sleuteloverdracht</div><div class="pd" data-t="p03Phase4Badge">Medio 2027</div><div class="pa"><span data-t="payAmt4">€32.500</span></div></div>
+          <div class="payseg" style="flex:45"><div class="step" data-t="p03Phase1">Stap 1</div><div class="pp">45%</div><div class="pl" data-t="p03Phase1Lbl">Bij ondertekening</div><div class="pa"><span data-t="payAmt1">€146.250</span></div><div class="pnote" data-t="p03Phase1Note">Incl. €5.000 aanbetaling</div></div>
+          <div class="payseg final" style="flex:55"><div class="step" data-t="p03Phase2">Stap 2</div><div class="pp">55%</div><div class="pl" data-t="p03PhaseMLbl">Maandelijks, naar bouwvoortgang</div><div class="pd" data-t="p03PhaseMBadge">Tot oplevering najaar 2027</div><div class="pa"><span data-t="payAmtM">Gemiddeld ca. €16.250 per maand</span></div></div>
         </div>
         <p class="note" style="font-size:12px;color:var(--muted);margin-top:10px" data-t="p03PayNote">Alle overeenkomsten worden juridisch voorbereid en notarieel vastgelegd, volledig op afstand af te ronden.</p>
         <button class="btn-reserve" id="waAvailable" type="button" onclick="openReserveModal()" style="margin-top:14px" data-t="p03AvailBtn">Bekijk de beschikbare villa's</button>
@@ -1187,9 +1205,9 @@
         <div class="plan-block">
           <div class="subhead" data-t="p04Sub2">Van eerste schep in de grond tot eerste gast</div>
           <div class="vtl" id="buildTl">
-            <div class="vitem" data-milestone="2026-09-15"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag" data-t="p04Vtag1">15 september 2026</div><h4 data-t="p04V1H">Start bouw</h4><p data-t="p04V1P">De kavels zijn bouwrijp, de bouw gaat van start.</p></div></div>
+            <div class="vitem" data-milestone="2026-10-25"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag" data-t="p04Vtag1">25 oktober 2026</div><h4 data-t="p04V1H">Start bouw</h4><p data-t="p04V1P">De kavels zijn bouwrijp, de bouw gaat van start.</p></div></div>
             <div class="vitem"><div class="vmark"><span class="vdot"></span><span class="vline"></span></div><div class="vc"><div class="vtag" data-t="p04Vtag2">Doorlopend</div><h4 data-t="p04V2H">Bouw &amp; afbouw</h4><p data-t="p04V2P">Wekelijkse teammeetings, volledige supervisie op de bouwplaats over alle disciplines, Duitse bouwbegeleiding en moderne bouwmethodes.</p></div></div>
-            <div class="vitem" data-milestone="2027-07-01"><div class="vmark"><span class="vdot"></span></div><div class="vc"><div class="vtag" data-t="p04Vtag3">Medio 2027</div><h4 data-t="p04V3H">Oplevering &amp; start verhuur</h4><p data-t="p04V3P">Turnkey sleuteloverdracht; listings live en eerste boekingen.</p></div></div>
+            <div class="vitem" data-milestone="2027-09-25"><div class="vmark"><span class="vdot"></span></div><div class="vc"><div class="vtag" data-t="p04Vtag3">Najaar 2027</div><h4 data-t="p04V3H">Oplevering &amp; start verhuur</h4><p data-t="p04V3P">Turnkey sleuteloverdracht; listings live en eerste boekingen.</p></div></div>
           </div>
           <p class="note" style="font-size:12px;color:var(--muted);margin-top:14px" data-t="p04Note">10 jaar bouwgarantie op de bouwkundige schil van de villa. Notariskosten zijn voor rekening van de koper.</p>
         </div>
@@ -1198,30 +1216,25 @@
       <!-- 05 · BOUWMANAGEMENT -->
       <div class="tab-pane" id="pane-team">
         <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><path d="M4 15a8 8 0 0 1 16 0"/><path d="M3 15h18"/><path d="M12 7v3"/></svg></span><div class="pane-kicker" data-t="p05Kicker">05 · Bouwmanagement</div></div>
-        <h2 class="pane-h" data-t="p05H2">Duitse bouwbegeleiding, wekelijkse supervisie</h2>
-        <p class="pane-lead" data-t="p05Lead">The Reload wordt gebouwd onder Duitse bouwbegeleiding, met wekelijkse teammeetings en volledige supervisie op de bouwplaats over alle disciplines. Gebouwd met moderne bouwmethodes, niet alleen handmatige technieken, en ontworpen door Mahez Studio, een Bali-gevestigde studio bekend om verfijnde moderne tropische privévilla's.</p>
-
-        <div class="imgrow" style="--cols:2">
-          <div class="g" style="background-image:url('/the-reload/images/reload-team-handshake.jpg')"></div>
-          <div class="g" style="background-image:url('/the-reload/images/reload-team-construction.jpg')"></div>
-        </div>
+        <h2 class="pane-h" data-t="p05H2">Vaste partners, één aanspreekpunt</h2>
+        <p class="pane-lead" data-t="p05Lead">Bij veel Bali-projecten wisselen aannemer, architect en projectmanager per project, vaak los van elkaar ingehuurd en zonder centrale coördinatie. Wij werken al jarenlang met dezelfde vaste partners, elk met hun eigen specialisme, gecoördineerd door UTAMA als jouw vaste aanspreekpunt.</p>
 
         <div class="subhead" data-t="p05Sub">Onze vaste partners, onder één dak</div>
         <div class="role-grid">
-          <div class="role"><span class="rdot"></span><span data-t="p05R1">Mahez Studio, architectuur &amp; interieurontwerp</span></div>
-          <div class="role"><span class="rdot"></span><span data-t="p05R2">Duitse bouwbegeleiding</span></div>
-          <div class="role"><span class="rdot"></span><span data-t="p05R3">Gecertificeerde structural engineers</span></div>
-          <div class="role"><span class="rdot"></span><span data-t="p05R4">MEP-specialist</span></div>
-          <div class="role"><span class="rdot"></span><span data-t="p05R5">Quantity surveyor</span></div>
-          <div class="role"><span class="rdot"></span><span data-t="p05R6">Vaste site manager op locatie</span></div>
-          <div class="role"><span class="rdot"></span><span data-t="p05R7">Client side construction management</span></div>
-          <div class="role"><span class="rdot"></span><span data-t="p05R8">Wekelijkse teammeetings, alle disciplines</span></div>
+          <div class="role"><span class="rdot"></span><span data-t="p05R1">Gecertificeerde structural engineers</span></div>
+          <div class="role"><span class="rdot"></span><span data-t="p05R2">MEP-specialist</span></div>
+          <div class="role"><span class="rdot"></span><span data-t="p05R3">Quantity surveyor</span></div>
+          <div class="role"><span class="rdot"></span><span data-t="p05R4">Project manager</span></div>
+          <div class="role"><span class="rdot"></span><span data-t="p05R5">Vaste site manager per project</span></div>
+          <div class="role"><span class="rdot"></span><span data-t="p05R6">Client side construction management</span></div>
+          <div class="role"><span class="rdot"></span><span data-t="p05R7">Architectenteam</span></div>
+          <div class="role"><span class="rdot"></span><span data-t="p05R8">Interieurontwerp-team</span></div>
         </div>
         <div class="checklist-dark">
           <div class="ch-title" data-t="p05ChTitle">Bouwkwaliteit &amp; garantie</div>
           <div class="ch-grid" style="grid-template-columns:1fr">
-            <div class="ch-item"><span class="ck">✓</span><span data-t="p05Ch1">Volledige supervisie op de bouwplaats, over alle disciplines, elke week</span></div>
-            <div class="ch-item"><span class="ck">✓</span><span data-t="p05Ch2">Gebouwd met moderne bouwmethodes, niet alleen handmatige technieken</span></div>
+            <div class="ch-item"><span class="ck">✓</span><span data-t="p05Ch1">Onafhankelijke constructieberekeningen en doorlopende supervisie op de bouwplaats</span></div>
+            <div class="ch-item"><span class="ck">✓</span><span data-t="p05Ch2">Vastgelegde Scope of Work, kwaliteitsinspecties en volledige technische documentatie</span></div>
             <div class="ch-item"><span class="ck">✓</span><b data-t="p05Ch3b">10 jaar garantie</b> <span data-t="p05Ch3">op de bouwkundige schil van de villa</span></div>
           </div>
         </div>
@@ -1283,7 +1296,7 @@
             <div class="listing-card">
               <div class="lc-photo" style="background-image:url('/the-reload/images/reload-living2.jpg')"><span class="lc-plat">Airbnb</span></div>
               <div class="lc-body">
-                <div class="lc-title" data-t="p06Lc1Title">The Reload · Sanctuary-villa met rooftop &amp; privézwembad</div>
+                <div class="lc-title" data-t="p06Lc1Title">The Reload · wellness-villa met rooftop &amp; privézwembad</div>
                 <div class="lc-meta" data-t="p06LcMeta">Cemagi, Bali · 6 gasten · 3 slaapkamers · privézwembad</div>
                 <div class="lc-price"><b>€225</b> <span data-t="p06LcNight">/ nacht</span><span class="lc-note" data-t="p06Lc1Note">Op basis van het realistische scenario in de calculator</span></div>
               </div>
@@ -1291,7 +1304,7 @@
             <div class="listing-card">
               <div class="lc-photo" style="background-image:url('/the-reload/images/reload-kitchen2.jpg')"><span class="lc-plat">Booking.com</span></div>
               <div class="lc-body">
-                <div class="lc-title" data-t="p06Lc1Title">The Reload · Sanctuary-villa met rooftop &amp; privézwembad</div>
+                <div class="lc-title" data-t="p06Lc1Title">The Reload · wellness-villa met rooftop &amp; privézwembad</div>
                 <div class="lc-meta" data-t="p06LcMeta">Cemagi, Bali · 6 gasten · 3 slaapkamers · privézwembad</div>
                 <div class="lc-price"><b>€235</b> <span data-t="p06LcNight">/ nacht</span><span class="lc-note" data-t="p06Lc2Note">Nachtprijzen verschillen dynamisch per platform</span></div>
               </div>
@@ -1420,11 +1433,11 @@
           </details>
           <details data-cat="uitkering">
             <summary data-t="p08Q8">Wat als het rendement lager uitvalt?</summary>
-            <p data-t="p08A8">Rendement is nooit gegarandeerd. Maar je bezit een afgebouwde Sanctuary-villa in de Pink Zone van Cemagi, met een sterke leasestructuur van 30+30 jaar en alle vergunningen op orde. Die blijft inkomsten genereren en kun je verkopen.</p>
+            <p data-t="p08A8">Rendement is nooit gegarandeerd. Maar je bezit een afgebouwde wellness-villa in de Pink Zone van Cemagi, met een sterke leasestructuur van 30+30 jaar en alle vergunningen op orde. Die blijft inkomsten genereren en kun je verkopen.</p>
           </details>
           <details data-cat="juridisch">
             <summary data-t="p08Q9">Wat gebeurt er als ik een betaaltermijn mis?</summary>
-            <p data-t="p08A9">Neem in dat geval zo snel mogelijk contact met ons op, in de praktijk zoeken we altijd eerst naar een werkbare oplossing. De exacte voorwaarden rond het betaalschema van 60%/20%/10%/10% staan vastgelegd in het constructiecontract, dat je vooraf door je eigen adviseur kunt laten doorlopen.</p>
+            <p data-t="p08A9">Neem in dat geval zo snel mogelijk contact met ons op, in de praktijk zoeken we altijd eerst naar een werkbare oplossing. De exacte voorwaarden rond het betaalschema van 45% vooraf en daarna maandelijks naar bouwvoortgang staan vastgelegd in het constructiecontract, dat je vooraf door je eigen adviseur kunt laten doorlopen.</p>
           </details>
           <details data-cat="eigendom">
             <summary data-t="p08Q10">Hoe verkoop ik mijn woning later?</summary>
@@ -1643,7 +1656,7 @@ const T = {
   "retRecognizedMsg": "E-mailadres herkend: je hebt de brochure al eerder aangevraagd. We openen het portaal.",
   "retErrUnknown": "Dit adres kennen we nog niet. Laat je gegevens achter voor directe toegang.",
   "retErrFail": "Controleren lukt nu even niet. Vul het formulier in voor directe toegang.",
-  "railStatus": "In aanbouw · oplevering medio 2027",
+  "railStatus": "Bouwstart 25 oktober · oplevering najaar 2027",
   "railKicker": "Investeerdersportaal",
   "railPriceLbl": "Huidige prijs",
   "railPriceVal": "€325.000",
@@ -1659,16 +1672,16 @@ const T = {
   "rcBar4": "€3.850",
   "rcBar5": "€3.980",
   "rcBar6": "€4.072",
-  "payAmt1": "€195.000",
-  "payAmt2": "€65.000",
-  "payAmt3": "€32.500",
-  "payAmt4": "€32.500",
+  "payAmt1": "€146.250",
+  "payAmtM": "Gemiddeld ca. €16.250 per maand",
+  "p03PhaseMLbl": "Maandelijks, naar bouwvoortgang",
+  "p03PhaseMBadge": "Tot oplevering najaar 2027",
   "railYieldLbl": "Verwacht rendement",
   "railLeaseLbl": "Leaseperiode",
   "railVillasLbl": "Aantal villa's",
   "railBuildLbl": "Bouwvoortgang",
-  "railBuildStart": "Start 15 september 2026",
-  "railBuildEnd": "Oplevering medio 2027",
+  "railBuildStart": "Start 25 oktober 2026",
+  "railBuildEnd": "Oplevering najaar 2027",
   "railAvailLbl": "Beschikbaarheid",
   "railAvailVal": "4 van de 4",
   "waAshleyBtn": "WhatsApp Ashley",
@@ -1692,8 +1705,16 @@ const T = {
   "tabVragen": "Vragen",
   "p01Kicker": "01 · Het project",
   "p01H2": "The Reload",
-  "p01Tag": "Vier wellness-villa's. Sauna, ice bath en jacuzzi op je eigen dakterras.",
-  "p01Lead1": "Met The Reload bouwen we vier hoogwaardige 3-slaapkamer Sanctuary-villa's op 300 meter van het strand in Cemagi, tussen Nuanu en Canggu. Elke villa heeft een rooftop van 55 m² met buitenkeuken, jacuzzi, ice bath, sauna en zeezicht, een echte tweede woonlaag, geen gewoon dakterras. Ontworpen door Mahez Studio, volledig gemeubileerd en direct verhuurklaar opgeleverd. Hetzelfde beproefde villaconcept als ons vorige project The Maison, nu naar een hoger niveau getild met flinke upgrades.",
+  "p01Tag": "Vier wellness-villa's. Je eigen spa en gym op het dakterras.",
+  "p01WSub": "Waarom wellness",
+  "p01WH": "Reizigers boeken op gezondheid. Wij bouwen ervoor.",
+  "p01W1": "“Uitrusten en opladen” is in 2026 de belangrijkste reden om op vakantie te gaan: 56% (Hilton Trends Report 2026).",
+  "p01W2": "Wellnesstoerisme is een markt van 894 miljard dollar en groeit tot 2029 met ongeveer 9% per jaar (Global Wellness Institute).",
+  "p01W3": "Wellnesswoningen worden 10 tot 25% duurder verkocht dan vergelijkbare woningen (Global Wellness Institute, op basis van ruim 300 studies).",
+  "p01W4": "Bali ontving in 2025 een record van 6,95 miljoen buitenlandse bezoekers, 9,7% meer dan in 2024 (BPS Bali).",
+  "p01WP1": "Wat hotels nu in hun suites proberen te bouwen, heeft jouw villa standaard: een eigen spa. Voor de gast is dat een reden om te boeken. Voor jou is het een reden waarom een koper later meer betaalt.",
+  "p01WP2": "Onze rendementsscenario's van 12 tot 17% rekenen niet met een wellnesstoeslag. Wat wellness oplevert, komt daar bovenop.",
+  "p01Lead1": "The Reload zijn vier wellness-villa's in Cemagi, 300 meter van het strand, tussen Nuanu en Canggu. Elke villa heeft 220 m² binnen, drie slaapkamers met eigen badkamer en een privézwembad. Het dakterras van 70 m² is je eigen spa en gym: sauna, koud bad, jacuzzi, buitendouche en een gymhoek met gewichten. Warm, koud, rust, zonder de deur uit. Ontworpen door Mahez Studio, volledig ingericht en klaar voor verhuur.",
   "p01Lead2": "Jij bezit de villa. Wij runnen hem.",
   "p01Trust1": "Pink Zone, alle vergunningen op orde",
   "p01Trust2": "Aankoop notarieel beveiligd",
@@ -1706,15 +1727,15 @@ const T = {
   "p01F3P": "Verhuur en operationeel beheer geregeld door House of Reservations.",
   "p01F4H": "30 + 30 jaar lease",
   "p01F4P": "Leasehold van 30 jaar, met een notarieel gegarandeerde optie tot verlenging van nog eens 30 jaar.",
-  "p01Sub3": "De Sanctuary-villa in cijfers",
-  "p01Stat1": "Totale kavel-footprint",
+  "p01Sub3": "De wellness-villa in cijfers",
+  "p01Stat1": "Kavel",
   "p01Stat2": "Woonoppervlak binnen",
-  "p01Stat3": "Rooftop met jacuzzi, sauna & ice bath",
+  "p01Stat3": "Dakterras met sauna, koud bad, jacuzzi & gym",
   "p01Stat4": "Tuin & privézwembad",
-  "p01StatNote": "3 ensuite slaapkamers, 3,5 badkamers, 2 keukens, privé tuin, privézwembad en privéparkeerplaats. Cinema-systeem en 300 Mbps wifi met dekking in de hele villa, inclusief de rooftop.",
-  "p01Usp1": "Rooftop: jacuzzi, ice bath & sauna",
+  "p01StatNote": "3 ensuite slaapkamers, 3,5 badkamers, 1 keuken, privétuin, privézwembad en privéparkeerplaats. Cinema-systeem en 300 Mbps wifi met dekking in de hele villa, inclusief het dakterras.",
+  "p01Usp1": "Dakterras: sauna, koud bad, jacuzzi & gym",
   "p01Usp2": "3 ensuite slaapkamers",
-  "p01Usp3": "2 volledig uitgeruste keukens",
+  "p01Usp3": "Volledig uitgeruste keuken",
   "p01Usp4": "Spa-achtige badkamers",
   "p01Sub1": "Wat dit project omvat",
   "p01N1H": "Ontwikkeling & bouw",
@@ -1726,7 +1747,7 @@ const T = {
   "p01N4H": "Juridische structuur",
   "p01N4P": "Leaseovereenkomst van 30+30 jaar, notarieel vastgelegd op jouw naam, in de Pink Zone met alle vergunningen op orde. Je rechten staan los van UTAMA.",
   "p01ChTitle": "Turnkey inbegrepen",
-  "p01Ch1": "Volledig gemeubileerde Sanctuary-villa",
+  "p01Ch1": "Volledig gemeubileerde wellness-villa",
   "p01Ch2": "Cinema-systeem & 300 Mbps wifi, hele villa + rooftop",
   "p01Ch3": "Notariële vastlegging leaserechten",
   "p01Ch4": "Privéparkeerplaats & aansluiting nutsvoorzieningen",
@@ -1834,7 +1855,7 @@ const T = {
   "p03FeeL4": "Technisch onderhoud en lokale toeristenbelasting",
   "p03FeeNote": "Dit percentage is al verwerkt in de rendementsberekening hierboven, geen verborgen kosten achteraf.",
   "p03InvSub": "Investeringsscenario's per villa",
-  "p03InvLead": "Drie tijdshorizonnen voor één Sanctuary-villa, uitgaand van de huidige instapprijs van €325.000.",
+  "p03InvLead": "Drie tijdshorizonnen voor één wellness-villa, uitgaand van de huidige instapprijs van €325.000.",
   "p03InvShortH": "Korte termijn (12 maanden, villa verkocht bij oplevering)",
   "p03InvInvLbl": "Investering",
   "p03InvSellLbl": "Verkoopprijs",
@@ -1897,19 +1918,12 @@ const T = {
   "p03RefOpt30": "€3.650.000",
   "p03RefNote": "Bruto huurinkomen = nachtprijs × 365 × bezettingsgraad. Alle bedragen in euro's. Inclusief huurinkomsten + 5% jaarlijkse waardegroei. Deze vaste cijfers kunnen licht afwijken van de live rekentool hierboven, die dezelfde formule toepast maar per instelling opnieuw berekent.",
   "p03PaySub": "Betaalschema",
-  "p03PayLead1": "Je betaalt in vier stappen: 60% bij ondertekening, 20% na 3 maanden, 10% na 6 maanden en 10% bij sleuteloverdracht.",
+  "p03PayLead1": "Je betaalt in twee delen: 45% bij ondertekening, daarna maandelijks naar bouwvoortgang tot de oplevering. De bouw duurt ongeveer 11 maanden.",
   "p03PayLead2": "Een aanbetaling van €5.000 reserveert je villa. Dit bedrag wordt volledig verrekend met de eerste betaaltermijn.",
   "p03Phase1": "Stap 1",
   "p03Phase1Lbl": "Bij ondertekening",
-  "p03Phase1Badge": "✓ Bouw al gestart",
   "p03Phase1Note": "Incl. €5.000 aanbetaling",
   "p03Phase2": "Stap 2",
-  "p03Phase2Lbl": "Na 3 maanden",
-  "p03Phase3": "Stap 3",
-  "p03Phase3Lbl": "Na 6 maanden",
-  "p03Phase4": "Stap 4",
-  "p03Phase4Lbl": "Bij sleuteloverdracht",
-  "p03Phase4Badge": "Medio 2027",
   "p03PayNote": "Alle overeenkomsten worden juridisch voorbereid en notarieel vastgelegd, volledig op afstand af te ronden.",
   "p03AvailBtn": "Bekijk de beschikbare villa's",
   "p04Kicker": "04 · Planning",
@@ -1927,32 +1941,32 @@ const T = {
   "p04N5H": "Oplevering",
   "p04N5P": "Je villa wordt turnkey overgedragen en de verhuur gaat direct van start.",
   "p04Sub2": "Van eerste schep in de grond tot eerste gast",
-  "p04Vtag1": "15 september 2026",
+  "p04Vtag1": "25 oktober 2026",
   "p04V1H": "Start bouw",
   "p04V1P": "De kavels zijn bouwrijp, de bouw gaat van start.",
   "p04Vtag2": "Doorlopend",
   "p04V2H": "Bouw & afbouw",
   "p04V2P": "Wekelijkse teammeetings, volledige supervisie op de bouwplaats over alle disciplines, Duitse bouwbegeleiding en moderne bouwmethodes.",
-  "p04Vtag3": "Medio 2027",
+  "p04Vtag3": "Najaar 2027",
   "p04V3H": "Oplevering & start verhuur",
   "p04V3P": "Turnkey sleuteloverdracht; listings live en eerste boekingen.",
   "p04Note": "10 jaar bouwgarantie op de bouwkundige schil van de villa. Notariskosten zijn voor rekening van de koper.",
   "p04CurrentBadge": "Nu bezig",
   "p05Kicker": "05 · Bouwmanagement",
-  "p05H2": "Duitse bouwbegeleiding, wekelijkse supervisie",
-  "p05Lead": "The Reload wordt gebouwd onder Duitse bouwbegeleiding, met wekelijkse teammeetings en volledige supervisie op de bouwplaats over alle disciplines. Gebouwd met moderne bouwmethodes, niet alleen handmatige technieken, en ontworpen door Mahez Studio, een Bali-gevestigde studio bekend om verfijnde moderne tropische privévilla's.",
+  "p05H2": "Vaste partners, één aanspreekpunt",
+  "p05Lead": "Bij veel Bali-projecten wisselen aannemer, architect en projectmanager per project, vaak los van elkaar ingehuurd en zonder centrale coördinatie. Wij werken al jarenlang met dezelfde vaste partners, elk met hun eigen specialisme, gecoördineerd door UTAMA als jouw vaste aanspreekpunt.",
   "p05Sub": "Onze vaste partners, onder één dak",
-  "p05R1": "Mahez Studio, architectuur & interieurontwerp",
-  "p05R2": "Duitse bouwbegeleiding",
-  "p05R3": "Gecertificeerde structural engineers",
-  "p05R4": "MEP-specialist",
-  "p05R5": "Quantity surveyor",
-  "p05R6": "Vaste site manager op locatie",
-  "p05R7": "Client side construction management",
-  "p05R8": "Wekelijkse teammeetings, alle disciplines",
+  "p05R1": "Gecertificeerde structural engineers",
+  "p05R2": "MEP-specialist",
+  "p05R3": "Quantity surveyor",
+  "p05R4": "Project manager",
+  "p05R5": "Vaste site manager per project",
+  "p05R6": "Client side construction management",
+  "p05R7": "Architectenteam",
+  "p05R8": "Interieurontwerp-team",
   "p05ChTitle": "Bouwkwaliteit & garantie",
-  "p05Ch1": "Volledige supervisie op de bouwplaats, over alle disciplines, elke week",
-  "p05Ch2": "Gebouwd met moderne bouwmethodes, niet alleen handmatige technieken",
+  "p05Ch1": "Onafhankelijke constructieberekeningen en doorlopende supervisie op de bouwplaats",
+  "p05Ch2": "Vastgelegde Scope of Work, kwaliteitsinspecties en volledige technische documentatie",
   "p05Ch3b": "10 jaar garantie",
   "p05Ch3": "op de bouwkundige schil van de villa",
   "p06Kicker": "06 · Beheer",
@@ -1985,7 +1999,7 @@ const T = {
   "p06N5P": "Elke maand ontvang je een overzicht van bezetting, omzet en kosten, met je aandeel direct op je rekening. Verhuurbeheer en operationeel beheer samen circa 30% van de netto-opbrengst, vooraf bekend, geen verrassingen achteraf.",
   "p06Sub2": "Zo ziet dat er in de praktijk uit",
   "p06Lead3": "Van listing tot uitkering: dit is hoe de verhuur van jouw villa eruitziet. De voorbeelden hieronder zijn illustratief, foto's, teksten en cijfers volgen definitief bij livegang, gebaseerd op het realistische scenario uit de rendementscalculator (85% bezetting, €225 nachtprijs).",
-  "p06Lc1Title": "The Reload · Sanctuary-villa met rooftop & privézwembad",
+  "p06Lc1Title": "The Reload · wellness-villa met rooftop & privézwembad",
   "p06LcMeta": "Cemagi, Bali · 6 gasten · 3 slaapkamers · privézwembad",
   "p06LcNight": "/ nacht",
   "p06Lc1Note": "Op basis van het realistische scenario in de calculator",
@@ -2052,9 +2066,9 @@ const T = {
   "p08Q7": "Hoe zit het met belasting?",
   "p08A7": "Belasting wordt geheven in Indonesië, waar het vastgoed zich bevindt. Over de verhuuromzet geldt daar een lokale toeristenbelasting. In Nederland valt het bezit in box 3, maar dankzij het belastingverdrag tussen beide landen betaal je er hier doorgaans weinig tot geen box 3-heffing over. Laat je hierover adviseren door een belastingadviseur.",
   "p08Q8": "Wat als het rendement lager uitvalt?",
-  "p08A8": "Rendement is nooit gegarandeerd. Maar je bezit een afgebouwde Sanctuary-villa in de Pink Zone van Cemagi, met een sterke leasestructuur van 30+30 jaar en alle vergunningen op orde. Die blijft inkomsten genereren en kun je verkopen.",
+  "p08A8": "Rendement is nooit gegarandeerd. Maar je bezit een afgebouwde wellness-villa in de Pink Zone van Cemagi, met een sterke leasestructuur van 30+30 jaar en alle vergunningen op orde. Die blijft inkomsten genereren en kun je verkopen.",
   "p08Q9": "Wat gebeurt er als ik een betaaltermijn mis?",
-  "p08A9": "Neem in dat geval zo snel mogelijk contact met ons op, in de praktijk zoeken we altijd eerst naar een werkbare oplossing. De exacte voorwaarden rond het betaalschema van 60%/20%/10%/10% staan vastgelegd in het constructiecontract, dat je vooraf door je eigen adviseur kunt laten doorlopen.",
+  "p08A9": "Neem in dat geval zo snel mogelijk contact met ons op, in de praktijk zoeken we altijd eerst naar een werkbare oplossing. De exacte voorwaarden rond het betaalschema van 45% vooraf en daarna maandelijks naar bouwvoortgang staan vastgelegd in het constructiecontract, dat je vooraf door je eigen adviseur kunt laten doorlopen.",
   "p08Q10": "Hoe verkoop ik mijn woning later?",
   "p08A10": "Volledig vrij: zelfstandig, via een willekeurig makelaarskantoor, of met hulp van UTAMA. Er is geen exclusiviteit. Schakel je ons in, dan rekenen we 4% commissie en benaderen we ons eigen kopersnetwerk.",
   "p08Q11": "Hoeveel investeerders gingen mij voor?",
@@ -2161,7 +2175,7 @@ const T = {
   "retRecognizedMsg": "Email address recognised: you've already requested the brochure before. We're opening the portal.",
   "retErrUnknown": "We don't recognise this address yet. Leave your details for instant access.",
   "retErrFail": "We can't check that right now. Fill in the form for instant access.",
-  "railStatus": "Under construction · completion mid-2027",
+  "railStatus": "Build starts 25 October · completion autumn 2027",
   "railKicker": "Investor portal",
   "railPriceLbl": "Current price",
   "railPriceVal": "€325,000",
@@ -2177,16 +2191,16 @@ const T = {
   "rcBar4": "€3,850",
   "rcBar5": "€3,980",
   "rcBar6": "€4,072",
-  "payAmt1": "€195,000",
-  "payAmt2": "€65,000",
-  "payAmt3": "€32,500",
-  "payAmt4": "€32,500",
+  "payAmt1": "€146,250",
+  "payAmtM": "About €16,250 a month on average",
+  "p03PhaseMLbl": "Monthly, in step with progress",
+  "p03PhaseMBadge": "Until completion autumn 2027",
   "railYieldLbl": "Expected yield",
   "railLeaseLbl": "Lease period",
   "railVillasLbl": "Number of villas",
   "railBuildLbl": "Construction progress",
-  "railBuildStart": "Start 15 September 2026",
-  "railBuildEnd": "Completion mid-2027",
+  "railBuildStart": "Start 25 October 2026",
+  "railBuildEnd": "Completion autumn 2027",
   "railAvailLbl": "Availability",
   "railAvailVal": "4 of 4",
   "waAshleyBtn": "WhatsApp Ashley",
@@ -2210,8 +2224,16 @@ const T = {
   "tabVragen": "FAQ",
   "p01Kicker": "01 · The project",
   "p01H2": "The Reload",
-  "p01Tag": "Four wellness villas. Sauna, ice bath and jacuzzi on your own rooftop.",
-  "p01Lead1": "With The Reload we're building four high-quality 3-bedroom Sanctuary villas 300 meters from the beach in Cemagi, between Nuanu and Canggu. Every villa has a 55 m² rooftop with an outdoor kitchen, jacuzzi, ice bath, sauna and sea views, a genuine second living level, not just a roof terrace. Designed by Mahez Studio, fully furnished and delivered rental-ready. The same proven villa concept as our previous project The Maison, now taken to the next level with major upgrades.",
+  "p01Tag": "Four wellness villas. Your own spa and gym on the rooftop.",
+  "p01WSub": "Why wellness",
+  "p01WH": "Travellers book for their health. We build for it.",
+  "p01W1": "“To rest and recharge” is the number one reason to travel in 2026: 56% (Hilton 2026 Trends Report).",
+  "p01W2": "Wellness tourism is a USD 894 billion market, growing about 9% a year to 2029 (Global Wellness Institute).",
+  "p01W3": "Wellness homes sell at a 10 to 25% premium over comparable homes (Global Wellness Institute, from more than 300 studies).",
+  "p01W4": "Bali welcomed a record 6.95 million foreign visitors in 2025, 9.7% more than in 2024 (BPS Bali).",
+  "p01WP1": "What hotels are now trying to build into their suites, your villa has as standard: its own spa. For the guest it is a reason to book. For you it is a reason a buyer pays more later.",
+  "p01WP2": "Our 12 to 17% return scenarios include no wellness premium. Whatever wellness adds comes on top.",
+  "p01Lead1": "The Reload is four wellness villas in Cemagi, 300 metres from the beach, between Nuanu and Canggu. Every villa has 220 m² inside, three bedrooms with their own bathroom and a private pool. The 70 m² rooftop is your own spa and gym: sauna, cold plunge, jacuzzi, outdoor shower and a gym corner with weights. Hot, cold, rest, without leaving the villa. Designed by Mahez Studio, fully furnished and ready to rent.",
   "p01Lead2": "You own it. We run it.",
   "p01Trust1": "Pink Zone, all permits in place",
   "p01Trust2": "Purchase secured by a notary",
@@ -2224,15 +2246,15 @@ const T = {
   "p01F3P": "Rental and operational management handled by House of Reservations.",
   "p01F4H": "30 + 30 year lease",
   "p01F4P": "A 30-year leasehold, with a notarised, guaranteed option to extend for another 30 years.",
-  "p01Sub3": "The Sanctuary villa in numbers",
-  "p01Stat1": "Total plot footprint",
+  "p01Sub3": "The wellness villa in numbers",
+  "p01Stat1": "Plot",
   "p01Stat2": "Living area inside",
-  "p01Stat3": "Rooftop with jacuzzi, sauna & ice bath",
+  "p01Stat3": "Rooftop with sauna, cold plunge, jacuzzi & gym",
   "p01Stat4": "Garden & private pool",
-  "p01StatNote": "3 ensuite bedrooms, 3.5 bathrooms, 2 kitchens, private garden, private pool and private parking. Cinema system and 300 Mbps wifi covering the whole villa, including the rooftop.",
-  "p01Usp1": "Rooftop: jacuzzi, ice bath & sauna",
+  "p01StatNote": "3 ensuite bedrooms, 3.5 bathrooms, 1 kitchen, private garden, private pool and private parking. Cinema system and 300 Mbps wifi covering the whole villa, including the rooftop.",
+  "p01Usp1": "Rooftop: sauna, cold plunge, jacuzzi & gym",
   "p01Usp2": "3 ensuite bedrooms",
-  "p01Usp3": "2 fully equipped kitchens",
+  "p01Usp3": "Fully equipped kitchen",
   "p01Usp4": "Spa-style bathrooms",
   "p01Sub1": "What this project includes",
   "p01N1H": "Development & construction",
@@ -2244,7 +2266,7 @@ const T = {
   "p01N4H": "Legal structure",
   "p01N4P": "A 30+30 year lease agreement, notarised in your name, in the Pink Zone with all permits in place. Your rights exist independently of UTAMA.",
   "p01ChTitle": "Included, turnkey",
-  "p01Ch1": "Fully furnished Sanctuary villa",
+  "p01Ch1": "Fully furnished wellness villa",
   "p01Ch2": "Cinema system & 300 Mbps wifi, whole villa + rooftop",
   "p01Ch3": "Notarised recording of lease rights",
   "p01Ch4": "Private parking & utility connections",
@@ -2352,7 +2374,7 @@ const T = {
   "p03FeeL4": "Technical maintenance and local tourist tax",
   "p03FeeNote": "This percentage is already factored into the return calculation above, no hidden costs afterwards.",
   "p03InvSub": "Investment scenarios per villa",
-  "p03InvLead": "Three time horizons for one Sanctuary villa, based on the current entry price of €325,000.",
+  "p03InvLead": "Three time horizons for one wellness villa, based on the current entry price of €325,000.",
   "p03InvShortH": "Short term (12 months, villa sold on completion)",
   "p03InvInvLbl": "Investment",
   "p03InvSellLbl": "Sell price",
@@ -2415,19 +2437,12 @@ const T = {
   "p03RefOpt30": "€3,650,000",
   "p03RefNote": "Gross rental income = nightly rate × 365 × occupancy rate. All amounts in euros. Includes rental income + 5% annual value growth. These fixed figures may differ slightly from the live calculator above, which applies the same formula but recalculates per setting.",
   "p03PaySub": "Payment schedule",
-  "p03PayLead1": "You pay in four steps: 60% at signing, 20% after 3 months, 10% after 6 months and 10% at key handover.",
+  "p03PayLead1": "You pay in two parts: 45% at signing, then monthly in step with construction progress until handover. Construction takes about 11 months.",
   "p03PayLead2": "A €5,000 down payment reserves your villa. This amount is fully deducted from the first payment instalment.",
   "p03Phase1": "Step 1",
   "p03Phase1Lbl": "At signing",
-  "p03Phase1Badge": "✓ Construction already started",
   "p03Phase1Note": "Incl. €5,000 down payment",
   "p03Phase2": "Step 2",
-  "p03Phase2Lbl": "After 3 months",
-  "p03Phase3": "Step 3",
-  "p03Phase3Lbl": "After 6 months",
-  "p03Phase4": "Step 4",
-  "p03Phase4Lbl": "At handover",
-  "p03Phase4Badge": "Mid-2027",
   "p03PayNote": "All agreements are legally prepared and notarised, fully remote to complete.",
   "p03AvailBtn": "View the available villas",
   "p04Kicker": "04 · Timeline",
@@ -2445,32 +2460,32 @@ const T = {
   "p04N5H": "Completion",
   "p04N5P": "Your villa is handed over turnkey and rental starts immediately.",
   "p04Sub2": "From first spade in the ground to first guest",
-  "p04Vtag1": "15 September 2026",
+  "p04Vtag1": "25 October 2026",
   "p04V1H": "Construction starts",
   "p04V1P": "The plots are prepared, construction begins.",
   "p04Vtag2": "Ongoing",
   "p04V2H": "Construction & fit-out",
   "p04V2P": "Weekly team meetings, full on-site supervision across all disciplines, German-led construction management and modern construction methods.",
-  "p04Vtag3": "Mid-2027",
+  "p04Vtag3": "Autumn 2027",
   "p04V3H": "Completion & rental start",
   "p04V3P": "Turnkey handover; listings go live and first bookings.",
   "p04Note": "10-year construction warranty on the structural shell of the villa. Notary fees are payable by the buyer.",
   "p04CurrentBadge": "In progress",
   "p05Kicker": "05 · Construction management",
-  "p05H2": "German-led construction management, weekly supervision",
-  "p05Lead": "The Reload is built under German-led construction management, with weekly team meetings and full on-site supervision across all disciplines. Built using modern construction methods, not only manual techniques, and designed by Mahez Studio, a Bali-based studio known for refined modern-tropical private villas.",
+  "p05H2": "Fixed partners, one point of contact",
+  "p05Lead": "On many Bali projects, the contractor, architect and project manager change from project to project, often hired separately and without central coordination. We've worked for years with the same fixed partners, each with their own specialism, coordinated by UTAMA as your single point of contact.",
   "p05Sub": "Our fixed partners, under one roof",
-  "p05R1": "Mahez Studio, architecture & interior design",
-  "p05R2": "German-led construction management",
-  "p05R3": "Certified structural engineers",
-  "p05R4": "MEP specialist",
-  "p05R5": "Quantity surveyor",
-  "p05R6": "Dedicated on-site manager",
-  "p05R7": "Client side construction management",
-  "p05R8": "Weekly team meetings, all disciplines",
+  "p05R1": "Certified structural engineers",
+  "p05R2": "MEP specialist",
+  "p05R3": "Quantity surveyor",
+  "p05R4": "Project manager",
+  "p05R5": "Dedicated site manager per project",
+  "p05R6": "Client side construction management",
+  "p05R7": "Architecture team",
+  "p05R8": "Interior design team",
   "p05ChTitle": "Build quality & warranty",
-  "p05Ch1": "Full on-site supervision, across all disciplines, every week",
-  "p05Ch2": "Built with modern construction methods, not only manual techniques",
+  "p05Ch1": "Independent structural calculations and ongoing on-site supervision",
+  "p05Ch2": "A documented scope of work, quality inspections and complete technical documentation",
   "p05Ch3b": "10-year warranty",
   "p05Ch3": "on the structural shell of the villa",
   "p06Kicker": "06 · Management",
@@ -2503,7 +2518,7 @@ const T = {
   "p06N5P": "Every month you receive an overview of occupancy, revenue and costs, with your share paid directly into your account. Rental management and operational management together approx. 30% of net income, known in advance, no surprises afterwards.",
   "p06Sub2": "Here's what that looks like in practice",
   "p06Lead3": "From listing to payout: this is what your villa's rental looks like. The examples below are illustrative, final photos, copy and figures follow at go-live, based on the realistic scenario from the return calculator (85% occupancy, €225 nightly rate).",
-  "p06Lc1Title": "The Reload · Sanctuary villa with rooftop & private pool",
+  "p06Lc1Title": "The Reload · wellness villa with rooftop & private pool",
   "p06LcMeta": "Cemagi, Bali · 6 guests · 3 bedrooms · private pool",
   "p06LcNight": "/ night",
   "p06Lc1Note": "Based on the realistic scenario in the calculator",
@@ -2570,9 +2585,9 @@ const T = {
   "p08Q7": "What about taxes?",
   "p08A7": "Tax is levied in Indonesia, where the property is located. A local tourist tax applies there on rental revenue. In the Netherlands, the asset falls under box 3, but thanks to the tax treaty between the two countries, you typically pay little to no box 3 tax on it here. Seek advice on this from a tax adviser.",
   "p08Q8": "What if the return turns out lower?",
-  "p08A8": "Returns are never guaranteed. But you own a completed Sanctuary villa in the Pink Zone of Cemagi, with a strong 30+30 year lease structure and all permits in place. It will keep generating income and you can sell it.",
+  "p08A8": "Returns are never guaranteed. But you own a completed wellness villa in the Pink Zone of Cemagi, with a strong 30+30 year lease structure and all permits in place. It will keep generating income and you can sell it.",
   "p08Q9": "What happens if I miss a payment instalment?",
-  "p08A9": "In that case, contact us as soon as possible, in practice we always look for a workable solution first. The exact terms around the 60%/20%/10%/10% payment schedule are set out in the construction contract, which you can have your own adviser review beforehand.",
+  "p08A9": "In that case, contact us as soon as possible, in practice we always look for a workable solution first. The exact terms around the payment schedule of 45% upfront and then monthly with construction progress are set out in the construction contract, which you can have your own adviser review beforehand.",
   "p08Q10": "How do I sell my property later?",
   "p08A10": "Completely freely: on your own, through any real estate agent, or with UTAMA's help. There's no exclusivity. If you bring us in, we charge a 4% commission and reach out to our own network of buyers.",
   "p08Q11": "How many investors came before me?",
@@ -2685,11 +2700,11 @@ if(el('bbCam')) el('bbCam').href="https://wa.me/"+CONFIG.whatsapp+"?text="+encod
 })();
 
 // Bouwvoortgang: percentage tussen start bouw en oplevering, berekend op basis van vandaag.
-// buildEnd (15 juli 2027) is een interne rekenwaarde als proxy voor "medio 2027" - dit
+// buildEnd (25 september 2027) is een interne rekenwaarde als proxy voor "najaar 2027" - dit
 // getal wordt nergens letterlijk getoond, alleen gebruikt om de voortgangsbalk te vullen.
 (function(){
-  const buildStart = new Date(2026, 8, 15); /* 15 september 2026 */
-  const buildEnd = new Date(2027, 6, 15); /* proxy voor "medio 2027" */
+  const buildStart = new Date(2026, 9, 25); /* 25 oktober 2026 */
+  const buildEnd = new Date(2027, 8, 25); /* proxy voor "najaar 2027" */
   const now = new Date();
   const pct = Math.round(Math.max(0, Math.min(1, (now - buildStart) / (buildEnd - buildStart))) * 100);
   if(el('buildBar')) el('buildBar').style.width = pct + "%";
