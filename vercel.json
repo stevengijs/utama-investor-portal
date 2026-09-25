@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "/the-reload/images/dune-:file",
+      "destination": "/the-reload/images/reload-:file",
+      "permanent": true
+    },
+    {
       "source": "/the-dune",
       "destination": "/the-reload/",
       "permanent": true

@@ -213,6 +213,7 @@
   .pk-icon{flex:none;width:34px;height:34px;border-radius:50%;background:var(--opt);display:flex;align-items:center;justify-content:center}
   .pk-icon svg{width:17px;height:17px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   .pane-h{font-size:clamp(21px,3.6vw,28px);margin:6px 0 10px;line-height:1.15}
+  .pane-tag{font-size:clamp(15px,2vw,17px);font-weight:500;line-height:1.4;color:var(--muted);max-width:640px;margin:-4px 0 18px}
   .pane-lead{font-size:15px;line-height:1.6;max-width:640px;margin:0 0 20px;color:var(--ink)}
   .subhead{font-size:19px;font-weight:800;letter-spacing:-.01em;text-transform:none;color:var(--ink);margin:32px 0 13px;display:flex;align-items:center;gap:8px;line-height:1.25}
   .subhead:first-of-type{margin-top:6px}
@@ -663,7 +664,7 @@
 
 <!-- GATE -->
 <section class="gate" id="gate">
-  <div class="gv" style="background-image:url('/the-reload/images/dune-exterior2.jpg')">
+  <div class="gv" style="background-image:url('/the-reload/images/reload-exterior2.jpg')">
     <div class="vt">
       <div class="eb">The Reload · Cemagi, Bali</div>
       <h2 data-t="gateH2">Open je persoonlijke deal room</h2>
@@ -743,7 +744,7 @@
   <!-- ============ STICKY DEAL RAIL (laag 1 - altijd zichtbaar) ============ -->
   <div class="rail">
     <div class="deal-card">
-      <div class="photo" style="background-image:url('/the-reload/images/dune-exterior2.jpg')">
+      <div class="photo" style="background-image:url('/the-reload/images/reload-exterior2.jpg')">
         <div class="status" data-t="railStatus">In aanbouw · oplevering medio 2027</div>
       </div>
       <div class="body">
@@ -798,7 +799,8 @@
       <!-- 01 · HET PROJECT -->
       <div class="tab-pane active" id="pane-project">
         <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><path d="M4 11l8-6 8 6"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg></span><div class="pane-kicker" data-t="p01Kicker">01 · Het project</div></div>
-        <h2 class="pane-h" data-t="p01H2">The Reload: 4 iconische Sanctuary-villa's, gebouwd voor 16% rendement</h2>
+        <h2 class="pane-h" data-t="p01H2">The Reload</h2>
+        <p class="pane-tag" data-t="p01Tag">4 iconische Sanctuary-villa's, gebouwd voor 16% rendement</p>
         <p class="pane-lead" data-t="p01Lead1">Met The Reload bouwen we vier hoogwaardige 3-slaapkamer Sanctuary-villa's op 300 meter van het strand in Cemagi, tussen Nuanu en Canggu. Elke villa heeft een rooftop van 55 m² met buitenkeuken, jacuzzi, ice bath, sauna en zeezicht, een echte tweede woonlaag, geen gewoon dakterras. Ontworpen door Mahez Studio, volledig gemeubileerd en direct verhuurklaar opgeleverd. Hetzelfde beproefde villaconcept als ons vorige project The Maison, nu naar een hoger niveau getild met flinke upgrades.</p>
         <p class="pane-lead" style="font-weight:700" data-t="p01Lead2">Jij bezit de villa. Wij runnen hem.</p>
 
@@ -809,11 +811,11 @@
         </div>
 
         <div class="bgal" id="bgal">
-          <div class="g big" style="background-image:url('/the-reload/images/dune-hero.jpg')" onclick="openLb(0)"></div>
-          <div class="g" style="background-image:url('/the-reload/images/dune-aerial.jpg')" onclick="openLb(1)"></div>
-          <div class="g" style="background-image:url('/the-reload/images/dune-living.jpg')" onclick="openLb(2)"></div>
-          <div class="g" style="background-image:url('/the-reload/images/dune-kitchen.jpg')" onclick="openLb(3)"></div>
-          <div class="g" style="background-image:url('/the-reload/images/dune-bedroom.jpg')" onclick="openLb(4)"></div>
+          <div class="g big" style="background-image:url('/the-reload/images/reload-hero.jpg')" onclick="openLb(0)"></div>
+          <div class="g" style="background-image:url('/the-reload/images/reload-aerial.jpg')" onclick="openLb(1)"></div>
+          <div class="g" style="background-image:url('/the-reload/images/reload-living.jpg')" onclick="openLb(2)"></div>
+          <div class="g" style="background-image:url('/the-reload/images/reload-kitchen.jpg')" onclick="openLb(3)"></div>
+          <div class="g" style="background-image:url('/the-reload/images/reload-bedroom.jpg')" onclick="openLb(4)"></div>
         </div>
 
         <div class="feature-cols">
@@ -833,10 +835,10 @@
         <p class="note" style="font-size:12px;color:var(--muted);margin-top:10px" data-t="p01StatNote">3 ensuite slaapkamers, 3,5 badkamers, 2 keukens, privé tuin, privézwembad en privéparkeerplaats. Cinema-systeem en 300 Mbps wifi met dekking in de hele villa, inclusief de rooftop.</p>
 
         <div class="imgrow" style="--cols:4" id="uspRow">
-          <div class="g" style="background-image:url('/the-reload/images/dune-usp-rooftop.jpg')"><span class="cap" data-t="p01Usp1">Rooftop: jacuzzi, ice bath &amp; sauna</span></div>
-          <div class="g" style="background-image:url('/the-reload/images/dune-usp-bedroom.jpg')"><span class="cap" data-t="p01Usp2">3 ensuite slaapkamers</span></div>
-          <div class="g" style="background-image:url('/the-reload/images/dune-usp-kitchen.jpg')"><span class="cap" data-t="p01Usp3">2 volledig uitgeruste keukens</span></div>
-          <div class="g" style="background-image:url('/the-reload/images/dune-usp-bathroom.jpg')"><span class="cap" data-t="p01Usp4">Spa-achtige badkamers</span></div>
+          <div class="g" style="background-image:url('/the-reload/images/reload-usp-rooftop.jpg')"><span class="cap" data-t="p01Usp1">Rooftop: jacuzzi, ice bath &amp; sauna</span></div>
+          <div class="g" style="background-image:url('/the-reload/images/reload-usp-bedroom.jpg')"><span class="cap" data-t="p01Usp2">3 ensuite slaapkamers</span></div>
+          <div class="g" style="background-image:url('/the-reload/images/reload-usp-kitchen.jpg')"><span class="cap" data-t="p01Usp3">2 volledig uitgeruste keukens</span></div>
+          <div class="g" style="background-image:url('/the-reload/images/reload-usp-bathroom.jpg')"><span class="cap" data-t="p01Usp4">Spa-achtige badkamers</span></div>
         </div>
 
         <div class="subhead" data-t="p01Sub1">Wat dit project omvat</div>
@@ -1200,8 +1202,8 @@
         <p class="pane-lead" data-t="p05Lead">The Reload wordt gebouwd onder Duitse bouwbegeleiding, met wekelijkse teammeetings en volledige supervisie op de bouwplaats over alle disciplines. Gebouwd met moderne bouwmethodes, niet alleen handmatige technieken, en ontworpen door Mahez Studio, een Bali-gevestigde studio bekend om verfijnde moderne tropische privévilla's.</p>
 
         <div class="imgrow" style="--cols:2">
-          <div class="g" style="background-image:url('/the-reload/images/dune-team-handshake.jpg')"></div>
-          <div class="g" style="background-image:url('/the-reload/images/dune-team-construction.jpg')"></div>
+          <div class="g" style="background-image:url('/the-reload/images/reload-team-handshake.jpg')"></div>
+          <div class="g" style="background-image:url('/the-reload/images/reload-team-construction.jpg')"></div>
         </div>
 
         <div class="subhead" data-t="p05Sub">Onze vaste partners, onder één dak</div>
@@ -1254,7 +1256,7 @@
 
         <div class="subhead" data-t="p06Sub0">Jouw aanspreekpunt voor rendement</div>
         <div class="cperson" style="margin-top:6px">
-          <img src="/the-reload/images/dune-ayu-headshot.jpg" alt="Ayu, Head of Revenue & Distribution House of Reservations">
+          <img src="/the-reload/images/reload-ayu-headshot.jpg" alt="Ayu, Head of Revenue & Distribution House of Reservations">
           <div>
             <div class="cn">Ayu</div>
             <div class="cr" data-t="p06AyuRole">Head of Revenue &amp; Distribution, House of Reservations</div>
@@ -1279,7 +1281,7 @@
 
           <div class="listing-cards">
             <div class="listing-card">
-              <div class="lc-photo" style="background-image:url('/the-reload/images/dune-living2.jpg')"><span class="lc-plat">Airbnb</span></div>
+              <div class="lc-photo" style="background-image:url('/the-reload/images/reload-living2.jpg')"><span class="lc-plat">Airbnb</span></div>
               <div class="lc-body">
                 <div class="lc-title" data-t="p06Lc1Title">The Reload · Sanctuary-villa met rooftop &amp; privézwembad</div>
                 <div class="lc-meta" data-t="p06LcMeta">Cemagi, Bali · 6 gasten · 3 slaapkamers · privézwembad</div>
@@ -1287,7 +1289,7 @@
               </div>
             </div>
             <div class="listing-card">
-              <div class="lc-photo" style="background-image:url('/the-reload/images/dune-kitchen2.jpg')"><span class="lc-plat">Booking.com</span></div>
+              <div class="lc-photo" style="background-image:url('/the-reload/images/reload-kitchen2.jpg')"><span class="lc-plat">Booking.com</span></div>
               <div class="lc-body">
                 <div class="lc-title" data-t="p06Lc1Title">The Reload · Sanctuary-villa met rooftop &amp; privézwembad</div>
                 <div class="lc-meta" data-t="p06LcMeta">Cemagi, Bali · 6 gasten · 3 slaapkamers · privézwembad</div>
@@ -1454,7 +1456,7 @@
     </div>
 
     <!-- persistente CTA-strip, blijft zichtbaar ongeacht welk tabblad open staat -->
-    <div class="footer-cta" style="background-image:linear-gradient(135deg,rgba(23,20,15,.88),rgba(23,20,15,.88)),url('/the-reload/images/dune-cta.jpg')">
+    <div class="footer-cta" style="background-image:linear-gradient(135deg,rgba(23,20,15,.88),rgba(23,20,15,.88)),url('/the-reload/images/reload-cta.jpg')">
       <div class="fc-agent">
         <img class="fc-photo" src="/images/ashley.jpg" alt="Ashley Vermoten">
         <div>
@@ -1689,7 +1691,8 @@ const T = {
   "tabVertrouwen": "Zekerheden",
   "tabVragen": "Vragen",
   "p01Kicker": "01 · Het project",
-  "p01H2": "The Reload: 4 iconische Sanctuary-villa's, gebouwd voor 16% rendement",
+  "p01H2": "The Reload",
+  "p01Tag": "4 iconische Sanctuary-villa's, gebouwd voor 16% rendement",
   "p01Lead1": "Met The Reload bouwen we vier hoogwaardige 3-slaapkamer Sanctuary-villa's op 300 meter van het strand in Cemagi, tussen Nuanu en Canggu. Elke villa heeft een rooftop van 55 m² met buitenkeuken, jacuzzi, ice bath, sauna en zeezicht, een echte tweede woonlaag, geen gewoon dakterras. Ontworpen door Mahez Studio, volledig gemeubileerd en direct verhuurklaar opgeleverd. Hetzelfde beproefde villaconcept als ons vorige project The Maison, nu naar een hoger niveau getild met flinke upgrades.",
   "p01Lead2": "Jij bezit de villa. Wij runnen hem.",
   "p01Trust1": "Pink Zone, alle vergunningen op orde",
@@ -2206,7 +2209,8 @@ const T = {
   "tabVertrouwen": "Assurances",
   "tabVragen": "FAQ",
   "p01Kicker": "01 · The project",
-  "p01H2": "The Reload: 4 icons in the making, built for 16% returns",
+  "p01H2": "The Reload",
+  "p01Tag": "4 icons in the making, built for 16% returns",
   "p01Lead1": "With The Reload we're building four high-quality 3-bedroom Sanctuary villas 300 meters from the beach in Cemagi, between Nuanu and Canggu. Every villa has a 55 m² rooftop with an outdoor kitchen, jacuzzi, ice bath, sauna and sea views, a genuine second living level, not just a roof terrace. Designed by Mahez Studio, fully furnished and delivered rental-ready. The same proven villa concept as our previous project The Maison, now taken to the next level with major upgrades.",
   "p01Lead2": "You own it. We run it.",
   "p01Trust1": "Pink Zone, all permits in place",
