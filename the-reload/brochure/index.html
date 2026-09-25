@@ -616,6 +616,9 @@
   .sp-hot .reserved-lbl{background:var(--pess-ink)}
   .sp-hot.sold .sold-lbl{display:block}
   .sp-hot.reserved .reserved-lbl{display:block}
+  .sp-hot{flex-direction:column;justify-content:flex-end;align-items:center}
+  .sp-hot .spname{margin-top:6px;font-size:10px;font-weight:800;letter-spacing:.1em;color:#fff;background:rgba(23,20,15,.62);padding:3px 9px;border-radius:999px;white-space:nowrap}
+  .sp-hot.sel .spname{background:var(--opt-deep)}
   .sp-pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
   .sp-pill{padding:8px 15px;border-radius:999px;border:1px solid var(--line);background:var(--paper);font-family:inherit;font-size:12.5px;font-weight:700;color:var(--ink);cursor:pointer}
   .sp-pill.sold{background:rgba(23,20,15,.05);color:var(--muted);cursor:not-allowed;text-decoration:line-through}
@@ -1542,10 +1545,10 @@
 
       <div class="spwrap">
         <img src="/the-reload/images/reload-site-plan.jpg" alt="The Reload, vier villa's aan de rijstvelden">
-        <div class="sp-hot" data-unit="1" style="left:9.8%;width:21%;top:25%;height:46%" onclick="selectUnit(1)"><span class="spn">1</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
-        <div class="sp-hot" data-unit="2" style="left:31%;width:20%;top:25%;height:46%" onclick="selectUnit(2)"><span class="spn">2</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
-        <div class="sp-hot" data-unit="3" style="left:51%;width:20.5%;top:25%;height:46%" onclick="selectUnit(3)"><span class="spn">3</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
-        <div class="sp-hot" data-unit="4" style="left:71.5%;width:21.5%;top:25%;height:46%" onclick="selectUnit(4)"><span class="spn">4</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
+        <div class="sp-hot" data-unit="1" style="left:9.8%;width:21%;top:25%;height:46%" onclick="selectUnit(1)"><span class="spn">1</span><span class="spname">RESET</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
+        <div class="sp-hot" data-unit="2" style="left:31%;width:20%;top:25%;height:46%" onclick="selectUnit(2)"><span class="spn">2</span><span class="spname">RESTORE</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
+        <div class="sp-hot" data-unit="3" style="left:51%;width:20.5%;top:25%;height:46%" onclick="selectUnit(3)"><span class="spn">3</span><span class="spname">RECHARGE</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
+        <div class="sp-hot" data-unit="4" style="left:71.5%;width:21.5%;top:25%;height:46%" onclick="selectUnit(4)"><span class="spn">4</span><span class="spname">REBORN</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
       </div>
       <div class="sp-legend">
         <span><i class="d-av"></i><span data-t="rmLegendAvail">Beschikbaar</span></span>
@@ -3203,7 +3206,11 @@ function updateRailAvail(){
   var bar = document.getElementById('availBar'); if(bar) bar.style.width = (TOTAL_UNITS ? Math.round(av / TOTAL_UNITS * 100) : 0) + '%';
 }
 
-function rmUnitLabel(n){ return "Villa " + n; }
+/* Villanamen, merkconcept "Reset, Restore, Recharge, Reborn" (Steven, 25 sep 2026).
+   De lead en de admin blijven het villanummer gebruiken. */
+const VILLA_NAMES = {1:"RESET", 2:"RESTORE", 3:"RECHARGE", 4:"REBORN"};
+function rmUnitLabel(n){ return "Villa " + n + (VILLA_NAMES[n] ? " · " + VILLA_NAMES[n] : ""); }
+function rmUnitText(n){ return "villa " + n + (VILLA_NAMES[n] ? " · " + VILLA_NAMES[n] : ""); }
 
 function renderSpPills(){
   const pillsEl = el('spPills');
@@ -3258,7 +3265,7 @@ function closeReserveModal(){
 }
 function rmGoStep2(){
   if(!rmSelectedUnit) return;
-  el('rmStep2Lead').textContent = tr(T[lang].rmStep2LeadTpl, { unit: rmUnitLabel(rmSelectedUnit).toLowerCase() });
+  el('rmStep2Lead').textContent = tr(T[lang].rmStep2LeadTpl, { unit: rmUnitText(rmSelectedUnit) });
   el('rmStep1').style.display = 'none';
   el('rmStep2').style.display = '';
 }
@@ -3272,7 +3279,7 @@ function rmSubmit(e){
   if(!name || !phone || !email){ el('rErr').style.display = 'block'; return false; }
   const lead = { project: "The Reload", name, phone, email, unit: rmSelectedUnit, type: "reservation" };
   submitLead({ ...lead, lang }).catch(function(){});
-  const unitLower = rmUnitLabel(rmSelectedUnit).toLowerCase();
+  const unitLower = rmUnitText(rmSelectedUnit);
   const waMsg = tr(T[lang].waReserveMsgTpl, { unit: unitLower }) + "%0A%0A" +
     T[lang].waLabelName + ": " + encodeURIComponent(name) + "%0A" +
     "WhatsApp: " + encodeURIComponent(phone) + "%0A" +
