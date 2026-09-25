@@ -115,11 +115,11 @@ async function utamaProjectMedia(slug){
 if(typeof window!=='undefined') window.utamaProjectMedia = utamaProjectMedia;
 
 /*
- * Herbruikbare, gestileerde locatiekaart (Leaflet + CARTO light tiles) met
+ * Herbruikbare, gestileerde locatiekaart (Leaflet + Esri Light Gray tiles) met
  * POI-markers en reistijden, in de UTAMA-huisstijl. Vervangt de Google Maps-
  * iframe in de Locatie-tab. Elk project roept 'm aan met z'n eigen centrum +
  * POI-lijst, dus schaalbaar. Leaflet moet in de pagina geladen zijn (CDN).
- * opts = { center:[lat,lng], label:'The Maison', zoom, pois:[{name,lat,lng,cat,min,ico}] }
+ * opts = { center:[lat,lng], label:'The Maison', zoom, pois:[{name,lat,lng,cat,min,ico,pos}] }
  *   cat: 'food' | 'fit' | 'beach' | 'spot'  (bepaalt kleur + standaard-emoji)
  */
 function utamaLocationMap(elId, opts){
@@ -140,12 +140,19 @@ function utamaLocationMap(elId, opts){
       '.upoi.beach .dot{background:#3E86C9}.upoi.beach .lbl b{color:#3E86C9}'+
       '.upoi.spot .dot{background:#8B5A3C}.upoi.spot .lbl b{color:#8B5A3C}'+
       '.upoi.home .dot{width:44px;height:44px;font-size:20px;background:#8B5A3C;border:3px solid #fff}'+
-      '.upoi.home .lbl{font-size:13px;background:#8B5A3C;color:#fff;transform:translate(-50%,calc(-50% - 34px))}';
+      '.upoi.home .lbl{font-size:13px;background:#8B5A3C;color:#fff;transform:translate(-50%,calc(-50% - 34px))}'+
+      /* Optionele labelpositie per POI (pos:'below'|'left'|'right') tegen overlap bij dichte clusters. */
+      '.upoi.below .lbl{transform:translate(-50%,calc(-50% + 27px))}'+
+      '.upoi.left .lbl{transform:translate(calc(-100% - 20px),-50%)}'+
+      '.upoi.right .lbl{transform:translate(20px,-50%)}';
     document.head.appendChild(st);
   }
   var map=L.map(elId,{scrollWheelZoom:false,zoomControl:true}).setView(opts.center, opts.zoom||14);
   host._umap=map;
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:19,attribution:'© OpenStreetMap © CARTO'}).addTo(map);
+  /* Esri Light Gray: zonder API-sleutel. CARTO's basemaps vragen sinds september 2026
+     een sleutel en tekenden 'API KEY REQUIRED' over de kaart. */
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',{maxZoom:16,attribution:'Tiles © Esri, HERE, Garmin, © OpenStreetMap'}).addTo(map);
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',{maxZoom:16}).addTo(map);
   var EMO={food:'🍽️',fit:'🧘',beach:'🏖️',spot:'📍'};
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   function mk(lat,lng,cls,ico,name,min){
@@ -155,7 +162,7 @@ function utamaLocationMap(elId, opts){
   var pts=[opts.center];
   mk(opts.center[0],opts.center[1],'home','🏠',opts.label||'',null);
   (opts.pois||[]).forEach(function(p){
-    mk(p.lat,p.lng,p.cat||'food',p.ico||EMO[p.cat]||'📍',p.name,p.min);
+    mk(p.lat,p.lng,(p.cat||'food')+(p.pos?' '+p.pos:''),p.ico||EMO[p.cat]||'📍',p.name,p.min);
     pts.push([p.lat,p.lng]);
   });
   try{ map.fitBounds(pts,{padding:[46,46],maxZoom:15}); }catch(e){}

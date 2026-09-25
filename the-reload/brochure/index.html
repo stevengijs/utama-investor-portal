@@ -642,6 +642,7 @@
   .print-footer{ display:none }
 </style>
   <script src="/t.js" defer></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 <body>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=419037194248722&ev=PageView&noscript=1" /></noscript>
@@ -761,7 +762,7 @@
 
         <div class="row price"><div class="rl" data-t="railPriceLbl">Huidige prijs</div><div class="rv"><span data-t="railPriceVal">€325.000</span></div></div>
         <div class="price-note" data-t="railPriceNote">Volgende prijsstap: €350.000</div>
-        <div class="row yield"><div class="rl" data-t="railYieldLbl">Verwacht rendement</div><div class="rv"><span data-t="railYieldVal">12–17%/jr</span></div></div>
+        <div class="row yield"><div class="rl" data-t="railYieldLbl">Huurrendement</div><div class="rv"><span data-t="railYieldVal">12–17%/jr</span></div></div>
         <div class="row"><div class="rl" data-t="railLeaseLbl">Leaseperiode</div><div class="rv">30+30 jr</div></div>
         <div class="row"><div class="rl" data-t="railVillasLbl">Aantal villa's</div><div class="rv">4</div></div>
 
@@ -909,9 +910,7 @@
         <p class="pane-lead" style="margin-bottom:14px" data-t="p02Lead">The Reload ligt aan de hoofdweg van Cemagi, in de Pink Zone: legale short-stay verhuur, alle vergunningen op orde. Rustig gelegen tussen de bekende gebieden Nuanu en Canggu, met het strand op 300 meter.</p>
 
 
-        <div class="loc-map">
-          <iframe src="https://maps.google.com/maps?q=-8.638779,115.104686&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Locatie van The Reload, Cemagi"></iframe>
-        </div>
+        <div class="loc-map"><div id="locMap" style="height:400px"></div></div>
         <a class="btn-outline" style="margin-bottom:20px" href="https://maps.app.goo.gl/E76XgwkPvQbsasVUA" target="_blank" rel="noopener" data-t="p02MapsCta">Bekijk op Google Maps →</a>
 
         <div class="nearby-group">
@@ -999,7 +998,7 @@
 
         <div class="stat-row" style="margin-bottom:18px">
           <div class="sr"><div class="sv"><span data-t="p03KeyStat1">€325.000</span></div><div class="sl" data-t="p03KeyStat1L">Huidige instapprijs</div></div>
-          <div class="sr"><div class="sv" data-t="p03KeyStat2">12-17%</div><div class="sl" data-t="p03KeyStat2L">Gem. jaarlijks rendement</div></div>
+          <div class="sr"><div class="sv" data-t="p03KeyStat2">12-17%</div><div class="sl" data-t="p03KeyStat2L">Huurrendement per jaar, plus ~5% waardegroei</div></div>
           <div class="sr"><div class="sv" data-t="p03KeyStat3">€50K</div><div class="sl" data-t="p03KeyStat3L">Waardegroei bij oplevering</div></div>
           <div class="sr"><div class="sv" data-t="p03KeyStat4">70-80%</div><div class="sl" data-t="p03KeyStat4L">Verwachte bezetting</div></div>
         </div>
@@ -1024,7 +1023,7 @@
             <div class="field"><label data-t="p03LblPrice">Prijs (vast)</label><div class="pricesel" id="bPricesel"></div></div>
             <div class="field"><label><span data-t="p03LblNightly">Gem. nachtprijs</span> <span class="val" id="bVNightly"></span></label><div class="slider-wrap"><input type="range" id="bNightly" min="180" max="260" step="5" value="225" oninput="bcalc()"><div class="slider-pins" id="bNightlyPins"></div></div></div>
             <div class="field"><label><span data-t="p03LblOcc">Bezettingsgraad</span> <span class="val" id="bVOcc"></span></label><input type="range" id="bOcc" min="60" max="100" step="1" value="85" oninput="bcalc()"></div>
-            <div class="field"><label><span data-t="p03LblCosts">Kosten &amp; beheer</span> <span class="val" id="bVCosts"></span></label><input type="range" id="bCosts" min="25" max="40" step="1" value="30" oninput="bcalc()"></div>
+            <div class="field"><label><span data-t="p03LblCosts">Directe boekingen via eigen website</span> <span class="val" id="bVCosts"></span></label><input type="range" id="bCosts" min="30" max="70" step="5" value="50" oninput="bcalc()"></div>
             <div class="field"><label><span data-t="p03LblHold">Aanhoudperiode</span> <span class="val" id="bVHold"></span></label><input type="range" id="bHold" min="1" max="30" step="1" value="5" oninput="bcalc()"></div>
             <div class="field"><label><span data-t="p03LblGrowth">Geschatte waardegroei / jaar</span> <span class="val" id="bVGrowth"></span></label><div class="field-note" data-t="p03GrowthNote">Vast, gebaseerd op marktdata voor deze regio</div></div>
           </div>
@@ -1068,27 +1067,27 @@
           <summary data-t="p03AssumSummary">Aannames &amp; transparantie</summary>
           <ul>
             <li data-t="p03Assum1">Bruto huurinkomsten = nachtprijs × 365 × bezettingsgraad. Alle bedragen in euro's.</li>
-            <li data-t="p03Assum2">Netto = bruto minus kosten: verhuurbeheer, on-the-ground operations en onderhoud, gecombineerd circa 30% van de netto huuropbrengst.</li>
-            <li data-t="p03Assum3">Cijfers zijn gebaseerd op het rendementsmodel van The Reload (House of Reservations).</li>
+            <li data-t="p03Assum2">Netto = bruto minus platformcommissie (15%) en House of Reservations (15%), beide alleen op boekingen via de platforms, hotelbelasting PB1 (10%), overige belasting (0,5%) en vaste kosten van circa €7.900 per jaar. De schuifregelaar Directe boekingen bepaalt welk deel via onze eigen website loopt.</li>
+            <li data-t="p03Assum3">Kostenopbouw op basis van het beheercontract en een kostenraming van House of Reservations voor een vergelijkbare villa met 3 slaapkamers, aangevuld met de wellness en een eigen team voor de vier villa's.</li>
             <li data-t="p03Assum4">Waardegroei: vaste aanname van 5% per jaar, inclusief inflatie. Indicatie, geen garantie.</li>
           </ul>
         </details>
 
         <div class="subhead" data-t="p03FeeSub">Waar bestaat "Kosten &amp; beheer" precies uit?</div>
-        <p class="pane-lead" style="margin-bottom:4px" data-t="p03FeeLead">Bij The Reload is dit één gecombineerd percentage van circa 30% van de netto huuropbrengst, geen los opgesplitste tarieven. Hieronder zie je wat daar allemaal in zit.</p>
+        <p class="pane-lead" style="margin-bottom:4px" data-t="p03FeeLead">Bij The Reload rekenen we de kosten per onderdeel door, niet als één percentage. In het realistische scenario, met de helft van de boekingen direct via onze eigen website, gaat er circa 35% van de bruto huur af. Hieronder zie je waaruit.</p>
         <div class="fee-cards single">
           <div class="fee-card">
-            <div class="fee-h"><span class="fee-pct">~30%</span><h4 data-t="p03FeeH">Verhuurbeheer &amp; operationeel beheer, gecombineerd</h4></div>
-            <p class="fee-sub" data-t="p03FeeSub2">House of Reservations verzorgt zowel de verhuur als de dagelijkse operatie van je villa.</p>
+            <div class="fee-h"><span class="fee-pct">~35%</span><h4 data-t="p03FeeH">Kosten, belasting en beheer</h4></div>
+            <p class="fee-sub" data-t="p03FeeSub2">Platforms en prijzen via House of Reservations. Directe boekingen en de dagelijkse operatie in eigen hand.</p>
             <ul class="fee-list">
-              <li data-t="p03FeeL1">Revenue management &amp; distributie op Airbnb, Booking.com, Agoda en Vrbo</li>
-              <li data-t="p03FeeL2">Gastcommunicatie, dag en nacht</li>
-              <li data-t="p03FeeL3">On-the-ground operations: housekeeping, tuin- en zwembadonderhoud</li>
-              <li data-t="p03FeeL4">Technisch onderhoud en lokale toeristenbelasting</li>
+              <li data-t="p03FeeL1">Platformcommissie circa 15%, alleen op boekingen via Airbnb, Booking.com en andere platforms</li>
+              <li data-t="p03FeeL2">House of Reservations 15% op de platformboekingen, voor distributie en prijsbeheer. Directe boekingen via onze eigen website vallen daarbuiten</li>
+              <li data-t="p03FeeL3">Lokale hotelbelasting (PB1) 10% en overige belasting circa 0,5%</li>
+              <li data-t="p03FeeL4">Vaste kosten circa €660 per maand: één team voor de vier villa's voor housekeeping, zwembad en tuin, stroom inclusief sauna, jacuzzi en koud bad, wasgoed, internet en onderhoud</li>
             </ul>
           </div>
         </div>
-        <p class="note" style="font-size:12px;color:var(--muted);margin-top:12px" data-t="p03FeeNote">Dit percentage is al verwerkt in de rendementsberekening hierboven, geen verborgen kosten achteraf.</p>
+        <p class="note" style="font-size:12px;color:var(--muted);margin-top:12px" data-t="p03FeeNote">Al deze kosten zitten in de rendementsberekening hierboven. Je eigen inkomstenbelasting niet: die hangt af van je persoonlijke situatie.</p>
 
         <div class="subhead" data-t="p03InvSub">Investeringsscenario's per villa</div>
         <p class="pane-lead" style="margin-bottom:12px" data-t="p03InvLead">Drie tijdshorizonnen voor één wellness-villa, uitgaand van de huidige instapprijs van €325.000.</p>
@@ -1130,19 +1129,19 @@
         <p class="note" style="font-size:12px;color:var(--muted);margin-top:12px" data-t="p03InvNote">Vastgoedwaarden in dit strandgebied groeien naar verwachting 1,2 tot 1,6 keer over de komende 3 tot 5 jaar, met langetermijnpotentieel tot 2,5 keer. Inclusief 5% jaarlijkse waardegroei en inflatie. Leasehold van 30+30 jaar, met de mogelijkheid tot verlenging of verkoop na 30 jaar.</p>
 
         <div class="subhead" data-t="p03RefSub">Drie rendementsscenario's per villa, vaste cijfers</div>
-        <p class="pane-lead" style="margin-bottom:4px" data-t="p03RefLead">Naast de rekentool hierboven, die live herberekent zodra je de schuifregelaars aanpast, hanteert UTAMA voor The Reload ook drie vaste referentiescenario's per villa, hieronder ongewijzigd overgenomen uit het rendementsmodel.</p>
+        <p class="pane-lead" style="margin-bottom:4px" data-t="p03RefLead">Naast de rekentool hierboven, die live herberekent zodra je de schuifregelaars aanpast, staan hieronder drie vaste scenario's per villa bij de huidige prijs van €325.000 en 50% directe boekingen, met dezelfde kostenopbouw als de rekentool.</p>
         <div class="fee-cards">
           <div class="fee-card">
-            <div class="fee-h"><span class="fee-pct">70%</span><h4 data-t="p03RefPessH">Voorzichtig</h4></div>
-            <p class="fee-sub" data-t="p03RefPessSub">€205 / nacht</p>
+            <div class="fee-h"><span class="fee-pct">80%</span><h4 data-t="p03RefPessH">Voorzichtig</h4></div>
+            <p class="fee-sub" data-t="p03RefPessSub">€210 / nacht</p>
             <ul class="fee-list">
-              <li><span data-t="p03RefMonthLbl">Maandinkomen (bruto)</span>: <span data-t="p03RefPessMonth">€4.365</span></li>
-              <li><span data-t="p03RefYearLbl">Jaarinkomen (bruto)</span>: <span data-t="p03RefPessYear">€55.032</span></li>
-              <li><span data-t="p03RefMgmtLbl">Beheer &amp; operatie (30%)</span>: <span data-t="p03RefPessMgmt">€16.510</span></li>
-              <li><span data-t="p03RefNetLbl">Netto jaaruitkering</span>: <span data-t="p03RefPessNet">€38.522</span></li>
-              <li><span data-t="p03RefBreakLbl">Terugverdientijd</span>: <span data-t="p03RefPessBreak">9,3 jaar</span></li>
-              <li><span data-t="p03RefRoiLbl">Jaarlijks rendement</span>: <span data-t="p03RefPessRoi">10,0%</span></li>
-              <li><span data-t="p03Ref30Lbl">30-jaarsprojectie</span>: <span data-t="p03RefPess30">€2.050.000</span></li>
+              <li><span data-t="p03RefMonthLbl">Maandinkomen (bruto)</span>: <span data-t="p03RefPessMonth">€5.110</span></li>
+              <li><span data-t="p03RefYearLbl">Jaarinkomen (bruto)</span>: <span data-t="p03RefPessYear">€61.320</span></li>
+              <li><span data-t="p03RefMgmtLbl">Kosten, belasting &amp; beheer</span>: <span data-t="p03RefPessMgmt">€22.480</span></li>
+              <li><span data-t="p03RefNetLbl">Netto jaaruitkering</span>: <span data-t="p03RefPessNet">€38.840</span></li>
+              <li><span data-t="p03RefBreakLbl">Terugverdientijd</span>: <span data-t="p03RefPessBreak">8,4 jaar</span></li>
+              <li><span data-t="p03RefRoiLbl">Jaarlijks rendement</span>: <span data-t="p03RefPessRoi">12,0%</span></li>
+              <li><span data-t="p03Ref30Lbl">30-jaarsprojectie</span>: <span data-t="p03RefPess30">€2.550.000</span></li>
             </ul>
           </div>
           <div class="fee-card">
@@ -1150,12 +1149,12 @@
             <p class="fee-sub" data-t="p03RefRealSub">€225 / nacht</p>
             <ul class="fee-list">
               <li><span data-t="p03RefMonthLbl">Maandinkomen (bruto)</span>: <span data-t="p03RefRealMonth">€5.817</span></li>
-              <li><span data-t="p03RefYearLbl">Jaarinkomen (bruto)</span>: <span data-t="p03RefRealYear">€69.804</span></li>
-              <li><span data-t="p03RefMgmtLbl">Beheer &amp; operatie (30%)</span>: <span data-t="p03RefRealMgmt">€20.941</span></li>
-              <li><span data-t="p03RefNetLbl">Netto jaaruitkering</span>: <span data-t="p03RefRealNet">€48.863</span></li>
+              <li><span data-t="p03RefYearLbl">Jaarinkomen (bruto)</span>: <span data-t="p03RefRealYear">€69.806</span></li>
+              <li><span data-t="p03RefMgmtLbl">Kosten, belasting &amp; beheer</span>: <span data-t="p03RefRealMgmt">€24.496</span></li>
+              <li><span data-t="p03RefNetLbl">Netto jaaruitkering</span>: <span data-t="p03RefRealNet">€45.311</span></li>
               <li><span data-t="p03RefBreakLbl">Terugverdientijd</span>: <span data-t="p03RefRealBreak">7,2 jaar</span></li>
-              <li><span data-t="p03RefRoiLbl">Jaarlijks rendement</span>: <span data-t="p03RefRealRoi">14,0%</span></li>
-              <li><span data-t="p03Ref30Lbl">30-jaarsprojectie</span>: <span data-t="p03RefReal30">€2.900.000</span></li>
+              <li><span data-t="p03RefRoiLbl">Jaarlijks rendement</span>: <span data-t="p03RefRealRoi">13,9%</span></li>
+              <li><span data-t="p03Ref30Lbl">30-jaarsprojectie</span>: <span data-t="p03RefReal30">€2.750.000</span></li>
             </ul>
           </div>
           <div class="fee-card">
@@ -1163,12 +1162,12 @@
             <p class="fee-sub" data-t="p03RefOptSub">€250 / nacht</p>
             <ul class="fee-list">
               <li><span data-t="p03RefMonthLbl">Maandinkomen (bruto)</span>: <span data-t="p03RefOptMonth">€6.844</span></li>
-              <li><span data-t="p03RefYearLbl">Jaarinkomen (bruto)</span>: <span data-t="p03RefOptYear">€82.128</span></li>
-              <li><span data-t="p03RefMgmtLbl">Beheer &amp; operatie (30%)</span>: <span data-t="p03RefOptMgmt">€24.638</span></li>
-              <li><span data-t="p03RefNetLbl">Netto jaaruitkering</span>: <span data-t="p03RefOptNet">€57.490</span></li>
-              <li><span data-t="p03RefBreakLbl">Terugverdientijd</span>: <span data-t="p03RefOptBreak">6,1 jaar</span></li>
-              <li><span data-t="p03RefRoiLbl">Jaarlijks rendement</span>: <span data-t="p03RefOptRoi">16,4%</span></li>
-              <li><span data-t="p03Ref30Lbl">30-jaarsprojectie</span>: <span data-t="p03RefOpt30">€3.650.000</span></li>
+              <li><span data-t="p03RefYearLbl">Jaarinkomen (bruto)</span>: <span data-t="p03RefOptYear">€82.125</span></li>
+              <li><span data-t="p03RefMgmtLbl">Kosten, belasting &amp; beheer</span>: <span data-t="p03RefOptMgmt">€27.422</span></li>
+              <li><span data-t="p03RefNetLbl">Netto jaaruitkering</span>: <span data-t="p03RefOptNet">€54.703</span></li>
+              <li><span data-t="p03RefBreakLbl">Terugverdientijd</span>: <span data-t="p03RefOptBreak">5,9 jaar</span></li>
+              <li><span data-t="p03RefRoiLbl">Jaarlijks rendement</span>: <span data-t="p03RefOptRoi">16,8%</span></li>
+              <li><span data-t="p03Ref30Lbl">30-jaarsprojectie</span>: <span data-t="p03RefOpt30">€3.050.000</span></li>
             </ul>
           </div>
         </div>
@@ -1244,7 +1243,7 @@
       <div class="tab-pane" id="pane-beheer">
         <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 9h8M8 13h5"/><circle cx="16.5" cy="15.5" r="2"/></svg></span><div class="pane-kicker" data-t="p06Kicker">06 · Beheer</div></div>
         <h2 class="pane-h" data-t="p06H2">Wij runnen alles. Jij blijft hands-off.</h2>
-        <p class="pane-lead" data-t="p06Lead">Na oplevering neemt House of Reservations het volledige verhuur- en operationeel beheer over. Jij bezit de villa, wij zorgen dat hij verhuurd wordt, met maandelijkse rapportage en volledige kostentransparantie.</p>
+        <p class="pane-lead" data-t="p06Lead">Na oplevering regelen wij het verhuur- en operationeel beheer: de dagelijkse operatie met een vast team voor de vier villa's, de platforms en prijzen samen met House of Reservations. Jij bezit de villa, wij zorgen dat hij verhuurd wordt, met maandelijkse rapportage en volledige kostentransparantie.</p>
 
         <div class="why-grid">
           <div class="why-card">
@@ -1253,11 +1252,11 @@
           </div>
           <div class="why-card">
             <div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 1-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 1 5.4-5.4l-3 3-2-2 3-3z"/></svg></div>
-            <div><h4 data-t="p06Why2H">Operationeel beheer</h4><p data-t="p06Why2P">Dagelijkse housekeeping, tuin- en poolonderhoud en technisch onderhoud houden de villa op niveau. Elke maand ontvang je een volledige financiële rapportage, met je aandeel direct op je rekening.</p></div>
+            <div><h4 data-t="p06Why2H">Operationeel beheer</h4><p data-t="p06Why2P">Een vast team voor de vier villa's houdt housekeeping, zwembad, wellness en tuin op niveau. Check-in gaat automatisch. Elke maand ontvang je een volledige financiële rapportage, met je aandeel direct op je rekening.</p></div>
           </div>
         </div>
         <div class="checklist-dark">
-          <div class="ch-item" style="font-size:13px"><span class="ck">✓</span><span data-t="p06ChItem">Verhuurbeheer 15% en operationeel beheer circa 15% van de netto verhuuropbrengst. Na belasting en overige kosten is de rest voor jou. Geen verborgen kosten.</span></div>
+          <div class="ch-item" style="font-size:13px"><span class="ck">✓</span><span data-t="p06ChItem">Platformcommissie en 15% House of Reservations alleen op platformboekingen, hotelbelasting 10% en de vaste kosten van de villa. Directe boekingen via onze eigen website zonder platformcommissie. Geen verborgen kosten.</span></div>
         </div>
 
         <div class="plan-block">
@@ -1276,7 +1275,7 @@
             <div class="num-item"><div class="nn">02</div><div class="nc"><h4 data-t="p06N2H">Je krijgt altijd de beste prijs</h4><p data-t="p06N2P">Nachtprijzen worden doorlopend bijgesteld op vraag, seizoen en lokale evenementen. Niet de hoogste prijs, maar de prijs die bezetting én opbrengst samen maximaliseert.</p></div></div>
             <div class="num-item"><div class="nn">03</div><div class="nc"><h4 data-t="p06N3H">Je gasten worden dag en nacht geholpen</h4><p data-t="p06N3P">Het gastenteam is tot 20 uur per dag bereikbaar, van eerste vraag tot check-out. Snelle reacties leiden tot betere reviews, betere reviews naar een hogere positie op de platforms, en dat weer naar meer boekingen.</p></div></div>
             <div class="num-item"><div class="nn">04</div><div class="nc"><h4 data-t="p06N4H">Jouw villa blijft in topconditie</h4><p data-t="p06N4P">Dagelijkse housekeeping, tuin- en zwembadonderhoud en technisch onderhoud houden de villa op niveau. Dat beschermt niet alleen de gastervaring, maar ook de waarde van je villa.</p></div></div>
-            <div class="num-item"><div class="nn">05</div><div class="nc"><h4 data-t="p06N5H">Je weet altijd precies wat je ontvangt</h4><p data-t="p06N5P">Elke maand ontvang je een overzicht van bezetting, omzet en kosten, met je aandeel direct op je rekening. Verhuurbeheer 15% en operationeel beheer circa 15% van de netto-opbrengst, vooraf bekend, geen verrassingen achteraf.</p></div></div>
+            <div class="num-item"><div class="nn">05</div><div class="nc"><h4 data-t="p06N5H">Je weet altijd precies wat je ontvangt</h4><p data-t="p06N5P">Elke maand ontvang je een overzicht van bezetting, omzet en kosten, met je aandeel direct op je rekening. Elke kostenpost staat er apart in, vooraf bekend, geen verrassingen achteraf.</p></div></div>
           </div>
 
           <div class="subhead" style="margin-top:26px" data-t="p06Sub2">Zo ziet dat er in de praktijk uit</div>
@@ -1288,7 +1287,7 @@
               <div class="lc-body">
                 <div class="lc-title" data-t="p06Lc1Title">The Reload · wellness-villa met rooftop &amp; privézwembad</div>
                 <div class="lc-meta" data-t="p06LcMeta">Cemagi, Bali · 6 gasten · 3 slaapkamers · privézwembad</div>
-                <div class="lc-price"><b>€225</b> <span data-t="p06LcNight">/ nacht</span><span class="lc-note" data-t="p06Lc1Note">Op basis van het realistische scenario in de calculator</span></div>
+                <div class="lc-price"><b>€250</b> <span data-t="p06LcNight">/ nacht</span><span class="lc-note" data-t="p06Lc1Note">Reguliere vraagprijs</span></div>
               </div>
             </div>
             <div class="listing-card">
@@ -1296,11 +1295,22 @@
               <div class="lc-body">
                 <div class="lc-title" data-t="p06Lc1Title">The Reload · wellness-villa met rooftop &amp; privézwembad</div>
                 <div class="lc-meta" data-t="p06LcMeta">Cemagi, Bali · 6 gasten · 3 slaapkamers · privézwembad</div>
-                <div class="lc-price"><b>€235</b> <span data-t="p06LcNight">/ nacht</span><span class="lc-note" data-t="p06Lc2Note">Nachtprijzen verschillen dynamisch per platform</span></div>
+                <div class="lc-price"><b>€225</b> <span data-t="p06LcNight">/ nacht</span><span class="lc-note" data-t="p06Lc2Note">Gemiddeld per geboekte nacht, prognose €210 tot €230</span></div>
               </div>
             </div>
           </div>
           <p class="note" style="font-size:12px;color:var(--muted);margin-top:2px" data-t="p06LcFootnote">Voorbeeldweergave. Ook gelist op Agoda, Expedia en Vrbo.</p>
+
+          <div class="subhead" style="margin-top:26px" data-t="p06PrSub">Nachtprijzen per periode</div>
+          <p class="pane-lead" style="margin-bottom:12px" data-t="p06PrLead">We starten met een reguliere vraagprijs van circa €250 per nacht voor de hele villa, drie slaapkamers voor zes gasten, met alle wellnessvoorzieningen. Voor de prognose rekenen we met €210 tot €230 gemiddeld per geboekte nacht.</p>
+          <div class="nearby-group"><div class="amen-list">
+            <div class="amen"><span class="al" data-t="p06Pr1">Introductieperiode, eerste reviews opbouwen</span><span class="av">€175–€210</span></div>
+            <div class="amen"><span class="al" data-t="p06Pr2">Rustige periodes</span><span class="av">€180–€220</span></div>
+            <div class="amen"><span class="al" data-t="p06Pr3">Reguliere periodes</span><span class="av">€225–€275</span></div>
+            <div class="amen"><span class="al" data-t="p06Pr4">Sterke vakantieperiodes</span><span class="av">€280–€330</span></div>
+            <div class="amen"><span class="al" data-t="p06Pr5">Kerst en oudjaar</span><span class="av">€325–€400</span></div>
+          </div></div>
+          <p class="note" style="font-size:12px;color:var(--muted);margin-top:2px" data-t="p06PrNote">Voorlopige inschatting voor na oplevering, op basis van het huidige aanbod. Er zijn nog geen gerealiseerde verhuurcijfers van deze villa.</p>
 
           <div class="subhead" style="margin-top:26px" data-t="p06Sub3">Hoe een goede periode eruitziet</div>
           <p class="pane-lead" style="margin-bottom:12px" data-t="p06Lead4">Ter illustratie: dit is hoe de agenda van een vergelijkbare, al verhuurde House of Reservations-villa eruitziet in een sterke periode. Een doorlopend blok is één boeking van meerdere nachten achter elkaar. Namen en boekingen zijn ter illustratie, geen weergave van een specifieke, huidige boeking.</p>
@@ -1329,23 +1339,25 @@
           <div class="report-card">
             <div class="report-tag"><span data-t="p06RepTag">Voorbeeldrapportage</span> · <span id="repMonth">–</span></div>
             <div class="report-main">
-              <div class="report-eur"><span data-t="repHeroAmt">€4.072</span></div>
+              <div class="report-eur"><span data-t="repHeroAmt">€3.776</span></div>
               <div class="report-idr" id="repIdr">≈ Rp –</div>
-              <div class="report-lbl" data-t="p06RepLbl">Netto uitkering deze maand, realistisch scenario (85% bezetting, €225 nachtprijs)</div>
+              <div class="report-lbl" data-t="p06RepLbl">Netto uitkering deze maand, realistisch scenario (85% bezetting, €225 nachtprijs, 50% direct geboekt)</div>
             </div>
             <div class="report-lines">
               <div class="rp-line"><span data-t="p06RepGross">Bruto huurinkomsten</span><b><span data-t="repGrossAmt">€5.817</span></b></div>
-              <div class="rp-line"><span data-t="p06RepFee1">Verhuurbeheer (15%)</span><b><span data-t="repFee1Amt">-€873</span></b></div>
-              <div class="rp-line"><span data-t="p06RepFee2">Operationeel beheer (15%)</span><b><span data-t="repFee2Amt">-€872</span></b></div>
-              <div class="rp-line total"><span data-t="p06RepTotal">Netto uitkering</span><b><span data-t="repTotalAmt">€4.072</span></b></div>
+              <div class="rp-line"><span data-t="p06RepFee1">Platformcommissie (15% op platformboekingen)</span><b><span data-t="repFee1Amt">-€436</span></b></div>
+              <div class="rp-line"><span data-t="p06RepFee2">House of Reservations (15% op platformboekingen)</span><b><span data-t="repFee2Amt">-€378</span></b></div>
+              <div class="rp-line"><span data-t="p06RepFee3">Hotelbelasting PB1 (10%) en overige belasting</span><b><span data-t="repFee3Amt">-€567</span></b></div>
+              <div class="rp-line"><span data-t="p06RepFee4">Vaste kosten: team, stroom, wasgoed, internet, onderhoud</span><b><span data-t="repFee4Amt">-€660</span></b></div>
+              <div class="rp-line total"><span data-t="p06RepTotal">Netto uitkering</span><b><span data-t="repTotalAmt">€3.776</span></b></div>
             </div>
             <div class="report-chart" id="repChart">
-              <div class="rc-col"><div class="rc-v"><span data-t="rcBar1">€2.900</span></div><div class="rc-bar" style="--h:71%"></div><div class="rc-m"></div></div>
-              <div class="rc-col"><div class="rc-v"><span data-t="rcBar2">€3.300</span></div><div class="rc-bar" style="--h:81%"></div><div class="rc-m"></div></div>
-              <div class="rc-col"><div class="rc-v"><span data-t="rcBar3">€3.650</span></div><div class="rc-bar" style="--h:90%"></div><div class="rc-m"></div></div>
-              <div class="rc-col"><div class="rc-v"><span data-t="rcBar4">€3.850</span></div><div class="rc-bar" style="--h:95%"></div><div class="rc-m"></div></div>
-              <div class="rc-col"><div class="rc-v"><span data-t="rcBar5">€3.980</span></div><div class="rc-bar" style="--h:98%"></div><div class="rc-m"></div></div>
-              <div class="rc-col cur"><div class="rc-v"><span data-t="rcBar6">€4.072</span></div><div class="rc-bar" style="--h:100%"></div><div class="rc-m"></div></div>
+              <div class="rc-col"><div class="rc-v"><span data-t="rcBar1">€2.690</span></div><div class="rc-bar" style="--h:71%"></div><div class="rc-m"></div></div>
+              <div class="rc-col"><div class="rc-v"><span data-t="rcBar2">€3.060</span></div><div class="rc-bar" style="--h:81%"></div><div class="rc-m"></div></div>
+              <div class="rc-col"><div class="rc-v"><span data-t="rcBar3">€3.380</span></div><div class="rc-bar" style="--h:90%"></div><div class="rc-m"></div></div>
+              <div class="rc-col"><div class="rc-v"><span data-t="rcBar4">€3.570</span></div><div class="rc-bar" style="--h:95%"></div><div class="rc-m"></div></div>
+              <div class="rc-col"><div class="rc-v"><span data-t="rcBar5">€3.690</span></div><div class="rc-bar" style="--h:98%"></div><div class="rc-m"></div></div>
+              <div class="rc-col cur"><div class="rc-v"><span data-t="rcBar6">€3.776</span></div><div class="rc-bar" style="--h:100%"></div><div class="rc-m"></div></div>
             </div>
             <p class="note" style="font-size:11.5px;color:var(--muted);margin-top:14px"><span data-t="p06RepFoot1">Voorbeeldcijfers ter illustratie van een realistische opbouw in de eerste maanden na oplevering. Wisselkoers</span> <span id="repRateNote">indicatief</span>. <span data-t="p06RepFoot2">Je eigen rapportage volgt de daadwerkelijke bezetting, omzet en actuele wisselkoers van jouw villa.</span></p>
           </div>
@@ -1416,7 +1428,7 @@
           </details>
           <details data-cat="beheer">
             <summary data-t="p08Q6">Welke jaarlijkse kosten zijn er?</summary>
-            <p data-t="p08A6">Verhuurbeheer en operationeel beheer samen circa 30% van de netto verhuuropbrengst (revenue management, distributie, gastcommunicatie en on-the-ground operations), plus lokale belasting. Dit is al verwerkt in de rendementsberekening, geen verborgen kosten.</p>
+            <p data-t="p08A6">Platformcommissie circa 15% en House of Reservations 15%, beide alleen op boekingen via de platforms. Daarnaast lokale hotelbelasting (PB1) van 10%, overige belasting van circa 0,5% en de vaste kosten van de villa, circa €660 per maand. In het realistische scenario is dat samen circa 35% van de bruto huur. Dit is al verwerkt in de rendementsberekening, geen verborgen kosten.</p>
           </details>
           <details data-cat="belasting">
             <summary data-t="p08Q7">Hoe zit het met belasting?</summary>
@@ -1653,22 +1665,24 @@ const T = {
   "railPriceVal": "€325.000",
   "railYieldVal": "12–17%/jr",
   "railPriceNote": "Volgende prijsstap: €350.000",
-  "repHeroAmt": "€4.072",
+  "repHeroAmt": "€3.776",
   "repGrossAmt": "€5.817",
-  "repFee1Amt": "-€873",
-  "repFee2Amt": "-€872",
-  "repTotalAmt": "€4.072",
-  "rcBar1": "€2.900",
-  "rcBar2": "€3.300",
-  "rcBar3": "€3.650",
-  "rcBar4": "€3.850",
-  "rcBar5": "€3.980",
-  "rcBar6": "€4.072",
+  "repFee1Amt": "-€436",
+  "repFee2Amt": "-€378",
+  "repFee3Amt": "-€567",
+  "repFee4Amt": "-€660",
+  "repTotalAmt": "€3.776",
+  "rcBar1": "€2.690",
+  "rcBar2": "€3.060",
+  "rcBar3": "€3.380",
+  "rcBar4": "€3.570",
+  "rcBar5": "€3.690",
+  "rcBar6": "€3.776",
   "payAmt1": "€146.250",
   "payAmtM": "Gemiddeld ca. €16.250 per maand",
   "p03PhaseMLbl": "Maandelijks, naar bouwvoortgang",
   "p03PhaseMBadge": "Tot oplevering najaar 2027",
-  "railYieldLbl": "Verwacht rendement",
+  "railYieldLbl": "Huurrendement",
   "railLeaseLbl": "Leaseperiode",
   "railVillasLbl": "Aantal villa's",
   "railBuildLbl": "Bouwvoortgang",
@@ -1791,7 +1805,7 @@ const T = {
   "p03KeyStat1": "€325.000",
   "p03KeyStat1L": "Huidige instapprijs",
   "p03KeyStat2": "12-17%",
-  "p03KeyStat2L": "Gem. jaarlijks rendement",
+  "p03KeyStat2L": "Huurrendement per jaar, plus ~5% waardegroei",
   "p03KeyStat3": "€50K",
   "p03KeyStat3L": "Waardegroei bij oplevering",
   "p03KeyStat4": "70-80%",
@@ -1811,7 +1825,7 @@ const T = {
   "p03LblPrice": "Prijs (vast)",
   "p03LblNightly": "Gem. nachtprijs",
   "p03LblOcc": "Bezettingsgraad",
-  "p03LblCosts": "Kosten & beheer",
+  "p03LblCosts": "Directe boekingen via eigen website",
   "p03LblHold": "Aanhoudperiode",
   "p03LblGrowth": "Geschatte waardegroei / jaar",
   "p03GrowthNote": "Vast, gebaseerd op marktdata voor deze regio",
@@ -1834,18 +1848,18 @@ const T = {
   "p03SellNote": "Je bent niet verplicht de villa dertig jaar aan te houden. Verkopen kan op elk moment, tegen 4% commissie via UTAMA, of volledig zelfstandig.",
   "p03AssumSummary": "Aannames & transparantie",
   "p03Assum1": "Bruto huurinkomsten = nachtprijs × 365 × bezettingsgraad. Alle bedragen in euro's.",
-  "p03Assum2": "Netto = bruto minus kosten: verhuurbeheer, on-the-ground operations en onderhoud, gecombineerd circa 30% van de netto huuropbrengst.",
-  "p03Assum3": "Cijfers zijn gebaseerd op het rendementsmodel van The Reload (House of Reservations).",
+  "p03Assum2": "Netto = bruto minus platformcommissie (15%) en House of Reservations (15%), beide alleen op boekingen via de platforms, hotelbelasting PB1 (10%), overige belasting (0,5%) en vaste kosten van circa €7.900 per jaar. De schuifregelaar Directe boekingen bepaalt welk deel via onze eigen website loopt.",
+  "p03Assum3": "Kostenopbouw op basis van het beheercontract en een kostenraming van House of Reservations voor een vergelijkbare villa met 3 slaapkamers, aangevuld met de wellness en een eigen team voor de vier villa's.",
   "p03Assum4": "Waardegroei: vaste aanname van 5% per jaar, inclusief inflatie. Indicatie, geen garantie.",
   "p03FeeSub": "Waar bestaat \"Kosten & beheer\" precies uit?",
-  "p03FeeLead": "Bij The Reload is dit één gecombineerd percentage van circa 30% van de netto huuropbrengst, geen los opgesplitste tarieven. Hieronder zie je wat daar allemaal in zit.",
-  "p03FeeH": "Verhuurbeheer & operationeel beheer, gecombineerd",
-  "p03FeeSub2": "House of Reservations verzorgt zowel de verhuur als de dagelijkse operatie van je villa.",
-  "p03FeeL1": "Revenue management & distributie op Airbnb, Booking.com, Agoda en Vrbo",
-  "p03FeeL2": "Gastcommunicatie, dag en nacht",
-  "p03FeeL3": "On-the-ground operations: housekeeping, tuin- en zwembadonderhoud",
-  "p03FeeL4": "Technisch onderhoud en lokale toeristenbelasting",
-  "p03FeeNote": "Dit percentage is al verwerkt in de rendementsberekening hierboven, geen verborgen kosten achteraf.",
+  "p03FeeLead": "Bij The Reload rekenen we de kosten per onderdeel door, niet als één percentage. In het realistische scenario, met de helft van de boekingen direct via onze eigen website, gaat er circa 35% van de bruto huur af. Hieronder zie je waaruit.",
+  "p03FeeH": "Kosten, belasting en beheer",
+  "p03FeeSub2": "Platforms en prijzen via House of Reservations. Directe boekingen en de dagelijkse operatie in eigen hand.",
+  "p03FeeL1": "Platformcommissie circa 15%, alleen op boekingen via Airbnb, Booking.com en andere platforms",
+  "p03FeeL2": "House of Reservations 15% op de platformboekingen, voor distributie en prijsbeheer. Directe boekingen via onze eigen website vallen daarbuiten",
+  "p03FeeL3": "Lokale hotelbelasting (PB1) 10% en overige belasting circa 0,5%",
+  "p03FeeL4": "Vaste kosten circa €660 per maand: één team voor de vier villa's voor housekeeping, zwembad en tuin, stroom inclusief sauna, jacuzzi en koud bad, wasgoed, internet en onderhoud",
+  "p03FeeNote": "Al deze kosten zitten in de rendementsberekening hierboven. Je eigen inkomstenbelasting niet: die hangt af van je persoonlijke situatie.",
   "p03InvSub": "Investeringsscenario's per villa",
   "p03InvLead": "Drie tijdshorizonnen voor één wellness-villa, uitgaand van de huidige instapprijs van €325.000.",
   "p03InvShortH": "Korte termijn (12 maanden, villa verkocht bij oplevering)",
@@ -1873,41 +1887,41 @@ const T = {
   "p03InvLongTotalVal": "€2.720.000",
   "p03InvNote": "Vastgoedwaarden in dit strandgebied groeien naar verwachting 1,2 tot 1,6 keer over de komende 3 tot 5 jaar, met langetermijnpotentieel tot 2,5 keer. Inclusief 5% jaarlijkse waardegroei en inflatie. Leasehold van 30+30 jaar, met de mogelijkheid tot verlenging of verkoop na 30 jaar.",
   "p03RefSub": "Drie rendementsscenario's per villa, vaste cijfers",
-  "p03RefLead": "Naast de rekentool hierboven, die live herberekent zodra je de schuifregelaars aanpast, hanteert UTAMA voor The Reload ook drie vaste referentiescenario's per villa, hieronder ongewijzigd overgenomen uit het rendementsmodel.",
+  "p03RefLead": "Naast de rekentool hierboven, die live herberekent zodra je de schuifregelaars aanpast, staan hieronder drie vaste scenario's per villa bij de huidige prijs van €325.000 en 50% directe boekingen, met dezelfde kostenopbouw als de rekentool.",
   "p03RefPessH": "Voorzichtig",
-  "p03RefPessSub": "€205 / nacht",
+  "p03RefPessSub": "€210 / nacht",
   "p03RefRealH": "Realistisch",
   "p03RefRealSub": "€225 / nacht",
   "p03RefOptH": "Optimistisch",
   "p03RefOptSub": "€250 / nacht",
   "p03RefMonthLbl": "Maandinkomen (bruto)",
   "p03RefYearLbl": "Jaarinkomen (bruto)",
-  "p03RefMgmtLbl": "Beheer & operatie (30%)",
+  "p03RefMgmtLbl": "Kosten, belasting & beheer",
   "p03RefNetLbl": "Netto jaaruitkering",
   "p03RefBreakLbl": "Terugverdientijd",
   "p03RefRoiLbl": "Jaarlijks rendement",
   "p03Ref30Lbl": "30-jaarsprojectie",
-  "p03RefPessMonth": "€4.365",
-  "p03RefPessYear": "€55.032",
-  "p03RefPessMgmt": "€16.510",
-  "p03RefPessNet": "€38.522",
-  "p03RefPessBreak": "9,3 jaar",
-  "p03RefPessRoi": "10,0%",
-  "p03RefPess30": "€2.050.000",
+  "p03RefPessMonth": "€5.110",
+  "p03RefPessYear": "€61.320",
+  "p03RefPessMgmt": "€22.480",
+  "p03RefPessNet": "€38.840",
+  "p03RefPessBreak": "8,4 jaar",
+  "p03RefPessRoi": "12,0%",
+  "p03RefPess30": "€2.550.000",
   "p03RefRealMonth": "€5.817",
-  "p03RefRealYear": "€69.804",
-  "p03RefRealMgmt": "€20.941",
-  "p03RefRealNet": "€48.863",
+  "p03RefRealYear": "€69.806",
+  "p03RefRealMgmt": "€24.496",
+  "p03RefRealNet": "€45.311",
   "p03RefRealBreak": "7,2 jaar",
-  "p03RefRealRoi": "14,0%",
-  "p03RefReal30": "€2.900.000",
+  "p03RefRealRoi": "13,9%",
+  "p03RefReal30": "€2.750.000",
   "p03RefOptMonth": "€6.844",
-  "p03RefOptYear": "€82.128",
-  "p03RefOptMgmt": "€24.638",
-  "p03RefOptNet": "€57.490",
-  "p03RefOptBreak": "6,1 jaar",
-  "p03RefOptRoi": "16,4%",
-  "p03RefOpt30": "€3.650.000",
+  "p03RefOptYear": "€82.125",
+  "p03RefOptMgmt": "€27.422",
+  "p03RefOptNet": "€54.703",
+  "p03RefOptBreak": "5,9 jaar",
+  "p03RefOptRoi": "16,8%",
+  "p03RefOpt30": "€3.050.000",
   "p03RefNote": "Bruto huurinkomen = nachtprijs × 365 × bezettingsgraad. Alle bedragen in euro's. Inclusief huurinkomsten + 5% jaarlijkse waardegroei. Deze vaste cijfers kunnen licht afwijken van de live rekentool hierboven, die dezelfde formule toepast maar per instelling opnieuw berekent.",
   "p03PaySub": "Betaalschema",
   "p03PayLead1": "Je betaalt in twee delen: 45% bij ondertekening, daarna maandelijks naar bouwvoortgang tot de oplevering. De bouw duurt ongeveer 11 maanden.",
@@ -1963,12 +1977,12 @@ const T = {
   "p05Ch3": "op de bouwkundige schil van de villa",
   "p06Kicker": "06 · Beheer",
   "p06H2": "Wij runnen alles. Jij blijft hands-off.",
-  "p06Lead": "Na oplevering neemt House of Reservations het volledige verhuur- en operationeel beheer over. Jij bezit de villa, wij zorgen dat hij verhuurd wordt, met maandelijkse rapportage en volledige kostentransparantie.",
+  "p06Lead": "Na oplevering regelen wij het verhuur- en operationeel beheer: de dagelijkse operatie met een vast team voor de vier villa's, de platforms en prijzen samen met House of Reservations. Jij bezit de villa, wij zorgen dat hij verhuurd wordt, met maandelijkse rapportage en volledige kostentransparantie.",
   "p06Why1H": "Social media eerst, directe boekingen",
   "p06Why1P": "We zetten in op social media en directe boekingen via onze eigen website, zonder platformcommissie. Daarnaast staat je villa op Airbnb, Booking.com, Agoda, Expedia en Vrbo, met dynamische prijzen en een gastenteam dat tot 20 uur per dag bereikbaar is, via House of Reservations, dat al 250+ villa's op Bali beheert.",
   "p06Why2H": "Operationeel beheer",
-  "p06Why2P": "Dagelijkse housekeeping, tuin- en poolonderhoud en technisch onderhoud houden de villa op niveau. Elke maand ontvang je een volledige financiële rapportage, met je aandeel direct op je rekening.",
-  "p06ChItem": "Verhuurbeheer 15% en operationeel beheer circa 15% van de netto verhuuropbrengst. Na belasting en overige kosten is de rest voor jou. Geen verborgen kosten.",
+  "p06Why2P": "Een vast team voor de vier villa's houdt housekeeping, zwembad, wellness en tuin op niveau. Check-in gaat automatisch. Elke maand ontvang je een volledige financiële rapportage, met je aandeel direct op je rekening.",
+  "p06ChItem": "Platformcommissie en 15% House of Reservations alleen op platformboekingen, hotelbelasting 10% en de vaste kosten van de villa. Directe boekingen via onze eigen website zonder platformcommissie. Geen verborgen kosten.",
   "p06Sub1": "Verhuurbeheer van A tot Z",
   "p06Lead2": "Een villa die niet goed wordt verhuurd, is het grootste risico bij investeren in Bali, niet de bouw. Daarom draagt House of Reservations, dat al 250+ villa's op Bali beheert, het volledige verhuurproces: van de eerste foto tot jouw uitkering op de bank. Eén merk, één aanspreekpunt, geen partijen die naar elkaar wijzen.",
   "p06Proof1": "Villa's in beheer",
@@ -1985,15 +1999,23 @@ const T = {
   "p06N4H": "Jouw villa blijft in topconditie",
   "p06N4P": "Dagelijkse housekeeping, tuin- en zwembadonderhoud en technisch onderhoud houden de villa op niveau. Dat beschermt niet alleen de gastervaring, maar ook de waarde van je villa.",
   "p06N5H": "Je weet altijd precies wat je ontvangt",
-  "p06N5P": "Elke maand ontvang je een overzicht van bezetting, omzet en kosten, met je aandeel direct op je rekening. Verhuurbeheer 15% en operationeel beheer circa 15% van de netto-opbrengst, vooraf bekend, geen verrassingen achteraf.",
+  "p06N5P": "Elke maand ontvang je een overzicht van bezetting, omzet en kosten, met je aandeel direct op je rekening. Elke kostenpost staat er apart in, vooraf bekend, geen verrassingen achteraf.",
   "p06Sub2": "Zo ziet dat er in de praktijk uit",
   "p06Lead3": "Van listing tot uitkering: dit is hoe de verhuur van jouw villa eruitziet. De voorbeelden hieronder zijn illustratief, foto's, teksten en cijfers volgen definitief bij livegang, gebaseerd op het realistische scenario uit de rendementscalculator (85% bezetting, €225 nachtprijs).",
   "p06Lc1Title": "The Reload · wellness-villa met dakterras-spa & privézwembad",
   "p06LcMeta": "Cemagi, Bali · 6 gasten · 3 slaapkamers · privézwembad",
   "p06LcNight": "/ nacht",
-  "p06Lc1Note": "Op basis van het realistische scenario in de calculator",
-  "p06Lc2Note": "Nachtprijzen verschillen dynamisch per platform",
+  "p06Lc1Note": "Reguliere vraagprijs",
+  "p06Lc2Note": "Gemiddeld per geboekte nacht, prognose €210 tot €230",
   "p06LcFootnote": "Voorbeeldweergave. Ook gelist op Agoda, Expedia en Vrbo.",
+  "p06PrSub": "Nachtprijzen per periode",
+  "p06PrLead": "We starten met een reguliere vraagprijs van circa €250 per nacht voor de hele villa, drie slaapkamers voor zes gasten, met alle wellnessvoorzieningen. Voor de prognose rekenen we met €210 tot €230 gemiddeld per geboekte nacht.",
+  "p06PrNote": "Voorlopige inschatting voor na oplevering, op basis van het huidige aanbod. Er zijn nog geen gerealiseerde verhuurcijfers van deze villa.",
+  "p06Pr1": "Introductieperiode, eerste reviews opbouwen",
+  "p06Pr2": "Rustige periodes",
+  "p06Pr3": "Reguliere periodes",
+  "p06Pr4": "Sterke vakantieperiodes",
+  "p06Pr5": "Kerst en oudjaar",
   "p06Sub3": "Hoe een goede periode eruitziet",
   "p06Lead4": "Ter illustratie: dit is hoe de agenda van een vergelijkbare, al verhuurde House of Reservations-villa eruitziet in een sterke periode. Een doorlopend blok is één boeking van meerdere nachten achter elkaar. Namen en boekingen zijn ter illustratie, geen weergave van een specifieke, huidige boeking.",
   "dowMon": "Ma",
@@ -2008,10 +2030,12 @@ const T = {
   "p06Sub4": "Je maandelijkse rapportage",
   "p06Lead5": "Elke maand ontvang je een overzicht zoals hieronder: je verdiensten in euro's met de omrekening in IDR erbij, en het verloop van de afgelopen maanden.",
   "p06RepTag": "Voorbeeldrapportage",
-  "p06RepLbl": "Netto uitkering deze maand, realistisch scenario (85% bezetting, €225 nachtprijs)",
+  "p06RepLbl": "Netto uitkering deze maand, realistisch scenario (85% bezetting, €225 nachtprijs, 50% direct geboekt)",
   "p06RepGross": "Bruto huurinkomsten",
-  "p06RepFee1": "Verhuurbeheer (15%)",
-  "p06RepFee2": "Operationeel beheer (15%)",
+  "p06RepFee1": "Platformcommissie (15% op platformboekingen)",
+  "p06RepFee2": "House of Reservations (15% op platformboekingen)",
+  "p06RepFee3": "Hotelbelasting PB1 (10%) en overige belasting",
+  "p06RepFee4": "Vaste kosten: team, stroom, wasgoed, internet, onderhoud",
   "p06RepTotal": "Netto uitkering",
   "p06RepFoot1": "Voorbeeldcijfers ter illustratie van een realistische opbouw in de eerste maanden na oplevering. Wisselkoers",
   "p06RepFoot2": "Je eigen rapportage volgt de daadwerkelijke bezetting, omzet en actuele wisselkoers van jouw villa.",
@@ -2052,7 +2076,7 @@ const T = {
   "p08Q5": "Hoe ontvang ik mijn rendement?",
   "p08A5": "Je ontvangt maandelijks je aandeel in de verhuuropbrengsten, uitgekeerd in euro's, met een rapportage van omzet, kosten, bezetting en netto-opbrengst. Het gemiddelde verwachte jaarlijkse rendement voor The Reload ligt tussen 12% en 17%.",
   "p08Q6": "Welke jaarlijkse kosten zijn er?",
-  "p08A6": "Verhuurbeheer en operationeel beheer samen circa 30% van de netto verhuuropbrengst (revenue management, distributie, gastcommunicatie en on-the-ground operations), plus lokale belasting. Dit is al verwerkt in de rendementsberekening, geen verborgen kosten.",
+  "p08A6": "Platformcommissie circa 15% en House of Reservations 15%, beide alleen op boekingen via de platforms. Daarnaast lokale hotelbelasting (PB1) van 10%, overige belasting van circa 0,5% en de vaste kosten van de villa, circa €660 per maand. In het realistische scenario is dat samen circa 35% van de bruto huur. Dit is al verwerkt in de rendementsberekening, geen verborgen kosten.",
   "p08Q7": "Hoe zit het met belasting?",
   "p08A7": "Belasting wordt geheven in Indonesië, waar het vastgoed zich bevindt. Over de verhuuromzet geldt daar een lokale toeristenbelasting. In Nederland valt het bezit in box 3, maar dankzij het belastingverdrag tussen beide landen betaal je er hier doorgaans weinig tot geen box 3-heffing over. Laat je hierover adviseren door een belastingadviseur.",
   "p08Q8": "Wat als het rendement lager uitvalt?",
@@ -2171,22 +2195,24 @@ const T = {
   "railPriceVal": "€325,000",
   "railYieldVal": "12–17%/yr",
   "railPriceNote": "Next price step: €350,000",
-  "repHeroAmt": "€4,072",
+  "repHeroAmt": "€3,776",
   "repGrossAmt": "€5,817",
-  "repFee1Amt": "-€873",
-  "repFee2Amt": "-€872",
-  "repTotalAmt": "€4,072",
-  "rcBar1": "€2,900",
-  "rcBar2": "€3,300",
-  "rcBar3": "€3,650",
-  "rcBar4": "€3,850",
-  "rcBar5": "€3,980",
-  "rcBar6": "€4,072",
+  "repFee1Amt": "-€436",
+  "repFee2Amt": "-€378",
+  "repFee3Amt": "-€567",
+  "repFee4Amt": "-€660",
+  "repTotalAmt": "€3,776",
+  "rcBar1": "€2,690",
+  "rcBar2": "€3,060",
+  "rcBar3": "€3,380",
+  "rcBar4": "€3,570",
+  "rcBar5": "€3,690",
+  "rcBar6": "€3,776",
   "payAmt1": "€146,250",
   "payAmtM": "About €16,250 a month on average",
   "p03PhaseMLbl": "Monthly, in step with progress",
   "p03PhaseMBadge": "Until completion autumn 2027",
-  "railYieldLbl": "Expected yield",
+  "railYieldLbl": "Rental yield",
   "railLeaseLbl": "Lease period",
   "railVillasLbl": "Number of villas",
   "railBuildLbl": "Construction progress",
@@ -2309,7 +2335,7 @@ const T = {
   "p03KeyStat1": "€325,000",
   "p03KeyStat1L": "Current entry price",
   "p03KeyStat2": "12-17%",
-  "p03KeyStat2L": "Avg. annual return",
+  "p03KeyStat2L": "Rental yield per year, plus ~5% appreciation",
   "p03KeyStat3": "€50K",
   "p03KeyStat3L": "Value growth on completion",
   "p03KeyStat4": "70-80%",
@@ -2329,7 +2355,7 @@ const T = {
   "p03LblPrice": "Price (fixed)",
   "p03LblNightly": "Avg. nightly rate",
   "p03LblOcc": "Occupancy rate",
-  "p03LblCosts": "Costs & management",
+  "p03LblCosts": "Direct bookings via own website",
   "p03LblHold": "Holding period",
   "p03LblGrowth": "Estimated value growth / year",
   "p03GrowthNote": "Fixed, based on market data for this region",
@@ -2352,18 +2378,18 @@ const T = {
   "p03SellNote": "You are not required to hold the villa for thirty years. You can sell at any time, for a 4% commission via UTAMA, or fully independently.",
   "p03AssumSummary": "Assumptions & transparency",
   "p03Assum1": "Gross rental income = nightly rate × 365 × occupancy rate. All amounts in euros.",
-  "p03Assum2": "Net = gross minus costs: rental management, on-the-ground operations and maintenance, combined roughly 30% of net rental income.",
-  "p03Assum3": "Figures are based on the return model of The Reload (House of Reservations).",
+  "p03Assum2": "Net = gross minus platform commission (15%) and House of Reservations (15%), both only on platform bookings, PB1 hotel tax (10%), other tax (0.5%) and fixed costs of about €7,900 a year. The Direct bookings slider sets the share that comes through our own website.",
+  "p03Assum3": "Cost structure based on the management agreement and a House of Reservations cost estimate for a comparable 3-bedroom villa, plus the wellness and our own team for the four villas.",
   "p03Assum4": "Value growth: fixed assumption of 5% per year, including inflation. An indication, not a guarantee.",
   "p03FeeSub": "What exactly makes up \"Costs & management\"?",
-  "p03FeeLead": "For The Reload this is one combined percentage of roughly 30% of net rental income, not separately itemised fees. Below is what that covers.",
-  "p03FeeH": "Rental management & operational management, combined",
-  "p03FeeSub2": "House of Reservations handles both the rental and the day-to-day operation of your villa.",
-  "p03FeeL1": "Revenue management & distribution on Airbnb, Booking.com, Agoda and Vrbo",
-  "p03FeeL2": "Guest communication, day and night",
-  "p03FeeL3": "On-the-ground operations: housekeeping, garden and pool maintenance",
-  "p03FeeL4": "Technical maintenance and local tourist tax",
-  "p03FeeNote": "This percentage is already factored into the return calculation above, no hidden costs afterwards.",
+  "p03FeeLead": "For The Reload we calculate costs item by item, not as one percentage. In the realistic scenario, with half the bookings direct through our own website, about 35% of gross rent goes to costs. Below you see what it is made of.",
+  "p03FeeH": "Costs, tax and management",
+  "p03FeeSub2": "Platforms and pricing through House of Reservations. Direct bookings and daily operations in our own hands.",
+  "p03FeeL1": "Platform commission about 15%, only on bookings via Airbnb, Booking.com and other platforms",
+  "p03FeeL2": "House of Reservations 15% on platform bookings, for distribution and pricing. Direct bookings through our own website fall outside it",
+  "p03FeeL3": "Local hotel tax (PB1) 10% and other tax about 0.5%",
+  "p03FeeL4": "Fixed costs about €660 a month: one team for the four villas for housekeeping, pool and garden, electricity including sauna, hot tub and cold plunge, laundry, internet and maintenance",
+  "p03FeeNote": "All these costs are in the return calculation above. Your own income tax is not: it depends on your personal situation.",
   "p03InvSub": "Investment scenarios per villa",
   "p03InvLead": "Three time horizons for one wellness villa, based on the current entry price of €325,000.",
   "p03InvShortH": "Short term (12 months, villa sold on completion)",
@@ -2391,41 +2417,41 @@ const T = {
   "p03InvLongTotalVal": "€2,720,000",
   "p03InvNote": "Property values in this beachside area are projected to grow 1.2 to 1.6 times over the next 3 to 5 years, with long-term potential up to 2.5 times. Includes 5% annual value growth and inflation. 30+30 year leasehold, with the option to extend or resell after 30 years.",
   "p03RefSub": "Three return scenarios per villa, fixed figures",
-  "p03RefLead": "Alongside the calculator above, which recalculates live as you adjust the sliders, UTAMA also applies three fixed reference scenarios per villa for The Reload, shown below unchanged from the return model.",
+  "p03RefLead": "Next to the calculator above, which recalculates live as you move the sliders, below are three fixed scenarios per villa at the current price of €325,000 and 50% direct bookings, with the same cost structure as the calculator.",
   "p03RefPessH": "Conservative",
-  "p03RefPessSub": "€205 / night",
+  "p03RefPessSub": "€210 / night",
   "p03RefRealH": "Realistic",
   "p03RefRealSub": "€225 / night",
   "p03RefOptH": "Optimistic",
   "p03RefOptSub": "€250 / night",
   "p03RefMonthLbl": "Monthly income (gross)",
   "p03RefYearLbl": "Annual income (gross)",
-  "p03RefMgmtLbl": "Management & operations (30%)",
+  "p03RefMgmtLbl": "Costs, tax & management",
   "p03RefNetLbl": "Net annual payout",
   "p03RefBreakLbl": "Breakeven",
   "p03RefRoiLbl": "Annual return",
   "p03Ref30Lbl": "30-year projection",
-  "p03RefPessMonth": "€4,365",
-  "p03RefPessYear": "€55,032",
-  "p03RefPessMgmt": "€16,510",
-  "p03RefPessNet": "€38,522",
-  "p03RefPessBreak": "9.3 years",
-  "p03RefPessRoi": "10.0%",
-  "p03RefPess30": "€2,050,000",
+  "p03RefPessMonth": "€5,110",
+  "p03RefPessYear": "€61,320",
+  "p03RefPessMgmt": "€22,480",
+  "p03RefPessNet": "€38,840",
+  "p03RefPessBreak": "8.4 years",
+  "p03RefPessRoi": "12.0%",
+  "p03RefPess30": "€2,550,000",
   "p03RefRealMonth": "€5,817",
-  "p03RefRealYear": "€69,804",
-  "p03RefRealMgmt": "€20,941",
-  "p03RefRealNet": "€48,863",
+  "p03RefRealYear": "€69,806",
+  "p03RefRealMgmt": "€24,496",
+  "p03RefRealNet": "€45,311",
   "p03RefRealBreak": "7.2 years",
-  "p03RefRealRoi": "14.0%",
-  "p03RefReal30": "€2,900,000",
+  "p03RefRealRoi": "13.9%",
+  "p03RefReal30": "€2,750,000",
   "p03RefOptMonth": "€6,844",
-  "p03RefOptYear": "€82,128",
-  "p03RefOptMgmt": "€24,638",
-  "p03RefOptNet": "€57,490",
-  "p03RefOptBreak": "6.1 years",
-  "p03RefOptRoi": "16.4%",
-  "p03RefOpt30": "€3,650,000",
+  "p03RefOptYear": "€82,125",
+  "p03RefOptMgmt": "€27,422",
+  "p03RefOptNet": "€54,703",
+  "p03RefOptBreak": "5.9 years",
+  "p03RefOptRoi": "16.8%",
+  "p03RefOpt30": "€3,050,000",
   "p03RefNote": "Gross rental income = nightly rate × 365 × occupancy rate. All amounts in euros. Includes rental income + 5% annual value growth. These fixed figures may differ slightly from the live calculator above, which applies the same formula but recalculates per setting.",
   "p03PaySub": "Payment schedule",
   "p03PayLead1": "You pay in two parts: 45% at signing, then monthly in step with construction progress until handover. Construction takes about 11 months.",
@@ -2481,12 +2507,12 @@ const T = {
   "p05Ch3": "on the structural shell of the villa",
   "p06Kicker": "06 · Management",
   "p06H2": "We run everything. You stay hands-off.",
-  "p06Lead": "After completion, House of Reservations takes over the full rental and operational management. You own the villa, we make sure it gets rented, with monthly reporting and complete cost transparency.",
+  "p06Lead": "After completion we arrange the rental and operational management: daily operations with a fixed team for the four villas, platforms and pricing together with House of Reservations. You own the villa, we make sure it is rented, with monthly reporting and full cost transparency.",
   "p06Why1H": "Social media first, direct bookings",
   "p06Why1P": "We focus on social media and direct bookings through our own website, with no platform commission. Your villa is also listed on Airbnb, Booking.com, Agoda, Expedia and Vrbo, with dynamic pricing and a guest team reachable up to 20 hours a day, through House of Reservations, which already manages 250+ villas in Bali.",
   "p06Why2H": "Operational management",
-  "p06Why2P": "Daily housekeeping, garden and pool maintenance, and technical upkeep keep the villa in top shape. Every month you receive a full financial report, with your share paid directly into your account.",
-  "p06ChItem": "Rental management 15% and operational management approx. 15% of net rental income. After tax and other costs, the rest is yours. No hidden costs.",
+  "p06Why2P": "A fixed team for the four villas keeps housekeeping, pool, wellness and garden up to standard. Check-in is automatic. Every month you receive a full financial report, with your share paid directly into your account.",
+  "p06ChItem": "Platform commission and 15% House of Reservations only on platform bookings, 10% hotel tax and the villa's fixed costs. Direct bookings through our own website without platform commission. No hidden costs.",
   "p06Sub1": "Rental management from A to Z",
   "p06Lead2": "A villa that isn't rented out well is the biggest risk when investing in Bali, not the construction. That's why House of Reservations, which already manages 250+ villas in Bali, carries the entire rental process: from the first photo to your payout in the bank. One brand, one point of contact, no parties pointing fingers at each other.",
   "p06Proof1": "Villas under management",
@@ -2503,15 +2529,23 @@ const T = {
   "p06N4H": "Your villa stays in top condition",
   "p06N4P": "Daily housekeeping, garden and pool maintenance and technical upkeep keep the villa in top shape. That protects not just the guest experience, but also the value of your villa.",
   "p06N5H": "You always know exactly what you'll receive",
-  "p06N5P": "Every month you receive an overview of occupancy, revenue and costs, with your share paid directly into your account. Rental management 15% and operational management approx. 15% of net income, known in advance, no surprises afterwards.",
+  "p06N5P": "Every month you receive an overview of occupancy, revenue and costs, with your share paid directly into your account. Every cost item is shown separately, known in advance, no surprises afterwards.",
   "p06Sub2": "Here's what that looks like in practice",
   "p06Lead3": "From listing to payout: this is what your villa's rental looks like. The examples below are illustrative, final photos, copy and figures follow at go-live, based on the realistic scenario from the return calculator (85% occupancy, €225 nightly rate).",
   "p06Lc1Title": "The Reload · wellness villa with rooftop spa & private pool",
   "p06LcMeta": "Cemagi, Bali · 6 guests · 3 bedrooms · private pool",
   "p06LcNight": "/ night",
-  "p06Lc1Note": "Based on the realistic scenario in the calculator",
-  "p06Lc2Note": "Nightly rates vary dynamically by platform",
+  "p06Lc1Note": "Regular asking price",
+  "p06Lc2Note": "Average per booked night, forecast €210 to €230",
   "p06LcFootnote": "Example view. Also listed on Agoda, Expedia and Vrbo.",
+  "p06PrSub": "Nightly rates per period",
+  "p06PrLead": "We start with a regular asking price of about €250 a night for the whole villa, three bedrooms for six guests, with all wellness facilities. For the forecast we use €210 to €230 on average per booked night.",
+  "p06PrNote": "Provisional estimate for after completion, based on the current market. There are no realised rental figures for this villa yet.",
+  "p06Pr1": "Launch period, building the first reviews",
+  "p06Pr2": "Quiet periods",
+  "p06Pr3": "Regular periods",
+  "p06Pr4": "Peak holiday periods",
+  "p06Pr5": "Christmas and New Year",
   "p06Sub3": "What a strong period looks like",
   "p06Lead4": "For illustration: this is what the calendar of a comparable, already-rented House of Reservations villa looks like during a strong period. A continuous block is one booking of several consecutive nights. Names and bookings are illustrative, not a representation of a specific, current booking.",
   "dowMon": "Mo",
@@ -2526,10 +2560,12 @@ const T = {
   "p06Sub4": "Your monthly report",
   "p06Lead5": "Every month you receive an overview like the one below: your earnings in euros with the IDR conversion alongside, and the trend of recent months.",
   "p06RepTag": "Example report",
-  "p06RepLbl": "Net payout this month, realistic scenario (85% occupancy, €225 nightly rate)",
+  "p06RepLbl": "Net payout this month, realistic scenario (85% occupancy, €225 nightly rate, 50% booked direct)",
   "p06RepGross": "Gross rental income",
-  "p06RepFee1": "Rental management (15%)",
-  "p06RepFee2": "Operational management (15%)",
+  "p06RepFee1": "Platform commission (15% on platform bookings)",
+  "p06RepFee2": "House of Reservations (15% on platform bookings)",
+  "p06RepFee3": "Hotel tax PB1 (10%) and other tax",
+  "p06RepFee4": "Fixed costs: team, electricity, laundry, internet, maintenance",
   "p06RepTotal": "Net payout",
   "p06RepFoot1": "Example figures illustrating a realistic build-up in the first months after completion. Exchange rate",
   "p06RepFoot2": "Your own report will follow the actual occupancy, revenue and current exchange rate of your villa.",
@@ -2570,7 +2606,7 @@ const T = {
   "p08Q5": "How do I receive my return?",
   "p08A5": "You receive your share of the rental proceeds every month, paid out in euros, with a report on revenue, costs, occupancy and net income. The average expected annual return for The Reload is between 12% and 17%.",
   "p08Q6": "What annual costs are there?",
-  "p08A6": "Rental management and operational management together approx. 30% of net rental income (revenue management, distribution, guest communication and on-the-ground operations), plus local tax. This is already factored into the return calculation, no hidden costs.",
+  "p08A6": "Platform commission about 15% and House of Reservations 15%, both only on platform bookings. On top of that local hotel tax (PB1) of 10%, other tax of about 0.5% and the villa's fixed costs, about €660 a month. In the realistic scenario that is about 35% of gross rent together. This is already factored into the return calculation, no hidden costs.",
   "p08Q7": "What about taxes?",
   "p08A7": "Tax is levied in Indonesia, where the property is located. A local tourist tax applies there on rental revenue. In the Netherlands, the asset falls under box 3, but thanks to the tax treaty between the two countries, you typically pay little to no box 3 tax on it here. Seek advice on this from a tax adviser.",
   "p08Q8": "What if the return turns out lower?",
@@ -2657,7 +2693,7 @@ const BPRICES=[
 ];
 let bSelPrice=325000;
 const BSCENARIOS=[
-  {label:{nl:"Voorzichtig", en:"Conservative"}, occ:70, nightly:205},
+  {label:{nl:"Voorzichtig", en:"Conservative"}, occ:80, nightly:210},
   {label:{nl:"Realistisch", en:"Realistic"}, occ:85, nightly:225, current:true},
   {label:{nl:"Optimistisch", en:"Optimistic"}, occ:90, nightly:250}
 ];
@@ -3007,11 +3043,29 @@ function bApplyScenario(i){
   el('bOcc').value=s.occ;
   bcalc();
 }
+/* The Reload: echte kostenopbouw in plaats van een vast percentage (25 sep 2026).
+   Platformcommissie 15% en House of Reservations 15% (+2% bronbelasting) alleen op
+   platformboekingen; directe boekingen via de eigen website vallen daarbuiten.
+   Hotelbelasting PB1 10% over omzet na commissie, overige belasting 0,5% van bruto,
+   vaste kosten EUR 7.915 per jaar (team voor de vier villa's, stroom incl. wellness,
+   wasgoed, internet, onderhoud). Zelfde vorm als roiCalc() in calc-shared.js. */
+function reloadRoi(price, nightly, occFraction, directFraction){
+  const gross = nightly * 365 * occFraction;
+  const platform = gross * (1 - directFraction);
+  const ota = 0.15 * platform;
+  const hor = 0.15 * (platform - ota) * 1.02;
+  const pb1 = 0.10 * (gross - ota);
+  const tax = 0.005 * gross;
+  const net = gross - ota - hor - pb1 - tax - 7915;
+  const roi = price > 0 ? net / price * 100 : 0;
+  const payback = net > 0 ? price / net : 0;
+  return { gross, net, roi, payback };
+}
 function bRenderScenarios(){
-  const price=bSelPrice, costs=+el('bCosts').value/100;
+  const price=bSelPrice, costs=+el('bCosts').value/100; /* aandeel directe boekingen */
   const t=T[lang];
   el('bScenGrid').innerHTML = BSCENARIOS.map(function(s,i){
-    const r=roiCalc(price, s.nightly, s.occ/100, costs);
+    const r=reloadRoi(price, s.nightly, s.occ/100, costs);
     return `
     <div class="scc ${SCEN_TONE[i]||''} ${i===bSelScenario?'cur':''}" onclick="bApplyScenario(${i})">
       <div class="scl">${s.label[lang]}</div>
@@ -3031,7 +3085,7 @@ function bcalc(){
   el('bVCosts').textContent=Math.round(costs*100)+"%";
   el('bVHold').textContent=yearsLabel(hold);
   el('bVGrowth').textContent=Math.round(growth*100)+"%";
-  const {gross, net, roi, payback}=roiCalc(price, nightly, occ, costs);
+  const {gross, net, roi, payback}=reloadRoi(price, nightly, occ, costs);
   const costAmt=gross-net;
   const y=roi/100, month=net/12;
   el('bOYield').textContent=bPct(y);
@@ -3287,6 +3341,44 @@ function setLang(l){
 setLang(_pickInitialLang());
 utamaBrochureMedia('the-reload');
 loadBrochureAvailability();
+
+/* Locatiekaart: gestileerde kaart met de plekken uit de lijst hieronder en hun
+   scootertijden (dezelfde als in de lijst). K Club en Riviera Cafe staan alleen in de
+   lijst: op 200 m van de kavel vallen hun labels over het label van The Reload. Kavel: -8.638757, 115.104719 (Steven,
+   25 sep 2026). Coordinaten uit Google Maps; Nuanu op 10 min op Stevens aangeven.
+   Leaflet wordt pas geladen als de Locatie-tab in beeld komt. */
+const RELOAD_POIS=[
+  {name:"Cemagi Beach",      lat:-8.641004, lng:115.102426, cat:"beach", min:2, pos:"left"},
+  {name:"Bambou Café",       lat:-8.638398, lng:115.107146, cat:"food",  min:3, pos:"right"},
+  {name:"Flowerboy",         lat:-8.638840, lng:115.113811, cat:"food",  min:3},
+  {name:"Island Sport Padel",lat:-8.629783, lng:115.110284, cat:"fit",   min:5},
+  {name:"Nuanu",             lat:-8.627220, lng:115.099095, cat:"spot",  min:10},
+  {name:"Luna Beach",        lat:-8.629645, lng:115.094173, cat:"beach", min:10, pos:"left"},
+  {name:"Seseh Beach",       lat:-8.647912, lng:115.115819, cat:"beach", min:10, pos:"left"},
+  {name:"Seseh Recovery",    lat:-8.646059, lng:115.117098, cat:"fit", pos:"right"},
+  {name:"Pererenan Beach",   lat:-8.651565, lng:115.121087, cat:"beach", min:15, pos:"below"},
+  {name:"OMNI Gym",          lat:-8.623014, lng:115.123289, cat:"fit"}
+];
+(function initLocMap(){
+  var host=document.getElementById('locMap'); if(!host) return;
+  var started=false;
+  function boot(){
+    if(started) return; started=true;
+    var s=document.createElement('script');
+    s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    s.onload=function(){
+      if(window.utamaLocationMap) window.utamaLocationMap('locMap',{
+        center:[-8.638757,115.104719], label:'The Reload', zoom:14, pois:RELOAD_POIS
+      });
+    };
+    document.head.appendChild(s);
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ boot(); io.disconnect(); } }); });
+    io.observe(host);
+  } else boot();
+  document.querySelectorAll('#tabsNav button[data-tab="locatie"]').forEach(function(b){ b.addEventListener('click', boot); });
+})();
 </script>
 </body>
 </html>
