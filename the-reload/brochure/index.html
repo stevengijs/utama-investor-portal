@@ -617,6 +617,10 @@
   .sp-hot.sold .sold-lbl{display:block}
   .sp-hot.reserved .reserved-lbl{display:block}
   .sp-hot{flex-direction:column;justify-content:flex-end;align-items:center}
+  /* Vier villaknoppen op één rij (Steven, 25 sep 2026); op een smalle telefoon 2 x 2. */
+  #spPills{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+  #spPills .sp-pill{padding:8px 6px;font-size:12px;white-space:nowrap;text-align:center;overflow:hidden;text-overflow:ellipsis}
+  @media(max-width:560px){#spPills{grid-template-columns:repeat(2,1fr)}}
   .sp-hot .spname{margin-top:6px;font-size:10px;font-weight:800;letter-spacing:.1em;color:#fff;background:rgba(23,20,15,.62);padding:3px 9px;border-radius:999px;white-space:nowrap}
   .sp-hot.sel .spname{background:var(--opt-deep)}
   .sp-pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
