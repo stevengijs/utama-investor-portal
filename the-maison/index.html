@@ -274,6 +274,18 @@ function openBrochure(){
   el('broModal').classList.add('open'); document.body.style.overflow='hidden';
 }
 function closeBrochure(){ el('broModal').classList.remove('open'); document.body.style.overflow=''; }
+// Formulier eerst (Steven, 8 oktober 2026): wie op een project klikt, ziet meteen
+// "Bekijk de volledige brochure" en niet eerst de pagina met de renders en de
+// cijfers; we willen de gegevens van de lead zo snel mogelijk. Alleen voor wie
+// nog niets achterliet. Sluiten kan, de pagina staat erachter. Een persoonlijke
+// link (brochure-poort.js, ?key=) zet window.__utamaPoortBezig zolang hij de
+// sleutel controleert; dan blijft het formulier dicht.
+(function(){
+  try{ if(localStorage.getItem('maison_brochure_lead')||sessionStorage.getItem('maison_brochure_lead')) return; }catch(e){}
+  var open=function(){ if(window.__utamaPoortBezig) return; openBrochure(); };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){ setTimeout(open,350); });
+  else setTimeout(open,350);
+})();
 function submitBrochure(e){
   e.preventDefault();
   const name=el('bmName').value.trim(), phone=el('bmPhone').value.trim(), email=el('bmEmail').value.trim();
