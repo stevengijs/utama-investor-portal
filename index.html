@@ -93,7 +93,10 @@
      linker statusbadge. Verschijnt automatisch zodra een project nog maar 1
      beschikbare unit heeft (zie renderCards) - werkt dus ook voor toekomstige
      projecten zonder dat dit ooit opnieuw hoeft te worden aangepast. */
-  .pcard .almost-badge{position:absolute;top:12px;right:12px;background:#fff;color:var(--ink);font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;border-radius:var(--radius-pill);padding:5px 11px;box-shadow:var(--shadow)}
+  /* Stempel (Steven, 8 oktober 2026): schuin, oranje, als een echte stempel.
+     Geldt voor "Laatste unit gereserveerd" en voor "Almost sold out". */
+  .pcard .almost-badge{position:absolute;top:18px;right:-6px;transform:rotate(-8deg);background:rgba(255,250,243,.92);color:#C2410C;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;border:2.5px solid #C2410C;border-radius:8px;padding:7px 12px;box-shadow:0 0 0 2px rgba(255,250,243,.92),0 6px 18px rgba(0,0,0,.18);mix-blend-mode:normal;white-space:nowrap}
+  .pcard .almost-badge::after{content:"";position:absolute;inset:3px;border:1px solid rgba(194,65,12,.45);border-radius:5px;pointer-events:none}
 </style>
   <script src="/t.js" defer></script>
 </head>
@@ -299,7 +302,7 @@ const PROJECTS = [
     img:"/the-maison/images/maison-exterior.jpg" },
   { id:"moka", name:"MOKA", link:"/moka",
     loc:{nl:"Kedungu, Bali", en:"Kedungu, Bali"},
-    status:{nl:"Laatste unit gereserveerd · oplevering oktober 2026", en:"Last unit reserved · completion October 2026"},
+    status:{nl:"Oplevering oktober 2026", en:"Completion October 2026"},
     priceFrom:325000, unitsTotal:15, unitsSold:14,
     img:"/images/moka/villa3-exterior.jpg" },
   { id:"reload", name:"The Reload", link:"/the-reload",
