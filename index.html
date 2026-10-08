@@ -299,7 +299,7 @@ const PROJECTS = [
     img:"/the-maison/images/maison-exterior.jpg" },
   { id:"moka", name:"MOKA", link:"/moka",
     loc:{nl:"Kedungu, Bali", en:"Kedungu, Bali"},
-    status:{nl:"Laatste unit · oplevering oktober 2026", en:"Last unit · completion October 2026"},
+    status:{nl:"Laatste unit gereserveerd · oplevering oktober 2026", en:"Last unit reserved · completion October 2026"},
     priceFrom:325000, unitsTotal:15, unitsSold:14,
     img:"/images/moka/villa3-exterior.jpg" },
   { id:"reload", name:"The Reload", link:"/the-reload",
@@ -384,7 +384,7 @@ function tr(s,o){let r=s;for(const k in o)r=r.split("{"+k+"}").join(o[k]);return
 
 async function loadHomeAvailability(){
   if(!window.utamaAvailability) return;
-  const map={maison:'the-maison',reload:'the-reload'};
+  const map={maison:'the-maison',moka:'moka',reload:'the-reload'};
   await Promise.all(PROJECTS.map(async p=>{
     const slug=map[p.id]; if(!slug) return;
     const d=await window.utamaAvailability(slug);
@@ -400,7 +400,7 @@ function renderCards(){
     const imgCls=p.img?'img':'img ph-img';
     const imgStyle=p.img?`background-image:url('${p.img}');background-size:cover;background-position:center`:'';
     h+=`<a class="pcard" href="${p.link}">
-      <div class="${imgCls}" style="${imgStyle}"><span class="badge">${p.status[lang]}</span>${(!av.presale&&av.available===1)?`<span class="almost-badge">Almost sold out</span>`:''}</div>
+      <div class="${imgCls}" style="${imgStyle}"><span class="badge">${p.status[lang]}</span>${av.lastReserved?`<span class="almost-badge">${lang==='nl'?'Laatste unit gereserveerd':'Last unit reserved'}</span>`:(!av.presale&&av.available===1)?`<span class="almost-badge">Almost sold out</span>`:''}</div>
       <div class="pinfo">
         <h3>${p.name}</h3><div class="loc">${p.loc[lang]}</div>
         <div class="prow"><div class="price">${T[lang].from} ${money(p.priceFrom)}</div><div class="avail"><b class="avail-sold"${av.presale?' style="color:#0f6b4f"':''}>${av.line}</b></div></div>

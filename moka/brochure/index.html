@@ -749,9 +749,10 @@
   }
   .print-footer{ display:none }
 
-  /* ============ MOKA-SPECIFIC: status pills (voor als de laatste unit ooit ook verkoopt) ============ */
+  /* ============ MOKA-SPECIFIC: status pills (te koop, laatste unit gereserveerd, uitverkocht) ============ */
   .pill.avail{background:var(--sage-tint);color:var(--opt-deep);border:1px solid var(--opt)}
   .pill.sold{background:var(--sand-2);color:var(--muted);border:1px solid var(--line)}
+  .pill.reserved{background:rgba(91,106,69,.08);color:var(--opt-deep);border:1px solid rgba(91,106,69,.35)}
   .d-price .a.soldout-stamp{font-size:13px;font-weight:800;color:var(--muted);letter-spacing:.01em;background:var(--sand-2);border:1px solid var(--line);border-radius:8px;padding:5px 11px;display:inline-block;margin-top:2px}
 
 </style>
@@ -867,26 +868,26 @@
   <div class="rail">
     <div class="deal-card">
       <div class="photo" style="background-image:url('/images/moka/villa3-exterior.jpg')">
-        <div class="status" data-t="railStatus">Turnkey opgeleverd · laatste unit beschikbaar</div>
+        <div class="status" data-t="railStatus">Turnkey opgeleverd · laatste unit gereserveerd</div>
       </div>
       <div class="body">
         <div class="kicker" data-t="railKicker">Investeerdersportaal</div>
         <h2>MOKA</h2>
         <div class="loc">Kedungu, Bali</div>
 
-        <div class="row price"><div class="rl" data-t="railPriceLbl">Laatste unit (Signature Villa)</div><div class="rv"><span data-t="railPriceVal">€325.000</span></div></div>
+        <div class="row price"><div class="rl" data-t="railPriceLbl">Laatste unit (gereserveerd op 8 oktober 2026)</div><div class="rv"><span data-t="railPriceVal">€325.000</span></div></div>
         <div class="row yield"><div class="rl" data-t="railYieldLbl">Verwacht rendement</div><div class="rv"><span data-t="railYieldVal">10–19%/jr</span></div></div>
         <div class="row"><div class="rl" data-t="railLeaseLbl">Leaseperiode</div><div class="rv">30+30 jr</div></div>
         <div class="row"><div class="rl" data-t="railUnitsLbl">Totaal aantal units</div><div class="rv">15</div></div>
 
         <div class="avail-wrap">
-          <div class="al"><span data-t="railAvailLbl">Beschikbaarheid</span> <b data-t="railAvailVal">1 van de 15 units</b></div>
-          <div class="avail-bar"><span style="width:7%"></span></div>
+          <div class="al"><span data-t="railAvailLbl">Beschikbaarheid</span> <b data-t="railAvailVal">Laatste unit gereserveerd · 14 van de 15 verkocht</b></div>
+          <div class="avail-bar"><span style="width:0%"></span></div>
         </div>
       </div>
       <div class="deal-cta">
         <a class="wa block" id="waRailWa" target="_blank" rel="noopener"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg><span data-t="waAshleyBtn">WhatsApp Ashley</span></a>
-        <button class="btn-outline block" id="waRailReserve" type="button" onclick="openReserveModal()" data-t="reserveBtn">Reserveer de laatste unit</button>
+        <button class="btn-outline block" id="waRailReserve" type="button" onclick="openReserveModal()" data-t="reserveBtn">Zet me op de wachtlijst</button>
       </div>
       <a class="print-btn" href="/moka/brochure/pdf-source.html?print=1" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg><span data-t="printBtn">Download als PDF</span></a>
     </div>
@@ -958,8 +959,8 @@
           </div>
         </div>
 
-        <div class="subhead" data-t="p01UnitSub">De laatste beschikbare unit</div>
-        <p class="pane-lead" style="margin-bottom:10px" data-t="p01UnitLead">MOKA telt in totaal 15 units, verdeeld over drie woningtypes. 14 daarvan zijn inmiddels verkocht - alle Boutique Villa's en Boutique Appartementen zijn uitverkocht. Alleen de laatste Signature Villa, met privézwembad en rooftop jacuzzi, is nog beschikbaar.</p>
+        <div class="subhead" data-t="p01UnitSub">De laatste unit: gereserveerd op 8 oktober 2026</div>
+        <p class="pane-lead" style="margin-bottom:10px" data-t="p01UnitLead">MOKA telt in totaal 15 units, verdeeld over drie woningtypes. 14 daarvan zijn inmiddels verkocht - alle Boutique Villa's en Boutique Appartementen zijn uitverkocht. De laatste Signature Villa, met privézwembad en rooftop jacuzzi, is op 8 oktober 2026 gereserveerd. Daarmee zijn alle 15 units vergeven. De brochure blijft online, zodat je kunt zien wat we bouwen.</p>
         <div class="detail">
           <div class="gallery" id="uGallery"></div>
           <div class="body">
@@ -1046,13 +1047,13 @@
       <!-- 03 · RENDEMENT & PRIJS -->
       <div class="tab-pane" id="pane-rendement">
         <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><path d="M4 16l5-5 4 3 6-7"/><path d="M15 6h4v4"/></svg></span><div class="pane-kicker" data-t="p03Kicker">03 · Rendement &amp; prijs</div></div>
-        <h2 class="pane-h" data-t="p03H2">Nog 1 unit beschikbaar, vanaf €325.000</h2>
+        <h2 class="pane-h" data-t="p03H2">Laatste unit gereserveerd voor €325.000</h2>
         <p class="pane-lead" data-t="p03Lead">Alle prijzen zijn turnkey: volledig afgewerkt, ingericht en klaar voor verhuur. Geen verborgen kosten achteraf. Pas hieronder de aannames aan naar jouw eigen scenario - eerlijk berekend, geen opgeblazen beloftes.</p>
 
         <div class="prices">
-          <div class="pc cur hero"><div class="pv">€325.000</div><div class="pl" data-t="p03PriceLbl">Signature Villa</div><div class="ps" data-t="p03PriceSub">Laatste van de 7 Signature Villa's</div></div>
+          <div class="pc cur hero"><div class="pv">€325.000</div><div class="pl" data-t="p03PriceLbl">Signature Villa</div><div class="ps" data-t="p03PriceSub">Laatste van de 7 Signature Villa's, gereserveerd</div></div>
         </div>
-        <p class="price-trend" data-t="p03PriceTrend">MOKA werd gefaseerd verkocht: van de in totaal 15 units zijn er inmiddels 14 verkocht. Alleen de laatste Signature Villa - met privézwembad en rooftop jacuzzi - is nog beschikbaar.</p>
+        <p class="price-trend" data-t="p03PriceTrend">MOKA werd gefaseerd verkocht: van de in totaal 15 units zijn er inmiddels 14 verkocht. De laatste Signature Villa, met privézwembad en rooftop jacuzzi, is op 8 oktober 2026 gereserveerd. Daarmee zijn alle 15 units vergeven. De brochure blijft online, zodat je kunt zien wat we bouwen.</p>
 
         <div class="scen-wrap">
           <div class="scen-h"><span data-t="p03ScenPrefix">Drie scenario's voor</span> <span id="scenUnitName">Signature Villa</span></div>
@@ -1164,7 +1165,7 @@
         </div>
         <div class="pay-status" id="payStatus"></div>
         <p class="note" style="font-size:12px;color:var(--muted);margin-top:10px" data-t="p03PayNote">De €5.000 aanbetaling bij reservering wordt volledig verrekend met de eerste betaaltermijn - je betaalt nooit dubbel. Bedragen hierboven gelden voor de Signature Villa (€325.000).</p>
-        <button class="btn-reserve" id="waAvailable" type="button" onclick="openReserveModal()" style="margin-top:14px" data-t="p03AvailBtn">Reserveer de laatste unit</button>
+        <button class="btn-reserve" id="waAvailable" type="button" onclick="openReserveModal()" style="margin-top:14px" data-t="p03AvailBtn">Zet me op de wachtlijst</button>
       </div>
 
       <!-- 04 · PLANNING -->
@@ -1377,7 +1378,7 @@
         <div class="faq">
           <details data-cat="juridisch">
             <summary data-t="p08Q1">Wat houdt de reservering van €5.000 in?</summary>
-            <p data-t="p08A1">Met een intentieverklaring en €5.000 reserveer je de laatste unit. Dit bedrag wordt volledig verrekend bij de aankoop, na de notariële overdracht, zodat je nu al vroeg kunt instappen tegen pre-sale voorwaarden.</p>
+            <p data-t="p08A1">Een reservering bestaat uit een intentieverklaring en een aanbetaling van €5.000. Zo is de laatste unit van MOKA op 8 oktober 2026 gereserveerd. Komt er een unit vrij, dan hoort de wachtlijst dat als eerste.</p>
           </details>
           <details data-cat="beheer">
             <summary data-t="p08Q2">Moet ik zelf iets regelen rond verhuur?</summary>
@@ -1442,12 +1443,12 @@
         <img class="fc-photo" src="/images/ashley.jpg" alt="Ashley Vermoten">
         <div>
           <h3 data-t="fcH3">Klaar voor een korte discovery call?</h3>
-          <p data-t="fcP">In een vrijblijvend gesprek van zo'n 15 minuten kijken we samen of de laatste unit in MOKA bij je past.</p>
+          <p data-t="fcP">In een vrijblijvend gesprek van zo'n 15 minuten kijken we samen welke villa van UTAMA bij je past.</p>
         </div>
       </div>
       <div class="fc-ctas">
         <a class="wa" id="waFooterWa" target="_blank" rel="noopener"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg><span data-t="waAshleyBtn">WhatsApp Ashley</span></a>
-        <button class="wa ghost" id="waFooterReserve" type="button" onclick="openReserveModal()" data-t="reserveBtn">Reserveer de laatste unit</button>
+        <button class="wa ghost" id="waFooterReserve" type="button" onclick="openReserveModal()" data-t="reserveBtn">Zet me op de wachtlijst</button>
       </div>
     </div>
 
@@ -1464,7 +1465,7 @@
   <!-- sticky mobile CTA -->
   <div class="sticky-cta">
     <a class="wa" id="waSticky" target="_blank" rel="noopener" style="flex:2"><svg viewBox="0 0 32 32" width="16" height="16"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg><span data-t="waAshleyBtn">WhatsApp Ashley</span></a>
-    <button class="btn-outline" id="waStickyReserve" type="button" style="flex:1;display:flex" onclick="openReserveModal()" data-t="stickyReserveBtn">Reserveren</button>
+    <button class="btn-outline" id="waStickyReserve" type="button" style="flex:1;display:flex" onclick="openReserveModal()" data-t="stickyReserveBtn">Wachtlijst</button>
   </div>
 </main>
 
@@ -1476,16 +1477,17 @@
   <div class="cap" id="lbCap"></div>
 </div>
 
-<!-- RESERVERINGSMODULE: er is nog maar 1 unit beschikbaar (Signature Villa), dus geen siteplan-stap - direct het aanvraagformulier -->
+<!-- WACHTLIJSTMODULE: de laatste unit (Signature Villa) is op 8 oktober 2026 gereserveerd. Dezelfde modal als de reserveringsmodule,
+     maar als wachtlijstformulier. Komt er via de admin weer een unit vrij, dan toont rmLoadUnits() het siteplan en de unitknoppen opnieuw. -->
 <div class="rmodal" id="rmodal" onclick="if(event.target===this)closeReserveModal()">
   <div class="rmodal-box">
     <button class="x" onclick="closeReserveModal()" aria-label="Sluiten">&times;</button>
 
     <div id="rmStep2">
-      <div class="eb" data-t="rmEb">Reserveren</div>
-      <h3 data-t="rmH3">Reserveer de laatste unit</h3>
-      <p class="rm-lead" data-t="rmLead">Je reserveert de laatste beschikbare Signature Villa (€325.000) in MOKA. Laat je gegevens achter, dan sturen we de intentieverklaring toe.</p>
-      <div class="spwrap" id="spwrap">
+      <div class="eb" data-t="rmEb">Wachtlijst</div>
+      <h3 data-t="rmH3">Wachtlijst voor MOKA</h3>
+      <p class="rm-lead" data-t="rmLead">De laatste Signature Villa is op 8 oktober 2026 gereserveerd. Laat je gegevens achter: komt er een unit vrij, dan hoor je het als eerste. Of kijk alvast bij The Maison en The Reload.</p>
+      <div class="spwrap" id="spwrap" style="display:none">
         <img src="/moka/images/site-plan.jpg" alt="Siteplan MOKA, lot 1 tot en met 7">
         <div class="sp-hot" data-unit="1" style="left:0.05%;width:11.3%"><span class="spn">1</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
         <div class="sp-hot" data-unit="2" style="left:11.7%;width:11.3%"><span class="spn">2</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
@@ -1495,14 +1497,14 @@
         <div class="sp-hot" data-unit="6" style="left:58.4%;width:11.3%"><span class="spn">6</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
         <div class="sp-hot" data-unit="7" style="left:70.05%;width:11.3%"><span class="spn">7</span><span class="sold-lbl" data-t="rmLegendSold">Verkocht</span><span class="reserved-lbl" data-t="rmLegendRes">Gereserveerd</span></div>
       </div>
-      <div class="sp-legend">
+      <div class="sp-legend" style="display:none">
         <span><i class="d-av"></i><span data-t="rmLegendAvail">Beschikbaar</span></span>
         <span><i class="d-sel"></i><span data-t="rmLegendSel">Geselecteerd</span></span>
         <span><i class="d-sold"></i><span data-t="rmLegendSold">Verkocht</span></span>
       </div>
       <div class="rm-units" id="rmUnits"></div>
       <div class="rm-selected" id="rmSelected"></div>
-      <div class="rm-explain"><b data-t="rmExplainB">Wat teken je precies?</b> <span data-t="rmExplainP">De intentieverklaring is kort - ongeveer 1 A4, in gewone taal - en beschrijft wat je bij ons koopt en de belangrijkste afspraken. Zodra je hebt getekend én de €5.000 aanbetaling is voldaan (volledig retourneerbaar als het papierwerk aan onze kant niet blijkt te kloppen), stellen we samen met de notaris de koopcontracten op.</span></div>
+      <div class="rm-explain"><b data-t="rmExplainB">Hoe werkt de wachtlijst?</b> <span data-t="rmExplainP">Komt er een unit vrij, bijvoorbeeld omdat een reservering niet doorgaat, dan benaderen we de wachtlijst op volgorde van aanmelding. Je zit nergens aan vast.</span></div>
       <form id="rmForm" onsubmit="return rmSubmit(event)">
         <div class="gfield">
           <label for="rName" data-t="lblName">Naam</label>
@@ -1519,14 +1521,14 @@
           </div>
         </div>
         <div class="gerr" id="rErr" data-t="gerr">Vul je naam, WhatsApp-nummer en e-mailadres in.</div>
-        <button class="btn-reserve block" type="submit" data-t="rmSubmitBtn">Vraag de intentieverklaring aan</button>
+        <button class="btn-reserve block" type="submit" data-t="rmSubmitBtn">Zet me op de wachtlijst</button>
       </form>
     </div>
 
     <div id="rmStep3" style="display:none;text-align:center">
-      <div class="eb" data-t="rmEb">Reserveren</div>
-      <h3 data-t="rmDoneTitle">Aanvraag ontvangen</h3>
-      <p class="rm-lead" data-t="rmDoneLead">We sturen je de intentieverklaring voor de Signature Villa toe. Ashley neemt ook persoonlijk contact op om de vervolgstappen te bespreken.</p>
+      <div class="eb" data-t="rmEb">Wachtlijst</div>
+      <h3 data-t="rmDoneTitle">Je staat op de wachtlijst</h3>
+      <p class="rm-lead" data-t="rmDoneLead">Komt er een unit in MOKA vrij, dan hoor je het als eerste. Ashley neemt ook persoonlijk contact op om te kijken welke villa van UTAMA bij je past.</p>
       <a class="wa block" id="rmWaFollow" target="_blank" rel="noopener" style="margin-top:6px"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg><span data-t="rmWaFollowLbl">Alvast WhatsApp Ashley</span></a>
     </div>
   </div>
@@ -1620,9 +1622,9 @@ const T = {
   "retRecognizedMsg": "E-mailadres herkend: je hebt de brochure al eerder aangevraagd. We openen het portaal.",
   "retErrUnknown": "Dit adres kennen we nog niet. Laat je gegevens achter voor directe toegang.",
   "retErrFail": "Controleren lukt nu even niet. Vul het formulier in voor directe toegang.",
-  "railStatus": "Turnkey opgeleverd · laatste unit beschikbaar",
+  "railStatus": "Turnkey opgeleverd · laatste unit gereserveerd",
   "railKicker": "Investeerdersportaal",
-  "railPriceLbl": "Laatste unit (Signature Villa)",
+  "railPriceLbl": "Laatste unit (gereserveerd op 8 oktober 2026)",
   "railPriceVal": "€325.000",
   "railYieldVal": "10–19%/jr",
   "repHeroAmt": "€3.781",
@@ -1643,9 +1645,9 @@ const T = {
   "railLeaseLbl": "Leaseperiode",
   "railUnitsLbl": "Totaal aantal units",
   "railAvailLbl": "Beschikbaarheid",
-  "railAvailVal": "1 van de 15 units",
+  "railAvailVal": "Laatste unit gereserveerd · 14 van de 15 verkocht",
   "waAshleyBtn": "WhatsApp Ashley",
-  "reserveBtn": "Reserveer de laatste unit",
+  "reserveBtn": "Zet me op de wachtlijst",
   "printBtn": "Download als PDF",
   "tabProject": "Het project",
   "tabPlattegronden": "Plattegronden",
@@ -1691,8 +1693,8 @@ const T = {
   "p01Ch4": "Aansluiting nutsvoorzieningen",
   "p01Ch5": "Onboarding op verhuurplatforms",
   "p01Ch6": "Fotografie & listing-optimalisatie",
-  "p01UnitSub": "De laatste beschikbare unit",
-  "p01UnitLead": "MOKA telt in totaal 15 units, verdeeld over drie woningtypes. 14 daarvan zijn inmiddels verkocht - alle Boutique Villa's en Boutique Appartementen zijn uitverkocht. Alleen de laatste Signature Villa, met privézwembad en rooftop jacuzzi, is nog beschikbaar.",
+  "p01UnitSub": "De laatste unit: gereserveerd op 8 oktober 2026",
+  "p01UnitLead": "MOKA telt in totaal 15 units, verdeeld over drie woningtypes. 14 daarvan zijn inmiddels verkocht - alle Boutique Villa's en Boutique Appartementen zijn uitverkocht. De laatste Signature Villa, met privézwembad en rooftop jacuzzi, is op 8 oktober 2026 gereserveerd. Daarmee zijn alle 15 units vergeven. De brochure blijft online, zodat je kunt zien wat we bouwen.",
   "p01LeaseSub": "Leasehold, simpel uitgelegd",
   "p01LeaseP1": "Leasehold is in de praktijk gewoon koop zoals je die kent - alleen met een einddatum op het contract. Je koopt een lease van 30 jaar, met een notarieel gegarandeerde optie om deze met nog eens 30 jaar te verlengen. Gedurende die looptijd bepaal jij wat er met je woning gebeurt.",
   "p01LeaseBlock": "Sinds de onafhankelijkheid van Indonesië in 1945 - vastgelegd in de Agrarische Wet van 1960 - mag alleen wie de Indonesische nationaliteit heeft grond in eigendom bezitten. Daarom werkt ieder project van een buitenlandse ontwikkelaar of koper op Bali via leasehold, dezelfde juridisch verankerde structuur die wij hanteren. Mede daardoor behoren de rendementen op Bali tot de hoogste ter wereld.",
@@ -1736,11 +1738,11 @@ const T = {
   "p02Life3H": "Sunset Rooftop & Pool Lounge",
   "p02Life3P": "Gedeeld rooftop zwembad met loungeplekken, populair bij gasten en goed voor de bezetting.",
   "p03Kicker": "03 · Rendement & prijs",
-  "p03H2": "Nog 1 unit beschikbaar, vanaf €325.000",
+  "p03H2": "Laatste unit gereserveerd voor €325.000",
   "p03Lead": "Alle prijzen zijn turnkey: volledig afgewerkt, ingericht en klaar voor verhuur. Geen verborgen kosten achteraf. Pas hieronder de aannames aan naar jouw eigen scenario - eerlijk berekend, geen opgeblazen beloftes.",
   "p03PriceLbl": "Signature Villa",
-  "p03PriceSub": "Laatste van de 7 Signature Villa's",
-  "p03PriceTrend": "MOKA werd gefaseerd verkocht: van de in totaal 15 units zijn er inmiddels 14 verkocht. Alleen de laatste Signature Villa - met privézwembad en rooftop jacuzzi - is nog beschikbaar.",
+  "p03PriceSub": "Laatste van de 7 Signature Villa's, gereserveerd",
+  "p03PriceTrend": "MOKA werd gefaseerd verkocht: van de in totaal 15 units zijn er inmiddels 14 verkocht. De laatste Signature Villa, met privézwembad en rooftop jacuzzi, is op 8 oktober 2026 gereserveerd. Daarmee zijn alle 15 units vergeven. De brochure blijft online, zodat je kunt zien wat we bouwen.",
   "p03ScenPrefix": "Drie scenario's voor",
   "p03ScenNote": "Nettorendement per jaar, incl. beheer en kosten. Aan de hand van omgevingsdata.",
   "p03CalcSub": "Bereken je rendement",
@@ -1810,7 +1812,7 @@ const T = {
   "p03Phase4": "Fase 4",
   "p03Phase4Lbl": "Bij sleuteloverdracht",
   "p03PayNote": "De €5.000 aanbetaling bij reservering wordt volledig verrekend met de eerste betaaltermijn - je betaalt nooit dubbel. Bedragen hierboven gelden voor de Signature Villa (€325.000).",
-  "p03AvailBtn": "Reserveer de laatste unit",
+  "p03AvailBtn": "Zet me op de wachtlijst",
   "p04Kicker": "04 · Planning",
   "p04H2": "Van reservering tot sleuteloverdracht",
   "p04Lead": "Je hoeft niet in Bali te zijn: tekenen kan volledig digitaal, op afstand. Ben je toch op locatie, dan kan dat net zo goed op kantoor bij de notaris in Bali - jij kiest. MOKA is inmiddels turnkey opgeleverd, dus het traject naar sleuteloverdracht is korter dan bij een project in aanbouw.",
@@ -1937,7 +1939,7 @@ const T = {
   "p08FaqRole": "· Director UTAMA",
   "p08FaqLead": "Staat je vraag er niet bij? Stuur ons een appje, we beantwoorden hem persoonlijk via WhatsApp.",
   "p08Q1": "Wat houdt de reservering van €5.000 in?",
-  "p08A1": "Met een intentieverklaring en €5.000 reserveer je de laatste unit. Dit bedrag wordt volledig verrekend bij de aankoop, na de notariële overdracht, zodat je nu al vroeg kunt instappen tegen pre-sale voorwaarden.",
+  "p08A1": "Een reservering bestaat uit een intentieverklaring en een aanbetaling van €5.000. Zo is de laatste unit van MOKA op 8 oktober 2026 gereserveerd. Komt er een unit vrij, dan hoort de wachtlijst dat als eerste.",
   "p08Q2": "Moet ik zelf iets regelen rond verhuur?",
   "p08A2": "Nee. UTAMA verzorgt het volledige traject van A tot Z: ontwikkeling, branding, marketing, boekingen, gastbeleving en operationeel beheer. Jij hebt er geen omkijken naar.",
   "p08Q3": "Kan ik de woning zelf gebruiken?",
@@ -1962,20 +1964,21 @@ const T = {
   "p08Role1": "Sales Manager, UTAMA",
   "p08Role2": "Director, UTAMA",
   "fcH3": "Klaar voor een korte discovery call?",
-  "fcP": "In een vrijblijvend gesprek van zo'n 15 minuten kijken we samen of de laatste unit in MOKA bij je past.",
+  "fcP": "In een vrijblijvend gesprek van zo'n 15 minuten kijken we samen welke villa van UTAMA bij je past.",
   "refB": "Ken je iemand die dit ook zou willen?",
   "refP": "Beveel UTAMA aan bij vrienden of familie. Koopt iemand via jouw link een woning? Dan ontvang jij €2.500.",
   "refCta": "Meer over het referral-programma →",
   "legalNote": "Dit portaal bevat indicatieve informatie en vormt geen fiscaal of juridisch advies. Rendementsberekeningen zijn schattingen en geen garanties. Laat de contracten altijd controleren door een bevoegde notaris, PPAT en je eigen juridisch of fiscaal adviseur.",
-  "stickyReserveBtn": "Reserveren",
-  "rmEb": "Reserveren",
-  "rmH3": "Reserveer de laatste unit",
-  "rmLead": "Je reserveert de laatste beschikbare Signature Villa (€325.000) in MOKA. Laat je gegevens achter, dan sturen we de intentieverklaring toe.",
-  "rmExplainB": "Wat teken je precies?",
-  "rmExplainP": "De intentieverklaring is kort - ongeveer 1 A4, in gewone taal - en beschrijft wat je bij ons koopt en de belangrijkste afspraken. Zodra je hebt getekend én de €5.000 aanbetaling is voldaan (volledig retourneerbaar als het papierwerk aan onze kant niet blijkt te kloppen), stellen we samen met de notaris de koopcontracten op.",
-  "rmSubmitBtn": "Vraag de intentieverklaring aan",
-  "rmDoneTitle": "Aanvraag ontvangen",
-  "rmDoneLead": "We sturen je de intentieverklaring voor de Signature Villa toe. Ashley neemt ook persoonlijk contact op om de vervolgstappen te bespreken.",
+  "stickyReserveBtn": "Wachtlijst",
+  "rmEb": "Wachtlijst",
+  "rmH3": "Wachtlijst voor MOKA",
+  "rmLead": "De laatste Signature Villa is op 8 oktober 2026 gereserveerd. Laat je gegevens achter: komt er een unit vrij, dan hoor je het als eerste. Of kijk alvast bij The Maison en The Reload.",
+  "rmEmptyNote": "Alle 7 Signature Villa's zijn vergeven. De laatste is op 8 oktober 2026 gereserveerd.",
+  "rmExplainB": "Hoe werkt de wachtlijst?",
+  "rmExplainP": "Komt er een unit vrij, bijvoorbeeld omdat een reservering niet doorgaat, dan benaderen we de wachtlijst op volgorde van aanmelding. Je zit nergens aan vast.",
+  "rmSubmitBtn": "Zet me op de wachtlijst",
+  "rmDoneTitle": "Je staat op de wachtlijst",
+  "rmDoneLead": "Komt er een unit in MOKA vrij, dan hoor je het als eerste. Ashley neemt ook persoonlijk contact op om te kijken welke villa van UTAMA bij je past.",
   "rmWaFollowLbl": "Alvast WhatsApp Ashley",
   "drEb": "Data room",
   "drH3Step1": "Vraag de data room aan",
@@ -1989,7 +1992,7 @@ const T = {
   "waLabelEmail": "E-mail",
   "waLabelBudget": "Budget",
   "waLabelWhen": "Koophorizon",
-  "waReserveMsg": "Hi Ashley! Ik wil graag de laatste Signature Villa van MOKA reserveren en de intentieverklaring ontvangen.",
+  "waReserveMsg": "Hi Ashley! De laatste villa van MOKA is gereserveerd. Zet me op de wachtlijst en laat me weten als er iets vrijkomt.",
   "printFooterTpl": "MOKA · Investeerdersportaal · gegenereerd op {date} · utamabali.com",
   "repRatePrefix": "circa",
   "repRateSuffix": "per €1",
@@ -2004,8 +2007,10 @@ const T = {
   "extNoteTpl": "Leasehold 30 jaar met gegarandeerde verlenging van 30 jaar. Verlengen na 30 jaar kost ± {pct}% van de aankoopprijs (± {amt}). Je kunt de woning ook eerder verkopen.",
   "assumpSubTpl": "Voorgevuld op de brochure, voor de {unit}.",
   "uStatusAvailTpl": "{sold} van {total} verkocht · nog {avail} beschikbaar",
+  "uStatusReservedTpl": "{sold} van {total} verkocht · laatste unit gereserveerd",
   "uStatusSoldTpl": "✓ Volledig uitverkocht ({total} van {total} verkocht)",
   "uPillLast": "Laatste unit",
+  "uPillReserved": "Laatste unit gereserveerd",
   "uPillSold": "Uitverkocht",
   "renderComingSoon": "Render volgt"
  },
@@ -2049,9 +2054,9 @@ const T = {
   "retRecognizedMsg": "Email address recognised: you've already requested the brochure before. We're opening the portal.",
   "retErrUnknown": "We don't recognise this address yet. Leave your details for instant access.",
   "retErrFail": "We can't check that right now. Fill in the form for instant access.",
-  "railStatus": "Turnkey completed · last unit available",
+  "railStatus": "Turnkey completed · last unit reserved",
   "railKicker": "Investor portal",
-  "railPriceLbl": "Last unit (Signature Villa)",
+  "railPriceLbl": "Last unit (reserved on 8 October 2026)",
   "railPriceVal": "€325,000",
   "railYieldVal": "10–19%/yr",
   "repHeroAmt": "€3,781",
@@ -2072,9 +2077,9 @@ const T = {
   "railLeaseLbl": "Lease period",
   "railUnitsLbl": "Total number of units",
   "railAvailLbl": "Availability",
-  "railAvailVal": "1 of 15 units",
+  "railAvailVal": "Last unit reserved · 14 of 15 sold",
   "waAshleyBtn": "WhatsApp Ashley",
-  "reserveBtn": "Reserve the last unit",
+  "reserveBtn": "Put me on the waiting list",
   "printBtn": "Download as PDF",
   "tabProject": "The project",
   "tabPlattegronden": "Floor plans",
@@ -2120,8 +2125,8 @@ const T = {
   "p01Ch4": "Utility connections",
   "p01Ch5": "Onboarding onto rental platforms",
   "p01Ch6": "Photography & listing optimisation",
-  "p01UnitSub": "The last available unit",
-  "p01UnitLead": "MOKA has 15 units in total, spread across three property types. 14 of them have already been sold, all Boutique Villas and Boutique Apartments are sold out. Only the last Signature Villa, with a private pool and rooftop jacuzzi, is still available.",
+  "p01UnitSub": "The last unit: reserved on 8 October 2026",
+  "p01UnitLead": "MOKA has 15 units in total, spread across three property types. 14 of them have already been sold, all Boutique Villas and Boutique Apartments are sold out. The last Signature Villa, with a private pool and rooftop jacuzzi, was reserved on 8 October 2026. That means all 15 units are taken. The brochure stays online so you can see what we build.",
   "p01LeaseSub": "Leasehold, explained simply",
   "p01LeaseP1": "In practice, leasehold is just a purchase like you know it, only with an end date on the contract. You buy a 30-year lease, with a notarised, guaranteed option to extend it by another 30 years. During that term, you decide what happens with your property.",
   "p01LeaseBlock": "Since Indonesia's independence in 1945, codified in the Agrarian Law of 1960, only Indonesian nationals may own land outright. That's why every project by a foreign developer or buyer in Bali works through leasehold, the same legally anchored structure we use. That is also part of why returns in Bali are among the highest in the world.",
@@ -2165,11 +2170,11 @@ const T = {
   "p02Life3H": "Sunset Rooftop & Pool Lounge",
   "p02Life3P": "Shared rooftop pool with lounge spots, popular with guests and good for occupancy.",
   "p03Kicker": "03 · Returns & price",
-  "p03H2": "1 unit still available, from €325,000",
+  "p03H2": "Last unit reserved at €325,000",
   "p03Lead": "All prices are turnkey: fully finished, furnished and ready to rent. No hidden costs afterwards. Adjust the assumptions below to your own scenario, honestly calculated, no inflated promises.",
   "p03PriceLbl": "Signature Villa",
-  "p03PriceSub": "Last of the 7 Signature Villas",
-  "p03PriceTrend": "MOKA was sold in phases: of the 15 units in total, 14 have already been sold. Only the last Signature Villa, with a private pool and rooftop jacuzzi, is still available.",
+  "p03PriceSub": "Last of the 7 Signature Villas, reserved",
+  "p03PriceTrend": "MOKA was sold in phases: of the 15 units in total, 14 have already been sold. The last Signature Villa, with a private pool and rooftop jacuzzi, was reserved on 8 October 2026. That means all 15 units are taken. The brochure stays online so you can see what we build.",
   "p03ScenPrefix": "Three scenarios for",
   "p03ScenNote": "Net return per year, including management and costs. Based on local market data.",
   "p03CalcSub": "Calculate your return",
@@ -2239,7 +2244,7 @@ const T = {
   "p03Phase4": "Phase 4",
   "p03Phase4Lbl": "At handover",
   "p03PayNote": "The €5,000 down payment at reservation is fully deducted from the first payment instalment, you never pay twice. Amounts above apply to the Signature Villa (€325,000).",
-  "p03AvailBtn": "Reserve the last unit",
+  "p03AvailBtn": "Put me on the waiting list",
   "p04Kicker": "04 · Timeline",
   "p04H2": "From reservation to handover",
   "p04Lead": "You don't need to be in Bali: signing can be done fully digitally, remotely. If you happen to be on location, it can just as well be done at the notary's office in Bali, you choose. MOKA has already been delivered turnkey, so the path to handover is shorter than for a project under construction.",
@@ -2366,7 +2371,7 @@ const T = {
   "p08FaqRole": "· Director, UTAMA",
   "p08FaqLead": "Don't see your question? Send us a message, we'll answer it personally via WhatsApp.",
   "p08Q1": "What does the €5,000 reservation involve?",
-  "p08A1": "With a letter of intent and €5,000, you reserve the last unit. This amount is fully deducted at purchase, after the notarised transfer, so you can still enter early under pre-sale terms.",
+  "p08A1": "A reservation consists of a letter of intent and a €5,000 deposit. That is how the last unit of MOKA was reserved on 8 October 2026. If a unit comes back, the waiting list hears about it first.",
   "p08Q2": "Do I need to arrange anything myself around renting it out?",
   "p08A2": "No. UTAMA handles the entire process from A to Z: development, branding, marketing, bookings, guest experience and operational management. You don't need to worry about a thing.",
   "p08Q3": "Can I use the property myself?",
@@ -2391,20 +2396,21 @@ const T = {
   "p08Role1": "Sales Manager, UTAMA",
   "p08Role2": "Director, UTAMA",
   "fcH3": "Ready for a quick discovery call?",
-  "fcP": "In a no-obligation call of about 15 minutes, we'll look together at whether the last unit in MOKA is right for you.",
+  "fcP": "In a no-obligation call of about 15 minutes, we'll look together at which UTAMA villa is right for you.",
   "refB": "Know someone who'd want this too?",
   "refP": "Recommend UTAMA to friends or family. If someone buys a property through your link, you receive €2,500.",
   "refCta": "More about the referral programme →",
   "legalNote": "This portal contains indicative information and does not constitute tax or legal advice. Return calculations are estimates, not guarantees. Always have the contracts checked by an authorised notary, PPAT and your own legal or tax adviser.",
-  "stickyReserveBtn": "Reserve",
-  "rmEb": "Reserve",
-  "rmH3": "Reserve the last unit",
-  "rmLead": "You're reserving the last available Signature Villa (€325,000) in MOKA. Leave your details and we'll send you the letter of intent.",
-  "rmExplainB": "What exactly are you signing?",
-  "rmExplainP": "The letter of intent is short, about one A4 page, in plain language, and describes what you're buying from us and the key agreements. Once you've signed and the €5,000 down payment has been received (fully refundable if the paperwork on our end turns out not to check out), we draw up the purchase contracts together with the notary.",
-  "rmSubmitBtn": "Request the letter of intent",
-  "rmDoneTitle": "Request received",
-  "rmDoneLead": "We'll send you the letter of intent for the Signature Villa. Ashley will also reach out personally to discuss the next steps.",
+  "stickyReserveBtn": "Waiting list",
+  "rmEb": "Waiting list",
+  "rmH3": "Waiting list for MOKA",
+  "rmLead": "The last Signature Villa was reserved on 8 October 2026. Leave your details: if a unit comes back, you'll be the first to hear. Or take a look at The Maison and The Reload in the meantime.",
+  "rmEmptyNote": "All 7 Signature Villas are taken. The last one was reserved on 8 October 2026.",
+  "rmExplainB": "How does the waiting list work?",
+  "rmExplainP": "If a unit comes back, for example because a reservation falls through, we contact the waiting list in order of sign-up. There's no commitment on your side.",
+  "rmSubmitBtn": "Put me on the waiting list",
+  "rmDoneTitle": "You're on the waiting list",
+  "rmDoneLead": "If a unit in MOKA comes back, you'll be the first to hear. Ashley will also reach out personally to look at which UTAMA villa is right for you.",
   "rmWaFollowLbl": "WhatsApp Ashley in the meantime",
   "drEb": "Data room",
   "drH3Step1": "Request the data room",
@@ -2418,7 +2424,7 @@ const T = {
   "waLabelEmail": "Email",
   "waLabelBudget": "Budget",
   "waLabelWhen": "Purchase timeframe",
-  "waReserveMsg": "Hi Ashley! I'd like to reserve the last Signature Villa of MOKA and receive the letter of intent.",
+  "waReserveMsg": "Hi Ashley! The last villa of MOKA is reserved. Put me on the waiting list and let me know if anything comes back.",
   "printFooterTpl": "MOKA · Investor Portal · generated on {date} · utamabali.com",
   "repRatePrefix": "approx.",
   "repRateSuffix": "per €1",
@@ -2433,8 +2439,10 @@ const T = {
   "extNoteTpl": "30-year leasehold with a guaranteed 30-year extension. Extending after 30 years costs approx. {pct}% of the purchase price (approx. {amt}). You can also sell the property earlier.",
   "assumpSubTpl": "Pre-filled from the brochure, for the {unit}.",
   "uStatusAvailTpl": "{sold} of {total} sold · {avail} left",
+  "uStatusReservedTpl": "{sold} of {total} sold · last unit reserved",
   "uStatusSoldTpl": "✓ Fully sold ({total} of {total} sold)",
   "uPillLast": "Last unit",
+  "uPillReserved": "Last unit reserved",
   "uPillSold": "Sold out",
   "renderComingSoon": "Render coming soon"
  }
@@ -2702,15 +2710,17 @@ document.querySelectorAll('#tabsNav button').forEach(function(b){ b.addEventList
   onScrollTick();
 })();
 
-/* ============ MOKA: nog maar 1 unit te koop (Signature Villa/3BR) - de Boutique Villa's
-   en Boutique Appartementen zijn volledig uitverkocht en daarom niet meer opgenomen in
-   deze brochure. UNITS blijft een array van 1 item (i.p.v. een losse constante) zodat
+/* ============ MOKA: alle 15 units vergeven. De Boutique Villa's en Boutique Appartementen
+   zijn volledig uitverkocht en daarom niet meer opgenomen in deze brochure; de laatste
+   Signature Villa (3BR Villa #2) is op 8 oktober 2026 gereserveerd (ITP getekend,
+   aanbetaling volgt). unitsReserved telt mee als "vergeven", niet als "verkocht".
+   UNITS blijft een array van 1 item (i.p.v. een losse constante) zodat
    currentUnit()/renderUnit()/bcalc() etc. ongewijzigd kunnen blijven werken. Cijfers
    geverifieerd tegen de MOKA-brochure (Google Drive, juli 2026) - dezelfde data als
    op /moka. ============ */
 const GROWTH_RATE = 0.05;
 const UNITS = [
-  { key:"villa3", name:{nl:"Signature Villa", en:"Signature Villa"}, sub:{nl:"3 slaapkamers · pool villa", en:"3 bedrooms · pool villa"}, price:325000, unitsTotal:7, unitsSold:6,
+  { key:"villa3", name:{nl:"Signature Villa", en:"Signature Villa"}, sub:{nl:"3 slaapkamers · pool villa", en:"3 bedrooms · pool villa"}, price:325000, unitsTotal:7, unitsSold:6, unitsReserved:1,
     images:[
       {src:"/images/moka/villa3-exterior.jpg", cap:{nl:"Aanzicht: 3 verdiepingen met rooftop pergola, omringd door rijstvelden", en:"View: 3 storeys with a rooftop pergola, surrounded by rice fields"}},
       {src:"/images/moka/villa3-pool.jpg", cap:{nl:"Privé zwembad in de tuin, direct grenzend aan living en slaapkamer", en:"Private pool in the garden, directly adjoining the living room and bedroom"}},
@@ -2729,7 +2739,7 @@ const UNITS = [
       {l:{nl:"Leasehold",en:"Leasehold"}, v:{nl:"30 + 30 jaar (gegarandeerd)", en:"30 + 30 years (guaranteed)"}}
     ],
     highlights:[
-      {nl:"Laatste beschikbare unit van de 7 Signature Villa's", en:"Last available unit of the 7 Signature Villas"},
+      {nl:"Laatste van de 7 Signature Villa's, gereserveerd op 8 oktober 2026", en:"Last of the 7 Signature Villas, reserved on 8 October 2026"},
       {nl:"Privé zwembad en 55 m² rooftop met jacuzzi", en:"Private pool and 55 m² rooftop with jacuzzi"},
       {nl:"Eigen bioscoop en enclosed living met airco", en:"Private cinema and enclosed living room with air conditioning"},
       {nl:"Master suite met tuin en ligbad onder de sterren", en:"Master suite with garden and a bathtub under the stars"},
@@ -2754,15 +2764,29 @@ function renderUGallery(){
 }
 function renderUnit(){
   const u=currentUnit();
-  const avail=u.unitsTotal-u.unitsSold;
+  const reserved=u.unitsReserved||0;
+  const avail=u.unitsTotal-u.unitsSold-reserved;
   renderUGallery();
   el('uName').textContent=u.name[lang];
   el('uSub').textContent=u.sub[lang];
   el('uPrice').textContent=money(u.price);
-  el('uStatus').textContent = avail>0 ? tr(T[lang].uStatusAvailTpl, {sold:u.unitsSold, total:u.unitsTotal, avail:avail}) : tr(T[lang].uStatusSoldTpl, {total:u.unitsTotal});
-  el('uStatus').className = 'a' + (avail>0 ? '' : ' soldout-stamp');
-  el('uPill').textContent = avail>0 ? T[lang].uPillLast : T[lang].uPillSold;
-  el('uPill').className = 'pill ' + (avail>0 ? 'avail' : 'sold');
+  // Drie standen: nog te koop, laatste unit gereserveerd (ITP getekend, dus geen
+  // uitverkocht-stempel), of echt uitverkocht.
+  let statusTxt, statusCls, pillTxt, pillCls;
+  if(avail>0){
+    statusTxt=tr(T[lang].uStatusAvailTpl, {sold:u.unitsSold, total:u.unitsTotal, avail:avail}); statusCls='a';
+    pillTxt=T[lang].uPillLast; pillCls='pill avail';
+  }else if(reserved>0){
+    statusTxt=tr(T[lang].uStatusReservedTpl, {sold:u.unitsSold, total:u.unitsTotal, reserved:reserved}); statusCls='a';
+    pillTxt=T[lang].uPillReserved; pillCls='pill reserved';
+  }else{
+    statusTxt=tr(T[lang].uStatusSoldTpl, {total:u.unitsTotal}); statusCls='a soldout-stamp';
+    pillTxt=T[lang].uPillSold; pillCls='pill sold';
+  }
+  el('uStatus').textContent=statusTxt;
+  el('uStatus').className=statusCls;
+  el('uPill').textContent=pillTxt;
+  el('uPill').className=pillCls;
   el('uFacts').innerHTML=u.facts.map(f=>`<div class="fact"><div class="l">${f.l[lang]}</div><div class="v">${f.v[lang]}</div></div>`).join("");
   el('uHl').innerHTML=u.highlights.map(x=>`<div>${x[lang]}</div>`).join("");
   el('scenUnitName').textContent=u.name[lang];
@@ -2850,18 +2874,31 @@ function stepLb(d){ if(!LBSET.length) return; lbIdx=(lbIdx+d+LBSET.length)%LBSET
 
 document.addEventListener('keydown',function(e){ if(!el('lb').classList.contains('open'))return; if(e.key==='Escape')closeLb(); if(e.key==='ArrowRight')stepLb(1); if(e.key==='ArrowLeft')stepLb(-1); });
 
-// ---- reserveringsmodule: er is nog maar 1 unit (Signature Villa), dus direct het formulier ----
+// ---- wachtlijstmodule: de laatste unit (Signature Villa) is op 8 oktober 2026 gereserveerd ----
 // Beschikbare units komen uit project_availability, dezelfde bron als de rest
-// van de site. Werkt voor genummerde en benoemde units.
+// van de site. Werkt voor genummerde en benoemde units. Is de lijst leeg (de
+// normale stand nu), dan is dit een wachtlijstformulier zonder siteplan of
+// unitknoppen. Komt er via de admin een unit vrij, dan verschijnen die vanzelf.
 let rmSelectedUnit = null;
 async function rmLoadUnits(){
   var wrap=el('rmUnits'), lbl=el('rmSelected'); if(!wrap) return;
+  var sp=el('spwrap'), legend=document.querySelector('#rmStep2 .sp-legend');
   var list=[];
   try{
     var d = window.utamaAvailability ? await window.utamaAvailability('moka') : null;
     if(d && Array.isArray(d.available_list)) list = d.available_list;
   }catch(e){}
-  if(!list.length){ wrap.innerHTML=''; if(lbl) lbl.textContent=''; return; }
+  if(!list.length){
+    rmSelectedUnit = null;
+    wrap.innerHTML='';
+    if(sp) sp.style.display='none';
+    if(legend) legend.style.display='none';
+    if(lbl){ lbl.className='rm-selected empty'; lbl.textContent=T[lang].rmEmptyNote; }
+    return;
+  }
+  if(sp) sp.style.display='';
+  if(legend) legend.style.display='';
+  if(lbl) lbl.className='rm-selected';
   if(!rmSelectedUnit || list.indexOf(rmSelectedUnit)===-1) rmSelectedUnit = list[0];
   wrap.innerHTML = list.map(function(u){
     return '<button type="button" class="rm-unit'+(u===rmSelectedUnit?' sel':'')+'" data-u="'+String(u).replace(/"/g,'&quot;')+'"><span class="dot"></span>'+u+'</button>';
@@ -2904,7 +2941,13 @@ function rmSubmit(e){
   e.preventDefault();
   const name = el('rName').value.trim(), phone = el('rPhone').value.trim(), email = el('rEmail').value.trim();
   if(!name || !phone || !email){ el('rErr').style.display = 'block'; return false; }
-  const lead = { project: "MOKA", name, phone, email, unit: rmSelectedUnit || "Signature Villa", type: "reservation" };
+  // Zonder vrije unit is dit een wachtlijstaanmelding: type "waitlist" landt in
+  // submit_lead als gewone inquiry (geen reserveringsmelding, geen pipeline-stap
+  // "reservering"), met de wachtlijst als unit zodat /admin het herkent. Is er wél
+  // een unit gekozen (weer vrijgegeven in de admin), dan is het een echte reserveringsaanvraag.
+  const lead = rmSelectedUnit
+    ? { project: "MOKA", name, phone, email, unit: rmSelectedUnit, type: "reservation" }
+    : { project: "MOKA", name, phone, email, unit: (lang==='en' ? "Waiting list" : "Wachtlijst"), type: "waitlist" };
   submitLead({ ...lead, lang }).catch(function(){});
   const waMsg = T[lang].waReserveMsg + "%0A%0A" +
     T[lang].waLabelName + ": " + encodeURIComponent(name) + "%0A" +

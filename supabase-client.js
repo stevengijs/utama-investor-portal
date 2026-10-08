@@ -70,6 +70,16 @@ function availabilityText(d, lang){
       tag:   (lang==='nl') ? 'Nieuw in verkoop' : 'Newly launched',
       short: 'Pre-sale' };
   }
+  // Alles vergeven, maar de laatste unit is gereserveerd (ITP getekend, nog niet
+  // betaald): geen "uitverkocht", wel een eigen label (Steven, 8 oktober 2026).
+  if(available <= 0 && reserved > 0){
+    const nl = (lang==='nl');
+    return { presale:false, soldout:false, lastReserved:true, total, taken, available:0,
+      line:  (reserved === 1) ? (nl ? (sold+' van '+total+' verkocht · laatste unit gereserveerd') : (sold+' of '+total+' sold · last unit reserved'))
+                              : (nl ? (sold+' verkocht · '+reserved+' gereserveerd') : (sold+' sold · '+reserved+' reserved')),
+      tag:   (reserved === 1) ? (nl ? 'Laatste unit gereserveerd' : 'Last unit reserved') : (nl ? 'Gereserveerd' : 'Reserved'),
+      short: nl ? 'Gereserveerd' : 'Reserved' };
+  }
   if(available <= 0){
     return { presale:false, soldout:true, total, taken, available:0,
       line:  (lang==='nl') ? ('Volledig verkocht ('+total+' van '+total+')') : ('Fully sold out ('+total+' of '+total+')'),
