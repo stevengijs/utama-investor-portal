@@ -34,13 +34,40 @@
 
     function state(c, s){ try { onState(c.n, s); } catch (e) {} }
 
+    // Beelden gaan op een canvas naast de <img>, niet in de <img> zelf: bij het wisselen van
+    // src toont de browser heel even de achtergrond (het camera-icoon), en bij vier beelden
+    // per seconde knippert dat. Op een canvas verandert alleen de inhoud.
+    function canvasVoor(c){
+      if (c.cv) return c.cv;
+      var cv = document.createElement('canvas');
+      cv.setAttribute('aria-hidden', 'true');
+      cv.style.cssText = 'display:none;width:100%;aspect-ratio:4/3;background:#17140F';
+      c.img.parentNode.insertBefore(cv, c.img.nextSibling);
+      c.cv = cv; c.ctx = cv.getContext('2d'); c.seq = 0; c.getoond = 0;
+      return cv;
+    }
     function toon(c, bytes){
-      var u = URL.createObjectURL(new Blob([bytes], { type: 'image/jpeg' }));
-      var oud = c.url;
-      c.img.onerror = null;
-      c.img.onload = function(){ if (oud) { try { URL.revokeObjectURL(oud); } catch (e) {} } };
-      c.img.src = u; c.url = u;
-      try { onFrame(c.n, Date.now()); } catch (e) {}
+      var blob = new Blob([bytes], { type: 'image/jpeg' });
+      var seq = ++c.seq;
+      function teken(bm){
+        if (seq <= c.getoond) { if (bm.close) bm.close(); return; }   // een ouder beeld dat later klaar is
+        c.getoond = seq;
+        var cv = canvasVoor(c);
+        if (cv.width !== bm.width || cv.height !== bm.height) { cv.width = bm.width; cv.height = bm.height; }
+        c.ctx.drawImage(bm, 0, 0);
+        if (bm.close) bm.close();
+        if (cv.style.display !== 'block') { cv.style.display = 'block'; c.img.style.display = 'none'; }
+        try { onFrame(c.n, Date.now()); } catch (e) {}
+      }
+      canvasVoor(c);
+      if (window.createImageBitmap) {
+        createImageBitmap(blob).then(teken).catch(function(){});
+      } else {
+        var u = URL.createObjectURL(blob); var im = new Image();
+        im.onload = function(){ teken(im); URL.revokeObjectURL(u); };
+        im.onerror = function(){ URL.revokeObjectURL(u); };
+        im.src = u;
+      }
     }
 
     function later(c, fn, ms){ clearTimeout(c.timer); c.timer = setTimeout(function(){ if (actief) fn(); }, ms); }
@@ -48,6 +75,8 @@
     // Terugval: momentopname elke 30 s, en elke minuut de stream opnieuw proberen.
     function momentopname(c){
       var gen = c.gen;
+      if (c.cv) c.cv.style.display = 'none';
+      c.img.style.display = '';
       c.img.onload = function(){ if (gen === c.gen) state(c, 'live'); };
       c.img.onerror = function(){ if (gen === c.gen) state(c, 'offline'); };
       c.img.src = base + '&cam=' + c.n + '&t=' + Date.now();
