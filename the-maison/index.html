@@ -89,10 +89,18 @@
             <div class="bb-eyebrow" data-t="bbEyebrow">Bouwstatus</div>
             <div class="bb-title"><span class="dot"></span><span data-t="bbTitle">In aanbouw sinds 15 mei 2026</span></div>
           </div>
-          <span class="bb-cam soon" id="bbCam">
+          <button type="button" class="bb-cam" id="bbCam" onclick="toggleCam()" aria-expanded="false" aria-controls="camPanel">
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="15" height="14" rx="2.5"/><path d="M23 7.5l-7 4.5 7 4.5v-9z"/></svg>
-            <span data-t="bbCam">Live bouwcamera vanaf 25 augustus</span>
-          </span>
+            <span data-t="bbCam">Bekijk de live bouwcamera</span>
+          </button>
+        </div>
+        <!-- Live bouwcamera (Steven, 9 oktober 2026). Het beeld komt via de edge
+             function bouwcamera, die het wachtwoord van de camera buiten de
+             browser houdt en een momentopname van maximaal 20 s oud teruggeeft. -->
+        <div class="cam-panel" id="camPanel" hidden>
+          <figure><img id="cam1" alt="Live beeld bouwcamera 1, The Maison" loading="lazy" decoding="async"><figcaption><span data-t="camLbl1">Camera 1</span> · <span data-t="camLive">live</span></figcaption></figure>
+          <figure><img id="cam2" alt="Live beeld bouwcamera 2, The Maison" loading="lazy" decoding="async"><figcaption><span data-t="camLbl2">Camera 2</span> · <span data-t="camLive">live</span></figcaption></figure>
+          <p class="cam-note" data-t="camNote">Live beelden van de bouwplaats in Pererenan, elke 30 seconden ververst. De tijd in beeld is Balinese tijd.</p>
         </div>
         <button type="button" class="cta-combo" onclick="openBrochure()">
           <span class="cta-combo-main" data-t="mHeroCta2">Bekijk volledige brochure</span>
@@ -180,7 +188,7 @@ const T={
   recentSold:"{x} verkocht",
   presale:"Nu in pre-sale · nog {x} van {y} beschikbaar",presaleTag:"Nieuw in verkoop",presaleShort:"Pre-sale",
   calcCtaTitle:"Benieuwd naar je exacte rendement?",calcCtaSub:"In de volledige brochure vind je de interactieve rekentool, drie scenario's en het complete rendementsmodel van The Maison.",calcCtaBtn:"Bekijk de ROI-berekening →",
-  bbEyebrow:"Bouwstatus",bbTitle:"In aanbouw sinds 15 mei 2026",bbCam:"Live bouwcamera vanaf 25 augustus",
+  bbEyebrow:"Bouwstatus",bbTitle:"In aanbouw sinds 15 mei 2026",bbCam:"Bekijk de live bouwcamera",camLbl1:"Camera 1",camLbl2:"Camera 2",camLive:"live",camNote:"Live beelden van de bouwplaats in Pererenan, elke 30 seconden ververst. De tijd in beeld is Balinese tijd.",
   roiBadgeLbl:"rendement",
   bpEyebrow:"In de brochure vind je",bpItem1:"Plattegronden per villa",bpItem2:"Exacte prijs per unit",bpItem3:"Rendementsmodel & 3 scenario's",bpItem4:"Betaalschema & contractstructuur",
   ctaTrust:"Gratis en vrijblijvend · 1 minuut · direct toegang tot alle cijfers"},
@@ -195,7 +203,7 @@ const T={
   recentSold:"{x} sold",
   presale:"Now in pre-sale · {x} of {y} still available",presaleTag:"Newly launched",presaleShort:"Pre-sale",
   calcCtaTitle:"Curious about your exact return?",calcCtaSub:"The full brochure includes the interactive calculator, three scenarios and the complete return model for The Maison.",calcCtaBtn:"View the ROI calculation →",
-  bbEyebrow:"Construction status",bbTitle:"Under construction since 15 May 2026",bbCam:"Live camera from 25 August",
+  bbEyebrow:"Construction status",bbTitle:"Under construction since 15 May 2026",bbCam:"Watch the live construction camera",camLbl1:"Camera 1",camLbl2:"Camera 2",camLive:"live",camNote:"Live images from the building site in Pererenan, refreshed every 30 seconds. The time in the image is Bali time.",
   roiBadgeLbl:"return",
   bpEyebrow:"Inside the brochure",bpItem1:"Floor plans per villa",bpItem2:"Exact price per unit",bpItem3:"Return model & 3 scenarios",bpItem4:"Payment schedule & contract structure",
   ctaTrust:"Free and no obligation · 1 minute · instant access to all the numbers"}
@@ -265,6 +273,17 @@ function sendLead(via){
 }
 function openCal(){ if(CONFIG.calendly){window.open(CONFIG.calendly,"_blank");} else {sendLead('wa');} }
 function waDirect(){ fbTrackContact('The Maison'); const msg=(lang==='nl'?"Hi! Ik heb interesse in The Maison in Pererenan.":"Hi! I'm interested in The Maison in Pererenan."); window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg),"_blank"); }
+/* Live bouwcamera: de momentopnamen komen van de edge function bouwcamera
+   (cache 20 s); de pagina ververst elke 30 s zolang het paneel open staat. */
+const CAM_BASE='https://gcpachivrwalsneuvlsa.supabase.co/functions/v1/bouwcamera?project=the-maison';
+let camTimer=null;
+function camRefresh(){ const t=Date.now(); [1,2].forEach(function(n){ const im=el('cam'+n); if(im) im.src=CAM_BASE+'&cam='+n+'&t='+t; }); }
+function toggleCam(){
+  const p=el('camPanel'), b=el('bbCam'); if(!p) return;
+  const open=p.hasAttribute('hidden');
+  if(open){ p.removeAttribute('hidden'); b.setAttribute('aria-expanded','true'); camRefresh(); camTimer=setInterval(camRefresh,30000); p.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+  else { p.setAttribute('hidden',''); b.setAttribute('aria-expanded','false'); clearInterval(camTimer); camTimer=null; }
+}
 function openBrochure(){
   // Al eens ontgrendeld op dit toestel? Dan hoeft dit formulier niet nog eens -
   // ga direct door naar de brochure, die zichzelf herkent via dezelfde opslag.
@@ -470,6 +489,14 @@ loadAvailability();
   .bb-cam:hover{background:var(--green-2)}
   .bb-cam.soon{background:rgba(23,20,15,.08);color:var(--muted);cursor:default}
   @media(max-width:560px){.build-banner{flex-direction:column;align-items:flex-start}.bb-cam{width:100%;justify-content:center}}
+  .bb-cam{border:0;cursor:pointer;font-family:inherit}
+  .bb-cam[aria-expanded="true"]{background:var(--ink);color:#fff}
+  .cam-panel{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 18px}
+  .cam-panel figure{margin:0;border-radius:12px;overflow:hidden;background:#17140F;box-shadow:var(--shadow)}
+  .cam-panel img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#17140F}
+  .cam-panel figcaption{padding:7px 10px;font-size:12px;font-weight:600;color:var(--muted);background:#fff}
+  .cam-note{grid-column:1/-1;margin:0;font-size:12.5px;color:var(--muted)}
+  @media(max-width:560px){.cam-panel{grid-template-columns:1fr}}
   .calc-cta{margin-top:0;background:#FBF1E9;border:1px solid var(--line);border-radius:14px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
   .calc-cta h3{font-size:18px;margin-bottom:6px;max-width:46ch;font-family:'Inter',system-ui,-apple-system,sans-serif;font-weight:800}
   .calc-cta p{color:var(--muted);font-size:13.5px;margin:0;max-width:50ch}
