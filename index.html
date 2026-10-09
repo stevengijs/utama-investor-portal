@@ -95,6 +95,19 @@
   .sold-card h3{font-size:17px;margin:0}
   .sold-status{display:inline-flex;align-items:center;gap:7px;margin-top:9px;padding:6px 11px;border-radius:9999px;background:#EEF0E6;box-shadow:0 0 0 1px rgba(91,105,74,.25);font-size:12px;font-weight:700;color:#4E5B3F}
   .sold-status i{width:7px;height:7px;border-radius:50%;background:#4E5B3F}
+  /* video van Villa Palma (Steven, 9 oktober 2026), dezelfde als op utamabali.com */
+  .sold-card .img[role="button"]{cursor:pointer}
+  .sold-play{position:absolute;right:12px;bottom:12px;z-index:1;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.96);color:var(--ink);display:grid;place-items:center;box-shadow:0 6px 16px rgba(23,20,15,.28)}
+  .sold-play svg{width:18px;height:18px;margin-left:2px}
+  .sold-vbtn{display:inline-flex;align-items:center;gap:7px;margin:9px 0 0 8px;padding:6px 12px;border:1px solid var(--line);border-radius:9999px;background:var(--paper);font-family:inherit;font-size:12.5px;font-weight:600;color:var(--ink);cursor:pointer}
+  .sold-vbtn:hover{border-color:var(--ink)}
+  .sold-vbtn svg{width:12px;height:12px}
+  .vmodal{position:fixed;inset:0;z-index:130;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(23,20,15,.78);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+  .vmodal[hidden]{display:none}
+  .vmodal-box{position:relative;width:min(960px,100%);border-radius:18px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+  .vmodal-box video{display:block;width:100%;aspect-ratio:16/9;background:#000}
+  .vmodal-x{position:absolute;top:10px;right:10px;z-index:2;width:38px;height:38px;border-radius:50%;border:0;background:rgba(254,251,246,.92);color:var(--ink);font-size:22px;line-height:1;cursor:pointer}
+  .vmodal-tag{position:absolute;top:12px;left:12px;z-index:2;pointer-events:none;background:rgba(23,20,15,.72);color:#fff;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:9999px}
   /* Airbnb-regel op de uitverkochte kaarten (Steven, 9 oktober 2026): logo, score en aantal reviews uit de live listing. */
   .sold-airbnb{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--sand);text-decoration:none;color:var(--ink);transition:border-color .15s}
   .sold-airbnb:hover{border-color:#FF385C}
@@ -228,6 +241,14 @@
   </div>
 </section>
 
+<div class="vmodal" id="vModal" hidden>
+  <div class="vmodal-box" role="dialog" aria-modal="true" aria-label="Video">
+    <button type="button" class="vmodal-x" id="vModalX" aria-label="Sluiten">&times;</button>
+    <video id="vModalVid" controls playsinline preload="none"></video>
+    <span class="vmodal-tag" id="vModalTag">Impressie</span>
+  </div>
+</div>
+
 <footer>
   <div class="wrap">
     UTAMA · <span data-t="footer">Investeren in Bali-vastgoed, transparant en zorgeloos.</span> &middot; <a href="/referral/" data-t="footerRef" style="color:var(--terra);text-decoration:none;font-weight:600">Verdien &euro;2.500 als je iemand aanbrengt</a>
@@ -293,7 +314,9 @@ const SOLD_OUT_PROJECTS = [
   // rating en reviews: Airbnb-listing "1 BR villa with Pool close to canggu area", stand 9 oktober 2026 (Steven)
   { name:"Teman Villas", img:"/images/teman-villas-exterior.jpg", airbnb:"https://www.airbnb.com/rooms/1509136323553047647", rating:4.83, reviews:29 },
   // Palma: uitverkocht, oplevering november 2026 (Steven, 9 oktober 2026)
-  { name:"Palma Villas", img:"/images/palma-villas-exterior.jpg", status:{nl:"Oplevering november 2026", en:"Handover November 2026"} }
+  { name:"Palma Villas", img:"/images/palma-villas-exterior.jpg", status:{nl:"Oplevering november 2026", en:"Handover November 2026"},
+    // dezelfde montage als op utamabali.com; één bestand, daar gehost
+    video:{ src:"https://www.utamabali.com/video/villa-palma.mp4?v=2", poster:"https://www.utamabali.com/img/villa-palma-poster.jpg" } }
 ];
 
 const T={
@@ -321,7 +344,7 @@ const T={
   cmOkTitle:"Verstuurd!",cmOkP:"We hebben je bericht ontvangen. Ashley neemt snel contact met je op via WhatsApp.",
   footer:"Investeren in Bali-vastgoed, transparant en zorgeloos.",footerRef:"Verdien €2.500 als je iemand aanbrengt",
   from:"vanaf",soldPart:"{sold} van {y} verkocht",leftPart:"nog {x} beschikbaar",soldOutLine:"✓ Volledig uitverkocht ({y} van {y})",recentSold:"{x} verkocht",more:"Bekijk project en rendement →",soon:"Volgend project wordt binnenkort onthuld",soonTag:"Binnenkort · nieuw project",soonPrice:"Pre-sale: €125.000 tot €235.000",soonNote:"Beperkt aantal plekken. Alleen wie interesse aangeeft en echt wil kopen, krijgt toegang.",soonCta:"Zet mij op de lijst →",
-  soldEyebrow:"Eerder uitverkocht",soldAirbnb:"Bekijk de listing op Airbnb",abReviews:"reviews",
+  soldEyebrow:"Eerder uitverkocht",soldAirbnb:"Bekijk de listing op Airbnb",abReviews:"reviews",soldVideo:"Bekijk de video",vImp:"Impressie",vClose:"Sluiten",
   eaEb:"Vroegtijdige toegang",eaTitle:"Meld je alvast aan voor het volgende project",eaSub:"Laat je gegevens achter, dan ben je een van de eersten die de details en pre-sale prijzen ontvangt zodra het project onthuld wordt.",
   eaBudget:"Budget",eaWhen:"Wanneer wil je kopen?",eaErr:"Vul je naam, WhatsApp-nummer en e-mailadres in.",eaBtn:"Meld je aan",
   eaOkTitle:"Aangemeld!",eaOkP:"We houden je op de hoogte zodra dit project onthuld wordt. Je hoort als eerste van ons.",eaTrust:"Geen spam. We gebruiken je gegevens alleen om je op de hoogte te houden van dit project."},
@@ -349,7 +372,7 @@ const T={
   cmOkTitle:"Sent!",cmOkP:"We've received your message. Ashley will be in touch shortly via WhatsApp.",
   footer:"Investing in Bali real estate, transparent and hassle-free.",footerRef:"Earn €2,500 for every friend you bring in",
   from:"from",soldPart:"{sold} of {y} sold",leftPart:"{x} left",soldOutLine:"✓ Fully sold out ({y} of {y})",recentSold:"{x} sold",more:"View project and returns →",soon:"Next project to be revealed soon",soonTag:"Coming soon · new project",soonPrice:"Pre-sale: €125,000 to €235,000",soonNote:"Limited places. Only those who register their interest and are ready to buy get access.",soonCta:"Put me on the list →",
-  soldEyebrow:"Previously sold out",soldAirbnb:"View the listing on Airbnb",abReviews:"reviews",
+  soldEyebrow:"Previously sold out",soldAirbnb:"View the listing on Airbnb",abReviews:"reviews",soldVideo:"Watch the video",vImp:"Impression",vClose:"Close",
   eaEb:"Early access",eaTitle:"Register your interest for the next project",eaSub:"Leave your details and you'll be one of the first to receive the details and pre-sale prices once the project is revealed.",
   eaBudget:"Budget",eaWhen:"When do you want to buy?",eaErr:"Please enter your name, WhatsApp number and email.",eaBtn:"Register interest",
   eaOkTitle:"You're on the list!",eaOkP:"We'll keep you posted as soon as this project is revealed. You'll be among the first to hear from us.",eaTrust:"No spam. We'll only use your details to keep you posted about this project."}
@@ -410,8 +433,8 @@ function renderSoldOut(){
   host.innerHTML = SOLD_OUT_PROJECTS.map((p,i)=>{
     const imgStyle=p.img?`background-image:url('${p.img}');background-size:cover;background-position:center`:`background:linear-gradient(135deg,${i%2?'#c98a5b,#b06a38':'#2f5546,#243f35'})`;
     return `<div class="sold-card">
-      <div class="img" style="${imgStyle}"><span class="stamp">Sold out</span></div>
-      <div class="pinfo"><h3>${p.name}</h3>${p.status?`<span class="sold-status"><i></i>${p.status[lang]}</span>`:''}${p.airbnb?`<a class="sold-airbnb" href="${p.airbnb}" target="_blank" rel="noopener" aria-label="${p.name} ${T[lang].soldAirbnb}">
+      <div class="img" style="${imgStyle}"${p.video?` role="button" tabindex="0" onclick="openSoldVideo(${i})" onkeydown="if(event.key==='Enter')openSoldVideo(${i})" aria-label="${T[lang].soldVideo}"`:''}><span class="stamp">Sold out</span>${p.video?'<span class="sold-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>':''}</div>
+      <div class="pinfo"><h3>${p.name}</h3>${p.status?`<span class="sold-status"><i></i>${p.status[lang]}</span>`:''}${p.video?`<button type="button" class="sold-vbtn" onclick="openSoldVideo(${i})"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>${T[lang].soldVideo}</button>`:''}${p.airbnb?`<a class="sold-airbnb" href="${p.airbnb}" target="_blank" rel="noopener" aria-label="${p.name} ${T[lang].soldAirbnb}">
         <svg class="ab-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.001 18.275c-1.353-1.697-2.148-3.184-2.413-4.457-.263-1.027-.16-1.848.291-2.465.477-.71 1.188-1.056 2.121-1.056s1.643.345 2.12 1.063c.446.61.558 1.432.286 2.465-.291 1.298-1.085 2.785-2.412 4.458zm9.601 1.14c-.185 1.246-1.034 2.28-2.2 2.783-2.253.98-4.483-.583-6.392-2.704 3.157-3.951 3.74-7.028 2.385-9.018-.795-1.14-1.933-1.695-3.394-1.695-2.944 0-4.563 2.49-3.927 5.382.37 1.565 1.352 3.343 2.917 5.332-.98 1.085-1.91 1.856-2.732 2.333-.636.344-1.245.558-1.828.609-2.679.399-4.778-2.2-3.825-4.88.132-.345.395-.98.845-1.961l.025-.053c1.464-3.178 3.242-6.79 5.285-10.795l.053-.132.58-1.116c.45-.822.635-1.19 1.351-1.643.346-.21.77-.315 1.246-.315.954 0 1.698.558 2.016 1.007.158.239.345.557.582.953l.558 1.089.08.159c2.041 4.004 3.821 7.608 5.279 10.794l.026.025.533 1.22.318.764c.243.613.294 1.222.213 1.858zm1.22-2.39c-.186-.583-.505-1.271-.9-2.094v-.03c-1.889-4.006-3.642-7.608-5.307-10.844l-.111-.163C15.317 1.461 14.468 0 12.001 0c-2.44 0-3.476 1.695-4.535 3.898l-.081.16c-1.669 3.236-3.421 6.843-5.303 10.847v.053l-.559 1.22c-.21.504-.317.768-.345.847C-.172 20.74 2.611 24 5.98 24c.027 0 .132 0 .265-.027h.372c1.75-.213 3.554-1.325 5.384-3.317 1.829 1.989 3.635 3.104 5.382 3.317h.372c.133.027.239.027.265.027 3.37.003 6.152-3.261 4.802-6.975z"/></svg>
         ${p.rating?`<span class="ab-rate"><svg class="ab-star" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg>${lang==='nl'?String(p.rating).replace('.',','):p.rating}<span class="ab-rev"> · ${p.reviews} ${T[lang].abReviews}</span></span>`:''}
         <span class="ab-go">${T[lang].soldAirbnb} →</span></a>`:''}</div>
@@ -492,7 +515,20 @@ function launchConfetti(hostId){
     host.appendChild(c);
   }
 }
-document.addEventListener('keydown',function(e){ if(e.key!=='Escape') return; closeEarlyAccess(); closeContactModal(); });
+document.addEventListener('keydown',function(e){ if(e.key!=='Escape') return; closeEarlyAccess(); closeContactModal(); closeSoldVideo(); });
+// Video bij een uitverkocht project (Palma): dezelfde montage als op utamabali.com.
+function openSoldVideo(i){
+  const p=SOLD_OUT_PROJECTS[i]; if(!p||!p.video) return;
+  const m=el('vModal'), v=el('vModalVid');
+  if(v.getAttribute('src')!==p.video.src){ v.src=p.video.src; v.poster=p.video.poster||''; }
+  el('vModalTag').textContent=T[lang].vImp; el('vModalX').setAttribute('aria-label',T[lang].vClose);
+  m.hidden=false; document.body.style.overflow='hidden';
+  try{ v.currentTime=0; }catch(e){}
+  const pr=v.play(); if(pr&&pr.catch) pr.catch(function(){ v.muted=true; v.play().catch(function(){}); });
+}
+function closeSoldVideo(){ const m=el('vModal'); if(!m||m.hidden) return; el('vModalVid').pause(); m.hidden=true; document.body.style.overflow=''; }
+el('vModal').addEventListener('click',function(e){ if(e.target===this) closeSoldVideo(); });
+el('vModalX').addEventListener('click',closeSoldVideo);
 setLang(_pickInitialLang());
 loadHomeAvailability();
 
