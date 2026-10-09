@@ -292,7 +292,7 @@
   .plan-block{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px 24px 24px;margin-bottom:22px}
   .plan-block:last-of-type{margin-bottom:0}
   .plan-block .subhead{margin-top:0}
-  .cam-block{margin-top:22px}
+  .cam-block{margin-top:22px;scroll-margin-top:150px}
   .cam-dot{width:9px;height:9px;border-radius:50%;background:#2E7D5B;flex:none;box-shadow:0 0 0 0 rgba(46,125,91,.5);animation:campulse 1.6s ease-in-out infinite}
   @keyframes campulse{0%{box-shadow:0 0 0 0 rgba(46,125,91,.5)}70%{box-shadow:0 0 0 7px rgba(46,125,91,0)}100%{box-shadow:0 0 0 0 rgba(46,125,91,0)}}
   .cam-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -2497,9 +2497,12 @@ function camRefresh(){ const t=Date.now(); [1,2].forEach(function(n){ const im=e
 function camError(im){ const n=(parseInt(im.dataset.pogingen||'0',10)||0)+1; im.dataset.pogingen=String(n); if(n>3) return; setTimeout(function(){ im.src=im.src.replace(/&t=[^&]*/,'&t='+Date.now()+'-r'+n); },3000); }
 function camStart(){ if(camTimer) return; camRefresh(); camTimer=setInterval(camRefresh,30000); }
 function camStop(){ if(camTimer){ clearInterval(camTimer); camTimer=null; } }
+// Scrollen tot net onder de vaste tabbalk, zodat de kop van het blok in beeld blijft.
+function camScroll(smooth){ const b=el('bouwcamera'); if(!b) return; const nav=document.querySelector('.tabs-nav'); const off=(nav?nav.getBoundingClientRect().bottom:0)+14; window.scrollTo({top:b.getBoundingClientRect().top+window.pageYOffset-off, behavior:smooth?'smooth':'auto'}); }
 (function(){ const b=el('bouwcamera'); if(!b) return; if(!('IntersectionObserver' in window)){ camStart(); return; }
-  new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) camStart(); else camStop(); }); },{threshold:.15}).observe(b); })();
-if(el('bbCam')){ el('bbCam').href="#bouwcamera"; el('bbCam').removeAttribute('target'); el('bbCam').onclick=function(e){ e.preventDefault(); try{ showTab('project', true); }catch(err){} setTimeout(function(){ const b=el('bouwcamera'); if(b) b.scrollIntoView({behavior:'smooth',block:'start'}); },60); }; }
+  new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) camStart(); else camStop(); }); },{threshold:.15}).observe(b);
+  if(location.hash==='#bouwcamera'){ setTimeout(function(){ const g=el('gate'); if(!g || getComputedStyle(g).display==='none'){ try{ showTab('project', true); }catch(err){} camScroll(false); } },500); } })();
+if(el('bbCam')){ el('bbCam').href="#bouwcamera"; el('bbCam').removeAttribute('target'); el('bbCam').onclick=function(e){ e.preventDefault(); try{ showTab('project', true); }catch(err){} try{ history.replaceState(null,'','#bouwcamera'); }catch(err){} setTimeout(function(){ camScroll(true); },60); }; }
 
 // Data room-link in de nav: blijft onzichtbaar voor iedereen, behalve voor wie
 // al eerder is ingelogd (op /the-maison/dataroom/ of /referral/, zelfde
