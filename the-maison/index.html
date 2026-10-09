@@ -284,6 +284,14 @@ function toggleCam(){
   if(open){ p.removeAttribute('hidden'); b.setAttribute('aria-expanded','true'); camRefresh(); camTimer=setInterval(camRefresh,30000); p.scrollIntoView({behavior:'smooth',block:'nearest'}); }
   else { p.setAttribute('hidden',''); b.setAttribute('aria-expanded','false'); clearInterval(camTimer); camTimer=null; }
 }
+// Vanuit de brochure ("Open de bouwcamera") komt de bezoeker hier met #bouwcamera:
+// dan gaat het paneel meteen open, en blijft het aanmeldformulier dicht (wie de
+// brochure zag, liet zijn gegevens al achter).
+if(location.hash==='#bouwcamera'){
+  window.__utamaPoortBezig=true;
+  var openCam=function(){ try{ el('broModal').classList.remove('open'); document.body.style.overflow=''; }catch(e){} toggleCam(); };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){ setTimeout(openCam,500); }); else setTimeout(openCam,500);
+}
 function openBrochure(){
   // Al eens ontgrendeld op dit toestel? Dan hoeft dit formulier niet nog eens -
   // ga direct door naar de brochure, die zichzelf herkent via dezelfde opslag.

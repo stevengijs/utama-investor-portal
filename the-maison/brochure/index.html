@@ -2461,7 +2461,8 @@ function bPct(v){ return new Intl.NumberFormat(lang==='nl'?'nl-NL':'en-GB',{styl
 function bFmtNum(v){ return lang==='nl' ? v.toFixed(1).replace('.', ',') : v.toFixed(1); }
 function yearsLabel(n){ return lang==='nl' ? (n+' jaar') : (n+' year'+(n===1?'':'s')); }
 
-if(el('bbCam')) el('bbCam').href="https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent("Hi Ashley! Mag ik de link naar de live bouwcamera van The Maison?");
+// De bouwcamera staat sinds 9 oktober 2026 live op de projectpagina; #bouwcamera opent het paneel meteen.
+if(el('bbCam')) el('bbCam').href="/the-maison/#bouwcamera";
 
 // Data room-link in de nav: blijft onzichtbaar voor iedereen, behalve voor wie
 // al eerder is ingelogd (op /the-maison/dataroom/ of /referral/, zelfde
