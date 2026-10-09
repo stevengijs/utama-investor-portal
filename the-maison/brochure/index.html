@@ -2498,7 +2498,7 @@ let camTimer=null;
 function camRefresh(){ const t=Date.now(); [1,2].forEach(function(n){ const im=el('cam'+n); if(im){ im.dataset.pogingen='0'; im.src=CAM_BASE+'&cam='+n+'&t='+t+'-'+n; } }); }
 function camLabel(im, key){ const f=im.closest('figure'); const l=f && f.querySelector('.cam-live'); if(l && T[lang] && T[lang][key]) l.textContent=T[lang][key]; }
 function camOk(im){ camLabel(im,'camLive'); }
-function camError(im){ const n=(parseInt(im.dataset.pogingen||'0',10)||0)+1; im.dataset.pogingen=String(n); if(n>3){ camLabel(im,'camOffline'); return; } setTimeout(function(){ im.src=im.src.replace(/&t=[^&]*/,'&t='+Date.now()+'-r'+n); },3000); }
+function camError(im){ const n=(parseInt(im.dataset.pogingen||'0',10)||0)+1; im.dataset.pogingen=String(n); if(n>2){ camLabel(im,'camOffline'); return; } setTimeout(function(){ im.src=im.src.replace(/&t=[^&]*/,'&t='+Date.now()+'-r'+n); },2000); }
 function camStart(){ if(camTimer) return; camRefresh(); camTimer=setInterval(camRefresh,30000); }
 function camStop(){ if(camTimer){ clearInterval(camTimer); camTimer=null; } }
 // Scrollen tot net onder de vaste tabbalk, zodat de kop van het blok in beeld blijft.

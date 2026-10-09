@@ -105,7 +105,7 @@ function camRefresh(){ var t=Date.now(); [1,2].forEach(function(n){ var im=el('c
 // Label per camera: "live", of "even niet bereikbaar" na drie mislukte pogingen (tot het volgende goede beeld).
 function camLabels(){ document.querySelectorAll('.cam-grid figure').forEach(function(f){ var l=f.querySelector('.live'); if(l) l.textContent=f.dataset.offline==='1'?T[lang].offline:T[lang].live; }); }
 function camLoaded(im){ el('camTime').textContent=new Date().toLocaleTimeString(lang==='nl'?'nl-NL':'en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'}); var f=im.closest('figure'); if(f) delete f.dataset.offline; camLabels(); }
-function camError(im){ var n=(parseInt(im.dataset.pogingen||'0',10)||0)+1; im.dataset.pogingen=String(n); if(n>3){ var f=im.closest('figure'); if(f) f.dataset.offline='1'; camLabels(); return; } setTimeout(function(){ im.src=im.src.replace(/&t=[^&]*/,'&t='+Date.now()+'-r'+n); },3000); }
+function camError(im){ var n=(parseInt(im.dataset.pogingen||'0',10)||0)+1; im.dataset.pogingen=String(n); if(n>2){ var f=im.closest('figure'); if(f) f.dataset.offline='1'; camLabels(); return; } setTimeout(function(){ im.src=im.src.replace(/&t=[^&]*/,'&t='+Date.now()+'-r'+n); },2000); }
 function camStart(){ if(camTimer) return; camRefresh(); camTimer=setInterval(camRefresh,30000); }
 function camStop(){ if(camTimer){ clearInterval(camTimer); camTimer=null; } }
 document.addEventListener('visibilitychange', function(){ if(document.hidden) camStop(); else camStart(); });
