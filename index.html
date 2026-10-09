@@ -260,49 +260,11 @@
   </div>
 </div>
 
-<div class="modal-ov" id="eaModal" onclick="if(event.target===this)closeEarlyAccess()">
-  <div class="modal" role="dialog" aria-modal="true">
-    <button class="x" onclick="closeEarlyAccess()" aria-label="Sluiten">&times;</button>
-    <div class="eb" data-t="eaEb">Vroegtijdige toegang</div>
-    <h3 data-t="eaTitle">Meld je alvast aan voor het volgende project</h3>
-    <div class="msub" data-t="eaSub">Laat je gegevens achter, dan ben je een van de eersten die de details en pre-sale prijzen ontvangt zodra het project onthuld wordt.</div>
-    <form onsubmit="return submitEarlyAccess(event)">
-      <div class="mfield"><label data-t="name">Je naam</label><input id="eaName" type="text" data-tp="name" placeholder="Je volledige naam" required></div>
-      <div class="mrow">
-        <div class="mfield"><label data-t="phone">Je WhatsApp-nummer</label><input id="eaPhone" type="tel" placeholder="+31 6 ..." required></div>
-        <div class="mfield"><label data-t="email">Je e-mailadres</label><input id="eaEmail" type="email" placeholder="jij@voorbeeld.com" required></div>
-      </div>
-      <div class="mrow">
-        <div class="mfield"><label data-t="eaBudget">Budget</label>
-          <select id="eaBudget" required>
-            <option value="" disabled selected data-t="eaBudget">Kies je budget</option>
-            <option>Tot &euro;200.000</option>
-            <option>&euro;200.000 - &euro;250.000</option>
-            <option>&euro;250.000 - &euro;350.000</option>
-            <option>&euro;350.000 of meer</option>
-            <option>Nog niet zeker</option>
-          </select>
-        </div>
-        <div class="mfield"><label data-t="eaWhen">Wanneer wil je kopen?</label>
-          <select id="eaWhen" required>
-            <option value="" disabled selected>Kies je horizon</option>
-            <option>Zo snel mogelijk</option>
-            <option>Binnen 3 maanden</option>
-            <option>3 tot 6 maanden</option>
-            <option>6 tot 12 maanden</option>
-            <option>Ik ori&euml;nteer me nog</option>
-          </select>
-        </div>
-      </div>
-      <div class="merr" id="eaErr" data-t="eaErr">Vul je naam, WhatsApp-nummer en e-mailadres in.</div>
-      <button class="btn" style="width:100%;justify-content:center;margin-top:6px" type="submit" data-t="eaBtn">Meld je aan</button>
-      <div class="mtrust" data-t="eaTrust">Geen spam. We gebruiken je gegevens alleen om je op de hoogte te houden van dit project.</div>
-    </form>
-  </div>
-</div>
+<!-- De aanmeldlaag voor het volgende project komt uit /early-access.js (gedeeld met utamabali.com). -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="/supabase-client.js"></script>
+<script src="/early-access.js"></script>
 <script>
 const CONFIG = { whatsapp:"31624845014", email:"steven@utamabali.com", calendly:"", locale:"nl-NL", currency:"EUR" };
 
@@ -508,31 +470,11 @@ function showContactSuccess(name){
     '</div>';
   launchConfetti('contactModal');
 }
-function openEarlyAccess(){ el('eaModal').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeEarlyAccess(){ el('eaModal').classList.remove('open'); document.body.style.overflow=''; }
+// Eén aanmeldlaag voor invest en utamabali.com: zie /early-access.js (Steven, 9 oktober 2026).
+function openEarlyAccess(){ if(window.utamaEarlyAccess) window.utamaEarlyAccess.open(lang); }
+function closeEarlyAccess(){ if(window.utamaEarlyAccess) window.utamaEarlyAccess.close(); }
 // Afgeschermde Reload-pagina's komen hier via #volgend-project binnen: kaart in beeld en de lijst openen.
 if(location.hash==='#volgend-project'){ setTimeout(function(){ const c=el('volgend-project'); if(c) c.scrollIntoView({block:'center'}); openEarlyAccess(); },500); }
-function submitEarlyAccess(e){
-  e.preventDefault();
-  const name=el('eaName').value.trim(), phone=el('eaPhone').value.trim(), email=el('eaEmail').value.trim();
-  const budget=el('eaBudget').value, when=el('eaWhen').value;
-  if(!name||!phone||!email||!budget||!when){ el('eaErr').style.display='block'; return false; }
-  // Early access telt in /admin mee onder The Reload (de teaser is dat project); "Early access" staat als unit op de kaart.
-  const lead={ project:"The Reload", unit:"Early access", name, phone, email, budget, when };
-  submitLead({ ...lead, lang }).then(function(r){ fbTrackLead('Early access', r && r.eventId); }).catch(function(){ fbTrackLead('Early access'); });
-  showEarlySuccess(name);
-  return false;
-}
-function showEarlySuccess(name){
-  const m=document.querySelector('#eaModal .modal'); if(!m) return;
-  const first=name?name.split(' ')[0]:'';
-  m.innerHTML='<div class="msuccess">'+
-    '<div class="checkwrap"><svg viewBox="0 0 52 52" class="chk"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg></div>'+
-    '<h3>'+T[lang].eaOkTitle+(first?', '+first:'')+'</h3>'+
-    '<p>'+T[lang].eaOkP+'</p>'+
-    '</div>';
-  launchConfetti('eaModal');
-}
 function launchConfetti(hostId){
   const host=el(hostId); if(!host) return;
   const colors=['#243F35','#C06B3A','#B0873E','#2E7D5B','#EFE7D8'];
