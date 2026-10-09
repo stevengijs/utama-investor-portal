@@ -292,6 +292,14 @@
   .plan-block{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px 24px 24px;margin-bottom:22px}
   .plan-block:last-of-type{margin-bottom:0}
   .plan-block .subhead{margin-top:0}
+  .cam-block{margin-top:22px}
+  .cam-dot{width:9px;height:9px;border-radius:50%;background:#2E7D5B;flex:none;box-shadow:0 0 0 0 rgba(46,125,91,.5);animation:campulse 1.6s ease-in-out infinite}
+  @keyframes campulse{0%{box-shadow:0 0 0 0 rgba(46,125,91,.5)}70%{box-shadow:0 0 0 7px rgba(46,125,91,0)}100%{box-shadow:0 0 0 0 rgba(46,125,91,0)}}
+  .cam-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .cam-grid figure{margin:0;border-radius:12px;overflow:hidden;background:#17140F;border:1px solid var(--line)}
+  .cam-grid img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;color:transparent;background:#17140F url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23f4f1ea%27 stroke-width=%271.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Crect x=%271%27 y=%275%27 width=%2715%27 height=%2714%27 rx=%272.5%27/%3E%3Cpath d=%27M23 7.5l-7 4.5 7 4.5v-9z%27/%3E%3C/svg%3E") center/40px no-repeat}
+  .cam-grid figcaption{padding:7px 10px;font-size:12px;font-weight:600;color:var(--muted);background:#fff}
+  @media(max-width:560px){.cam-grid{grid-template-columns:1fr}}
   @media(max-width:560px){.plan-block{padding:18px 18px 20px}}
 
   .num-list{margin-top:4px}
@@ -899,6 +907,17 @@
           <div class="g" style="background-image:url('/the-maison/images/maison-bathroom.jpg')"></div>
         </div>
 
+        <!-- Live bouwcamera (Steven, 9 oktober 2026): de beelden komen van de edge function
+             bouwcamera, die het camerawachtwoord buiten de browser houdt. Verversen elke 30 s,
+             alleen zolang dit blok in beeld is. -->
+        <div class="plan-block cam-block" id="bouwcamera">
+          <div class="subhead"><span class="cam-dot" aria-hidden="true"></span><span data-t="camSub">Live vanaf de bouwplaats</span></div>
+          <p class="pane-lead" style="margin-bottom:12px" data-t="camLead">Twee camera's op de bouwplaats in Pererenan. De beelden verversen elke 30 seconden zolang je kijkt; de tijd in beeld is Balinese tijd.</p>
+          <div class="cam-grid">
+            <figure><img id="cam1" alt="" decoding="async" onerror="camError(this)"><figcaption><span data-t="camLbl1">Camera 1</span> · <span data-t="camLive">live</span></figcaption></figure>
+            <figure><img id="cam2" alt="" decoding="async" onerror="camError(this)"><figcaption><span data-t="camLbl2">Camera 2</span> · <span data-t="camLive">live</span></figcaption></figure>
+          </div>
+        </div>
         <div class="feature-cols">
           <div class="fcol"><h4 data-t="p01F1H">Volledig gemeubileerd</h4><p data-t="p01F1P">Volledig afgewerkt en ingericht opgeleverd, inclusief branded details.</p></div>
           <div class="fcol"><h4 data-t="p01F2H">Prime locatie</h4><p data-t="p01F2P">Middenin Pererenan, tussen de beste restaurants, cafés, gyms en beauty salons van de buurt, en op 3 minuten van het strand.</p></div>
@@ -1640,6 +1659,11 @@ const T = {
   "printBtn": "Download als PDF",
   "railNoteLbl": "Live bouwstatus bekijken?",
   "railNoteCta": "Open de bouwcamera →",
+  "camSub": "Live vanaf de bouwplaats",
+  "camLead": "Twee camera's op de bouwplaats in Pererenan. De beelden verversen elke 30 seconden zolang je kijkt; de tijd in beeld is Balinese tijd.",
+  "camLbl1": "Camera 1",
+  "camLbl2": "Camera 2",
+  "camLive": "live",
   "fplansH": "Plattegronden",
   "tabProject": "Het project",
   "tabPlattegronden": "Plattegronden",
@@ -2075,6 +2099,11 @@ const T = {
   "printBtn": "Download as PDF",
   "railNoteLbl": "Want to see live construction status?",
   "railNoteCta": "Open the construction camera →",
+  "camSub": "Live from the building site",
+  "camLead": "Two cameras on the building site in Pererenan. The images refresh every 30 seconds while you watch; the time in the image is Bali time.",
+  "camLbl1": "Camera 1",
+  "camLbl2": "Camera 2",
+  "camLive": "live",
   "fplansH": "Floor plans",
   "tabProject": "The project",
   "tabPlattegronden": "Floor plans",
@@ -2461,8 +2490,16 @@ function bPct(v){ return new Intl.NumberFormat(lang==='nl'?'nl-NL':'en-GB',{styl
 function bFmtNum(v){ return lang==='nl' ? v.toFixed(1).replace('.', ',') : v.toFixed(1); }
 function yearsLabel(n){ return lang==='nl' ? (n+' jaar') : (n+' year'+(n===1?'':'s')); }
 
-// De bouwcamera staat sinds 9 oktober 2026 live op de projectpagina; #bouwcamera opent het paneel meteen.
-if(el('bbCam')) el('bbCam').href="/the-maison/#bouwcamera";
+// Live bouwcamera: het blok staat in het eerste tabblad; de link in de rail springt ernaartoe.
+const CAM_BASE='https://gcpachivrwalsneuvlsa.supabase.co/functions/v1/bouwcamera?project=the-maison';
+let camTimer=null;
+function camRefresh(){ const t=Date.now(); [1,2].forEach(function(n){ const im=el('cam'+n); if(im){ im.dataset.pogingen='0'; im.src=CAM_BASE+'&cam='+n+'&t='+t+'-'+n; } }); }
+function camError(im){ const n=(parseInt(im.dataset.pogingen||'0',10)||0)+1; im.dataset.pogingen=String(n); if(n>3) return; setTimeout(function(){ im.src=im.src.replace(/&t=[^&]*/,'&t='+Date.now()+'-r'+n); },3000); }
+function camStart(){ if(camTimer) return; camRefresh(); camTimer=setInterval(camRefresh,30000); }
+function camStop(){ if(camTimer){ clearInterval(camTimer); camTimer=null; } }
+(function(){ const b=el('bouwcamera'); if(!b) return; if(!('IntersectionObserver' in window)){ camStart(); return; }
+  new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) camStart(); else camStop(); }); },{threshold:.15}).observe(b); })();
+if(el('bbCam')){ el('bbCam').href="#bouwcamera"; el('bbCam').removeAttribute('target'); el('bbCam').onclick=function(e){ e.preventDefault(); try{ showTab('project', true); }catch(err){} setTimeout(function(){ const b=el('bouwcamera'); if(b) b.scrollIntoView({behavior:'smooth',block:'start'}); },60); }; }
 
 // Data room-link in de nav: blijft onzichtbaar voor iedereen, behalve voor wie
 // al eerder is ingelogd (op /the-maison/dataroom/ of /referral/, zelfde
