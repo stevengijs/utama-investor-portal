@@ -906,17 +906,6 @@
           <div class="g" style="background-image:url('/the-maison/images/maison-outdoor.jpg')"></div>
           <div class="g" style="background-image:url('/the-maison/images/maison-bathroom.jpg')"></div>
         </div>
-
-        <!-- Live bouwcamera (Steven, 9 oktober 2026): de beelden komen van de edge function
-             bouwcamera, die het camerawachtwoord buiten de browser houdt. Verversen elke 30 s,
-             alleen zolang dit blok in beeld is. -->
-        <div class="plan-block cam-block" id="bouwcamera">
-          <div class="subhead"><span class="cam-dot" aria-hidden="true"></span><span data-t="camSub">Live vanaf de bouwplaats</span></div>
-          <p class="pane-lead" style="margin-bottom:12px" data-t="camLead">Twee camera's op de bouwplaats in Pererenan. De beelden verversen elke 30 seconden zolang je kijkt; de tijd in beeld is Balinese tijd.</p>
-          <div class="cam-grid">
-            <figure><img id="cam1" alt="" decoding="async" onerror="camError(this)"><figcaption><span data-t="camLbl1">Camera 1</span> · <span data-t="camLive">live</span></figcaption></figure>
-            <figure><img id="cam2" alt="" decoding="async" onerror="camError(this)"><figcaption><span data-t="camLbl2">Camera 2</span> · <span data-t="camLive">live</span></figcaption></figure>
-          </div>
         </div>
         <div class="feature-cols">
           <div class="fcol"><h4 data-t="p01F1H">Volledig gemeubileerd</h4><p data-t="p01F1P">Volledig afgewerkt en ingericht opgeleverd, inclusief branded details.</p></div>
@@ -1207,6 +1196,17 @@
             <div class="ch-item"><span class="ck">✓</span><b data-t="p05Ch3b">10 jaar garantie</b> <span data-t="p05Ch3">op de bouwkundige schil van de villa</span></div>
           </div>
         </div>
+
+        <!-- Live bouwcamera (Steven, 9 oktober 2026): de beelden komen van de edge function
+             bouwcamera, die het camerawachtwoord buiten de browser houdt. Verversen elke 30 s,
+             alleen zolang dit blok in beeld is. -->
+        <div class="plan-block cam-block" id="bouwcamera">
+          <div class="subhead"><span class="cam-dot" aria-hidden="true"></span><span data-t="camSub">Live vanaf de bouwplaats</span></div>
+          <p class="pane-lead" style="margin-bottom:12px" data-t="camLead">Twee camera's op de bouwplaats in Pererenan. De beelden verversen elke 30 seconden zolang je kijkt; de tijd in beeld is Balinese tijd.</p>
+          <div class="cam-grid">
+            <figure><img id="cam1" alt="" decoding="async" onerror="camError(this)"><figcaption><span data-t="camLbl1">Camera 1</span> · <span data-t="camLive">live</span></figcaption></figure>
+            <figure><img id="cam2" alt="" decoding="async" onerror="camError(this)"><figcaption><span data-t="camLbl2">Camera 2</span> · <span data-t="camLive">live</span></figcaption></figure>
+          </div>
       </div>
 
       <!-- 05 · BEHEER -->
@@ -2490,7 +2490,7 @@ function bPct(v){ return new Intl.NumberFormat(lang==='nl'?'nl-NL':'en-GB',{styl
 function bFmtNum(v){ return lang==='nl' ? v.toFixed(1).replace('.', ',') : v.toFixed(1); }
 function yearsLabel(n){ return lang==='nl' ? (n+' jaar') : (n+' year'+(n===1?'':'s')); }
 
-// Live bouwcamera: het blok staat in het eerste tabblad; de link in de rail springt ernaartoe.
+// Live bouwcamera: het blok staat in het tabblad Bouwmanagement; de link in de rail springt ernaartoe.
 const CAM_BASE='https://gcpachivrwalsneuvlsa.supabase.co/functions/v1/bouwcamera?project=the-maison';
 let camTimer=null;
 function camRefresh(){ const t=Date.now(); [1,2].forEach(function(n){ const im=el('cam'+n); if(im){ im.dataset.pogingen='0'; im.src=CAM_BASE+'&cam='+n+'&t='+t+'-'+n; } }); }
@@ -2501,8 +2501,8 @@ function camStop(){ if(camTimer){ clearInterval(camTimer); camTimer=null; } }
 function camScroll(smooth){ const b=el('bouwcamera'); if(!b) return; const nav=document.querySelector('.tabs-nav'); const off=(nav?nav.getBoundingClientRect().bottom:0)+14; window.scrollTo({top:b.getBoundingClientRect().top+window.pageYOffset-off, behavior:smooth?'smooth':'auto'}); }
 (function(){ const b=el('bouwcamera'); if(!b) return; if(!('IntersectionObserver' in window)){ camStart(); return; }
   new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) camStart(); else camStop(); }); },{threshold:.15}).observe(b);
-  if(location.hash==='#bouwcamera'){ setTimeout(function(){ const g=el('gate'); if(!g || getComputedStyle(g).display==='none'){ try{ showTab('project', true); }catch(err){} camScroll(false); } },500); } })();
-if(el('bbCam')){ el('bbCam').href="#bouwcamera"; el('bbCam').removeAttribute('target'); el('bbCam').onclick=function(e){ e.preventDefault(); try{ showTab('project', true); }catch(err){} try{ history.replaceState(null,'','#bouwcamera'); }catch(err){} setTimeout(function(){ camScroll(true); },60); }; }
+  if(location.hash==='#bouwcamera'){ setTimeout(function(){ const g=el('gate'); if(!g || getComputedStyle(g).display==='none'){ try{ showTab('team', true); }catch(err){} camScroll(false); } },500); } })();
+if(el('bbCam')){ el('bbCam').href="#bouwcamera"; el('bbCam').removeAttribute('target'); el('bbCam').onclick=function(e){ e.preventDefault(); try{ showTab('team', true); }catch(err){} try{ history.replaceState(null,'','#bouwcamera'); }catch(err){} setTimeout(function(){ camScroll(true); },60); }; }
 
 // Data room-link in de nav: blijft onzichtbaar voor iedereen, behalve voor wie
 // al eerder is ingelogd (op /the-maison/dataroom/ of /referral/, zelfde
