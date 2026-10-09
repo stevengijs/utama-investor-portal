@@ -292,7 +292,11 @@
   .plan-block{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px 24px 24px;margin-bottom:22px}
   .plan-block:last-of-type{margin-bottom:0}
   .plan-block .subhead{margin-top:0}
-  .cam-block{margin-top:22px;scroll-margin-top:150px}
+  .cam-block{margin-top:22px;scroll-margin-top:150px;position:relative}
+  .cam-pauze{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:rgba(246,241,232,.88);border-radius:12px;text-align:center;padding:20px}
+  .cam-pauze[hidden]{display:none}
+  .cam-pauze p{margin:0;font-size:14px;color:var(--muted)}
+  .cam-btn{border:0;background:#17140F;color:#fff;font-family:inherit;font-weight:600;font-size:14px;padding:11px 20px;border-radius:999px;cursor:pointer}
   .cam-dot{width:9px;height:9px;border-radius:50%;background:#2E7D5B;flex:none;box-shadow:0 0 0 0 rgba(46,125,91,.5);animation:campulse 1.6s ease-in-out infinite}
   @keyframes campulse{0%{box-shadow:0 0 0 0 rgba(46,125,91,.5)}70%{box-shadow:0 0 0 7px rgba(46,125,91,0)}100%{box-shadow:0 0 0 0 rgba(46,125,91,0)}}
   .cam-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -1201,11 +1205,12 @@
              alleen zolang dit blok in beeld is. -->
         <div class="plan-block cam-block" id="bouwcamera">
           <div class="subhead"><span class="cam-dot" aria-hidden="true"></span><span data-t="camSub">Live vanaf de bouwplaats</span></div>
-          <p class="pane-lead" style="margin-bottom:12px" data-t="camLead">Twee camera's op de bouwplaats in Pererenan. De beelden verversen elke 30 seconden zolang je kijkt; de tijd in beeld is Balinese tijd.</p>
+          <p class="pane-lead" style="margin-bottom:12px" data-t="camLead">Twee camera's op de bouwplaats in Pererenan, bewegend beeld zolang je kijkt. De tijd in beeld is Balinese tijd.</p>
           <div class="cam-grid">
             <figure><img id="cam1" alt="" decoding="async" onload="camOk(this)" onerror="camError(this)"><figcaption><span data-t="camLbl1">Camera 1</span> · <span class="cam-live" data-t="camLive">live</span></figcaption></figure>
             <figure><img id="cam2" alt="" decoding="async" onload="camOk(this)" onerror="camError(this)"><figcaption><span data-t="camLbl2">Camera 2</span> · <span class="cam-live" data-t="camLive">live</span></figcaption></figure>
           </div>
+          <div class="cam-pauze" id="camPauze" hidden><p data-t="camPauzeNote">Gepauzeerd na tien minuten kijken.</p><button type="button" class="cam-btn" onclick="camStart()" data-t="camPauzeBtn">Verder kijken</button></div>
         </div>
       </div>
 
@@ -1577,6 +1582,7 @@
 <script src="/supabase-client.js"></script>
 <script src="/brochure-media.js"></script>
 <script src="/calc-shared.js"></script>
+<script src="/bouwcamera.js"></script>
 <script>
 const CONFIG = { whatsapp:"31624845014", email:"steven@utamabali.com" };
 const el = id => document.getElementById(id);
@@ -1660,11 +1666,14 @@ const T = {
   "railNoteLbl": "Live bouwstatus bekijken?",
   "railNoteCta": "Open de bouwcamera →",
   "camSub": "Live vanaf de bouwplaats",
-  "camLead": "Twee camera's op de bouwplaats in Pererenan. De beelden verversen elke 30 seconden zolang je kijkt; de tijd in beeld is Balinese tijd.",
+  "camLead": "Twee camera's op de bouwplaats in Pererenan, bewegend beeld zolang je kijkt. De tijd in beeld is Balinese tijd.",
   "camLbl1": "Camera 1",
   "camLbl2": "Camera 2",
   "camLive": "live",
   "camOffline": "even niet bereikbaar",
+  "camLaden": "verbinden",
+  "camPauzeNote": "Gepauzeerd na tien minuten kijken.",
+  "camPauzeBtn": "Verder kijken",
   "fplansH": "Plattegronden",
   "tabProject": "Het project",
   "tabPlattegronden": "Plattegronden",
@@ -2101,11 +2110,14 @@ const T = {
   "railNoteLbl": "Want to see live construction status?",
   "railNoteCta": "Open the construction camera →",
   "camSub": "Live from the building site",
-  "camLead": "Two cameras on the building site in Pererenan. The images refresh every 30 seconds while you watch; the time in the image is Bali time.",
+  "camLead": "Two cameras on the building site in Pererenan, moving images while you watch. The time in the image is Bali time.",
   "camLbl1": "Camera 1",
   "camLbl2": "Camera 2",
   "camLive": "live",
   "camOffline": "temporarily unreachable",
+  "camLaden": "connecting",
+  "camPauzeNote": "Paused after ten minutes of watching.",
+  "camPauzeBtn": "Keep watching",
   "fplansH": "Floor plans",
   "tabProject": "The project",
   "tabPlattegronden": "Floor plans",
@@ -2499,8 +2511,15 @@ function camRefresh(){ const t=Date.now(); [1,2].forEach(function(n){ const im=e
 function camLabel(im, key){ const f=im.closest('figure'); const l=f && f.querySelector('.cam-live'); if(l && T[lang] && T[lang][key]) l.textContent=T[lang][key]; }
 function camOk(im){ camLabel(im,'camLive'); }
 function camError(im){ const n=(parseInt(im.dataset.pogingen||'0',10)||0)+1; im.dataset.pogingen=String(n); if(n>2){ camLabel(im,'camOffline'); return; } setTimeout(function(){ im.src=im.src.replace(/&t=[^&]*/,'&t='+Date.now()+'-r'+n); },2000); }
-function camStart(){ if(camTimer) return; camRefresh(); camTimer=setInterval(camRefresh,30000); }
-function camStop(){ if(camTimer){ clearInterval(camTimer); camTimer=null; } }
+let camSpeler=null;
+function camPauzeToon(aan){ const p=el('camPauze'); if(p) p.hidden=!aan; }
+function camSpelerMaak(){ if(camSpeler || !window.utamaBouwcamera) return camSpeler;
+  camSpeler=window.utamaBouwcamera({ base:CAM_BASE, fps:4, maxS:600, cams:[{n:1,img:el('cam1')},{n:2,img:el('cam2')}],
+    onState:function(n,s){ if(s==='pauze'){ camPauzeToon(true); return; } const im=el('cam'+n); if(im) camLabel(im, s==='live'?'camLive':(s==='offline'?'camOffline':'camLaden')); } });
+  return camSpeler; }
+// Bewegend beeld via de gedeelde speler (/bouwcamera.js); laadt die niet, dan momentopnamen elke 30 s.
+function camStart(){ const sp=camSpelerMaak(); if(sp){ camPauzeToon(false); sp.start(); return; } if(camTimer) return; camRefresh(); camTimer=setInterval(camRefresh,30000); }
+function camStop(){ if(camSpeler) camSpeler.stop(); if(camTimer){ clearInterval(camTimer); camTimer=null; } }
 // Scrollen tot net onder de vaste tabbalk, zodat de kop van het blok in beeld blijft.
 // html heeft scroll-behavior:smooth, dus 'auto' scrolt óók zacht, en een zachte scroll vlak na
 // het laden wordt afgebroken (gemeten 9 oktober 2026: scrollY bleef 0). Daarom 'instant'.
