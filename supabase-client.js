@@ -52,8 +52,10 @@ if(typeof window!=='undefined') window.utamaAvailability = utamaAvailability;
 /*
  * DE enige bron voor beschikbaarheids-tekst. Alle pagina's (homepage, project-
  * pagina's, brochure) gebruiken dit, zodat de cijfers overal identiek zijn en
- * altijd optellen. "Vergeven" = verkocht + gereserveerd, zodat vergeven + nog
- * beschikbaar = totaal (geen "3 verkocht maar 2 beschikbaar"-verwarring meer).
+ * altijd optellen: verkocht + gereserveerd + nog beschikbaar = totaal. Sinds
+ * 9 oktober 2026 (Steven) staan verkocht en gereserveerd apart in de regel
+ * ("3 van 6 verkocht · 1 gereserveerd · nog 2 beschikbaar"); "short" is alleen
+ * het verkochte deel, voor de kop "al verkocht" op de projectpagina.
  * Neemt {total, sold, reserved, available}; geeft {line, tag, short, presale, soldout}.
  */
 function availabilityText(d, lang){
@@ -86,11 +88,13 @@ function availabilityText(d, lang){
       tag:   '',
       short: (lang==='nl') ? 'Uitverkocht' : 'Sold out' };
   }
+  const nl = (lang==='nl');
+  const res = reserved > 0 ? (nl ? (' · '+reserved+' gereserveerd') : (' · '+reserved+' reserved')) : '';
   return { presale:false, soldout:false, total, taken, available,
-    line:  (lang==='nl') ? (taken+' van '+total+' verkocht · nog '+available+' beschikbaar')
-                         : (taken+' of '+total+' sold · '+available+' still available'),
-    tag:   (lang==='nl') ? (taken+' verkocht') : (taken+' sold'),
-    short: taken + (lang==='nl' ? ' van ' : ' of ') + total };
+    line:  nl ? (sold+' van '+total+' verkocht'+res+' · nog '+available+' beschikbaar')
+              : (sold+' of '+total+' sold'+res+' · '+available+' still available'),
+    tag:   nl ? (sold+' verkocht'+(reserved>0?(', '+reserved+' gereserveerd'):'')) : (sold+' sold'+(reserved>0?(', '+reserved+' reserved'):'')),
+    short: sold + (nl ? ' van ' : ' of ') + total };
 }
 if(typeof window!=='undefined') window.availabilityText = availabilityText;
 
