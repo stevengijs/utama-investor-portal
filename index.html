@@ -32,12 +32,14 @@
   .cta-agent-name{font-size:13.5px;font-weight:600;color:#fff}
   .cta-agent-role{font-size:12px;color:#eee4d4;opacity:.8;margin-top:1px}
   .pcard.soon{position:relative;border:none;overflow:hidden;background:#171512;color:#fff;min-height:260px}
-  .pcard.soon .soon-bg{position:absolute;inset:-20px;background-size:cover;background-position:center;filter:blur(13px) brightness(.55) saturate(1.05);transform:scale(1.12)}
+  .pcard.soon .soon-bg{position:absolute;inset:-20px;background-size:cover;background-position:center;filter:blur(9px) brightness(.6) saturate(1.1);transform:scale(1.12)}
   .pcard.soon .soon-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,21,18,.25),rgba(23,21,18,.72))}
   .pcard.soon .soon-content{position:relative;z-index:1;text-align:center;padding:0 30px}
   .pcard.soon .soon-tag{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#f0c9a8;margin-bottom:10px}
   .pcard.soon .soon-text{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:21px;font-weight:800;line-height:1.3}
   .pcard.soon{cursor:pointer}
+  .pcard.soon .soon-price{display:inline-block;margin-top:14px;padding:8px 15px;border-radius:9999px;background:rgba(254,251,246,.14);border:1px solid rgba(254,251,246,.4);color:#fff;font-size:14px;font-weight:700;letter-spacing:.02em}
+  .pcard.soon .soon-cta{margin-top:12px;font-size:13px;font-weight:600;color:#f0c9a8}
   .pcard .avail{text-align:right}
   .pcard .avail .avail-sold{color:var(--ink);font-weight:700;font-size:13px}
   .pcard .avail .avail-left{color:var(--muted);font-weight:500;font-size:11.5px}
@@ -305,12 +307,7 @@ const PROJECTS = [
     loc:{nl:"Kedungu, Bali", en:"Kedungu, Bali"},
     status:{nl:"Oplevering oktober 2026", en:"Completion October 2026"},
     priceFrom:325000, unitsTotal:15, unitsSold:14,
-    img:"/images/moka/villa3-exterior.jpg" },
-  { id:"reload", name:"The Reload", link:"/the-reload",
-    loc:{nl:"Cemagi, Bali", en:"Cemagi, Bali"},
-    status:{nl:"In verkoop · oplevering najaar 2027", en:"Selling now · completion autumn 2027"},
-    priceFrom:325000, unitsTotal:4, unitsSold:0,
-    img:"/the-reload/images/reload-four-villas.jpg" }
+    img:"/images/moka/villa3-exterior.jpg" }
 ];
 
 /* Eerder uitverkochte projecten: alleen voor social proof op de homepage, geen eigen
@@ -347,7 +344,7 @@ const T={
   cmProject:"Welk project?",cmProjectChoose:"Kies een project",cmProjectUnsure:"Nog geen voorkeur",cmErr:"Vul je naam, WhatsApp-nummer, e-mailadres en project in.",cmBtn:"Verstuur via WhatsApp",
   cmOkTitle:"Verstuurd!",cmOkP:"We hebben je bericht ontvangen. Ashley neemt snel contact met je op via WhatsApp.",
   footer:"Investeren in Bali-vastgoed, transparant en zorgeloos.",footerRef:"Verdien €2.500 als je iemand aanbrengt",
-  from:"vanaf",soldPart:"{sold} van {y} verkocht",leftPart:"nog {x} beschikbaar",soldOutLine:"✓ Volledig uitverkocht ({y} van {y})",recentSold:"{x} verkocht",more:"Bekijk project en rendement →",soon:"Volgend project wordt binnenkort onthuld",soonTag:"Binnenkort · nieuw project",
+  from:"vanaf",soldPart:"{sold} van {y} verkocht",leftPart:"nog {x} beschikbaar",soldOutLine:"✓ Volledig uitverkocht ({y} van {y})",recentSold:"{x} verkocht",more:"Bekijk project en rendement →",soon:"Volgend project wordt binnenkort onthuld",soonTag:"Binnenkort · nieuw project",soonPrice:"Vanaf €125.000 tot €235.000",soonCta:"Zet mij op de lijst →",
   soldEyebrow:"Eerder uitverkocht",soldAirbnb:"Bekijk de listing op Airbnb →",
   eaEb:"Vroegtijdige toegang",eaTitle:"Meld je alvast aan voor het volgende project",eaSub:"Laat je gegevens achter, dan ben je een van de eersten die de details en pre-sale prijzen ontvangt zodra het project onthuld wordt.",
   eaBudget:"Budget",eaWhen:"Wanneer wil je kopen?",eaErr:"Vul je naam, WhatsApp-nummer en e-mailadres in.",eaBtn:"Meld je aan",
@@ -375,7 +372,7 @@ const T={
   cmProject:"Which project?",cmProjectChoose:"Choose a project",cmProjectUnsure:"Not sure yet",cmErr:"Please enter your name, WhatsApp number, email and project.",cmBtn:"Send via WhatsApp",
   cmOkTitle:"Sent!",cmOkP:"We've received your message. Ashley will be in touch shortly via WhatsApp.",
   footer:"Investing in Bali real estate, transparent and hassle-free.",footerRef:"Earn €2,500 for every friend you bring in",
-  from:"from",soldPart:"{sold} of {y} sold",leftPart:"{x} left",soldOutLine:"✓ Fully sold out ({y} of {y})",recentSold:"{x} sold",more:"View project and returns →",soon:"Next project to be revealed soon",soonTag:"Coming soon · new project",
+  from:"from",soldPart:"{sold} of {y} sold",leftPart:"{x} left",soldOutLine:"✓ Fully sold out ({y} of {y})",recentSold:"{x} sold",more:"View project and returns →",soon:"Next project to be revealed soon",soonTag:"Coming soon · new project",soonPrice:"From €125,000 to €235,000",soonCta:"Put me on the list →",
   soldEyebrow:"Previously sold out",soldAirbnb:"View the listing on Airbnb →",
   eaEb:"Early access",eaTitle:"Register your interest for the next project",eaSub:"Leave your details and you'll be one of the first to receive the details and pre-sale prices once the project is revealed.",
   eaBudget:"Budget",eaWhen:"When do you want to buy?",eaErr:"Please enter your name, WhatsApp number and email.",eaBtn:"Register interest",
@@ -412,12 +409,17 @@ function renderCards(){
         <div class="more">${T[lang].more}</div>
       </div></a>`;
   });
-  h+=`<div class="pcard soon" onclick="openEarlyAccess()">
-    <div class="soon-bg" style="background-image:url('/images/steven-site-generic.jpg')"></div>
+  // The Reload (Steven, 9 oktober 2026): niet meer als vier villa's verkocht. De pagina's zijn
+  // afgeschermd (vercel.json verwijst naar #volgend-project) en dit is de teaser: een vervaagde
+  // render, de prijsband en de early-access lijst.
+  h+=`<div class="pcard soon" id="volgend-project" onclick="openEarlyAccess()">
+    <div class="soon-bg" style="background-image:url('/the-reload/images/reload-rooftop-wellness.jpg')"></div>
     <div class="soon-overlay"></div>
     <div class="soon-content">
       <div class="soon-tag">${T[lang].soonTag}</div>
       <div class="soon-text">${T[lang].soon}</div>
+      <div class="soon-price">${T[lang].soonPrice}</div>
+      <div class="soon-cta">${T[lang].soonCta}</div>
     </div>
   </div>`;
   el('pcards').innerHTML=h;
@@ -493,6 +495,8 @@ function showContactSuccess(name){
 }
 function openEarlyAccess(){ el('eaModal').classList.add('open'); document.body.style.overflow='hidden'; }
 function closeEarlyAccess(){ el('eaModal').classList.remove('open'); document.body.style.overflow=''; }
+// Afgeschermde Reload-pagina's komen hier via #volgend-project binnen: kaart in beeld en de lijst openen.
+if(location.hash==='#volgend-project'){ setTimeout(function(){ const c=el('volgend-project'); if(c) c.scrollIntoView({block:'center'}); openEarlyAccess(); },500); }
 function submitEarlyAccess(e){
   e.preventDefault();
   const name=el('eaName').value.trim(), phone=el('eaPhone').value.trim(), email=el('eaEmail').value.trim();

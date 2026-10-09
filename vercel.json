@@ -1,6 +1,36 @@
 {
   "redirects": [
     {
+      "source": "/the-reload",
+      "destination": "/#volgend-project",
+      "permanent": false
+    },
+    {
+      "source": "/the-reload/",
+      "destination": "/#volgend-project",
+      "permanent": false
+    },
+    {
+      "source": "/the-reload/index.html",
+      "destination": "/#volgend-project",
+      "permanent": false
+    },
+    {
+      "source": "/the-reload/brochure",
+      "destination": "/#volgend-project",
+      "permanent": false
+    },
+    {
+      "source": "/the-reload/brochure/",
+      "destination": "/#volgend-project",
+      "permanent": false
+    },
+    {
+      "source": "/the-reload/brochure/:path*",
+      "destination": "/#volgend-project",
+      "permanent": false
+    },
+    {
       "source": "/the-maison/bouwcamera",
       "destination": "/the-maison/camera/",
       "permanent": true
