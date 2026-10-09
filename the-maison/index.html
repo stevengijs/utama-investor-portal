@@ -98,8 +98,8 @@
              function bouwcamera, die het wachtwoord van de camera buiten de
              browser houdt en een momentopname van maximaal 20 s oud teruggeeft. -->
         <div class="cam-panel" id="camPanel" hidden>
-          <figure><img id="cam1" alt="Live beeld bouwcamera 1, The Maison" loading="lazy" decoding="async"><figcaption><span data-t="camLbl1">Camera 1</span> · <span data-t="camLive">live</span></figcaption></figure>
-          <figure><img id="cam2" alt="Live beeld bouwcamera 2, The Maison" loading="lazy" decoding="async"><figcaption><span data-t="camLbl2">Camera 2</span> · <span data-t="camLive">live</span></figcaption></figure>
+          <figure><img id="cam1" alt="" decoding="async" onerror="camError(this)"><figcaption><span data-t="camLbl1">Camera 1</span> · <span data-t="camLive">live</span></figcaption></figure>
+          <figure><img id="cam2" alt="" decoding="async" onerror="camError(this)"><figcaption><span data-t="camLbl2">Camera 2</span> · <span data-t="camLive">live</span></figcaption></figure>
           <p class="cam-note" data-t="camNote">Live beelden van de bouwplaats in Pererenan, elke 30 seconden ververst. De tijd in beeld is Balinese tijd.</p>
         </div>
         <button type="button" class="cta-combo" onclick="openBrochure()">
@@ -277,7 +277,9 @@ function waDirect(){ fbTrackContact('The Maison'); const msg=(lang==='nl'?"Hi! I
    (cache 20 s); de pagina ververst elke 30 s zolang het paneel open staat. */
 const CAM_BASE='https://gcpachivrwalsneuvlsa.supabase.co/functions/v1/bouwcamera?project=the-maison';
 let camTimer=null;
-function camRefresh(){ const t=Date.now(); [1,2].forEach(function(n){ const im=el('cam'+n); if(im) im.src=CAM_BASE+'&cam='+n+'&t='+t; }); }
+function camRefresh(){ const t=Date.now(); [1,2].forEach(function(n){ const im=el('cam'+n); if(im){ im.dataset.pogingen='0'; im.src=CAM_BASE+'&cam='+n+'&t='+t+'-'+n; } }); }
+// Mislukt een beeld (camera even niet bereikbaar), dan na 3 s opnieuw, hooguit drie keer; intussen geen kapot plaatje.
+function camError(im){ const n=(parseInt(im.dataset.pogingen||'0',10)||0)+1; im.dataset.pogingen=String(n); if(n>3) return; setTimeout(function(){ im.src=im.src.replace(/&t=[^&]*/,'&t='+Date.now()+'-r'+n); },3000); }
 function toggleCam(){
   const p=el('camPanel'), b=el('bbCam'); if(!p) return;
   const open=p.hasAttribute('hidden');
@@ -501,7 +503,7 @@ loadAvailability();
   .bb-cam[aria-expanded="true"]{background:var(--ink);color:#fff}
   .cam-panel{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 18px}
   .cam-panel figure{margin:0;border-radius:12px;overflow:hidden;background:#17140F;box-shadow:var(--shadow)}
-  .cam-panel img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#17140F}
+  .cam-panel img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#17140F url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23f4f1ea%27 stroke-width=%271.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Crect x=%271%27 y=%275%27 width=%2715%27 height=%2714%27 rx=%272.5%27/%3E%3Cpath d=%27M23 7.5l-7 4.5 7 4.5v-9z%27/%3E%3C/svg%3E") center/40px no-repeat;color:transparent}
   .cam-panel figcaption{padding:7px 10px;font-size:12px;font-weight:600;color:var(--muted);background:#fff}
   .cam-note{grid-column:1/-1;margin:0;font-size:12.5px;color:var(--muted)}
   @media(max-width:560px){.cam-panel{grid-template-columns:1fr}}
