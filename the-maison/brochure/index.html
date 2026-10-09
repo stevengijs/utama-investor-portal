@@ -1204,8 +1204,8 @@
           <div class="subhead"><span class="cam-dot" aria-hidden="true"></span><span data-t="camSub">Live vanaf de bouwplaats</span></div>
           <p class="pane-lead" style="margin-bottom:12px" data-t="camLead">Twee camera's op de bouwplaats in Pererenan. De beelden verversen elke 30 seconden zolang je kijkt; de tijd in beeld is Balinese tijd.</p>
           <div class="cam-grid">
-            <figure><img id="cam1" alt="" decoding="async" onerror="camError(this)"><figcaption><span data-t="camLbl1">Camera 1</span> · <span data-t="camLive">live</span></figcaption></figure>
-            <figure><img id="cam2" alt="" decoding="async" onerror="camError(this)"><figcaption><span data-t="camLbl2">Camera 2</span> · <span data-t="camLive">live</span></figcaption></figure>
+            <figure><img id="cam1" alt="" decoding="async" onload="camOk(this)" onerror="camError(this)"><figcaption><span data-t="camLbl1">Camera 1</span> · <span class="cam-live" data-t="camLive">live</span></figcaption></figure>
+            <figure><img id="cam2" alt="" decoding="async" onload="camOk(this)" onerror="camError(this)"><figcaption><span data-t="camLbl2">Camera 2</span> · <span class="cam-live" data-t="camLive">live</span></figcaption></figure>
           </div>
       </div>
 
@@ -1664,6 +1664,7 @@ const T = {
   "camLbl1": "Camera 1",
   "camLbl2": "Camera 2",
   "camLive": "live",
+  "camOffline": "even niet bereikbaar",
   "fplansH": "Plattegronden",
   "tabProject": "Het project",
   "tabPlattegronden": "Plattegronden",
@@ -2104,6 +2105,7 @@ const T = {
   "camLbl1": "Camera 1",
   "camLbl2": "Camera 2",
   "camLive": "live",
+  "camOffline": "temporarily unreachable",
   "fplansH": "Floor plans",
   "tabProject": "The project",
   "tabPlattegronden": "Floor plans",
@@ -2494,11 +2496,15 @@ function yearsLabel(n){ return lang==='nl' ? (n+' jaar') : (n+' year'+(n===1?'':
 const CAM_BASE='https://gcpachivrwalsneuvlsa.supabase.co/functions/v1/bouwcamera?project=the-maison';
 let camTimer=null;
 function camRefresh(){ const t=Date.now(); [1,2].forEach(function(n){ const im=el('cam'+n); if(im){ im.dataset.pogingen='0'; im.src=CAM_BASE+'&cam='+n+'&t='+t+'-'+n; } }); }
-function camError(im){ const n=(parseInt(im.dataset.pogingen||'0',10)||0)+1; im.dataset.pogingen=String(n); if(n>3) return; setTimeout(function(){ im.src=im.src.replace(/&t=[^&]*/,'&t='+Date.now()+'-r'+n); },3000); }
+function camLabel(im, key){ const f=im.closest('figure'); const l=f && f.querySelector('.cam-live'); if(l && T[lang] && T[lang][key]) l.textContent=T[lang][key]; }
+function camOk(im){ camLabel(im,'camLive'); }
+function camError(im){ const n=(parseInt(im.dataset.pogingen||'0',10)||0)+1; im.dataset.pogingen=String(n); if(n>3){ camLabel(im,'camOffline'); return; } setTimeout(function(){ im.src=im.src.replace(/&t=[^&]*/,'&t='+Date.now()+'-r'+n); },3000); }
 function camStart(){ if(camTimer) return; camRefresh(); camTimer=setInterval(camRefresh,30000); }
 function camStop(){ if(camTimer){ clearInterval(camTimer); camTimer=null; } }
 // Scrollen tot net onder de vaste tabbalk, zodat de kop van het blok in beeld blijft.
-function camScroll(smooth){ const b=el('bouwcamera'); if(!b) return; const nav=document.querySelector('.tabs-nav'); const off=(nav?nav.getBoundingClientRect().bottom:0)+14; window.scrollTo({top:b.getBoundingClientRect().top+window.pageYOffset-off, behavior:smooth?'smooth':'auto'}); }
+// html heeft scroll-behavior:smooth, dus 'auto' scrolt óók zacht, en een zachte scroll vlak na
+// het laden wordt afgebroken (gemeten 9 oktober 2026: scrollY bleef 0). Daarom 'instant'.
+function camScroll(smooth){ const b=el('bouwcamera'); if(!b) return; const nav=document.querySelector('.tabs-nav'); const off=(nav?nav.getBoundingClientRect().bottom:0)+14; window.scrollTo({top:b.getBoundingClientRect().top+window.pageYOffset-off, behavior:smooth?'smooth':'instant'}); }
 (function(){ const b=el('bouwcamera'); if(!b) return; if(!('IntersectionObserver' in window)){ camStart(); return; }
   new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) camStart(); else camStop(); }); },{threshold:.15}).observe(b);
   // #bouwcamera in de adresbalk: tabblad Bouwmanagement tonen zonder de eigen scroll van showTab
@@ -2506,7 +2512,9 @@ function camScroll(smooth){ const b=el('bouwcamera'); if(!b) return; const nav=d
   function camHashJump(){ if(location.hash!=='#bouwcamera') return; const g=el('gate'); if(g && getComputedStyle(g).display!=='none') return; camShowPane(); camScroll(false); }
   setTimeout(camHashJump,400); setTimeout(camHashJump,1500); })();
 function camShowPane(){ document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.toggle('active', p.id==='pane-team'); }); document.querySelectorAll('#tabsNav button').forEach(function(b){ b.classList.toggle('active', b.dataset.tab==='team'); }); }
-if(el('bbCam')){ el('bbCam').href="#bouwcamera"; el('bbCam').removeAttribute('target'); el('bbCam').onclick=function(e){ e.preventDefault(); camShowPane(); try{ history.replaceState(null,'','#bouwcamera'); }catch(err){} setTimeout(function(){ camScroll(true); },60); }; }
+if(el('bbCam')){ el('bbCam').href="#bouwcamera"; el('bbCam').removeAttribute('target'); el('bbCam').onclick=function(e){ e.preventDefault(); camShowPane(); try{ history.replaceState(null,'','#bouwcamera'); }catch(err){} setTimeout(function(){ camScroll(true); },60);
+  // Zachte scroll niet aangekomen? Dan alsnog direct.
+  setTimeout(function(){ const b=el('bouwcamera'); if(!b) return; const r=b.getBoundingClientRect(); if(r.top<0 || r.top>innerHeight*0.6) camScroll(false); },900); }; }
 
 // Data room-link in de nav: blijft onzichtbaar voor iedereen, behalve voor wie
 // al eerder is ingelogd (op /the-maison/dataroom/ of /referral/, zelfde

@@ -61,8 +61,8 @@
   <h1><span class="cam-dot" aria-hidden="true"></span><span data-t="h1">Live vanaf de bouwplaats</span></h1>
   <p class="lead" data-t="lead">Twee camera's op de bouwplaats van The Maison. De beelden verversen elke 30 seconden; de tijd in beeld is Balinese tijd.</p>
   <div class="cam-grid">
-    <figure><img id="cam1" alt="" decoding="async" onload="camLoaded()" onerror="camError(this)"><figcaption><span data-t="cam1">Camera 1</span><span class="live" data-t="live">live</span></figcaption></figure>
-    <figure><img id="cam2" alt="" decoding="async" onload="camLoaded()" onerror="camError(this)"><figcaption><span data-t="cam2">Camera 2</span><span class="live" data-t="live">live</span></figcaption></figure>
+    <figure><img id="cam1" alt="" decoding="async" onload="camLoaded(this)" onerror="camError(this)"><figcaption><span data-t="cam1">Camera 1</span><span class="live" data-t="live">live</span></figcaption></figure>
+    <figure><img id="cam2" alt="" decoding="async" onload="camLoaded(this)" onerror="camError(this)"><figcaption><span data-t="cam2">Camera 2</span><span class="live" data-t="live">live</span></figcaption></figure>
   </div>
   <p class="cam-meta"><span data-t="updated">Bijgewerkt om</span> <span id="camTime">…</span> · <span data-t="hint">Geen beeld? Dan is de camera even niet bereikbaar. Probeer het over een minuut opnieuw.</span></p>
   <div class="cam-ctas">
@@ -80,8 +80,8 @@
 
 <script>
 const T={
-  nl:{title:"Live bouwcamera The Maison | UTAMA",navProject:"The Maison",navBrochure:"Brochure",h1:"Live vanaf de bouwplaats",lead:"Twee camera's op de bouwplaats van The Maison. De beelden verversen elke 30 seconden; de tijd in beeld is Balinese tijd.",cam1:"Camera 1",cam2:"Camera 2",live:"live",updated:"Bijgewerkt om",hint:"Geen beeld? Dan is de camera even niet bereikbaar. Probeer het over een minuut opnieuw.",ctaBrochure:"Open de brochure",ctaProject:"Bekijk het project",footer:"Investeren in Bali-vastgoed, transparant en zorgeloos.",disc:"Live beelden van de bouwplaats, bedoeld ter informatie. Rendementen en opleverdata staan in de brochure en zijn schattingen, geen garanties."},
-  en:{title:"Live construction camera The Maison | UTAMA",navProject:"The Maison",navBrochure:"Brochure",h1:"Live from the building site",lead:"Two cameras on the building site of The Maison. The images refresh every 30 seconds; the time in the image is Bali time.",cam1:"Camera 1",cam2:"Camera 2",live:"live",updated:"Updated at",hint:"No image? The camera is temporarily unreachable. Try again in a minute.",ctaBrochure:"Open the brochure",ctaProject:"View the project",footer:"Investing in Bali real estate, transparent and carefree.",disc:"Live images of the building site, for information only. Returns and delivery dates are in the brochure and are estimates, not guarantees."}
+  nl:{title:"Live bouwcamera The Maison | UTAMA",navProject:"The Maison",navBrochure:"Brochure",h1:"Live vanaf de bouwplaats",lead:"Twee camera's op de bouwplaats van The Maison. De beelden verversen elke 30 seconden; de tijd in beeld is Balinese tijd.",cam1:"Camera 1",cam2:"Camera 2",live:"live",offline:"even niet bereikbaar",updated:"Bijgewerkt om",hint:"Geen beeld? Dan is de camera even niet bereikbaar. Probeer het over een minuut opnieuw.",ctaBrochure:"Open de brochure",ctaProject:"Bekijk het project",footer:"Investeren in Bali-vastgoed, transparant en zorgeloos.",disc:"Live beelden van de bouwplaats, bedoeld ter informatie. Rendementen en opleverdata staan in de brochure en zijn schattingen, geen garanties."},
+  en:{title:"Live construction camera The Maison | UTAMA",navProject:"The Maison",navBrochure:"Brochure",h1:"Live from the building site",lead:"Two cameras on the building site of The Maison. The images refresh every 30 seconds; the time in the image is Bali time.",cam1:"Camera 1",cam2:"Camera 2",live:"live",offline:"temporarily unreachable",updated:"Updated at",hint:"No image? The camera is temporarily unreachable. Try again in a minute.",ctaBrochure:"Open the brochure",ctaProject:"View the project",footer:"Investing in Bali real estate, transparent and carefree.",disc:"Live images of the building site, for information only. Returns and delivery dates are in the brochure and are estimates, not guarantees."}
 };
 let lang='nl';
 function el(id){ return document.getElementById(id); }
@@ -95,14 +95,17 @@ function setLang(l){
   lang=l; el('btnNL').classList.toggle('on',l==='nl'); el('btnEN').classList.toggle('on',l==='en'); document.documentElement.lang=l; document.title=T[l].title;
   try{ localStorage.setItem('utama_lang', l); }catch(e){}
   document.querySelectorAll('[data-t]').forEach(function(e){ var k=e.getAttribute('data-t'); if(T[l][k]!==undefined) e.textContent=T[l][k]; });
+  camLabels();
 }
 setLang(_pickInitialLang());
 
 const CAM_BASE='https://gcpachivrwalsneuvlsa.supabase.co/functions/v1/bouwcamera?project=the-maison';
 let camTimer=null;
 function camRefresh(){ var t=Date.now(); [1,2].forEach(function(n){ var im=el('cam'+n); im.dataset.pogingen='0'; im.src=CAM_BASE+'&cam='+n+'&t='+t+'-'+n; }); }
-function camLoaded(){ el('camTime').textContent=new Date().toLocaleTimeString(lang==='nl'?'nl-NL':'en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'}); }
-function camError(im){ var n=(parseInt(im.dataset.pogingen||'0',10)||0)+1; im.dataset.pogingen=String(n); if(n>3) return; setTimeout(function(){ im.src=im.src.replace(/&t=[^&]*/,'&t='+Date.now()+'-r'+n); },3000); }
+// Label per camera: "live", of "even niet bereikbaar" na drie mislukte pogingen (tot het volgende goede beeld).
+function camLabels(){ document.querySelectorAll('.cam-grid figure').forEach(function(f){ var l=f.querySelector('.live'); if(l) l.textContent=f.dataset.offline==='1'?T[lang].offline:T[lang].live; }); }
+function camLoaded(im){ el('camTime').textContent=new Date().toLocaleTimeString(lang==='nl'?'nl-NL':'en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'}); var f=im.closest('figure'); if(f) delete f.dataset.offline; camLabels(); }
+function camError(im){ var n=(parseInt(im.dataset.pogingen||'0',10)||0)+1; im.dataset.pogingen=String(n); if(n>3){ var f=im.closest('figure'); if(f) f.dataset.offline='1'; camLabels(); return; } setTimeout(function(){ im.src=im.src.replace(/&t=[^&]*/,'&t='+Date.now()+'-r'+n); },3000); }
 function camStart(){ if(camTimer) return; camRefresh(); camTimer=setInterval(camRefresh,30000); }
 function camStop(){ if(camTimer){ clearInterval(camTimer); camTimer=null; } }
 document.addEventListener('visibilitychange', function(){ if(document.hidden) camStop(); else camStart(); });
