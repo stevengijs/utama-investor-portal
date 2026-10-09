@@ -507,7 +507,8 @@ function submitEarlyAccess(e){
   const name=el('eaName').value.trim(), phone=el('eaPhone').value.trim(), email=el('eaEmail').value.trim();
   const budget=el('eaBudget').value, when=el('eaWhen').value;
   if(!name||!phone||!email||!budget||!when){ el('eaErr').style.display='block'; return false; }
-  const lead={ project:"Volgend project (early access)", name, phone, email, budget, when };
+  // Early access telt in /admin mee onder The Reload (de teaser is dat project); "Early access" staat als unit op de kaart.
+  const lead={ project:"The Reload", unit:"Early access", name, phone, email, budget, when };
   submitLead({ ...lead, lang }).then(function(r){ fbTrackLead('Early access', r && r.eventId); }).catch(function(){ fbTrackLead('Early access'); });
   showEarlySuccess(name);
   return false;
