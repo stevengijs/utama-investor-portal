@@ -16,6 +16,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png">
 <link rel="apple-touch-icon" href="/images/favicon-180.png">
 <link rel="stylesheet" href="/styles.css">
+<script src="/project-poort.js" data-lead-key="maison_brochure_lead"></script>
 <script src="/meta-pixel.js"></script>
   <script src="/t.js" defer></script>
 </head>
@@ -271,13 +272,16 @@ function openBrochure(){
   try{
     if(localStorage.getItem('maison_brochure_lead')){ window.location.href="/the-maison/brochure/"; return; }
   }catch(e){}
+  // Projectpoort (/project-poort.js): het formulier staat dan al als pagina open, zonder scrollslot.
+  if(window.utamaPoortDicht){ el('broModal').classList.add('open'); return; }
   el('broModal').classList.add('open'); document.body.style.overflow='hidden';
 }
-function closeBrochure(){ el('broModal').classList.remove('open'); document.body.style.overflow=''; }
+function closeBrochure(){ if(window.utamaPoortDicht) return; el('broModal').classList.remove('open'); document.body.style.overflow=''; }
 // Formulier eerst (Steven, 8 oktober 2026): wie op een project klikt, ziet meteen
 // "Bekijk de volledige brochure" en niet eerst de pagina met de renders en de
 // cijfers; we willen de gegevens van de lead zo snel mogelijk. Alleen voor wie
-// nog niets achterliet. Sluiten kan, de pagina staat erachter. Een persoonlijke
+// nog niets achterliet. Sinds 11 oktober 2026 kan sluiten niet meer: /project-poort.js maakt er een
+// pagina van en houdt de rest dicht tot het formulier is ingevuld. Een persoonlijke
 // link (brochure-poort.js, ?key=) zet window.__utamaPoortBezig zolang hij de
 // sleutel controleert; dan blijft het formulier dicht.
 (function(){
@@ -490,6 +494,7 @@ loadAvailability();
 <div class="modal-ov" id="broModal" onclick="if(event.target===this)closeBrochure()">
   <div class="modal" role="dialog" aria-modal="true">
     <button class="x" onclick="closeBrochure()" aria-label="Sluiten">&times;</button>
+    <div class="poort-beeld" style="background-image:url('/the-maison/images/maison-exterior.jpg')"><span>The Maison · Pererenan, Bali</span></div>
     <div class="eb">Digitale brochure</div>
     <h3>Bekijk de volledige brochure</h3>
     <div class="msub">Nog 2 van de 6 villa's vrij. Open direct de brochure met prijzen, plattegronden en het rendement.</div>
