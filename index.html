@@ -26,7 +26,9 @@
   .founder-site img{width:96px;height:96px;border-radius:8px;object-fit:cover;flex:none}
   .founder-site span{font-size:13px;color:var(--muted)}
   .momentum{font-size:12px;color:var(--ink);font-weight:600;margin-top:6px}
+  @media(max-width:560px){.trustrow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}.trustrow div{font-size:12px;line-height:1.35}.trustrow b{font-size:19px;margin-bottom:3px}}
   .cta-agent{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:16px;position:relative;z-index:1}
+  @media(max-width:560px){.cta-agent{gap:10px 16px;margin-bottom:14px}.cta-agent img{width:44px;height:44px}}
   .cta-agent-person{display:flex;align-items:center;gap:12px}
   .cta-agent img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.32);flex:none}
   .cta-agent-name{font-size:13.5px;font-weight:600;color:#fff}
@@ -44,10 +46,12 @@
   .pcard.soon .soon-price{display:inline-block;margin-top:14px;padding:8px 15px;border-radius:9999px;background:rgba(254,251,246,.14);border:1px solid rgba(254,251,246,.4);color:#fff;font-size:14px;font-weight:700;letter-spacing:.02em}
   .pcard.soon .soon-note{margin:12px auto 0;max-width:44ch;font-size:13.5px;line-height:1.45;color:rgba(254,251,246,.88)}
   .pcard.soon .soon-cta{margin-top:12px;font-size:13px;font-weight:600;color:#f0c9a8}
+  @media(max-width:560px){.pcard.soon{min-height:300px;padding:28px 0}.pcard.soon .soon-content{padding:0 18px}.pcard.soon .soon-cta{display:inline-block;margin-top:14px;padding:9px 16px;border:1px solid rgba(240,201,168,.55);border-radius:9999px}}
   .pcard .avail{text-align:right}
   .pcard .avail .avail-sold{color:var(--ink);font-weight:700;font-size:13px}
   .pcard .avail .avail-left{color:var(--muted);font-weight:500;font-size:11.5px}
   .pcard .avail .soldout-badge{display:inline-block;background:var(--green);color:#fff;font-size:13.5px;font-weight:800;letter-spacing:.02em;border:1px solid var(--green);border-radius:8px;padding:5px 12px}
+  @media(max-width:560px),(min-width:761px) and (max-width:960px){.pcard .prow{display:block}.pcard .price{white-space:nowrap}.pcard .avail{text-align:left;margin-top:4px}.pcard .avail .avail-sold{font-size:12.5px;line-height:1.45}.pcard .more{font-size:14px;margin-top:14px}}
   .modal-ov{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(33,30,24,.4);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
   .modal-ov.open{display:flex}
   .modal{background:var(--paper);border:1px solid var(--line);border-radius:20px;max-width:470px;width:100%;padding:30px 30px 26px;position:relative;box-shadow:var(--shadow);max-height:92vh;overflow:auto}
@@ -64,6 +68,7 @@
   .merr{color:#b5462b;font-size:13px;margin:3px 0 0;display:none}
   .mtrust{margin-top:12px;font-size:12px;color:var(--muted)}
   @media(max-width:520px){ .mrow{grid-template-columns:1fr} }
+  @media(max-width:560px){ .mfield input,.mfield select{font-size:16px} .modal{padding:26px 22px 22px} .modal .x{top:4px;right:4px;width:44px;height:44px;display:grid;place-items:center} }
   .msuccess{text-align:center;padding:16px 6px 8px}
   .checkwrap{width:82px;height:82px;margin:4px auto 14px;animation:pop .45s ease}
   .chk{width:82px;height:82px}
@@ -76,9 +81,10 @@
   .confetti{position:absolute;top:-12px;border-radius:2px;opacity:.9;z-index:1;animation-name:cfall;animation-timing-function:cubic-bezier(.3,.6,.4,1);animation-fill-mode:forwards}
   @keyframes cfall{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(105vh) rotate(680deg);opacity:.85}}
   @media(max-width:700px){
-    .founder-card{grid-template-columns:1fr;text-align:center;padding:26px}
-    .founder-photo img{margin:0 auto}
-    .founder-body p{margin-left:auto;margin-right:auto}
+    .founder-card{grid-template-columns:1fr;text-align:center;padding:24px;gap:18px}
+    .founder-photo img{margin:0 auto;width:128px;height:128px}
+    .founder-body h2{font-size:24px;margin:6px 0 10px}
+    .founder-body p{margin:0;text-align:left}
     .founder-site{flex-direction:column;text-align:center;max-width:none}
   }
   /* --- Eerder uitverkocht: social proof-strip, geen brochurepagina, niet klikbaar --- */
@@ -93,15 +99,16 @@
   .sold-card .stamp{position:relative;z-index:1;background:rgba(255,255,255,.96);color:var(--ink);font-weight:800;font-size:14px;letter-spacing:.14em;text-transform:uppercase;padding:8px 20px;border-radius:6px;transform:rotate(-6deg);white-space:nowrap}
   .sold-card .pinfo{padding:14px 18px}
   .sold-card h3{font-size:17px;margin:0}
-  .sold-status{display:inline-flex;align-items:center;gap:7px;margin-top:9px;padding:6px 11px;border-radius:9999px;background:#EEF0E6;box-shadow:0 0 0 1px rgba(91,105,74,.25);font-size:12px;font-weight:700;color:#4E5B3F}
+  .sold-status{display:inline-flex;align-items:center;gap:7px;margin:9px 8px 0 0;padding:6px 11px;border-radius:9999px;background:#EEF0E6;box-shadow:0 0 0 1px rgba(91,105,74,.25);font-size:12px;font-weight:700;color:#4E5B3F}
   .sold-status i{width:7px;height:7px;border-radius:50%;background:#4E5B3F}
   /* video van Villa Palma (Steven, 9 oktober 2026), dezelfde als op utamabali.com */
   .sold-card .img[role="button"]{cursor:pointer}
   .sold-play{position:absolute;right:12px;bottom:12px;z-index:1;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.96);color:var(--ink);display:grid;place-items:center;box-shadow:0 6px 16px rgba(23,20,15,.28)}
   .sold-play svg{width:18px;height:18px;margin-left:2px}
-  .sold-vbtn{display:inline-flex;align-items:center;gap:7px;margin:9px 0 0 8px;padding:6px 12px;border:1px solid var(--line);border-radius:9999px;background:var(--paper);font-family:inherit;font-size:12.5px;font-weight:600;color:var(--ink);cursor:pointer}
+  .sold-vbtn{display:inline-flex;align-items:center;gap:7px;margin:9px 0 0;padding:6px 12px;border:1px solid var(--line);border-radius:9999px;background:var(--paper);font-family:inherit;font-size:12.5px;font-weight:600;color:var(--ink);cursor:pointer}
   .sold-vbtn:hover{border-color:var(--ink)}
   .sold-vbtn svg{width:12px;height:12px}
+  @media(max-width:560px){.sold-vbtn{min-height:44px;padding:8px 16px;font-size:13px}}
   .vmodal{position:fixed;inset:0;z-index:130;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(23,20,15,.78);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
   .vmodal[hidden]{display:none}
   .vmodal-box{position:relative;width:min(960px,100%);border-radius:18px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.45)}
@@ -125,6 +132,7 @@
      kanteling en een dunne binnenrand houden het stempelgevoel. Geldt voor "Laatste unit
      gereserveerd" en voor "Almost sold out". */
   .pcard .almost-badge{position:absolute;top:14px;right:14px;transform:rotate(-3deg);transform-origin:center;background:var(--terra);color:#fff;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;border-radius:var(--radius-pill);padding:7px 13px;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35),0 6px 16px rgba(23,20,15,.2);white-space:nowrap}
+  @media(max-width:560px),(min-width:761px) and (max-width:960px){.pcard .almost-badge{top:auto;bottom:14px;white-space:normal;text-align:center;max-width:calc(100% - 28px)}}
 </style>
   <script src="/t.js" defer></script>
 </head>
@@ -251,7 +259,7 @@
 
 <footer>
   <div class="wrap">
-    UTAMA · <span data-t="footer">Investeren in Bali-vastgoed, transparant en zorgeloos.</span> &middot; <a href="/referral/" data-t="footerRef" style="color:var(--terra);text-decoration:none;font-weight:600">Verdien &euro;2.500 als je iemand aanbrengt</a>
+    UTAMA · <span data-t="footer">Investeren in Bali-vastgoed, transparant en zorgeloos.</span> <span class="foot-sep">&middot;</span> <a href="/referral/" class="foot-ref" data-t="footerRef" style="color:var(--terra);text-decoration:none;font-weight:600">Verdien &euro;2.500 als je iemand aanbrengt</a>
     <button class="fab-wa" onclick="waDirect()" title="WhatsApp" aria-label="WhatsApp"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg></button>
   </div>
 </footer>
