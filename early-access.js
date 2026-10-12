@@ -127,10 +127,10 @@
       '<div class="uea-eb">' + esc(t.eb) + '</div>' +
       '<h3>' + esc(t.title) + '</h3>' +
       '<div class="uea-sub">' + esc(t.sub) + '</div>' +
-      '<form novalidate>' +
+      '<form novalidate lang="' + lang + '">' +
         '<div class="uea-f"><label for="ueaName">' + esc(t.name) + '</label><input id="ueaName" type="text" autocomplete="name" placeholder="' + esc(t.namePh) + '" required></div>' +
         '<div class="uea-row">' +
-          '<div class="uea-f"><label for="ueaPhone">' + esc(t.phone) + '</label><input id="ueaPhone" type="tel" autocomplete="tel" placeholder="+31 6 ..." required></div>' +
+          '<div class="uea-f"><label for="ueaPhone">' + esc(t.phone) + '</label><input id="ueaPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+31 6 ..." required></div>' +
           '<div class="uea-f"><label for="ueaEmail">' + esc(t.email) + '</label><input id="ueaEmail" type="email" autocomplete="email" placeholder="jij@voorbeeld.com" required></div>' +
         '</div>' +
         '<div class="uea-row">' +
@@ -167,11 +167,28 @@
 
   function submit(e){
     e.preventDefault();
+    var form = e.target;
+    var errEl = ov.querySelector('.uea-err');
+    if (!val('ueaName') || !val('ueaPhone') || !val('ueaEmail') || !val('ueaBudget') || !val('ueaWhen')){ errEl.style.display = 'block'; return false; }
+    errEl.style.display = 'none';
+    // Het WhatsApp-nummer controleert supabase-client.js (utamaTelefoon), voor
+    // elk formulier hetzelfde. Op invest heeft die controle dit formulier al
+    // tegengehouden als het nummer niet klopt. Op utamabali.com laadt dat bestand
+    // pas bij het openen van de laag; is het er nog niet, dan eerst laden en dan
+    // pas controleren en versturen.
+    if (!window.utamaTelefoon){
+      deps().then(function(){ verstuur(form); }, function(){ verstuur(form); });
+      return false;
+    }
+    verstuur(form);
+    return false;
+  }
+
+  function verstuur(form){
+    if (window.utamaTelefoon && window.utamaTelefoon.controleerFormulier && !window.utamaTelefoon.controleerFormulier(form)) return;
+    // Na de controle: het veld bevat nu de nette vorm, submitLead() maakt er +31... van.
     var name = val('ueaName'), phone = val('ueaPhone'), email = val('ueaEmail');
     var budget = val('ueaBudget'), when = val('ueaWhen');
-    var errEl = ov.querySelector('.uea-err');
-    if (!name || !phone || !email || !budget || !when){ errEl.style.display = 'block'; return false; }
-    errEl.style.display = 'none';
     var lead = { project: 'The Reload', unit: 'Early access', name: name, phone: phone, email: email, budget: budget, when: when, lang: lang };
     var track = function(r){ try { if (typeof window.fbTrackLead === 'function') window.fbTrackLead('Early access', r && r.eventId); } catch (x) {} };
     deps()
@@ -179,7 +196,6 @@
       .then(track)
       .catch(function(err){ try { console.error('early access', err); } catch (x) {} track(null); });
     success(name);
-    return false;
   }
 
   function success(name){

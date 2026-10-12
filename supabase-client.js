@@ -327,7 +327,216 @@ function _getAnalyticsVid(){
   try{ if(window._ua_vid) return window._ua_vid; }catch(e){}
   try{ return localStorage.getItem('_ua_vid') || null; }catch(e){ return null; }
 }
+/*
+ * WhatsApp-nummer in elk formulier (Steven, 12 oktober 2026: "1,2 doe maar").
+ *
+ * Over 60 dagen klopte 1 op de 7 nummers niet (+316340826202, 06198177, 0,
+ * 0034600000000 ...). Dan gaat de brochure via WhatsApp nergens heen en hoort
+ * de lead niets. Daarom hier een keer, voor elk formulier op invest en voor de
+ * early-access-laag op utamabali.com:
+ *  - utamaNormaliseerTelefoon(invoer) maakt van wat iemand typt een E.164-nummer
+ *    (+31612345678) en een leesbare vorm (+31 6 12345678), of zegt waarom het
+ *    geen bruikbaar nummer is ('leeg', 'vast' of 'ongeldig').
+ *  - Elk input[type=tel] krijgt dat vanzelf: bij het verlaten van het veld staat
+ *    het nette nummer erin, bij een fout nummer staat er een vriendelijke regel
+ *    onder het veld, en het formulier gaat dan niet weg. Geen extra code per
+ *    pagina: de luisteraars hangen aan het document, dus ook formulieren die
+ *    later worden opgebouwd (early-access.js) doen mee.
+ *  - submitLead() hieronder stuurt het nummer altijd als E.164 naar de database.
+ *
+ * Regels:
+ *  - Spaties, punten, streepjes, haakjes en schuine strepen vallen weg; "(0)" na
+ *    een landcode ook (+31 (0)6 ..., +44 (0)20 ...).
+ *  - 06... wordt +31 6..., 0031 en 00xx worden +31 en +xx, een plus vooraan blijft.
+ *    Zonder plus: 316 plus 8 cijfers en 6 plus 8 cijfers zijn Nederlands mobiel;
+ *    11 tot 15 cijfers lezen we als nummer met landcode. Een losse plus voor een
+ *    nationaal nummer (+0612345678) en een nationale nul na +31 (+310612345678)
+ *    worden rechtgezet: die zijn eenduidig, en de lead ziet het resultaat terug.
+ *  - Nederland: +31 6 en precies 8 cijfers. Een Nederlands vast of zakelijk
+ *    nummer (+31 en 9 cijfers die niet met 6 beginnen) weigeren we met een eigen
+ *    regel: WhatsApp vraagt een mobiel nummer.
+ *  - Andere landen: + en 8 tot 15 cijfers, landcode begint niet met 0.
+ *  - Onzin weigeren: alles hetzelfde cijfer, de laatste zeven cijfers gelijk
+ *    (+34 600000000, +31 6 10000000), en voorbeeldnummers als 06 12345678 en
+ *    06 87654321 (0612345678 kwam al twee keer binnen als lead).
+ *  - Onzichtbare richtingstekens die een telefoon soms meekopieert, en brede
+ *    cijfers van een Aziatisch toetsenbord, maken we eerst gewoon.
+ *  - Een nationaal nummer dat niet met 06 begint (0470..., 07911..., 0812...)
+ *    kan een mobiel nummer uit een ander land zijn zonder landcode. Dan zegt de
+ *    regel onder het veld er ook bij dat de landcode ervoor moet.
+ */
+var UTAMA_TEL_HINT = {
+  nl: {
+    ongeldig: 'Dit lijkt geen geldig mobiel nummer. Controleer het even, dan komt de brochure aan via WhatsApp.',
+    vast: 'Dit lijkt een vast nummer. Vul je mobiele nummer in, dan komt de brochure aan via WhatsApp.',
+    landcode: 'Woon je buiten Nederland? Zet dan je landcode ervoor, bijvoorbeeld +32.'
+  },
+  en: {
+    ongeldig: "This doesn't look like a valid mobile number. Please check it, so the brochure reaches you on WhatsApp.",
+    vast: 'This looks like a landline number. Please enter your mobile number, so the brochure reaches you on WhatsApp.',
+    landcode: 'Outside the Netherlands? Add your country code, for example +44.'
+  }
+};
+// Landcodes van twee cijfers, alleen voor de leesbare vorm (+32 470123456).
+// 1 en 7 zijn een cijfer, de rest drie.
+var UTAMA_TEL_CC2 = ['20','27','30','31','32','33','34','36','39','40','41','43','44','45','46','47','48','49',
+  '51','52','53','54','55','56','57','58','60','61','62','63','64','65','66','81','82','84','86',
+  '90','91','92','93','94','95','98'];
+
+function utamaNormaliseerTelefoon(invoer){
+  var landcodeTip = false;
+  var fout = function(reden){ return { ok:false, reden:reden, e164:'', weergave:'', landcodeTip:landcodeTip }; };
+  var ruw = String(invoer == null ? '' : invoer);
+  // Brede cijfers en een brede plus worden gewone (NFKC). Richtingstekens en
+  // tekens zonder breedte zie je niet in het veld, dus die gaan stil weg.
+  if(ruw.normalize) ruw = ruw.normalize('NFKC');
+  ruw = ruw.replace(/[\u200B-\u200F\u202A-\u202E\u2060-\u2069\uFEFF]/g, '').trim();
+  if(!ruw) return fout('leeg');
+  var s = ruw.replace(/\(\s*0\s*\)/g, ' ');
+  // Alleen cijfers, een plus en scheidingstekens (ook de lange streepjes die een
+  // telefoon soms zelf invult). Letters of iets anders: geen telefoonnummer.
+  if(/[^0-9+\s.\-‐-―()\/]/.test(s)) return fout('ongeldig');
+  var plus = /^\+/.test(s);
+  if((s.match(/\+/g) || []).length > (plus ? 1 : 0)) return fout('ongeldig');
+  var d = s.replace(/\D/g, '');
+  if(!d) return fout('ongeldig');
+  // Nationaal nummer, niet 06: misschien een buitenlands mobiel nummer zonder landcode.
+  landcodeTip = !plus && /^0[1-57-9]/.test(d) && d.length >= 9;
+  var intl;
+  if(plus){
+    if(d.slice(0, 2) === '00') intl = d.slice(2);          // +0031...
+    else if(d.charAt(0) === '0') intl = '31' + d.slice(1);  // +0612345678
+    else intl = d;
+  }
+  else if(d.slice(0, 2) === '00') intl = d.slice(2);
+  else if(d.charAt(0) === '0') intl = '31' + d.slice(1);
+  else if(d.length === 9 && d.charAt(0) === '6') intl = '31' + d;
+  else if(d.length >= 11) intl = d;
+  else return fout('ongeldig');
+  // Nationale nul na de Nederlandse landcode: +31 0612345678.
+  if(intl.length === 12 && intl.slice(0, 3) === '310') intl = '31' + intl.slice(3);
+  if(!intl || intl.charAt(0) === '0') return fout('ongeldig');
+  if(intl.length < 8 || intl.length > 15) return fout('ongeldig');
+  if(/^(\d)\1+$/.test(intl) || /(\d)\1{6}$/.test(intl)) return fout('ongeldig');
+  // Voorbeeldnummers. Alleen de hele oplopende of aflopende reeks: een echt nummer
+  // met 1234567 erin (06 12345674) blijft gewoon geldig.
+  if(/(12345678|87654321)$/.test(intl) || /^31(623456789|698765432)$/.test(intl)) return fout('ongeldig');
+  if(intl.slice(0, 2) === '31'){
+    var nat = intl.slice(2);
+    if(/^6\d{8}$/.test(nat)) return { ok:true, reden:'', e164:'+' + intl, weergave:'+31 6 ' + nat.slice(1) };
+    if(/^[1-57-9]\d{8}$/.test(nat)) return fout('vast');
+    return fout('ongeldig');
+  }
+  var cc = (intl.charAt(0) === '1' || intl.charAt(0) === '7') ? 1 : (UTAMA_TEL_CC2.indexOf(intl.slice(0, 2)) >= 0 ? 2 : 3);
+  return { ok:true, reden:'', e164:'+' + intl, weergave:'+' + intl.slice(0, cc) + ' ' + intl.slice(cc) };
+}
+if(typeof window!=='undefined') window.utamaNormaliseerTelefoon = utamaNormaliseerTelefoon;
+
+var utamaTelefoon = (function(){
+  if(typeof document === 'undefined') return { normaliseer: utamaNormaliseerTelefoon };
+  var teller = 0;
+  function isTel(el){ return !!(el && el.tagName === 'INPUT' && String(el.type || '').toLowerCase() === 'tel'); }
+  // Taal van het veld: de dichtstbijzijnde lang-attribuut. De pagina's zetten
+  // <html lang> bij de taalknop, de early-access-laag zet hem op zijn formulier.
+  function taal(el){
+    var h = (el && el.closest) ? el.closest('[lang]') : null;
+    var l = String(((h || document.documentElement).getAttribute('lang')) || 'nl').toLowerCase();
+    return l.indexOf('en') === 0 ? 'en' : 'nl';
+  }
+  function css(){
+    if(document.getElementById('utama-tel-css')) return;
+    var st = document.createElement('style'); st.id = 'utama-tel-css';
+    st.textContent = '.utama-tel-hint{color:#b5462b;font-size:13px;line-height:1.4;margin:5px 0 0;text-align:left;font-weight:500}' +
+      'input[type="tel"].utama-tel-fout{border-color:#b5462b !important}';
+    (document.head || document.documentElement).appendChild(st);
+  }
+  function klaarzetten(input){
+    if(!input.getAttribute('autocomplete')) input.setAttribute('autocomplete', 'tel');
+    if(!input.getAttribute('inputmode')) input.setAttribute('inputmode', 'tel');
+  }
+  function hintVan(input){ var id = input.getAttribute('data-tel-hint'); return id ? document.getElementById(id) : null; }
+  function toonHint(input, r){
+    css();
+    var h = hintVan(input);
+    if(!h){
+      h = document.createElement('div');
+      h.className = 'utama-tel-hint';
+      h.id = (input.id || ('utamaTel' + (++teller))) + 'Hint';
+      h.setAttribute('role', 'alert');
+      input.setAttribute('data-tel-hint', h.id);
+      var db = input.getAttribute('aria-describedby');
+      input.setAttribute('aria-describedby', db ? (db + ' ' + h.id) : h.id);
+      input.parentNode.insertBefore(h, input.nextSibling);
+    }
+    var t = UTAMA_TEL_HINT[taal(input)];
+    h.textContent = (r.reden === 'vast' ? t.vast : t.ongeldig) + (r.landcodeTip ? ' ' + t.landcode : '');
+    h.style.display = '';
+    input.classList.add('utama-tel-fout');
+    input.setAttribute('aria-invalid', 'true');
+  }
+  function verbergHint(input){
+    var h = hintVan(input); if(h) h.style.display = 'none';
+    input.classList.remove('utama-tel-fout');
+    input.removeAttribute('aria-invalid');
+  }
+  // Een veld nalopen: goed nummer netjes terugzetten, fout nummer een regel eronder.
+  function controleer(input){
+    var r = utamaNormaliseerTelefoon(input.value);
+    if(r.reden === 'leeg'){ verbergHint(input); return r; }
+    if(r.ok){ if(input.value !== r.weergave) input.value = r.weergave; verbergHint(input); }
+    else toonHint(input, r);
+    return r;
+  }
+  // Alle telefoonvelden van een formulier; false als er een fout nummer in staat.
+  // Leeg laten we aan het formulier zelf (required of de eigen foutregel).
+  function controleerFormulier(form){
+    var velden = form && form.querySelectorAll ? form.querySelectorAll('input[type="tel"]') : [];
+    var eerste = null;
+    for(var i = 0; i < velden.length; i++){
+      var r = controleer(velden[i]);
+      if(!r.ok && r.reden !== 'leeg' && !eerste) eerste = velden[i];
+    }
+    if(eerste){ try{ eerste.focus(); }catch(e){} return false; }
+    return true;
+  }
+  document.addEventListener('focusin', function(e){ if(isTel(e.target)) klaarzetten(e.target); }, true);
+  document.addEventListener('focusout', function(e){ if(isTel(e.target)) controleer(e.target); }, true);
+  // Tijdens het typen geen foutmelding: die verschijnt pas weer bij verlaten of versturen.
+  document.addEventListener('input', function(e){ if(isTel(e.target)) verbergHint(e.target); }, true);
+  // form.reset() maakt het veld leeg (de datakamer-laag doet dat elke keer bij
+  // openen); dan hoort er ook geen foutregel meer onder te staan. Het reset-event
+  // komt voor het leegmaken, dus pas daarna opruimen.
+  document.addEventListener('reset', function(e){
+    var f = e.target;
+    setTimeout(function(){
+      var v = f && f.querySelectorAll ? f.querySelectorAll('input[type="tel"]') : [];
+      for(var i = 0; i < v.length; i++) verbergHint(v[i]);
+    }, 0);
+  }, true);
+  // Capture op het document loopt voor de onsubmit van de pagina. Bij een fout
+  // nummer stopt het event hier, dus het formulier gaat niet weg.
+  document.addEventListener('submit', function(e){
+    if(controleerFormulier(e.target)) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+  }, true);
+  function allesKlaarzetten(){ var v = document.querySelectorAll('input[type="tel"]'); for(var i = 0; i < v.length; i++) klaarzetten(v[i]); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', allesKlaarzetten); else allesKlaarzetten();
+  return { normaliseer: utamaNormaliseerTelefoon, controleer: controleer, controleerFormulier: controleerFormulier };
+})();
+if(typeof window!=='undefined') window.utamaTelefoon = utamaTelefoon;
+
 async function submitLead(fields){
+  // Het nummer gaat als E.164 de database in (+31612345678), ook als de pagina
+  // de leesbare vorm uit het veld meegeeft. Een nummer dat de controle hierboven
+  // niet haalt komt hier normaal niet; gebeurt het toch (een oude pagina in de
+  // cache), dan gaat het zoals voorheen mee: liever de lead dan niets.
+  fields = Object.assign({}, fields);
+  if(fields.phone){
+    const tel = utamaNormaliseerTelefoon(fields.phone);
+    fields.phone = tel.ok ? tel.e164 : String(fields.phone).trim();
+  }
   const eventId = _genEventId();
   const sb = getSupabaseClient();
   if(!sb){ _sendCapiLead(fields, eventId); return { ok:false, reason:"not-configured", eventId }; }

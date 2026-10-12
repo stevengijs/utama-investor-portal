@@ -273,7 +273,7 @@
     <form onsubmit="return submitContact(event)">
       <div class="mfield"><label data-t="name">Je naam</label><input id="cmName" type="text" data-tp="name" placeholder="Je volledige naam" required></div>
       <div class="mrow">
-        <div class="mfield"><label data-t="phone">Je WhatsApp-nummer</label><input id="cmPhone" type="tel" placeholder="+31 6 ..." required></div>
+        <div class="mfield"><label data-t="phone">Je WhatsApp-nummer</label><input id="cmPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+31 6 ..." required></div>
         <div class="mfield"><label data-t="email">Je e-mailadres</label><input id="cmEmail" type="email" placeholder="jij@voorbeeld.com" required></div>
       </div>
       <div class="mfield"><label data-t="cmProject">Welk project?</label>
