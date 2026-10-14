@@ -30,31 +30,11 @@
   (document.head || document.documentElement).appendChild(st);
 })();
 
-(function(){
-  var s = document.currentScript;
-  var key = s && s.getAttribute('data-lead-key');
-  if (!key) return;
-  var heeft = false;
-  try { heeft = !!(localStorage.getItem(key) || sessionStorage.getItem(key)); } catch (e) {}
-  var persoonlijk = !!window.__utamaPoortBezig || /[?&]key=/.test(location.search);
-  if (heeft || persoonlijk) { window.utamaPoortDicht = false; return; }
-
-  window.utamaPoortDicht = true;
-  var html = document.documentElement;
-  html.classList.add('poort');
-  var css = [
-    /* de pagina erachter staat stil; alleen de laag scrolt */
-    'html.poort,html.poort body{overflow:hidden!important;overscroll-behavior:none}',
-    /* de laag staat er meteen, met dezelfde wazige achtergrond als de pop-up */
-    'html.poort #broModal{display:flex!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}',
-    /* het formulier zelf zonder eigen scrollbalk; margin:auto centreert en schuift mee als het hoger is dan het scherm */
-    'html.poort #broModal .modal{margin:auto;max-height:none!important;overflow:visible!important}',
-    'html.poort #broModal .x{display:none!important}',
-    /* iOS zoomt in op velden met tekst kleiner dan 16 px */
-    '@media(max-width:760px){html.poort #broModal input,html.poort #broModal select{font-size:16px!important}html.poort #broModal{padding:14px 12px 28px!important}}'
-  ].join('\n');
-  var st = document.createElement('style');
-  st.id = 'project-poort-css';
-  st.textContent = css;
-  (document.head || html).appendChild(st);
-})();
+// De poort zelf staat sinds 14 oktober 2026 uit (Steven): "Wat stopte is niet de ad
+// maar de pagina. Vanaf 11 oktober 14:11 staat er een poort voor /the-maison en /moka
+// die het formulier over de pagina legt zonder sluitknop. Conversie van 3,97% naar
+// 0,85%, en bij bezoekers zonder advertentieklik van 9,3% naar nul. Zet dit terug."
+// Het formulier gaat weer open zoals van 8 tot 11 oktober ("Formulier eerst"): vanzelf,
+// maar met sluitknop, en wegklikken kan. window.utamaPoortDicht blijft false, zodat
+// openBrochure en closeBrochure in de pagina's weer gewoon werken.
+window.utamaPoortDicht = false;
