@@ -435,7 +435,9 @@ if(typeof window!=='undefined') window.utamaNormaliseerTelefoon = utamaNormalise
 var utamaTelefoon = (function(){
   if(typeof document === 'undefined') return { normaliseer: utamaNormaliseerTelefoon };
   var teller = 0;
-  function isTel(el){ return !!(el && el.tagName === 'INPUT' && String(el.type || '').toLowerCase() === 'tel'); }
+  // Niet in het brochureformulier van de projectpagina's (#broModal): dat werkt
+  // weer exact zoals voor 11 oktober 2026 (Steven, 14 oktober 2026).
+  function isTel(el){ return !!(el && el.tagName === 'INPUT' && String(el.type || '').toLowerCase() === 'tel' && !(el.closest && el.closest('#broModal'))); }
   // Taal van het veld: de dichtstbijzijnde lang-attribuut. De pagina's zetten
   // <html lang> bij de taalknop, de early-access-laag zet hem op zijn formulier.
   function taal(el){
@@ -490,7 +492,7 @@ var utamaTelefoon = (function(){
   // Alle telefoonvelden van een formulier; false als er een fout nummer in staat.
   // Leeg laten we aan het formulier zelf (required of de eigen foutregel).
   function controleerFormulier(form){
-    var velden = form && form.querySelectorAll ? form.querySelectorAll('input[type="tel"]') : [];
+    var velden = form && form.querySelectorAll ? Array.prototype.filter.call(form.querySelectorAll('input[type="tel"]'), isTel) : [];
     var eerste = null;
     for(var i = 0; i < velden.length; i++){
       var r = controleer(velden[i]);
@@ -521,7 +523,7 @@ var utamaTelefoon = (function(){
     e.stopPropagation();
     if(e.stopImmediatePropagation) e.stopImmediatePropagation();
   }, true);
-  function allesKlaarzetten(){ var v = document.querySelectorAll('input[type="tel"]'); for(var i = 0; i < v.length; i++) klaarzetten(v[i]); }
+  function allesKlaarzetten(){ var v = document.querySelectorAll('input[type="tel"]'); for(var i = 0; i < v.length; i++) if(isTel(v[i])) klaarzetten(v[i]); }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', allesKlaarzetten); else allesKlaarzetten();
   return { normaliseer: utamaNormaliseerTelefoon, controleer: controleer, controleerFormulier: controleerFormulier };
 })();
