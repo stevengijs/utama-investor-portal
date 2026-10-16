@@ -487,6 +487,8 @@
   .payseg:nth-child(2){background:rgba(23,20,15,.09);flex:3}
   .payseg:nth-child(3){background:rgba(23,20,15,.15);flex:3}
   .payseg.final{background:var(--ink);color:#fff;flex:1.6}
+  #payBar .payseg:first-child{flex:1}
+  #payBar .payseg.final{flex:1}
   .payseg .step{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;opacity:.5;margin-bottom:12px}
   .payseg .pp{font-family:'Inter',sans-serif;font-size:27px;font-weight:800;line-height:1}
   .payseg .pl{font-size:13px;font-weight:700;margin-top:8px}
@@ -1135,10 +1137,11 @@
         <p class="pane-lead" style="margin-bottom:6px" data-t="p03PayLead1">Je betaalt in vier stappen, elk gekoppeld aan een zichtbare bouwmijlpaal, nooit alles vooraf.</p>
         <p class="pane-lead" style="margin-bottom:12px;font-size:12.5px;color:var(--muted)" data-t="p03PayLead2">De bouw liep al vóór jouw instapmoment. Fases die dan al voltooid zijn, betaal je in één keer mee bij ondertekening, tegen de instapprijs die op dat moment geldt.</p>
         <div class="paybar" id="payBar">
-          <div class="payseg"><div class="step" data-t="p03Phase1">Fase 1</div><div class="pp">30%</div><div class="pl" data-t="p03Phase1Lbl">Bij ondertekening</div><div class="pd build-started" data-t="p03Phase1Badge">✓ Bouw al gestart</div><div class="pa"><span data-t="payAmt1">€63.000</span></div><div class="pnote" data-t="p03Phase1Note">Incl. €5.000 aanbetaling</div></div>
-          <div class="payseg" data-milestone="2026-12-31"><div class="step" data-t="p03Phase2">Fase 2</div><div class="pp">30%</div><div class="pl" data-t="p03Phase2Lbl">Bij casco</div><div class="pd">Q4 2026</div><div class="pa"><span data-t="payAmt2">€63.000</span></div></div>
-          <div class="payseg" data-milestone="2027-03-31"><div class="step" data-t="p03Phase3">Fase 3</div><div class="pp">30%</div><div class="pl" data-t="p03Phase3Lbl">Bij afbouw</div><div class="pd">Q1 2027</div><div class="pa"><span data-t="payAmt3">€63.000</span></div></div>
-          <div class="payseg final" data-milestone="2027-04-15"><div class="step" data-t="p03Phase4">Fase 4</div><div class="pp">10%</div><div class="pl" data-t="p03Phase4Lbl">Bij sleuteloverdracht</div><div class="pd" data-t="p03Phase4Badge">April 2027</div><div class="pa"><span data-t="payAmt4">€21.000</span></div></div>
+          <!-- Steven, 16 oktober 2026: zo eenvoudig mogelijk, de details staan in de contracten. Bij
+               ondertekening 30 tot 40%, verdeeld over de drie contracten; de bouw daarna maandelijks naar
+               de voortgang. Tot die dag stonden hier vier vaste fases van 30/30/30/10 op de oude prijs. -->
+          <div class="payseg"><div class="step" data-t="p03Phase1">Bij ondertekening</div><div class="pp" data-t="p03Phase1Pct">30 tot 40%</div><div class="pl" data-t="p03Phase1Lbl">Verdeeld over grondlease, coördinatie en bouw</div><div class="pa"><span data-t="payAmt1">€67.500 tot €90.000</span></div><div class="pnote" data-t="p03Phase1Note">Incl. €5.000 aanbetaling</div></div>
+          <div class="payseg final"><div class="step" data-t="p03Phase2">Tijdens de bouw</div><div class="pp" data-t="p03Phase2Pct">Maandelijks</div><div class="pl" data-t="p03Phase2Lbl">Naar de voortgang van de bouw</div><div class="pd build-started" data-t="p03Phase1Badge">✓ Bouw al gestart</div><div class="pa" data-t="p03Phase2Note">Je betaalt alleen wat er gebouwd is, tot de oplevering.</div></div>
         </div>
         <div class="pay-status" id="payStatus"></div>
         <p class="note" style="font-size:12px;color:var(--muted);margin-top:10px" data-t="p03PayNote">De €5.000 aanbetaling bij reservering (zie stap 1 hierboven) wordt volledig verrekend met de eerste betaaltermijn, je betaalt nooit dubbel.</p>
@@ -1648,7 +1651,7 @@ const T = {
   "rcBar4": "€2.350",
   "rcBar5": "€2.450",
   "rcBar6": "€2.491",
-  "payAmt1": "€63.000",
+  "payAmt1": "€67.500 tot €90.000",
   "payAmt2": "€63.000",
   "payAmt3": "€63.000",
   "payAmt4": "€21.000",
@@ -1805,21 +1808,24 @@ const T = {
   "p03Fee3L3": "Bank- en betalingskosten",
   "p03Fee3L4": "Reserve voor onvoorziene kosten",
   "p03FeeNote": "Alle drie zijn al verwerkt in de rendementsberekening hierboven, geen verborgen kosten achteraf.",
-  "p03PaySub": "Betaalschema, gekoppeld aan de bouwfases",
-  "p03PayLead1": "Je betaalt in vier stappen, elk gekoppeld aan een zichtbare bouwmijlpaal, nooit alles vooraf.",
-  "p03PayLead2": "De bouw liep al vóór jouw instapmoment. Fases die dan al voltooid zijn, betaal je in één keer mee bij ondertekening, tegen de instapprijs die op dat moment geldt.",
-  "p03Phase1": "Fase 1",
-  "p03Phase1Lbl": "Bij ondertekening",
+  "p03PaySub": "Betaalschema, gekoppeld aan de bouw",
+  "p03PayLead1": "Je betaalt nooit alles vooraf. Bij ondertekening 30 tot 40%, verdeeld over de drie contracten. Daarna betaal je de bouw maandelijks, naar de voortgang.",
+  "p03PayLead2": "De precieze termijnen en bedragen staan in je contracten. Die krijg je tijdens de due diligence, voor je iets tekent.",
+  "p03Phase1": "Bij ondertekening",
+  "p03Phase1Pct": "30 tot 40%",
+  "p03Phase1Lbl": "Verdeeld over grondlease, coördinatie en bouw",
   "p03Phase1Badge": "✓ Bouw al gestart",
   "p03Phase1Note": "Incl. €5.000 aanbetaling",
-  "p03Phase2": "Fase 2",
-  "p03Phase2Lbl": "Bij casco",
+  "p03Phase2": "Tijdens de bouw",
+  "p03Phase2Pct": "Maandelijks",
+  "p03Phase2Lbl": "Naar de voortgang van de bouw",
+  "p03Phase2Note": "Je betaalt alleen wat er gebouwd is, tot de oplevering.",
   "p03Phase3": "Fase 3",
   "p03Phase3Lbl": "Bij afbouw",
   "p03Phase4": "Fase 4",
   "p03Phase4Lbl": "Bij sleuteloverdracht",
   "p03Phase4Badge": "April 2027",
-  "p03PayNote": "De €5.000 aanbetaling bij reservering (zie stap 1 hierboven) wordt volledig verrekend met de eerste betaaltermijn, je betaalt nooit dubbel.",
+  "p03PayNote": "De €5.000 aanbetaling bij reservering (zie stap 1 hierboven) wordt volledig verrekend met de eerste betaling, je betaalt nooit dubbel.",
   "p03AvailBtn": "Bekijk de beschikbare units",
   "p04Kicker": "04 · Planning",
   "p04H2": "Van reservering tot sleuteloverdracht",
@@ -2092,7 +2098,7 @@ const T = {
   "rcBar4": "€2,350",
   "rcBar5": "€2,450",
   "rcBar6": "€2,491",
-  "payAmt1": "€63,000",
+  "payAmt1": "€67,500 to €90,000",
   "payAmt2": "€63,000",
   "payAmt3": "€63,000",
   "payAmt4": "€21,000",
@@ -2249,15 +2255,18 @@ const T = {
   "p03Fee3L3": "Banking and payment costs",
   "p03Fee3L4": "Reserve for unforeseen costs",
   "p03FeeNote": "All three are already factored into the return calculation above, no hidden costs afterwards.",
-  "p03PaySub": "Payment schedule, tied to the construction phases",
-  "p03PayLead1": "You pay in four steps, each tied to a visible construction milestone, never everything upfront.",
-  "p03PayLead2": "Construction was already underway before you invested. Phases already completed by then are paid in full at signing, at the entry price that applies at that time.",
-  "p03Phase1": "Phase 1",
-  "p03Phase1Lbl": "At signing",
+  "p03PaySub": "Payment schedule, tied to construction",
+  "p03PayLead1": "You never pay everything upfront. At signing you pay 30 to 40%, split across the three contracts. After that, construction is invoiced monthly, based on progress.",
+  "p03PayLead2": "The exact instalments and amounts are in your contracts, which you receive during due diligence, before you sign anything.",
+  "p03Phase1": "At signing",
+  "p03Phase1Pct": "30 to 40%",
+  "p03Phase1Lbl": "Split across land lease, coordination and construction",
   "p03Phase1Badge": "✓ Construction already started",
   "p03Phase1Note": "Incl. €5,000 down payment",
-  "p03Phase2": "Phase 2",
-  "p03Phase2Lbl": "At shell completion",
+  "p03Phase2": "During construction",
+  "p03Phase2Pct": "Monthly",
+  "p03Phase2Lbl": "Based on construction progress",
+  "p03Phase2Note": "You only pay for what has been built, until handover.",
   "p03Phase3": "Phase 3",
   "p03Phase3Lbl": "At final fit-out",
   "p03Phase4": "Phase 4",
