@@ -106,7 +106,10 @@
         var grens = frames ? STIL_MS : EERSTE_MS;
         if (Date.now() - laatst > grens) { waakhond = true; clearInterval(waak); try { ctl.abort(); } catch (e) {} }
       }, 1000);
-      fetch(base + '&cam=' + c.n + '&stream=1&fps=' + fps + '&t=' + Date.now(), { signal: ctl.signal, cache: 'no-store' })
+      // ct=bin: de stream als application/octet-stream. Safari op iPhone levert
+      // multipart/x-mixed-replace via fetch niet door (0 beelden, dan alleen de terugval
+      // met een stilstaande foto); getest op 20 oktober 2026.
+      fetch(base + '&cam=' + c.n + '&stream=1&ct=bin&fps=' + fps + '&t=' + Date.now(), { signal: ctl.signal, cache: 'no-store' })
         .then(function(r){
           if (!r.ok || !r.body) throw new Error('status ' + r.status);
           var reader = r.body.getReader(); var buf = new Uint8Array(0);
