@@ -7,6 +7,12 @@
    kijken pauzeert de speler (stand 'pauze'); de pagina toont dan een knop om verder te
    kijken. Zo kost een vergeten tabblad geen bandbreedte.
 
+   20 oktober 2026 (Steven: "Soms zegt het 'bezig met verbinden' terwijl de app van de
+   camera wel werkt"): een stream die geen beeld geeft (niet binnen EERSTE_MS na het
+   verbinden, of STIL_MS lang niet meer) wordt afgebroken en opnieuw opgezet, in plaats van
+   eindeloos op "verbinden" te blijven staan. Bij het opnieuw verbinden blijft het laatste
+   beeld staan en het label op live zolang dat beeld vers is.
+
    utamaBouwcamera({
      base:  'https://.../functions/v1/bouwcamera?project=the-maison',
      cams:  [{ n: 1, img: HTMLImageElement }, ...],
@@ -18,6 +24,9 @@
 (function(){
   'use strict';
   var dec = new TextDecoder();
+  var EERSTE_MS = 15000;   // zo lang mag het duren tot het eerste beeld
+  var STIL_MS = 12000;     // zo lang mag het daarna stil zijn
+  var VERS_MS = 20000;     // zo lang blijft het label op live na het laatste beeld
 
   function zoekCRLF2(buf, van){
     for (var i = van; i <= buf.length - 4; i++) {
@@ -57,6 +66,7 @@
         c.ctx.drawImage(bm, 0, 0);
         if (bm.close) bm.close();
         if (cv.style.display !== 'block') { cv.style.display = 'block'; c.img.style.display = 'none'; }
+        c.laatstGetoond = Date.now();
         try { onFrame(c.n, Date.now()); } catch (e) {}
       }
       canvasVoor(c);
@@ -87,8 +97,15 @@
 
     function stream(c){
       var ctl = new AbortController(); c.ctl = ctl; var gen = ++c.gen;
-      var frames = 0;
-      state(c, frames ? 'live' : 'laden');
+      var frames = 0, laatst = Date.now(), waakhond = false;
+      // Opnieuw verbinden na een sessielimiet of een haperende camera: het laatste beeld
+      // blijft staan, dus het label blijft live zolang dat beeld vers is.
+      state(c, (c.laatstGetoond && Date.now() - c.laatstGetoond < VERS_MS) ? 'live' : 'laden');
+      var waak = setInterval(function(){
+        if (gen !== c.gen || !actief) { clearInterval(waak); return; }
+        var grens = frames ? STIL_MS : EERSTE_MS;
+        if (Date.now() - laatst > grens) { waakhond = true; clearInterval(waak); try { ctl.abort(); } catch (e) {} }
+      }, 1000);
       fetch(base + '&cam=' + c.n + '&stream=1&fps=' + fps + '&t=' + Date.now(), { signal: ctl.signal, cache: 'no-store' })
         .then(function(r){
           if (!r.ok || !r.body) throw new Error('status ' + r.status);
@@ -105,7 +122,7 @@
                 var len = parseInt(m[1], 10), start = h + 4, end = start + len;
                 if (buf.length < end) break;
                 toon(c, buf.slice(start, end)); pos = end;
-                frames++; c.fouten = 0; c.pogingen = 0;
+                frames++; laatst = Date.now(); c.fouten = 0; c.pogingen = 0;
                 if (frames === 1) state(c, 'live');
               }
               buf = buf.slice(pos);
@@ -115,13 +132,16 @@
           return lees();
         })
         .then(function(){
+          clearInterval(waak);
           // Netjes beëindigd door de server (sessielimiet of worker klaar): meteen opnieuw.
           if (gen !== c.gen || !actief) return;
           if (frames === 0) throw new Error('geen beeld');
           later(c, function(){ stream(c); }, 300);
         })
         .catch(function(e){
-          if (ctl.signal.aborted || gen !== c.gen || !actief) return;
+          clearInterval(waak);
+          // Afgebroken door de waakhond telt als een mislukte poging; afgebroken door stop() niet.
+          if ((ctl.signal.aborted && !waakhond) || gen !== c.gen || !actief) return;
           c.fouten++;
           if (c.fouten >= 3) { state(c, 'offline'); momentopname(c); }
           else later(c, function(){ stream(c); }, 1500 * c.fouten);
