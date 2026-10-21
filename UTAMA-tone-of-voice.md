@@ -1,4 +1,4 @@
-# UTAMA — Tone of Voice
+# UTAMA: Tone of Voice
 
 Vastgelegd op basis van een reeks referentieteksten (stappenplan "Jij bezit het. Wij runnen het.", "Waarom Bali?", "Eigendom, met een einddatum.", "Wij runnen alles. Jij blijft hands-off."). Gebruik dit document als checklist bij het schrijven of beoordelen van nieuwe copy voor de site, brochures en WhatsApp/e-mail templates.
 
@@ -33,14 +33,14 @@ Bij keuzemomenten (verhuren / zelf gebruiken / verkopen) is de toon: "jij houdt 
 | Niet | Wel |
 |---|---|
 | "Veilig investeren op afstand" | "Jij bezit het. Wij runnen het." |
-| "Ons eigen bouwteam bouwt je villa" | "Wij ontwikkelen het project en selecteren een ervaren, onafhankelijke aannemer" *(alleen gebruiken als dit feitelijk klopt — zie hieronder)* |
+| "Je betaalt de bouw rechtstreeks aan de aannemer" als verkoopargument | "Wij bouwen je villa. Jij bezit hem." *(de betaling aan de aannemer noem je als iemand ernaar vraagt; zie hieronder)* |
 | "Sterk rendement" | "±14% netto rendement (realistisch)" |
 | "Wij regelen alles voor je, zodat jij nergens meer naar om hoeft te kijken en volledig kunt ontspannen" | "Wij regelen het. Jij hoeft nergens naar om te kijken." |
 | "Dit is best ingewikkeld, maar…" | "Zo werkt het: [feit]. Daarom [gevolg]." |
 
-## Belangrijke feitelijke grens (niet overschrijven)
+## Bouwen en betalen (bijgewerkt 21 oktober 2026)
 
-UTAMA is projectontwikkelaar, geen bouwbedrijf: **wij bouwen niet zelf**. Een onafhankelijke, externe aannemer voert de bouw uit; UTAMA selecteert die aannemer en bewaakt kwaliteit, planning en budget. Copy mag dit niet ophangen als hoofdverkoopargument ("kijk eens wat een geweldig extern bouwteam we hebben"), maar mag het ook niet verdoezelen. Gebruik neutrale, feitelijke taal: "ontwikkelen", "selecteren", "bewaken kwaliteit/planning/budget" in plaats van "bouwen".
+"Wij bouwen" en "onze eigen bouwploeg" mogen gezegd worden: UTAMA is de ontwikkelaar (Steven, 21 oktober 2026, beslissing 0029 in het brain). Wat telt is wat we contractueel vastleggen: de koper betaalt de bouw per bouwfase rechtstreeks aan de aannemer. Dat is contractdetail, geen verkoopargument. Noem het als iemand vraagt naar betalen, geld of contracten, en in de contracten zelf, maar breng het niet zelf naar voren in koppen, opsommingen of advertenties. Bron: fact-boundaries in het brain.
 
 ## Waar deze tone of voice al is toegepast
 
