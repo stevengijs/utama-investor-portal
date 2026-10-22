@@ -46,10 +46,11 @@
         <button type="button" class="btn" onclick="openBrochure()" data-t="mHeroCta2">Bekijk volledige brochure</button>
       </div>
       <div class="trustrow">
-        <div><b>vanaf €225.000</b><span data-t="mt1">richtprijs, nu in verkoop</span></div>
+        <div><b data-t="mPriceFrom">vanaf €225.000</b><span data-t="mt1">richtprijs, nu in verkoop</span></div>
         <div><b>±14%</b><span data-t="mt2">netto rendement (realistisch)</span></div>
         <div><b id="mAvail">4 van 6</b><span data-t="mt3">nog beschikbaar</span></div>
       </div>
+      <div class="price-step" data-t="mPriceStep">€225.000 als je aanvraagt vóór woensdag 28 oktober 15:00. Daarna €240.000.</div>
     </div>
     <div class="hero-visual">
       <div class="hero-photo" id="heroPhoto" style="background-image:url('/the-maison/images/maison-outdoor.jpg')">
@@ -69,7 +70,7 @@
       <div class="body">
         <div class="d-head">
           <div><h2>The Maison</h2><div class="loc">Pererenan, Bali</div><div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="pill" id="pill"></span><span class="momentum" id="momentum"></span></div></div>
-          <div class="d-price"><div class="p" id="dprice">vanaf €225.000</div><div class="a" data-t="mStatus">In verkoop · oplevering april 2027</div></div>
+          <div class="d-price"><div class="p" id="dprice">vanaf €225.000</div><div class="a" data-t="mStatus">In verkoop · in aanbouw sinds mei 2026</div></div>
         </div>
         <div class="hl" id="hl"></div>
         <div class="brochure-preview">
@@ -159,11 +160,11 @@ const MAISON = {
     nl:["Privé plunge pool en 40 m² rooftop lounge met jungle-uitzicht","Volledig gemeubileerd en direct verhuurklaar",
         "Gated community van 6 villa's, 3 min van Pererenan Beach","2 ensuite slaapkamers, outdoor kitchen, open living",
         "Orange C2-zone: legale short-stay verhuur","30 + 30 jaar leasehold met gegarandeerde verlenging (incl. PBG/SLF)",
-        "10 jaar bouwgarantie (Bali Prime Construction)","Volledig beheer via House of Reservations (250+ villa's)"],
+        "5 jaar garantie op de constructie, 12 maanden op de afwerking (Bali Prime Construction)","Volledig beheer via House of Reservations (250+ villa's)"],
     en:["Private plunge pool and 40 m² rooftop lounge with jungle views","Fully furnished and rental-ready",
         "Gated community of 6 villas, 3 min from Pererenan Beach","2 ensuite bedrooms, outdoor kitchen, open living",
         "Orange C2 zone: legal short-stay rental","30 + 30 year leasehold with guaranteed extension (incl. PBG/SLF)",
-        "10-year build warranty (Bali Prime Construction)","Full management via House of Reservations (250+ villas)"]
+        "5-year structural warranty, 12 months on finishes (Bali Prime Construction)","Full management via House of Reservations (250+ villas)"]
   },
   images:["/the-maison/images/maison-exterior.jpg","/the-maison/images/maison-living.jpg","/the-maison/images/maison-kitchen.jpg","/the-maison/images/maison-outdoor.jpg","/the-maison/images/maison-bathroom.jpg"],
 };
@@ -171,7 +172,7 @@ const MAISON = {
 const T={
  nl:{navProjects:"Projecten",navContact:"Contact",back:"Projecten",
   mHeroSub:"Met The Maison bouwen we zes designvilla's met 2 slaapkamers, een privé plunge pool en een rooftop lounge, in het hart van Pererenan. Jij bezit de villa, wij ontwikkelen, beheren en verhuren hem voor je.",
-  mHeroCta1:"Contact via WhatsApp",mHeroCta2:"Bekijk volledige brochure",mt1:"richtprijs, nu in verkoop",mt2:"netto rendement (realistisch)",mt3:"al verkocht",mStatus:"In verkoop · oplevering april 2027",
+  mHeroCta1:"Contact via WhatsApp",mHeroCta2:"Bekijk volledige brochure",mPriceFrom:"vanaf €225.000",mt1:"richtprijs, nu in verkoop",mt2:"netto rendement (realistisch)",mt3:"al verkocht",mStatus:"In verkoop · in aanbouw sinds mei 2026",mPriceStep:"€225.000 als je aanvraagt vóór woensdag 28 oktober 15:00. Daarna €240.000.",
   ctaTitle:"Klaar voor de volgende stap?",ctaSub:"Bekijk de volledige digitale brochure met alle renders, plattegronden, exacte prijzen en het rendementsmodel, of stel je vraag direct aan Ashley.",
   ctaWa:"Praat met Ashley via WhatsApp",agentRole:"Sales Manager, UTAMA",heroFounderRole:"Oprichter UTAMA",
   footer:"Investeren in Bali-vastgoed, transparant en zorgeloos.",footerRef:"Verdien €2.500 als je iemand aanbrengt",
@@ -186,7 +187,7 @@ const T={
   ctaTrust:"Gratis en vrijblijvend · 1 minuut · direct toegang tot alle cijfers"},
  en:{navProjects:"Projects",navContact:"Contact",back:"Projects",
   mHeroSub:"With The Maison we're building six design villas with 2 bedrooms, a private plunge pool and a rooftop lounge, in the heart of Pererenan. You own the villa, we develop, manage and rent it out for you.",
-  mHeroCta1:"Chat on WhatsApp",mHeroCta2:"View full brochure",mt1:"guide price, selling now",mt2:"net yield (realistic)",mt3:"already sold",mStatus:"Selling now · completion April 2027",
+  mHeroCta1:"Chat on WhatsApp",mHeroCta2:"View full brochure",mPriceFrom:"from €225,000",mt1:"guide price, selling now",mt2:"net yield (realistic)",mt3:"already sold",mStatus:"Selling now · under construction since May 2026",mPriceStep:"€225,000 if you request before Wednesday 28 October 15:00 (Dutch time). After that €240,000.",
   ctaTitle:"Ready for the next step?",ctaSub:"View the full digital brochure with all renders, floor plans, exact prices and the return model, or ask Ashley directly.",
   ctaWa:"Chat with Ashley on WhatsApp",agentRole:"Sales Manager, UTAMA",heroFounderRole:"Founder of UTAMA",
   footer:"Investing in Bali real estate, transparent and hassle-free.",footerRef:"Earn €2,500 for every friend you bring in",
@@ -458,6 +459,7 @@ loadAvailability();
   .cta-agent img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.32);flex:none}
   .cta-agent-name{font-size:13.5px;font-weight:600;color:#fff}
   .cta-agent-role{font-size:12px;color:#eee4d4;opacity:.8;margin-top:1px}
+  .price-step{margin-top:16px;font-size:14px;line-height:1.5;font-weight:600;color:var(--ink)}
   .momentum{font-size:12px;font-weight:700;color:var(--ink);background:var(--sand-2);border-radius:var(--radius-pill);padding:5px 12px}
   .build-banner{display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#FBF1E9,#F3ECD9);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin-top:20px;flex-wrap:wrap}
   .bb-icon{flex:none;width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;color:var(--opt-deep);box-shadow:var(--shadow)}
