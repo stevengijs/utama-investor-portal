@@ -351,11 +351,11 @@ const T={
   cmProject:"Welk project?",cmProjectChoose:"Kies een project",cmProjectUnsure:"Nog geen voorkeur",cmErr:"Vul je naam, WhatsApp-nummer, e-mailadres en project in.",cmBtn:"Verstuur via WhatsApp",
   cmOkTitle:"Verstuurd!",cmOkP:"We hebben je bericht ontvangen. Ashley neemt snel contact met je op via WhatsApp.",
   footer:"Investeren in Bali-vastgoed, transparant en zorgeloos.",footerRef:"Verdien €2.500 als je iemand aanbrengt",
-  from:"vanaf",soldPart:"{sold} van {y} verkocht",leftPart:"nog {x} beschikbaar",soldOutLine:"✓ Volledig uitverkocht ({y} van {y})",recentSold:"{x} verkocht",more:"Bekijk project en rendement →",soon:"Volgend project wordt binnenkort onthuld",soonTag:"Binnenkort · nieuw project",soonPrice:"Pre-sale: €125.000 tot €235.000",soonNote:"Beperkt aantal plekken. Alleen wie interesse aangeeft en echt wil kopen, krijgt toegang.",soonCta:"Zet mij op de lijst →",
+  from:"vanaf",soldPart:"{sold} van {y} verkocht",leftPart:"nog {x} beschikbaar",soldOutLine:"✓ Volledig uitverkocht ({y} van {y})",recentSold:"{x} verkocht",more:"Bekijk project en rendement →",soon:"Volgend project wordt binnenkort onthuld",soonTag:"Binnenkort · nieuw project",soonPrice:"",soonNote:"Laat je gegevens achter. Je krijgt vóór de openbare verkoop een persoonlijk bericht van ons.",soonCta:"Zet mij op de lijst →",
   soldEyebrow:"Eerder uitverkocht",soldAirbnb:"Bekijk de listing op Airbnb",abReviews:"reviews",soldVideo:"Bekijk de video",vImp:"Impressie",vClose:"Sluiten",
-  eaEb:"Vroegtijdige toegang",eaTitle:"Meld je alvast aan voor het volgende project",eaSub:"Laat je gegevens achter, dan ben je een van de eersten die de details en pre-sale prijzen ontvangt zodra het project onthuld wordt.",
+  eaEb:"Vroegtijdige toegang",eaTitle:"Meld je alvast aan voor het volgende project",eaSub:"Laat je gegevens achter. Je krijgt vóór de openbare verkoop een persoonlijk bericht van ons.",
   eaBudget:"Budget",eaWhen:"Wanneer wil je kopen?",eaErr:"Vul je naam, WhatsApp-nummer en e-mailadres in.",eaBtn:"Meld je aan",
-  eaOkTitle:"Aangemeld!",eaOkP:"We houden je op de hoogte zodra dit project onthuld wordt. Je hoort als eerste van ons.",eaTrust:"Geen spam. We gebruiken je gegevens alleen om je op de hoogte te houden van dit project."},
+  eaOkTitle:"Je staat op de lijst",eaOkP:"Je krijgt vóór de openbare verkoop een persoonlijk bericht van ons.",eaTrust:"Geen spam. We gebruiken je gegevens alleen om je op de hoogte te houden van dit project."},
  en:{navProjects:"Projects",navHow:"How it works",navContact:"Contact",
   heroEyebrow:"Off-plan villas in Bali",heroTitle:"You own it. We run it.",
   heroSub:"We develop premium villas in Bali with strong rental returns. We develop, manage and rent out the villas, you receive your monthly share of the income.",
@@ -379,11 +379,11 @@ const T={
   cmProject:"Which project?",cmProjectChoose:"Choose a project",cmProjectUnsure:"Not sure yet",cmErr:"Please enter your name, WhatsApp number, email and project.",cmBtn:"Send via WhatsApp",
   cmOkTitle:"Sent!",cmOkP:"We've received your message. Ashley will be in touch shortly via WhatsApp.",
   footer:"Investing in Bali real estate, transparent and hassle-free.",footerRef:"Earn €2,500 for every friend you bring in",
-  from:"from",soldPart:"{sold} of {y} sold",leftPart:"{x} left",soldOutLine:"✓ Fully sold out ({y} of {y})",recentSold:"{x} sold",more:"View project and returns →",soon:"Next project to be revealed soon",soonTag:"Coming soon · new project",soonPrice:"Pre-sale: €125,000 to €235,000",soonNote:"Limited places. Only those who register their interest and are ready to buy get access.",soonCta:"Put me on the list →",
+  from:"from",soldPart:"{sold} of {y} sold",leftPart:"{x} left",soldOutLine:"✓ Fully sold out ({y} of {y})",recentSold:"{x} sold",more:"View project and returns →",soon:"Next project to be revealed soon",soonTag:"Coming soon · new project",soonPrice:"",soonNote:"Leave your details. You'll receive a personal message from us before the public sale.",soonCta:"Put me on the list →",
   soldEyebrow:"Previously sold out",soldAirbnb:"View the listing on Airbnb",abReviews:"reviews",soldVideo:"Watch the video",vImp:"Impression",vClose:"Close",
-  eaEb:"Early access",eaTitle:"Register your interest for the next project",eaSub:"Leave your details and you'll be one of the first to receive the details and pre-sale prices once the project is revealed.",
+  eaEb:"Early access",eaTitle:"Register your interest for the next project",eaSub:"Leave your details. You'll receive a personal message from us before the public sale.",
   eaBudget:"Budget",eaWhen:"When do you want to buy?",eaErr:"Please enter your name, WhatsApp number and email.",eaBtn:"Register interest",
-  eaOkTitle:"You're on the list!",eaOkP:"We'll keep you posted as soon as this project is revealed. You'll be among the first to hear from us.",eaTrust:"No spam. We'll only use your details to keep you posted about this project."}
+  eaOkTitle:"You're on the list",eaOkP:"You'll receive a personal message from us before the public sale.",eaTrust:"No spam. We'll only use your details to keep you posted about this project."}
 };
 let lang="nl";
 const el=id=>document.getElementById(id);
@@ -418,14 +418,14 @@ function renderCards(){
   });
   // The Reload (Steven, 9 oktober 2026): niet meer als vier villa's verkocht. De pagina's zijn
   // afgeschermd (vercel.json verwijst naar #volgend-project) en dit is de teaser: een vervaagde
-  // render, de prijsband en de early-access lijst.
+  // render en de early-access lijst, zonder prijs (whisperregel, Steven 27 oktober 2026).
   h+=`<div class="pcard soon" id="volgend-project" onclick="openEarlyAccess()">
     <div class="soon-bg" style="background-image:url('/the-reload/images/reload-teaser-blur.jpg')"></div>
     <div class="soon-overlay"></div>
     <div class="soon-content">
       <div class="soon-tag">${T[lang].soonTag}</div>
       <div class="soon-text">${T[lang].soon}</div>
-      <div class="soon-price">${T[lang].soonPrice}</div>
+      ${T[lang].soonPrice?`<div class="soon-price">${T[lang].soonPrice}</div>`:''}
       <div class="soon-note">${T[lang].soonNote}</div>
       <div class="soon-cta">${T[lang].soonCta}</div>
     </div>
@@ -508,7 +508,7 @@ function showContactSuccess(name){
 function openEarlyAccess(){ if(window.utamaEarlyAccess) window.utamaEarlyAccess.open(lang); }
 function closeEarlyAccess(){ if(window.utamaEarlyAccess) window.utamaEarlyAccess.close(); }
 // Afgeschermde Reload-pagina's komen hier via #volgend-project binnen: kaart in beeld en de lijst openen.
-if(location.hash==='#volgend-project'){ setTimeout(function(){ const c=el('volgend-project'); if(c) c.scrollIntoView({block:'center'}); openEarlyAccess(); },500); }
+if(location.hash==='#volgend-project' || /[?&]aanmelden=1(&|$)/.test(location.search)){ setTimeout(function(){ const c=el('volgend-project'); if(c) c.scrollIntoView({block:'center'}); openEarlyAccess(); },500); }
 function launchConfetti(hostId){
   const host=el(hostId); if(!host) return;
   const colors=['#243F35','#C06B3A','#B0873E','#2E7D5B','#EFE7D8'];

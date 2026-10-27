@@ -43,21 +43,21 @@
   var T = {
     nl: {
       close: 'Sluiten', eb: 'Vroegtijdige toegang', title: 'Meld je alvast aan voor het volgende project',
-      sub: 'Laat je gegevens achter, dan ben je een van de eersten die de details en pre-sale prijzen ontvangt zodra het project onthuld wordt.',
+      sub: 'Laat je gegevens achter. Je krijgt vóór de openbare verkoop een persoonlijk bericht van ons.',
       name: 'Je naam', namePh: 'Je volledige naam', phone: 'Je WhatsApp-nummer', email: 'Je e-mailadres',
       budget: 'Budget', when: 'Wanneer wil je kopen?', whenPh: 'Kies je horizon',
       err: 'Vul je naam, WhatsApp-nummer en e-mailadres in.', btn: 'Meld je aan',
       trust: 'Geen spam. We gebruiken je gegevens alleen om je op de hoogte te houden van dit project.',
-      okTitle: 'Aangemeld!', okP: 'We houden je op de hoogte zodra dit project onthuld wordt. Je hoort als eerste van ons.'
+      okTitle: 'Je staat op de lijst', okP: 'Je krijgt vóór de openbare verkoop een persoonlijk bericht van ons.'
     },
     en: {
       close: 'Close', eb: 'Early access', title: 'Register your interest for the next project',
-      sub: "Leave your details and you'll be one of the first to receive the details and pre-sale prices once the project is revealed.",
+      sub: "Leave your details. You'll receive a personal message from us before the public sale.",
       name: 'Your name', namePh: 'Your full name', phone: 'Your WhatsApp number', email: 'Your email',
       budget: 'Budget', when: 'When do you want to buy?', whenPh: 'Choose your horizon',
       err: 'Please enter your name, WhatsApp number and email.', btn: 'Register interest',
       trust: "No spam. We'll only use your details to keep you posted about this project.",
-      okTitle: "You're on the list!", okP: "We'll keep you posted as soon as this project is revealed. You'll be among the first to hear from us."
+      okTitle: "You're on the list", okP: "You'll receive a personal message from us before the public sale."
     }
   };
 
