@@ -309,7 +309,7 @@ const PROJECTS = [
   { id:"moka", name:"MOKA", link:"/moka",
     loc:{nl:"Kedungu, Bali", en:"Kedungu, Bali"},
     status:{nl:"Oplevering november 2026", en:"Completion November 2026"},
-    priceFrom:325000, unitsTotal:15, unitsSold:14,
+    priceFrom:325000, unitsTotal:15, unitsSold:15,
     img:"/images/moka/villa3-exterior.jpg" }
 ];
 
@@ -411,7 +411,7 @@ function renderCards(){
       <div class="${imgCls}" style="${imgStyle}"><span class="badge">${p.status[lang]}</span>${av.lastReserved?`<span class="almost-badge">${lang==='nl'?'Laatste unit gereserveerd':'Last unit reserved'}</span>`:(!av.presale&&av.available===1)?`<span class="almost-badge">Almost sold out</span>`:''}</div>
       <div class="pinfo">
         <h3>${p.name}</h3><div class="loc">${p.loc[lang]}</div>
-        <div class="prow"><div class="price">${T[lang].from} ${money(p.priceFrom)}</div><div class="avail"><b class="avail-sold"${av.presale?' style="color:#0f6b4f"':''}>${av.line}</b></div></div>
+        <div class="prow"><div class="price">${av.soldout?(lang==='nl'?'Uitverkocht':'Sold out'):T[lang].from+' '+money(p.priceFrom)}</div><div class="avail"><b class="avail-sold"${av.presale?' style="color:#0f6b4f"':''}>${av.line}</b></div></div>
         ${av.presale?`<div class="momentum">${av.tag}</div>`:''}
         <div class="more">${T[lang].more}</div>
       </div></a>`;
