@@ -9,13 +9,14 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%2317140F'/><text x='16' y='23' font-family='Inter,Arial,sans-serif' font-size='19' font-weight='800' letter-spacing='0.5' fill='%23FAF5EA' text-anchor='middle'>U</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --sand:#FAF5EA; --sand-2:#F1E9DB; --paper:#FEFBF6;
     --ink:#17140F; --body:#4c463b; --muted:#6b6459; --line:#E7DECD;
     --ok:#2E7D5B; --olive:#5B6A45;
     --radius-btn:9px; --radius-pill:9999px; --radius:14px;
+    --display:'Poppins','Inter',system-ui,sans-serif;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -42,12 +43,12 @@
   main{flex:1; display:flex; align-items:center; justify-content:center; padding:24px clamp(18px,5vw,44px) 40px}
   .box{width:100%; max-width:600px; text-align:center}
   .code{
-    font-weight:800; font-size:clamp(66px,13vw,112px); line-height:.92; letter-spacing:-.04em;
+    font-family:var(--display); font-weight:600; font-size:clamp(62px,12.2vw,105px); line-height:.92; letter-spacing:-.04em;
     color:var(--ink); margin:0 0 6px;
   }
-  .code b{color:var(--olive); font-weight:800}
-  h1{font-family:inherit; font-weight:800; letter-spacing:-.015em; line-height:1.16;
-     font-size:clamp(23px,3.6vw,31px); color:var(--ink); margin:6px 0 12px; text-wrap:balance}
+  .code b{color:var(--olive); font-weight:600}
+  h1{font-family:var(--display); font-weight:700; letter-spacing:-.02em; line-height:1.14;
+     font-size:clamp(22px,3.3vw,28px); color:var(--ink); margin:6px 0 12px; text-wrap:balance}
   .sub{font-size:17px; color:var(--body); margin:0 auto 26px; max-width:44ch; text-wrap:pretty}
 
   .actions{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-bottom:30px}

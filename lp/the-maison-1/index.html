@@ -8,7 +8,7 @@
 <meta name="robots" content="noindex,follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="/images/favicon.ico" sizes="any">
 <link rel="stylesheet" href="/styles.css">
 <script src="/meta-pixel.js"></script>
@@ -51,7 +51,7 @@
   <div class="wrap hero-grid">
     <div class="inner">
       <div class="eyebrow" data-t="eyebrow">Pererenan, Bali · Digitale brochure</div>
-      <h1 data-t="h1">Eigen villa op Bali.<br>Wij bouwen &amp; verhuren 'm.</h1>
+      <h1 data-t="h1">Eigen villa op Bali.<br>Wij bouwen &amp; verhuren&nbsp;'m.</h1>
       <p data-t="sub">Zes volledig verhuurklare designvilla's in Pererenan. Jij bezit de villa, een gespecialiseerd verhuurteam verzorgt het complete verhuurbeheer. Geen omkijken, wel het rendement.</p>
       <div class="btns">
         <button type="button" class="btn btn-lg" onclick="openBrochure()" data-t="cta1">Bekijk volledige brochure</button>
@@ -204,7 +204,7 @@ const T={
   navCta:"Bekijk brochure",
   urgText:"Nu in verkoop vanaf <b>€225.000</b>, prijs stijgt verder tijdens de bouw",
   eyebrow:"Pererenan, Bali · Digitale brochure",
-  h1:"Eigen villa op Bali.<br>Wij bouwen &amp; verhuren 'm.",
+  h1:"Eigen villa op Bali.<br>Wij bouwen &amp; verhuren&nbsp;'m.",
   sub:"Zes volledig verhuurklare designvilla's in Pererenan. Jij bezit de villa, een gespecialiseerd verhuurteam verzorgt het complete verhuurbeheer. Geen omkijken, wel het rendement.",
   cta1:"Bekijk volledige brochure",
   ctaTrust:"Gratis en vrijblijvend · 1 minuut · direct toegang tot alle cijfers",
@@ -234,7 +234,7 @@ const T={
   navCta:"View brochure",
   urgText:"Now selling from <b>€225,000</b>, price rises further during construction",
   eyebrow:"Pererenan, Bali · Digital brochure",
-  h1:"Your own villa in Bali.<br>We build &amp; rent it out.",
+  h1:"Your own villa in Bali.<br>We build &amp; rent it&nbsp;out.",
   sub:"Six fully rental-ready design villas in Pererenan. You own the villa, a specialised rental management team handles the entire rental process. No hassle, just the return.",
   cta1:"View full brochure",
   ctaTrust:"Free and no obligation · 1 minute · instant access to all the numbers",
@@ -404,7 +404,7 @@ function stickyTopDismiss(){
      referral) en niet var(--ok) (gereserveerd voor status). #C2410C/#9A3412
      halen ruim WCAG AA-contrast (5.18:1 / 7.31:1) met witte knoptekst. Alleen
      op deze testpagina, geen wijziging aan styles.css. */
-  :root{ --cta-bg:#C2410C; --cta-bg-hover:#9A3412; }
+  :root{ --cta-bg:#C2410C; --cta-bg-hover:#9A3412; --display:'Poppins','Inter',system-ui,sans-serif; }
   .btn{background:var(--cta-bg)}
   .btn:hover{background:var(--cta-bg-hover)}
   .btn-lg{padding:17px 30px;font-size:16.5px;border-radius:12px;font-weight:700}
@@ -458,19 +458,19 @@ function stickyTopDismiss(){
 
   .lp-section{padding:56px 0}
   .lp-head{text-align:center;max-width:56ch;margin:0 auto 30px}
-  .lp-head h2{font-size:clamp(24px,3.4vw,32px);font-weight:800;margin:8px 0 0;font-family:'Inter',system-ui,-apple-system,sans-serif}
+  .lp-head h2{font-size:clamp(22px,3.1vw,29px);font-weight:700;letter-spacing:-.02em;text-wrap:balance;margin:8px 0 0;font-family:var(--display)}
 
   .mech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
   @media(max-width:900px){.mech-grid{grid-template-columns:1fr 1fr}}
   @media(max-width:560px){.mech-grid{grid-template-columns:1fr}}
   .mech-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;box-shadow:var(--shadow)}
   .mech-n{font-size:12px;font-weight:800;color:var(--opt-deep);letter-spacing:.08em;margin-bottom:8px}
-  .mech-card h3{font-size:16px;font-weight:800;margin:0 0 6px;font-family:'Inter',system-ui,-apple-system,sans-serif}
+  .mech-card h3{font-size:16px;line-height:1.22;font-weight:700;letter-spacing:-.02em;margin:0 0 6px;font-family:var(--display)}
   .mech-card p{font-size:13.5px;color:var(--muted);margin:0;line-height:1.55}
 
   .guarantee-card{display:flex;gap:18px;align-items:flex-start;background:var(--sage-tint);border:1px solid var(--opt);border-radius:var(--radius);padding:26px 28px;max-width:760px;margin:0 auto}
   .g-icon{flex:none;width:48px;height:48px;border-radius:50%;background:var(--paper);display:flex;align-items:center;justify-content:center;color:var(--opt-deep);box-shadow:var(--shadow)}
-  .guarantee-card h3{font-size:17px;font-weight:800;margin:0 0 6px;font-family:'Inter',system-ui,-apple-system,sans-serif}
+  .guarantee-card h3{font-size:17px;line-height:1.22;font-weight:700;letter-spacing:-.02em;text-wrap:balance;margin:0 0 6px;font-family:var(--display)}
   .guarantee-card p{font-size:14px;color:#3f3a30;margin:0;line-height:1.6}
 
   .bp-items{display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}
@@ -480,7 +480,7 @@ function stickyTopDismiss(){
   .bp-eyebrow{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 
   .faq details{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:13px 16px;margin-bottom:8px}
-  .faq summary{cursor:pointer;font-weight:700;font-size:14.5px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .faq summary{cursor:pointer;font-family:var(--display);letter-spacing:-.01em;font-weight:700;font-size:15.5px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
   .faq summary::-webkit-details-marker{display:none}
   .faq summary::after{content:"+";font-size:20px;color:var(--muted);flex:none}
   .faq details[open] summary::after{content:"–"}
@@ -498,7 +498,7 @@ function stickyTopDismiss(){
   .modal .x{position:absolute;top:12px;right:15px;background:none;border:none;font-size:24px;line-height:1;color:var(--muted);cursor:pointer}
   .modal .x:hover{color:var(--ink)}
   .modal .eb{color:var(--ink);font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
-  .modal h3{font-size:24px;margin-bottom:6px;font-family:'Inter',system-ui,-apple-system,sans-serif;font-weight:800}
+  .modal h3{font-size:24px;line-height:1.2;margin-bottom:6px;font-family:var(--display);font-weight:700;letter-spacing:-.02em;text-wrap:balance}
   .modal .msub{color:var(--muted);font-size:14px;margin-bottom:18px}
   .mfield{margin-bottom:12px}
   .mfield label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:5px}
@@ -513,7 +513,7 @@ function stickyTopDismiss(){
   .chk{width:82px;height:82px}
   .chk circle{fill:none;stroke:var(--ok);stroke-width:3;opacity:.22}
   .chk path{fill:none;stroke:var(--ok);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:60;stroke-dashoffset:60;animation:draw .5s .18s ease forwards}
-  .msuccess h3{font-family:'Inter',system-ui,-apple-system,sans-serif;font-weight:800;font-size:26px;margin-bottom:6px}
+  .msuccess h3{font-family:var(--display);font-weight:700;font-size:24px;line-height:1.2;letter-spacing:-.02em;text-wrap:balance;margin-bottom:6px}
   .msuccess p{color:var(--muted);font-size:14.5px;margin:0 auto;max-width:330px}
   @keyframes draw{to{stroke-dashoffset:0}}
   @keyframes pop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}

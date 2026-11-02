@@ -5,7 +5,7 @@
 <title>UTAMA · The Maison · Investeerdersbrochure (print)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --sand:#FAF5EA; --sand-2:#F1E9DB; --paper:#FEFBF6;
@@ -13,11 +13,14 @@
     --gold:#8B5A3C; --terra:#8B5A3C;
     --pess:#AEBFC7; --pess-ink:#2c3236; --real:#ECE3D2; --real-ink:#17140F;
     --opt:#9CA47C; --opt-ink:#fff; --opt-deep:#5B6A45; --sage-tint:#EEF0E2;
+    --display:'Poppins','Inter',system-ui,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{background:#2b2825}
   body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;align-items:center;gap:24px;padding:30px 0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  h1,h2,h3,h4{font-family:'Inter',system-ui,sans-serif;font-weight:800;letter-spacing:-.015em;color:var(--ink)}
+  h1,h2,h3,h4{font-family:var(--display);font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+  h1,h2{text-wrap:balance}
+  h3,h4{letter-spacing:-.01em;line-height:1.21}
   p{color:var(--muted);line-height:1.55}
   @page{size:A4;margin:0}
   @media print{
@@ -36,9 +39,9 @@
   .kicker .kn{color:var(--opt-deep)}
   .kicker-ic{width:24px;height:24px;border-radius:50%;background:var(--opt);display:flex;align-items:center;justify-content:center;flex:none}
   .kicker-ic svg{width:13px;height:13px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-  .h1{font-family:'Inter',sans-serif;font-weight:800;letter-spacing:-.02em;font-size:32px;line-height:1.14;margin:0 0 16px;color:var(--ink)}
+  .h1{font-family:var(--display);font-weight:700;letter-spacing:-.02em;font-size:29px;line-height:1.12;margin:0 0 16px;color:var(--ink);text-wrap:balance}
   .lead{font-size:13.5px;line-height:1.65;color:var(--muted);max-width:660px;margin:0 0 18px}
-  .subh{font-size:15px;font-weight:800;color:var(--ink);margin:22px 0 11px;display:flex;align-items:center;gap:8px}
+  .subh{font-family:var(--display);line-height:1.21;font-size:15px;font-weight:700;letter-spacing:-.01em;color:var(--ink);margin:22px 0 11px;display:flex;align-items:center;gap:8px}
   .subh::after{content:"";flex:1;height:1px;background:var(--line)}
   .badges{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
   .badge{display:flex;align-items:center;gap:6px;background:var(--pess);color:var(--pess-ink);font-size:11px;font-weight:700;padding:7px 12px;border-radius:999px}
@@ -89,7 +92,7 @@
   .ptiles{display:grid;grid-template-columns:1fr;gap:12px;margin-top:16px}
   .ptile{border:1px solid var(--line);border-radius:14px;padding:20px 20px;text-align:center}
   .ptile.cur{border-color:var(--opt);background:var(--sage-tint)}
-  .ptile .pv{font-size:28px;font-weight:800;color:var(--ink)}
+  .ptile .pv{font-family:var(--display);line-height:1.21;font-size:28px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
   .ptile.cur .pv{color:var(--opt-deep)}
   .ptile .pl{font-size:12px;font-weight:700;margin-top:5px;color:var(--ink)}
   .ptile .ps{font-size:11px;color:var(--muted)}
@@ -101,7 +104,7 @@
   .scc.real{background:var(--real);color:var(--real-ink);box-shadow:inset 0 0 0 2px var(--ink)}
   .scc.opt{background:var(--opt);color:#fff}
   .scl{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;opacity:.85}
-  .scv{font-size:26px;font-weight:800;margin-top:6px}
+  .scv{font-family:var(--display);line-height:1.21;font-size:26px;font-weight:600;letter-spacing:-.02em;margin-top:6px}
   .scs{font-size:11.5px;margin-top:5px;opacity:.85}
   .scb{font-size:11px;margin-top:8px;font-weight:600;opacity:.9}
 
@@ -115,24 +118,24 @@
   .arow b{color:var(--ink)}
   .ccard.results{background:var(--sage-tint);border-color:var(--opt)}
   .big-yield{margin-top:8px}
-  .big-yield .num{font-size:38px;font-weight:800;color:var(--opt-deep);line-height:1}
+  .big-yield .num{font-family:var(--display);font-size:38px;font-weight:600;letter-spacing:-.03em;color:var(--opt-deep);line-height:1}
   .big-yield .lbl{font-size:11.5px;color:var(--ink);margin-top:3px}
   .payback{font-size:11.5px;color:var(--muted);margin-top:8px}
   .passive{background:var(--opt-deep);border-radius:14px;padding:16px 18px;margin-top:14px;color:#fff}
   .passive .pe{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.75)}
-  .passive .pv2{font-size:28px;font-weight:800;margin-top:4px}
+  .passive .pv2{font-family:var(--display);line-height:1.21;font-size:28px;font-weight:600;letter-spacing:-.02em;margin-top:4px}
   .passive .pn{font-size:11px;color:rgba(255,255,255,.75);margin-top:5px;line-height:1.4}
   .stat2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
   .stat2 .st{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:11px 13px}
   .stat2 .sl{font-size:10.5px;color:var(--muted)}
-  .stat2 .sv{font-size:16px;font-weight:800;color:var(--ink);margin-top:2px}
+  .stat2 .sv{font-family:var(--display);line-height:1.21;font-size:16px;font-weight:600;letter-spacing:-.01em;color:var(--ink);margin-top:2px}
 
   .holdpanel{background:var(--sand-2);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:18px}
   .hb-h{font-size:11px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--opt-deep);margin-bottom:12px}
   .hold-row{display:flex;gap:20px}
   .hold-row.sub{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
   .hp-i{flex:1}
-  .hp-i b{display:block;font-weight:800;font-size:17px;color:var(--ink)}
+  .hp-i b{display:block;font-family:var(--display);line-height:1.21;font-weight:600;font-size:17px;letter-spacing:-.02em;color:var(--ink)}
   .hp-i.big b{color:var(--opt-deep)}
   .hp-i span{font-size:11px;color:var(--muted)}
 
@@ -145,7 +148,7 @@
   .feecards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
   .feecard{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 16px}
   .fee-h{display:flex;align-items:center;gap:9px;margin-bottom:7px}
-  .fee-pct{font-weight:800;font-size:14px;color:var(--opt-deep);background:var(--sage-tint);border-radius:8px;padding:3px 8px}
+  .fee-pct{font-family:var(--display);line-height:1.21;font-weight:600;font-size:14px;letter-spacing:-.01em;color:var(--opt-deep);background:var(--sage-tint);border-radius:8px;padding:3px 8px}
   .feecard h4{font-size:12.5px;margin:0}
   .feecard p.sub{font-size:10.5px;color:var(--muted);margin:0 0 9px;line-height:1.4}
   .feelist{list-style:none;font-size:10.5px;color:var(--ink);display:flex;flex-direction:column;gap:5px}
@@ -161,7 +164,7 @@
   .payseg:nth-child(3){background:rgba(23,20,15,.15)}
   .payseg.final{background:var(--ink);color:#fff;flex:.75}
   .payseg .step{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.5;margin-bottom:8px}
-  .payseg .pp{font-size:21px;font-weight:800}
+  .payseg .pp{font-family:var(--display);line-height:1.21;font-size:21px;font-weight:600;letter-spacing:-.02em}
   .payseg .pl{font-size:11px;font-weight:700;margin-top:6px}
   .payseg .pd{display:inline-block;font-size:9px;font-weight:700;margin-top:7px;padding:3px 7px;border-radius:999px;background:rgba(23,20,15,.08)}
   .payseg .pd.build-started{background:var(--opt-deep);color:#fff}
@@ -188,7 +191,7 @@
 
   /* stat row */
   .statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
-  .statrow .sr .sv{font-size:24px;font-weight:800;color:var(--ink)}
+  .statrow .sr .sv{font-family:var(--display);line-height:1.21;font-size:24px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
   .statrow .sr .sl{font-size:10.5px;color:var(--muted);margin-top:4px;line-height:1.3}
 
   .darkcta{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--opt);border-radius:14px;padding:14px 16px;margin-top:16px;font-size:11.5px;color:var(--ink);line-height:1.5}
@@ -199,10 +202,10 @@
   .lc-photo{height:100px;background-size:cover;background-position:center;position:relative}
   .lc-plat{position:absolute;top:8px;left:8px;font-size:9px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;background:rgba(23,20,15,.78);color:#fff;padding:3px 8px;border-radius:999px}
   .lc-body{padding:11px 13px 13px}
-  .lc-title{font-weight:800;font-size:12px;color:var(--ink);line-height:1.3;margin-bottom:3px}
+  .lc-title{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:-.01em;color:var(--ink);line-height:1.3;margin-bottom:3px}
   .lc-meta{font-size:10px;color:var(--muted);margin-bottom:7px}
   .lc-price{font-size:11px;color:var(--ink)}
-  .lc-price b{font-size:14px;font-weight:800;color:var(--opt-deep)}
+  .lc-price b{font-family:var(--display);line-height:1.21;font-size:14px;font-weight:600;letter-spacing:-.01em;color:var(--opt-deep)}
 
   /* booking strip (compact, non-tabular so it can never fragment) */
   .bstrip{display:flex;gap:8px;margin-top:14px}
@@ -216,7 +219,7 @@
   .repcard{border:1px solid var(--line);border-radius:14px;background:var(--paper);padding:18px 20px;margin-top:14px}
   .rep-tag{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
   .rep-main{display:flex;align-items:baseline;gap:9px;margin:6px 0 3px}
-  .rep-eur{font-size:26px;font-weight:800;color:var(--opt-deep)}
+  .rep-eur{font-family:var(--display);line-height:1.21;font-size:26px;font-weight:600;letter-spacing:-.02em;color:var(--opt-deep)}
   .rep-lbl{font-size:11px;color:var(--muted);width:100%}
   .replines{border-top:1px solid var(--line);margin-top:10px;padding-top:8px}
   .rpline{display:flex;justify-content:space-between;font-size:11.5px;padding:4px 0;color:var(--ink)}
@@ -256,7 +259,7 @@
   .bstat{padding:14px 16px 14px 0;border-bottom:1px solid var(--line)}
   .bstat:nth-child(odd){border-right:1px solid var(--line);padding-right:18px}
   .bstat:nth-child(even){padding-left:18px}
-  .bstat .bv{font-size:24px;font-weight:800;color:var(--ink)}
+  .bstat .bv{font-family:var(--display);line-height:1.21;font-size:24px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
   .bstat .bl{font-size:11px;color:var(--muted);margin-top:4px}
 
   .whygrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
@@ -273,7 +276,7 @@
   .faqname span{font-weight:500;color:var(--muted);font-size:11.5px}
   .faqlist{display:flex;flex-direction:column;gap:3px}
   .faqit{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:5px 12px}
-  .faqit .q{font-weight:700;font-size:11px;color:var(--ink);margin-bottom:2px}
+  .faqit .q{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:-.01em;line-height:1.21;color:var(--ink);margin-bottom:2px}
   .faqit .a{font-size:10px;color:var(--muted);line-height:1.36;margin:0}
 
   .contactrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
@@ -286,7 +289,7 @@
   .wa-cta img{width:48px;height:48px;border-radius:50%;object-fit:cover;flex:none;border:2px solid rgba(255,255,255,.4)}
   .wa-cta .wa-body{flex:1}
   .wa-cta .wa-lbl{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.75)}
-  .wa-cta .wa-name{font-size:14px;font-weight:800;margin-top:2px}
+  .wa-cta .wa-name{font-family:var(--display);line-height:1.21;font-size:14px;font-weight:600;letter-spacing:-.01em;margin-top:2px}
   .wa-cta .wa-btn{display:flex;align-items:center;gap:7px;background:#fff;color:#075E54;font-weight:800;font-size:11.5px;padding:8px 14px;border-radius:999px;flex:none}
   .wa-cta .wa-btn svg{width:14px;height:14px;fill:#075E54}
   .cperson-sec{display:flex;gap:12px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:11px 15px;margin-top:8px}
@@ -318,13 +321,13 @@
   <div style="position:absolute;top:52px;right:56px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.85)">Digitale brochure · 2026</div>
   <div style="position:absolute;left:56px;right:56px;bottom:56px;color:#fff">
     <div style="display:inline-block;border:1px solid rgba(255,255,255,.5);padding:6px 14px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:20px;background:rgba(0,0,0,.35)">Pererenan, Bali</div>
-    <h1 style="font-family:'Fraunces','Georgia',serif;font-weight:600;letter-spacing:0;font-size:54px;line-height:1.05;margin:0 0 16px;color:#fff">The Maison</h1>
+    <h1 style="font-family:var(--display);font-weight:700;letter-spacing:-.02em;font-size:50px;line-height:1.05;margin:0 0 16px;color:#fff">The Maison</h1>
     <p style="font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.85);max-width:560px;margin:0 0 30px">Zes designvilla's met privé plunge pool en rooftop lounge, middenin Pererenan. Gebouwd voor investeerders die rendement zoeken - niet voor wie een nieuwe woning zoekt.</p>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;border-top:1px solid rgba(255,255,255,.25);padding-top:22px">
-      <div><div style="font-size:24px;font-weight:800">€225.000</div><div style="font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px">Huidige prijs</div></div>
-      <div><div style="font-size:24px;font-weight:800">12–17%</div><div style="font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px">Verwacht rendement / jr</div></div>
-      <div><div style="font-size:24px;font-weight:800">30+30 jr</div><div style="font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px">Leaseperiode</div></div>
-      <div><div id="pdfAvailStat" style="font-size:24px;font-weight:800">4 / 6</div><div style="font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px">Villa's beschikbaar</div></div>
+      <div><div style="font-family:var(--display);font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.21">€225.000</div><div style="font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px">Huidige prijs</div></div>
+      <div><div style="font-family:var(--display);font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.21">12–17%</div><div style="font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px">Verwacht rendement / jr</div></div>
+      <div><div style="font-family:var(--display);font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.21">30+30 jr</div><div style="font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px">Leaseperiode</div></div>
+      <div><div id="pdfAvailStat" style="font-family:var(--display);font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.21">4 / 6</div><div style="font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px">Villa's beschikbaar</div></div>
     </div>
   </div>
 </section>
@@ -358,7 +361,7 @@
 <!-- ============ 03 · WAT DIT PROJECT OMVAT ============ -->
 <section class="pdfpage"><div class="pg">
   <div class="kicker"><span class="kn">01</span> Het project</div>
-  <h1 class="h1" style="font-size:26px">Wat dit project omvat</h1>
+  <h1 class="h1" style="font-size:24px">Wat dit project omvat</h1>
   <div class="numlist">
     <div class="numit"><div class="nn">01</div><div class="nc"><h4>Ontwikkeling &amp; bouw</h4><p>Architectuur, vergunningen, bouwbegeleiding en kwaliteitscontrole door onafhankelijke supervisie, met vaste bouwgaranties.</p></div></div>
     <div class="numit"><div class="nn">02</div><div class="nc"><h4>Inrichting &amp; branding</h4><p>Interieur, styling en gastbeleving worden volledig verzorgd, van meubilair tot branded details.</p></div></div>
@@ -388,7 +391,7 @@
 <!-- ============ 04 · LOCATIE ============ -->
 <section class="pdfpage"><div class="pg">
   <div class="kicker"><span class="kn">01</span> Het project</div>
-  <h1 class="h1" style="font-size:26px">Locatie</h1>
+  <h1 class="h1" style="font-size:24px">Locatie</h1>
   <p class="lead">Rustig gelegen in Pererenan, met het strand, de beste koffietentjes en gyms van de buurt op loop- of scooterafstand. Reistijden hieronder zijn per scooter, vanaf The Maison.</p>
   <div class="amcat">Strand &amp; beachclubs</div>
   <div class="amgrid">
@@ -448,7 +451,7 @@
 <!-- ============ 06 · BEREKEN JE RENDEMENT ============ -->
 <section class="pdfpage"><div class="pg">
   <div class="kicker"><span class="kn">02</span> Rendement &amp; prijs</div>
-  <h1 class="h1" style="font-size:26px">Bereken je rendement</h1>
+  <h1 class="h1" style="font-size:24px">Bereken je rendement</h1>
   <p class="lead">Het optimistische scenario van The Maison - eerlijk berekend, geen opgeblazen beloftes. De volledige, interactieve rekentool met eigen aannames vind je in het digitale investeerdersportaal.</p>
   <div class="calcgrid">
     <div class="ccard">
@@ -503,7 +506,7 @@
 <!-- ============ 07 · KOSTEN & BEHEER + BETAALSCHEMA ============ -->
 <section class="pdfpage"><div class="pg">
   <div class="kicker"><span class="kn">02</span> Rendement &amp; prijs</div>
-  <h1 class="h1" style="font-size:26px">Waar bestaat "Kosten &amp; beheer" precies uit?</h1>
+  <h1 class="h1" style="font-size:24px">Waar bestaat "Kosten &amp; beheer" precies uit?</h1>
   <p class="lead">45% is geen los percentage, maar drie vaste onderdelen van elk ongeveer 15% van de netto huuropbrengst - hieronder zie je waar elk deel voor staat. Alle drie zijn al verwerkt in de rendementsberekening - geen verborgen kosten achteraf.</p>
   <div class="feecards">
     <div class="feecard">
@@ -585,7 +588,7 @@
 <!-- ============ 10 · BEHEER OVERZICHT (nummers 01-05 blijven bij elkaar op 1 pagina) ============ -->
 <section class="pdfpage"><div class="pg">
   <div class="kicker"><span class="kicker-ic"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 9h8M8 13h5"/><circle cx="16.5" cy="15.5" r="2"/></svg></span><span class="kn">05</span> Beheer</div>
-  <h1 class="h1" style="font-size:27px;margin-bottom:10px">Wij runnen alles. Jij blijft hands-off.</h1>
+  <h1 class="h1" style="font-size:25px;margin-bottom:10px">Wij runnen alles. Jij blijft hands-off.</h1>
   <p class="lead" style="margin-bottom:12px">Na oplevering neemt House of Reservations het volledige verhuur- en operationeel beheer over, met maandelijkse rapportage en volledige kostentransparantie. Verhuurbeheer 15% en operationeel beheer circa 15% van de netto verhuuropbrengst - vooraf bekend, geen verborgen kosten.</p>
   <div class="statrow" style="border-top:none;padding-top:0;margin-top:0">
     <div class="sr"><div class="sv">250+</div><div class="sl">Villa's in beheer</div></div>
@@ -607,7 +610,7 @@
 <!-- ============ 11 · BEHEER IN DE PRAKTIJK (illustraties blijven samen op 1 pagina) ============ -->
 <section class="pdfpage"><div class="pg">
   <div class="kicker"><span class="kn">05</span> Beheer</div>
-  <h1 class="h1" style="font-size:24px">Zo ziet dat er in de praktijk uit</h1>
+  <h1 class="h1" style="font-size:22px">Zo ziet dat er in de praktijk uit</h1>
   <p class="lead">Van listing tot uitkering: de voorbeelden hieronder zijn illustratief, gebaseerd op het realistische scenario (85% bezetting, €175 nachtprijs). Ook gelist op Agoda, Expedia en Vrbo.</p>
   <div class="lcards">
     <div class="lcard">
@@ -645,7 +648,7 @@
 <!-- ============ 12 · VERTROUWEN (intro blijft samen met de inhoud, niet los) ============ -->
 <section class="pdfpage"><div class="pg">
   <div class="kicker"><span class="kicker-ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="kn">06</span> Zekerheden</div>
-  <h1 class="h1" style="font-size:26px;margin-bottom:10px">Vertrouw de structuur, niet de belofte</h1>
+  <h1 class="h1" style="font-size:24px;margin-bottom:10px">Vertrouw de structuur, niet de belofte</h1>
   <p class="lead" style="margin-bottom:14px">Je rechten als investeerder rusten niet op een persoonlijke toezegging, maar op juridische overeenkomsten die onafhankelijk worden vastgelegd en gecontroleerd. Dit is geen model op papier: het draait vandaag al voor 250+ villa's op Bali, met nog <span id="pdfAvailProse">4 van de 6</span> villa's beschikbaar.</p>
   <div class="trustlist">
     <div class="trustitem"><div class="tick">✓</div><p><b>30+30 jaar lease</b> met verlenging juridisch vastgelegd, geen open einde.</p></div>
@@ -665,7 +668,7 @@
 <!-- ============ 13 · WAAROM BALI + KERNCIJFERS ============ -->
 <section class="pdfpage"><div class="pg">
   <div class="kicker"><span class="kn">06</span> Zekerheden</div>
-  <h1 class="h1" style="font-size:24px">Waarom Bali?</h1>
+  <h1 class="h1" style="font-size:22px">Waarom Bali?</h1>
   <p class="lead">Een toeristisch seizoen van 365 dagen, structureel groeiende vraag naar short-stayverblijf en een beperkt aanbod op toplocaties met geldige vergunning.</p>
   <div class="whygrid">
     <div class="whycard"><div class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></div><div><h4>365 dagen hoogseizoen</h4><p>Geen laagseizoen: het hele jaar door toeristische vraag en bezetting.</p></div></div>
@@ -685,7 +688,7 @@
 <!-- ============ 14 · VEELGESTELDE VRAGEN + CONTACT (alles op 1 pagina) ============ -->
 <section class="pdfpage"><div class="pg">
   <div class="kicker"><span class="kicker-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 2-2.5 2-2.5 4"/><path d="M12 17h.01"/></svg></span><span class="kn">07</span> Vragen</div>
-  <h1 class="h1" style="font-size:22px;margin-bottom:10px">Veelgestelde vragen</h1>
+  <h1 class="h1" style="font-size:20px;margin-bottom:10px">Veelgestelde vragen</h1>
   <div class="faqlead" style="margin:0 0 12px">
     <img src="/images/steven.jpg" alt="Steven Gijsman">
     <div><div class="faqname">Steven Gijsman <span>· Director UTAMA</span></div></div>
@@ -703,7 +706,7 @@
     <div class="faqit"><div class="q">Hoeveel investeerders gingen mij voor?</div><p class="a">Ruim 25 Nederlandse investeerders, verdeeld over vier opgeleverde projecten. Inmiddels ontvangen zo'n acht van hen maandelijks huurinkomsten uit hun woning.</p></div>
     <div class="faqit"><div class="q">Wat als UTAMA niet meer bestaat?</div><p class="a">Je rechten staan los van UTAMA of Steven. Leaseovereenkomsten zijn juridische contracten en je eigendomsrechten zijn notarieel gedocumenteerd, ze blijven geldig ongeacht de staat van UTAMA.</p></div>
   </div>
-  <div class="subh" style="margin:16px 0 8px">Nog even kennismaken?</div>
+  <div class="subh" style="margin:11px 0 6px">Nog even kennismaken?</div>
   <div class="wa-cta">
     <img src="/images/ashley.jpg" alt="Ashley Vermoten">
     <div class="wa-body">
@@ -713,7 +716,7 @@
     <div class="wa-btn"><svg viewBox="0 0 32 32"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.8L.5 31.5l7.9-2c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28.3c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.7 20.6 3 18.4 3 16 3 8.8 8.8 3 16 3s13 5.8 13 13-5.8 12.8-13 12.8z"/><path d="M23.4 19.2c-.4-.2-2.3-1.1-2.6-1.3-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.2-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4z"/></svg>+31 6 24845014</div>
   </div>
   <div class="cperson-sec"><img src="/images/steven.jpg" alt="Steven Gijsman"><div><div class="cn">Steven Gijsman</div><div class="cr">Director, UTAMA</div></div><div style="margin-left:auto;text-align:right;flex:none"><a href="mailto:steven@utamabali.com" style="display:block">steven@utamabali.com</a><a href="https://wa.me/6281330857011" style="display:block;color:#075E54;font-weight:700;margin-top:2px">+62 813-3085-7011</a></div></div>
-  <div class="legalnote" style="margin-top:10px">Dit document bevat indicatieve informatie en vormt geen fiscaal of juridisch advies. Rendementsberekeningen zijn schattingen en geen garanties. Laat de contracten altijd controleren door een bevoegde notaris, PPAT en je eigen juridisch of fiscaal adviseur.</div>
+  <div class="legalnote" style="margin-top:5px">Dit document bevat indicatieve informatie en vormt geen fiscaal of juridisch advies. Rendementsberekeningen zijn schattingen en geen garanties. Laat de contracten altijd controleren door een bevoegde notaris, PPAT en je eigen juridisch of fiscaal adviseur.</div>
 </div><div class="foot"><span>UTAMA · The Maison</span><span>Vragen · 14</span></div></section>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
@@ -761,7 +764,7 @@
       if(pm && pm.floorplans && pm.floorplans.length){
         var fp=document.createElement('section'); fp.className='pdfpage';
         fp.innerHTML='<div class="pg"><div class="kicker"><span class="kn">·</span> Plattegronden</div>'
-          +'<h1 class="h1" style="font-size:26px">Plattegronden</h1>'
+          +'<h1 class="h1" style="font-size:24px">Plattegronden</h1>'
           +'<div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px">'
           +pm.floorplans.map(function(f){ return '<img src="'+String(f.url).replace(/"/g,'%22')+'" alt="Plattegrond" style="width:100%;height:auto;border:1px solid var(--line);border-radius:12px;display:block">'; }).join('')
           +'</div></div>';
