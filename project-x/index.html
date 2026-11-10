@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project X, Cemagi | UTAMA</title>
+<meta name="description" content="Ons nieuwe project in Cemagi, 300 meter van het strand. Zet je op de wachtlijst en je hoort het vóór de rest.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Project X, Cemagi | UTAMA">
+<meta property="og:description" content="Ons nieuwe project in Cemagi, 300 meter van het strand. Zet je op de wachtlijst en je hoort het vóór de rest.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://invest.utamabali.com/project-x">
+<meta property="og:image" content="https://invest.utamabali.com/project-x/render.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="/images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png">
+<link rel="apple-touch-icon" href="/images/favicon-180.png">
+<script src="/meta-pixel.js"></script>
+<script src="/t.js" defer></script>
+<style>
+  /* Project X (Steven, 10 november 2026): een hele simpele lander. Een grote render van het
+     nieuwe project in Cemagi als achtergrond, de knop "Join waitlist" (WhatsApp met een
+     bericht dat al klaarstaat, zodat de aanmelding in de inbox van het portaal landt) en een
+     aanmeldformulier. Het project heet buiten nog "ons nieuwe project in Cemagi"; de naam
+     volgt. Geen prijs, geen datum, geen gevel. De render is een interieur van Studio SGV
+     (20-projects/the-reload-sgv-renders-2026-11-09 in het brein): "Impressie, ontwerp in
+     ontwikkeling" en "We passen nog zaken aan" staan zichtbaar onderaan. */
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%}
+  body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:#17140F;background:#17140F;-webkit-font-smoothing:antialiased}
+  .bg{position:fixed;inset:0;z-index:0}
+  .bg img{width:100%;height:100%;object-fit:cover;object-position:56% 50%;display:block}
+  .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,20,15,.22) 0%,rgba(23,20,15,.30) 55%,rgba(23,20,15,.72) 100%)}
+  .wrap{position:relative;z-index:1;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:72px 16px 22px}
+  .brand{position:absolute;top:20px;left:0;right:0;text-align:center;color:#fff;font-family:Poppins,Inter,sans-serif;font-weight:700;letter-spacing:.22em;font-size:14px;text-shadow:0 1px 12px rgba(0,0,0,.4)}
+  .card{width:100%;max-width:440px;background:rgba(255,255,255,.97);border-radius:18px;padding:30px 28px 24px;box-shadow:0 30px 80px -30px rgba(0,0,0,.65)}
+  .eb{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#0f6b4f;font-weight:600;margin:0 0 10px}
+  h1{font-family:Poppins,Inter,sans-serif;font-size:34px;line-height:1.08;margin:0 0 10px;letter-spacing:-.01em}
+  .sub{font-size:15.5px;line-height:1.5;color:#4a463f;margin:0 0 18px}
+  label{display:block;font-size:12.5px;font-weight:600;margin:0 0 5px;color:#17140F}
+  .f{margin-bottom:12px}
+  input{width:100%;font:inherit;font-size:16px;padding:12px 13px;border:1px solid #d9d4cb;border-radius:10px;background:#fff;color:#17140F}
+  input:focus{outline:none;border-color:#17140F;box-shadow:0 0 0 3px rgba(23,20,15,.08)}
+  .err{display:none;color:#b91c1c;font-size:13px;margin:0 0 10px}
+  .err.on{display:block}
+  .btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:none;font:inherit;font-weight:600;font-size:15.5px;padding:14px 20px;border-radius:10px;cursor:pointer;margin-top:4px;text-decoration:none;transition:background .15s}
+  .btn.dark{background:#17140F;color:#fff}
+  .btn.dark:hover{background:#000}
+  .btn.wa{background:#25D366;color:#0b2417;margin-top:0}
+  .btn.wa:hover{background:#1fbd5b}
+  .btn.wa svg{width:21px;height:21px;fill:currentColor;flex:none}
+  .btn[disabled]{opacity:.6;cursor:default}
+  .wahint{font-size:12.5px;color:#6b665d;margin:8px 0 0;text-align:center;line-height:1.4}
+  .or{display:flex;align-items:center;gap:12px;margin:18px 0 14px;color:#6b665d;font-size:13px}
+  .or::before,.or::after{content:"";flex:1;height:1px;background:#e4dfd6}
+  .trust{font-size:12.5px;color:#6b665d;margin:12px 0 0;line-height:1.45}
+  .ok{display:none}
+  .ok.on{display:block}
+  .ok h2{font-family:Poppins,Inter,sans-serif;font-size:24px;margin:4px 0 8px}
+  .ok p{font-size:15.5px;line-height:1.5;color:#4a463f;margin:0}
+  .foot{position:relative;z-index:1;margin-top:18px;color:rgba(255,255,255,.85);font-size:12px;text-align:center;line-height:1.5;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+  /* Op een groot scherm staat de kaart links, over de donkere tv-wand, zodat de woonkamer zelf te zien is. */
+  @media(min-width:960px){
+    .wrap{align-items:flex-start;padding-left:6vw;padding-right:6vw}
+    .brand{left:6vw;right:auto;text-align:left}
+    .foot{text-align:left}
+  }
+  /* Smal scherm: de uitsnede schuift naar de trap en de terracotta wand. Midden in beeld hangt de plafondventilator
+     van de render; de ventilator is geen kenmerk dat we claimen (brein: the-reload-sgv-renders-2026-11-09). */
+  @media(max-width:700px){.bg img{object-position:88% 50%}}
+  @media(max-width:480px){.card{padding:24px 20px 20px}h1{font-size:30px}.wrap{padding-top:64px}}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"><img src="/project-x/render.jpg" alt="" fetchpriority="high" decoding="async"></div>
+<div class="wrap">
+  <div class="brand">UTAMA</div>
+  <div class="card" id="card">
+    <div id="formBlok">
+      <div class="eb">Ons nieuwe project in Cemagi</div>
+      <h1>Project X</h1>
+      <p class="sub">300 meter van het strand. De naam volgt. Zet je op de wachtlijst en je hoort het vóór de rest.</p>
+      <!-- WhatsApp van het portaalnummer (+31 6 12005900), met het bericht al ingevuld. Het komt als
+           gesprek in de inbox van /admin (de bot is uit op WhatsApp, een mens antwoordt). -->
+      <a class="btn wa" id="pxWa" href="https://wa.me/31612005900?text=Hi%2C%20I%27d%20like%20to%20join%20the%20waitlist%20for%20your%20new%20unnamed%20Cemagi%20project." target="_blank" rel="noopener" onclick="try{if(typeof fbTrackContact==='function')fbTrackContact('Project X')}catch(e){}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        <span>Join waitlist</span>
+      </a>
+      <p class="wahint">Opent WhatsApp met je bericht al klaar.</p>
+      <div class="or">of laat je gegevens achter</div>
+      <form id="pxForm" novalidate>
+        <div class="f"><label for="pxName">Je naam</label><input id="pxName" type="text" autocomplete="name" placeholder="Je volledige naam" required></div>
+        <div class="f"><label for="pxPhone">Je WhatsApp-nummer</label><input id="pxPhone" type="text" autocomplete="tel" inputmode="tel" placeholder="+31 6 ..." required></div>
+        <div class="f"><label for="pxEmail">Je e-mailadres</label><input id="pxEmail" type="email" autocomplete="email" placeholder="jij@voorbeeld.com" required></div>
+        <div class="err" id="pxErr">Vul je naam, WhatsApp-nummer en e-mailadres in.</div>
+        <button class="btn dark" type="submit" id="pxBtn">Houd me op de hoogte</button>
+        <p class="trust">Geen spam. Je krijgt vóór de openbare verkoop een persoonlijk bericht.</p>
+      </form>
+    </div>
+    <div class="ok" id="okBlok">
+      <div class="eb">Ons nieuwe project in Cemagi</div>
+      <h2>Je staat op de lijst</h2>
+      <p>Je krijgt vóór de openbare verkoop een persoonlijk bericht van ons.</p>
+    </div>
+  </div>
+  <div class="foot">Impressie, ontwerp in ontwikkeling. We passen nog zaken aan.</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="/supabase-client.js"></script>
+<script>
+(function(){
+  // Zelfde opslag als de early-access pop-up: project The Reload, unit Early access, zodat de
+  // lead in /admin onder The Reload landt, de bevestigingsmail "Je staat op de lijst" gaat en
+  // er geen brochure volgt (outreach__on_lead, migratie early_access_bevestiging_geen_brochure).
+  // submitLead maakt van het nummer +31...
+  var form = document.getElementById('pxForm'), err = document.getElementById('pxErr'), btn = document.getElementById('pxBtn');
+  function val(id){ return (document.getElementById(id).value || '').trim(); }
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = val('pxName'), phone = val('pxPhone'), email = val('pxEmail');
+    if (!name || !phone || !email || email.indexOf('@') < 1) { err.textContent = 'Vul je naam, WhatsApp-nummer en e-mailadres in.'; err.classList.add('on'); return; }
+    // Het nummer: de gedeelde normalisatie van supabase-client.js, met een eigen foutregel (de gedeelde
+    // regel belooft de brochure via WhatsApp, en deze aanmelding belooft een persoonlijk bericht).
+    if (typeof window.utamaNormaliseerTelefoon === 'function') {
+      var tel = window.utamaNormaliseerTelefoon(phone);
+      if (!tel.ok) {
+        err.textContent = (tel.reden === 'vast' ? 'Dit lijkt een vast nummer. Vul je mobiele nummer in, dan kunnen we je via WhatsApp bereiken.'
+          : 'Dit lijkt geen geldig mobiel nummer. Controleer het even, dan kunnen we je via WhatsApp bereiken.')
+          + (tel.landcodeTip ? ' Woon je buiten Nederland? Zet dan je landcode ervoor, bijvoorbeeld +32.' : '');
+        err.classList.add('on'); return;
+      }
+      phone = tel.weergave; document.getElementById('pxPhone').value = phone;
+    }
+    err.classList.remove('on');
+    btn.disabled = true; btn.textContent = 'Even geduld…';
+    var lead = { project: 'The Reload', unit: 'Early access', name: name, phone: phone, email: email, lang: 'nl' };
+    var klaar = function(r){
+      try { if (typeof window.fbTrackLead === 'function') window.fbTrackLead('Early access', r && r.eventId); } catch (x) {}
+      document.getElementById('formBlok').style.display = 'none';
+      document.getElementById('okBlok').classList.add('on');
+    };
+    var p;
+    try { p = (typeof window.submitLead === 'function') ? window.submitLead(lead) : Promise.reject(new Error('submitLead ontbreekt')); }
+    catch (x) { p = Promise.reject(x); }
+    // Liever de lead dan niets: ook als het opslaan faalt tonen we de bevestiging, en loggen we de fout.
+    p.then(klaar).catch(function(x){ console.error('aanmelding project-x', x); klaar(null); });
+  });
+})();
+</script>
+</body>
+</html>
