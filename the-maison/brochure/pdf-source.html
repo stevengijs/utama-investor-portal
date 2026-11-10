@@ -762,19 +762,29 @@
         [].slice.call(document.querySelectorAll('[style*="the-maison/images/maison-"]')).forEach(function(elm){ elm.style.backgroundImage="url('"+String(mUrls[mk%mUrls.length]).replace(/'/g,"%27")+"')"; mk++; });
       }
       if(pm && pm.floorplans && pm.floorplans.length){
-        var fp=document.createElement('section'); fp.className='pdfpage';
-        fp.innerHTML='<div class="pg"><div class="kicker"><span class="kn">·</span> Plattegronden</div>'
-          +'<h1 class="h1" style="font-size:24px">Plattegronden</h1>'
-          +'<div style="display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px">'
-          +pm.floorplans.map(function(f){ return '<img src="'+String(f.url).replace(/"/g,'%22')+'" alt="Plattegrond" style="width:100%;height:auto;border:1px solid var(--line);border-radius:12px;display:block">'; }).join('')
-          +'</div></div>';
-        document.body.appendChild(fp);
+        // Een plattegrond per A4-pagina. Een .pdfpage heeft een vaste hoogte met overflow hidden,
+        // dus met drie plattegronden op een pagina viel alles na de eerste weg (Steven, 10 november 2026).
+        pm.floorplans.forEach(function(f, i){
+          var fp=document.createElement('section'); fp.className='pdfpage';
+          var cap=String(f.caption||'').replace(/[<>&]/g,'');
+          fp.innerHTML='<div class="pg"><div class="kicker"><span class="kn">·</span> Plattegronden</div>'
+            +'<h1 class="h1" style="font-size:24px">'+(cap||('Plattegrond '+(i+1)+' van '+pm.floorplans.length))+'</h1>'
+            +'<img src="'+String(f.url).replace(/"/g,'%22')+'" alt="Plattegrond" style="display:block;max-width:100%;max-height:860px;width:auto;margin:14px auto 0;border:1px solid var(--line);border-radius:12px;object-fit:contain">'
+            +'</div>';
+          document.body.appendChild(fp);
+        });
       }
     }
   }catch(e){}
   try{
     if(new URLSearchParams(location.search).get('print')==='1'){
-      var go=function(){ setTimeout(function(){ window.print(); }, 700); };
+      var go=function(){
+        // Pas printen als de foto's en plattegronden uit de admin geladen zijn (hooguit 6 seconden wachten),
+        // anders komen ze als lege vlakken in de PDF.
+        var open=[].slice.call(document.images).filter(function(im){ return !im.complete; });
+        var klaar=Promise.all(open.map(function(im){ return new Promise(function(r){ im.addEventListener('load', r, {once:true}); im.addEventListener('error', r, {once:true}); }); }));
+        Promise.race([klaar, new Promise(function(r){ setTimeout(r, 6000); })]).then(function(){ setTimeout(function(){ window.print(); }, 300); });
+      };
       if(document.readyState==='complete') go(); else window.addEventListener('load', go);
     }
   }catch(e){}
