@@ -2,32 +2,32 @@
   "redirects": [
     {
       "source": "/the-reload",
-      "destination": "/#volgend-project",
+      "destination": "/project-x",
       "permanent": false
     },
     {
       "source": "/the-reload/",
-      "destination": "/#volgend-project",
+      "destination": "/project-x",
       "permanent": false
     },
     {
       "source": "/the-reload/index.html",
-      "destination": "/#volgend-project",
+      "destination": "/project-x",
       "permanent": false
     },
     {
       "source": "/the-reload/brochure",
-      "destination": "/#volgend-project",
+      "destination": "/project-x",
       "permanent": false
     },
     {
       "source": "/the-reload/brochure/",
-      "destination": "/#volgend-project",
+      "destination": "/project-x",
       "permanent": false
     },
     {
       "source": "/the-reload/brochure/:path*",
-      "destination": "/#volgend-project",
+      "destination": "/project-x",
       "permanent": false
     },
     {

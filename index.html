@@ -419,7 +419,7 @@ function renderCards(){
       </div></a>`;
   });
   // The Reload (Steven, 9 oktober 2026): niet meer als vier villa's verkocht. De pagina's zijn
-  // afgeschermd (vercel.json verwijst naar #volgend-project) en dit is de teaser: een vervaagde
+  // afgeschermd (vercel.json verwijst sinds 11 november 2026 naar /project-x) en dit is de teaser: een vervaagde
   // render en de early-access lijst, zonder prijs (whisperregel, Steven 27 oktober 2026).
   // De hele kaart linkt naar de lander /project-x (Steven, 11 november 2026: "Laat dit blok naar project-x linken");
   // de pop-up opent nog wel via #volgend-project en ?aanmelden=1 (zie hieronder).
@@ -511,7 +511,8 @@ function showContactSuccess(name){
 // Eén aanmeldlaag voor invest en utamabali.com: zie /early-access.js (Steven, 9 oktober 2026).
 function openEarlyAccess(){ if(window.utamaEarlyAccess) window.utamaEarlyAccess.open(lang); }
 function closeEarlyAccess(){ if(window.utamaEarlyAccess) window.utamaEarlyAccess.close(); }
-// Afgeschermde Reload-pagina's komen hier via #volgend-project binnen: kaart in beeld en de lijst openen.
+// Oudere links met #volgend-project of ?aanmelden=1: kaart in beeld en de lijst openen. De afgeschermde Reload-adressen
+// sturen sinds 11 november 2026 door naar /project-x (vercel.json), dus ze komen hier niet meer binnen.
 if(location.hash==='#volgend-project' || /[?&]aanmelden=1(&|$)/.test(location.search)){ setTimeout(function(){ const c=el('volgend-project'); if(c) c.scrollIntoView({block:'center'}); openEarlyAccess(); },500); }
 function launchConfetti(hostId){
   const host=el(hostId); if(!host) return;
