@@ -66,66 +66,121 @@
   /* Smal scherm: de uitsnede schuift naar de trap en de terracotta wand. */
   @media(max-width:700px){.bg img{object-position:88% 50%}}
   @media(max-width:480px){.card{padding:24px 20px 20px}h1{font-size:30px}.wrap{padding-top:64px}}
+  /* Taalknop: /project-x is Nederlands, /project-x?lang=en is Engels. */
+  .lang{position:absolute;top:14px;right:16px;z-index:2;display:flex;gap:2px;padding:3px;border-radius:999px;background:rgba(23,20,15,.5);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+  .lang button{border:0;background:transparent;color:#fff;font:600 12px/1 Inter,system-ui,sans-serif;letter-spacing:.06em;padding:7px 11px;border-radius:999px;cursor:pointer}
+  .lang button.on{background:#fff;color:#17140F}
+  .lang button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+  @media(min-width:960px){.lang{right:6vw}}
 </style>
 </head>
 <body>
 <div class="bg" aria-hidden="true"><img src="/project-x/render.jpg" alt="" fetchpriority="high" decoding="async"></div>
 <div class="wrap">
   <div class="brand">UTAMA</div>
+  <div class="lang" role="group" aria-label="Taal / Language"><button type="button" data-l="nl" class="on" aria-pressed="true">NL</button><button type="button" data-l="en" aria-pressed="false">EN</button></div>
   <div class="card" id="card">
     <div id="formBlok">
-      <div class="eb">Ons nieuwe project in Cemagi</div>
+      <div class="eb" data-t="eb">Ons nieuwe project in Cemagi</div>
       <h1>Project X</h1>
-      <p class="sub">300 meter van het strand. De naam volgt. Zet je op de wachtlijst en je hoort het vóór de rest.</p>
+      <p class="sub" data-t="sub">300 meter van het strand. De naam volgt. Zet je op de wachtlijst en je hoort het vóór de rest.</p>
       <!-- WhatsApp naar het UTAMA-nummer, met het bericht al ingevuld -->
-      <a class="btn wa" id="pxWa" href="https://wa.me/31612005900?text=Hi%2C%20I%27d%20like%20to%20join%20the%20waitlist%20for%20your%20new%20unnamed%20Cemagi%20project." target="_blank" rel="noopener" onclick="try{if(typeof fbTrackContact==='function')fbTrackContact('Project X')}catch(e){}">
+      <a class="btn wa" id="pxWa" href="https://wa.me/31612005900?text=Hoi%2C%20ik%20wil%20graag%20op%20de%20wachtlijst%20voor%20jullie%20nieuwe%20project%20in%20Cemagi." target="_blank" rel="noopener" onclick="try{if(typeof fbTrackContact==='function')fbTrackContact('Project X')}catch(e){}">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        <span>Join waitlist</span>
+        <span data-t="wa">Join waitlist</span>
       </a>
-      <p class="wahint">Opent WhatsApp met je bericht al klaar.</p>
-      <div class="or">of laat je gegevens achter</div>
+      <p class="wahint" data-t="wahint">Opent WhatsApp met je bericht al klaar.</p>
+      <div class="or" data-t="of">of laat je gegevens achter</div>
       <form id="pxForm" novalidate>
-        <div class="f"><label for="pxName">Je naam</label><input id="pxName" type="text" autocomplete="name" placeholder="Je volledige naam" required></div>
-        <div class="f"><label for="pxPhone">Je WhatsApp-nummer</label><input id="pxPhone" type="text" autocomplete="tel" inputmode="tel" placeholder="+31 6 ..." required></div>
-        <div class="f"><label for="pxEmail">Je e-mailadres</label><input id="pxEmail" type="email" autocomplete="email" placeholder="jij@voorbeeld.com" required></div>
+        <div class="f"><label for="pxName" data-t="lblNaam">Je naam</label><input id="pxName" type="text" autocomplete="name" placeholder="Je volledige naam" data-tp="phNaam" required></div>
+        <div class="f"><label for="pxPhone" data-t="lblTel">Je WhatsApp-nummer</label><input id="pxPhone" type="text" autocomplete="tel" inputmode="tel" placeholder="+31 6 ..." required></div>
+        <div class="f"><label for="pxEmail" data-t="lblMail">Je e-mailadres</label><input id="pxEmail" type="email" autocomplete="email" placeholder="jij@voorbeeld.com" data-tp="phMail" required></div>
         <div class="err" id="pxErr">Vul je naam, WhatsApp-nummer en e-mailadres in.</div>
-        <button class="btn dark" type="submit" id="pxBtn">Houd me op de hoogte</button>
-        <p class="trust">Geen spam. Je krijgt vóór de openbare verkoop een persoonlijk bericht.</p>
+        <button class="btn dark" type="submit" id="pxBtn" data-t="knop">Houd me op de hoogte</button>
+        <p class="trust" data-t="trust">Geen spam. Je krijgt vóór de openbare verkoop een persoonlijk bericht.</p>
       </form>
     </div>
     <div class="ok" id="okBlok">
-      <div class="eb">Ons nieuwe project in Cemagi</div>
-      <h2>Je staat op de lijst</h2>
-      <p>Je krijgt vóór de openbare verkoop een persoonlijk bericht van ons.</p>
+      <div class="eb" data-t="eb">Ons nieuwe project in Cemagi</div>
+      <h2 data-t="okKop">Je staat op de lijst</h2>
+      <p data-t="okTekst">Je krijgt vóór de openbare verkoop een persoonlijk bericht van ons.</p>
     </div>
   </div>
-  <div class="foot">Impressie, ontwerp in ontwikkeling. We passen nog zaken aan.</div>
+  <div class="foot" data-t="foot">Impressie, ontwerp in ontwikkeling. We passen nog zaken aan.</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="/supabase-client.js"></script>
 <script>
 (function(){
-  // Zelfde opslag als de early-access pop-up. De nummercontrole gebruikt de gedeelde normalisatie van supabase-client.js; submitLead maakt er +31... van.
+  // Taal: /project-x is Nederlands en /project-x?lang=en is Engels (Steven, 11 november 2026). Het WhatsApp-bericht, de teksten, de knoppen
+  // en de foutregels volgen die taal, en de lead krijgt dezelfde taal mee (zoals bij de early-access pop-up).
+  var T = {
+    nl: {
+      title: 'Project X, Cemagi | UTAMA', eb: 'Ons nieuwe project in Cemagi',
+      sub: '300 meter van het strand. De naam volgt. Zet je op de wachtlijst en je hoort het vóór de rest.',
+      wa: 'Join waitlist', wahint: 'Opent WhatsApp met je bericht al klaar.',
+      waBericht: 'Hoi, ik wil graag op de wachtlijst voor jullie nieuwe project in Cemagi.',
+      of: 'of laat je gegevens achter', lblNaam: 'Je naam', phNaam: 'Je volledige naam', lblTel: 'Je WhatsApp-nummer', lblMail: 'Je e-mailadres', phMail: 'jij@voorbeeld.com',
+      knop: 'Houd me op de hoogte', bezig: 'Even geduld…', trust: 'Geen spam. Je krijgt vóór de openbare verkoop een persoonlijk bericht.',
+      okKop: 'Je staat op de lijst', okTekst: 'Je krijgt vóór de openbare verkoop een persoonlijk bericht van ons.',
+      foot: 'Impressie, ontwerp in ontwikkeling. We passen nog zaken aan.',
+      leeg: 'Vul je naam, WhatsApp-nummer en e-mailadres in.',
+      vast: 'Dit lijkt een vast nummer. Vul je mobiele nummer in, dan kunnen we je via WhatsApp bereiken.',
+      ongeldig: 'Dit lijkt geen geldig mobiel nummer. Controleer het even, dan kunnen we je via WhatsApp bereiken.',
+      land: ' Woon je buiten Nederland? Zet dan je landcode ervoor, bijvoorbeeld +32.'
+    },
+    en: {
+      title: 'Project X, Cemagi | UTAMA', eb: 'Our new project in Cemagi',
+      sub: '300 meters from the beach. The name follows. Join the waitlist and hear it before everyone else.',
+      wa: 'Join waitlist', wahint: 'Opens WhatsApp with your message ready.',
+      waBericht: "Hi, I'd like to join the waitlist for your new Cemagi project.",
+      of: 'or leave your details', lblNaam: 'Your name', phNaam: 'Your full name', lblTel: 'Your WhatsApp number', lblMail: 'Your e-mail address', phMail: 'you@example.com',
+      knop: 'Keep me posted', bezig: 'One moment…', trust: 'No spam. You get a personal message before the public sale.',
+      okKop: 'You are on the list', okTekst: 'You will get a personal message from us before the public sale.',
+      foot: 'Impression, design in progress. We are still changing things.',
+      leeg: 'Fill in your name, WhatsApp number and e-mail address.',
+      vast: 'This looks like a landline. Enter your mobile number so we can reach you on WhatsApp.',
+      ongeldig: 'This does not look like a valid mobile number. Please check it so we can reach you on WhatsApp.',
+      land: ' Do you live outside the Netherlands? Add your country code first, for example +32.'
+    }
+  };
+  var LANG = /[?&]lang=en(&|$)/i.test(location.search) ? 'en' : 'nl';
   var form = document.getElementById('pxForm'), err = document.getElementById('pxErr'), btn = document.getElementById('pxBtn');
+  var fout = null;  // welke foutregel er staat, zodat hij meeverandert bij een taalwissel
+  function tk(k){ return T[LANG][k]; }
+  function foutTekst(f){ return tk(f.soort) + (f.land ? tk('land') : ''); }
+  function zet(l, bewaar){
+    LANG = (l === 'en') ? 'en' : 'nl';
+    document.documentElement.lang = LANG;
+    document.title = tk('title');
+    [].forEach.call(document.querySelectorAll('[data-t]'), function(e){ var v = tk(e.getAttribute('data-t')); if (v !== undefined) e.textContent = v; });
+    [].forEach.call(document.querySelectorAll('[data-tp]'), function(e){ var v = tk(e.getAttribute('data-tp')); if (v !== undefined) e.placeholder = v; });
+    document.getElementById('pxWa').href = 'https://wa.me/31612005900?text=' + encodeURIComponent(tk('waBericht'));
+    [].forEach.call(document.querySelectorAll('.lang button'), function(b){ var aan = b.getAttribute('data-l') === LANG; b.classList.toggle('on', aan); b.setAttribute('aria-pressed', aan ? 'true' : 'false'); });
+    if (fout && err.classList.contains('on')) err.textContent = foutTekst(fout);
+    if (bewaar) {
+      try { var u = new URL(location.href); if (LANG === 'en') u.searchParams.set('lang', 'en'); else u.searchParams.delete('lang'); history.replaceState(null, '', u.pathname + u.search + u.hash); } catch (x) {}
+    }
+  }
+  [].forEach.call(document.querySelectorAll('.lang button'), function(b){ b.addEventListener('click', function(){ zet(b.getAttribute('data-l'), true); }); });
+  zet(LANG, false);
+
+  // Zelfde opslag als de early-access pop-up. De nummercontrole gebruikt de gedeelde normalisatie van supabase-client.js; submitLead maakt er +31... van.
   function val(id){ return (document.getElementById(id).value || '').trim(); }
+  function toonFout(f){ fout = f; err.textContent = foutTekst(f); err.classList.add('on'); }
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var name = val('pxName'), phone = val('pxPhone'), email = val('pxEmail');
-    if (!name || !phone || !email || email.indexOf('@') < 1) { err.textContent = 'Vul je naam, WhatsApp-nummer en e-mailadres in.'; err.classList.add('on'); return; }
+    if (!name || !phone || !email || email.indexOf('@') < 1) { toonFout({ soort: 'leeg' }); return; }
     // Het nummer: gedeelde normalisatie, met een eigen foutregel.
     if (typeof window.utamaNormaliseerTelefoon === 'function') {
       var tel = window.utamaNormaliseerTelefoon(phone);
-      if (!tel.ok) {
-        err.textContent = (tel.reden === 'vast' ? 'Dit lijkt een vast nummer. Vul je mobiele nummer in, dan kunnen we je via WhatsApp bereiken.'
-          : 'Dit lijkt geen geldig mobiel nummer. Controleer het even, dan kunnen we je via WhatsApp bereiken.')
-          + (tel.landcodeTip ? ' Woon je buiten Nederland? Zet dan je landcode ervoor, bijvoorbeeld +32.' : '');
-        err.classList.add('on'); return;
-      }
+      if (!tel.ok) { toonFout({ soort: tel.reden === 'vast' ? 'vast' : 'ongeldig', land: !!tel.landcodeTip }); return; }
       phone = tel.weergave; document.getElementById('pxPhone').value = phone;
     }
-    err.classList.remove('on');
-    btn.disabled = true; btn.textContent = 'Even geduld…';
-    var lead = { project: 'The Reload', unit: 'Early access', name: name, phone: phone, email: email, lang: 'nl' };
+    fout = null; err.classList.remove('on');
+    btn.disabled = true; btn.textContent = tk('bezig');
+    var lead = { project: 'The Reload', unit: 'Early access', name: name, phone: phone, email: email, lang: LANG };
     var klaar = function(r){
       try { if (typeof window.fbTrackLead === 'function') window.fbTrackLead('Early access', r && r.eventId); } catch (x) {}
       document.getElementById('formBlok').style.display = 'none';

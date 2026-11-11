@@ -423,7 +423,7 @@ function renderCards(){
   // render en de early-access lijst, zonder prijs (whisperregel, Steven 27 oktober 2026).
   // De hele kaart linkt naar de lander /project-x (Steven, 11 november 2026: "Laat dit blok naar project-x linken");
   // de pop-up opent nog wel via #volgend-project en ?aanmelden=1 (zie hieronder).
-  h+=`<a class="pcard soon" id="volgend-project" href="/project-x">
+  h+=`<a class="pcard soon" id="volgend-project" href="${lang==='en'?'/project-x?lang=en':'/project-x'}">
     <div class="soon-bg" style="background-image:url('/the-reload/images/reload-teaser-blur.jpg')"></div>
     <div class="soon-overlay"></div>
     <div class="soon-content">
