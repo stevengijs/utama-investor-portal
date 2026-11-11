@@ -19,7 +19,8 @@
  * tabblad: <button data-tab="updates"> en <div id="pane-updates"> met daarin #bouwUpd (alle updates, alle foto's,
  * groot venster) en, bij The Maison, de live camera (#bouwcamera). Dit script toont het tabblad alleen als het
  * project updates of een camera heeft, vult de kop en de inleiding in de taal van de pagina en nummert de
- * hoofdstukken opnieuw (renumberChapters van de brochure).
+ * hoofdstukken opnieuw (renumberChapters van de brochure). Heeft het tabblad een live camera, dan knippert er een groen
+ * rondje achter de naam van de tabknop (Steven, 11 november 2026: "dat hier iets live te zien is").
  */
 (function () {
   'use strict';
@@ -79,7 +80,11 @@
     '.bu-cap{flex:1;text-align:center;font:600 14px/1.35 system-ui,-apple-system,Segoe UI,sans-serif;color:#fff}' +
     '.bu-nav{flex:none;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;font:600 22px/1 system-ui,sans-serif;cursor:pointer}' +
     '.bu-nav:hover{background:rgba(255,255,255,.28)}' +
-    '.bu-nav:focus-visible{outline:2px solid #fff;outline-offset:2px}';
+    '.bu-nav:focus-visible{outline:2px solid #fff;outline-offset:2px}' +
+    '.tab-live{--lv:46,125,91;flex:none;width:8px;height:8px;border-radius:50%;background:rgb(var(--lv));box-shadow:0 0 0 0 rgba(var(--lv),.55);animation:tabLive 1.6s ease-in-out infinite}' +
+    '#tabsNav button.active .tab-live{--lv:92,214,150}' +
+    '@keyframes tabLive{0%{box-shadow:0 0 0 0 rgba(var(--lv),.55)}70%{box-shadow:0 0 0 7px rgba(var(--lv),0)}100%{box-shadow:0 0 0 0 rgba(var(--lv),0)}}' +
+    '@media(prefers-reduced-motion:reduce){.tab-live{animation:none}}';
   (document.head || document.documentElement).appendChild(stijl);
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
@@ -98,7 +103,15 @@
     if (!pane && !knop) return;
     var toon = heeftUpdates || heeftCam;
     if (pane) pane.hidden = !toon;
-    if (knop) knop.style.display = toon ? '' : 'none';
+    if (knop) {
+      knop.style.display = toon ? '' : 'none';
+      // Heeft het tabblad een live camera, dan knippert er een groen rondje achter de naam: hier is iets live te zien.
+      var stip = knop.querySelector('.tab-live');
+      if (heeftCam && !stip) {
+        stip = document.createElement('span'); stip.className = 'tab-live'; stip.setAttribute('role', 'img'); stip.setAttribute('aria-label', 'live'); stip.title = 'live';
+        knop.appendChild(stip);
+      } else if (!heeftCam && stip) { stip.parentNode.removeChild(stip); }
+    }
     var kop = document.getElementById('bouwUpdKop'), lead = document.getElementById('bouwUpdLead');
     if (kop) kop.textContent = t.tabKop;
     if (lead) lead.textContent = heeftCam ? t.tabLeadCam : t.tabLead;
