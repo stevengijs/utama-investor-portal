@@ -904,12 +904,12 @@
     <div class="tabs-wrap">
       <div class="tabs-nav" id="tabsNav">
         <button data-tab="project" class="active"><span class="tn">01</span><span data-t="tabProject">Het project</span></button>
+        <button data-tab="updates" style="display:none"><span class="tn">02</span><span>Project Updates</span></button>
         <button data-tab="plattegronden"><span class="tn">02</span><span data-t="tabPlattegronden">Plattegronden</span></button>
         <button data-tab="locatie"><span class="tn">02</span><span data-t="tabLocatie">Locatie</span></button>
         <button data-tab="rendement"><span class="tn">03</span><span data-t="tabRendement">Rendement &amp; prijs</span></button>
         <button data-tab="planning"><span class="tn">04</span><span data-t="tabPlanning">Planning</span></button>
         <button data-tab="team"><span class="tn">05</span><span data-t="tabTeam">Bouwmanagement</span></button>
-        <button data-tab="updates" style="display:none"><span class="tn">07</span><span>Project Updates</span></button>
         <button data-tab="beheer"><span class="tn">06</span><span data-t="tabBeheer">Beheer</span></button>
         <button data-tab="vertrouwen"><span class="tn">07</span><span data-t="tabVertrouwen">Zekerheden</span></button>
         <button data-tab="vragen"><span class="tn">08</span><span data-t="tabVragen">Vragen</span></button>
@@ -990,6 +990,16 @@
       </div>
 
       <!-- 02 · LOCATIE -->
+      <!-- PROJECT UPDATES (Steven, 11 november 2026: "Maak maar een aparte tab met Project Updates en voeg de live camera en project updates daar aan toe"):
+           dit tabblad staat in elke brochure als tweede tabblad, na Het project (Steven, 11 november 2026: "Zet Project Updates als 2e tab, na Het project"), en blijft verborgen zolang het project geen updates en geen camera heeft. /project-updates.js toont het,
+           vult de kop en de inleiding in de taal van de pagina en nummert de hoofdstukken opnieuw. -->
+      <div class="tab-pane" id="pane-updates" hidden>
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M22 8l-6 4 6 4z"/></svg></span><div class="pane-kicker">Project Updates</div></div>
+        <h2 class="pane-h" id="bouwUpdKop">Kijk mee op de bouwplaats</h2>
+        <p class="pane-lead" id="bouwUpdLead">De nieuwste foto's van de bouw, met een korte uitleg bij elke update.</p>
+        <div class="build-updates" id="bouwUpd" hidden data-updates="alle" data-fotos="alle" data-lightbox></div>
+      </div>
+
       <!-- PLATTEGRONDEN (eigen hoofdstuk) -->
       <div class="tab-pane" id="pane-plattegronden">
         <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M4 11h16M11 4v16"/></svg></span><div class="pane-kicker" data-t="pPlatKicker">Plattegronden</div></div>
@@ -1228,16 +1238,6 @@
             <div class="ch-item"><span class="ck">✓</span><b data-t="p05Ch3b">10 jaar garantie</b> <span data-t="p05Ch3">op de bouwkundige schil van de woning</span></div>
           </div>
         </div>
-      </div>
-
-      <!-- PROJECT UPDATES (Steven, 11 november 2026: "Maak maar een aparte tab met Project Updates en voeg de live camera en project updates daar aan toe"):
-           dit tabblad staat in elke brochure en blijft verborgen zolang het project geen updates en geen camera heeft. /project-updates.js toont het,
-           vult de kop en de inleiding in de taal van de pagina en nummert de hoofdstukken opnieuw. -->
-      <div class="tab-pane" id="pane-updates" hidden>
-        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M22 8l-6 4 6 4z"/></svg></span><div class="pane-kicker">Project Updates</div></div>
-        <h2 class="pane-h" id="bouwUpdKop">Kijk mee op de bouwplaats</h2>
-        <p class="pane-lead" id="bouwUpdLead">De nieuwste foto's van de bouw, met een korte uitleg bij elke update.</p>
-        <div class="build-updates" id="bouwUpd" hidden data-updates="alle" data-fotos="alle" data-lightbox></div>
       </div>
 
       <!-- 06 · BEHEER -->
@@ -2682,7 +2682,7 @@ function showTab(id, skipHash){
 document.querySelectorAll('#tabsNav button').forEach(function(b){ b.addEventListener('click', function(){ showTab(b.dataset.tab); }); });
 (function(){
   const initial = (location.hash||'').replace('#','');
-  const valid = ['project','plattegronden','locatie','rendement','planning','team','updates','beheer','vertrouwen','vragen'];
+  const valid = ['project','updates','plattegronden','locatie','rendement','planning','team','beheer','vertrouwen','vragen'];
   if(valid.includes(initial)) showTab(initial, true);
 })();
 
