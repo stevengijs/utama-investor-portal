@@ -229,6 +229,7 @@
   .tab-pane{display:none;padding:22px 18px}
   @media(min-width:640px){.tab-pane{padding:34px 36px}}
   .tab-pane.active{display:block;animation:fadein .2s ease}
+  .tab-pane[hidden]{display:none !important}
   @keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
   /* Mobiel: geen los klikbaar tabblad, maar één doorlopende pagina - alle
      secties staan onder elkaar en de tab-balk hierboven (sticky) highlight
@@ -297,8 +298,7 @@
   .plan-block{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px 24px 24px;margin-bottom:22px}
   .plan-block:last-of-type{margin-bottom:0}
   .plan-block .subhead{margin-top:0}
-  .cam-block{margin-top:0;scroll-margin-top:84px;position:relative}
-  #bouwUpd.build-updates{margin:0 0 8px}
+  .cam-block{margin-top:22px;scroll-margin-top:150px;position:relative}
   .cam-pauze{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:rgba(246,241,232,.88);border-radius:12px;text-align:center;padding:20px}
   .cam-pauze[hidden]{display:none}
   .cam-pauze p{margin:0;font-size:14px;color:var(--muted)}
@@ -694,7 +694,7 @@
     .bnav, .gate, .tabs-nav, .sticky-cta, .lb, .rmodal, .print-btn,
     .deal-cta, .rail-note, .footer-cta .fc-ctas,
     input[type="range"], .slider-pins,
-    .earn-cap .zoom-hint, .cam-block, #bouwUpd{ display:none !important }
+    .earn-cap .zoom-hint, #pane-updates{ display:none !important }
     /* Een live Google Maps-embed kan niet in een PDF/print-snapshot renderen
        (levert een kapot-plaatje icoon op) - verbergen, de "Bekijk op Google
        Maps"-link eronder blijft staan als het bruikbare alternatief. */
@@ -876,23 +876,6 @@
 
   <!-- ============ TABBED WORKSPACE (laag 2 + 3) ============ -->
   <div>
-    <!-- Live bouwcamera (Steven, 9 oktober 2026): de beelden komen van de edge function
-         bouwcamera, die het camerawachtwoord buiten de browser houdt. Bewegend beeld alleen zolang dit
-         blok in beeld is. Sinds 11 november 2026 staat het bovenaan de brochure, boven de tabbalk
-         (Steven: "Zet dit camera blok bovenaan op deze page"), dus bij elk tabblad en niet meer in Bouwmanagement. -->
-    <div class="plan-block cam-block" id="bouwcamera">
-      <div class="subhead"><span class="cam-dot" aria-hidden="true"></span><span data-t="camSub">Live vanaf de bouwplaats</span></div>
-      <p class="pane-lead" style="margin-bottom:12px" data-t="camLead">Twee camera's op de bouwplaats in Pererenan, bewegend beeld zolang je kijkt. De tijd in beeld is Balinese tijd.</p>
-      <div class="cam-grid">
-        <figure><img id="cam1" alt="" decoding="async" onload="camOk(this)" onerror="camError(this)"><figcaption><span data-t="camLbl1">Camera 1</span> · <span class="cam-live" data-t="camLive">live</span></figcaption></figure>
-        <figure><img id="cam2" alt="" decoding="async" onload="camOk(this)" onerror="camError(this)"><figcaption><span data-t="camLbl2">Camera 2</span> · <span class="cam-live" data-t="camLive">live</span></figcaption></figure>
-      </div>
-      <div class="cam-pauze" id="camPauze" hidden><p data-t="camPauzeNote">Gepauzeerd na tien minuten kijken.</p><button type="button" class="cam-btn" onclick="camStart()" data-t="camPauzeBtn">Verder kijken</button></div>
-    </div>
-    <!-- Project Updates (Steven, 11 november 2026: "ik zie de foto's niet die ik heb geupload als updates voor The Maison"):
-         de nieuwste update met alle foto's, groot bij een klik. Zonder update blijft het blok verborgen. -->
-    <div class="build-updates" id="bouwUpd" hidden data-alle="/the-maison/camera/#updates" data-fotos="alle" data-lightbox></div>
-
     <div class="tabs-wrap">
       <div class="tabs-nav" id="tabsNav">
         <button data-tab="project" class="active"><span class="tn">01</span><span data-t="tabProject">Het project</span></button>
@@ -901,6 +884,7 @@
         <button data-tab="rendement"><span class="tn">03</span><span data-t="tabRendement">Rendement &amp; prijs</span></button>
         <button data-tab="planning"><span class="tn">04</span><span data-t="tabPlanning">Planning</span></button>
         <button data-tab="team"><span class="tn">05</span><span data-t="tabTeam">Bouwmanagement</span></button>
+        <button data-tab="updates"><span class="tn">07</span><span>Project Updates</span></button>
         <button data-tab="beheer"><span class="tn">06</span><span data-t="tabBeheer">Beheer</span></button>
         <button data-tab="vertrouwen"><span class="tn">07</span><span data-t="tabVertrouwen">Zekerheden</span></button>
         <button data-tab="vragen"><span class="tn">08</span><span data-t="tabVragen">Vragen</span></button>
@@ -1220,6 +1204,27 @@
             <div class="ch-item"><span class="ck">✓</span><b data-t="p05Ch3b">5 jaar garantie</b> <span data-t="p05Ch3">op de constructie, 12 maanden op de afwerking</span></div>
           </div>
         </div>
+      </div>
+
+      <!-- PROJECT UPDATES (Steven, 11 november 2026: "Maak maar een aparte tab met Project Updates en voeg de live camera en project updates daar aan toe"):
+           dit tabblad staat in elke brochure en blijft verborgen zolang het project geen updates en geen camera heeft. /project-updates.js toont het,
+           vult de kop en de inleiding in de taal van de pagina en nummert de hoofdstukken opnieuw. -->
+      <div class="tab-pane" id="pane-updates">
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M22 8l-6 4 6 4z"/></svg></span><div class="pane-kicker">Project Updates</div></div>
+        <h2 class="pane-h" id="bouwUpdKop">Kijk mee op de bouwplaats</h2>
+        <p class="pane-lead" id="bouwUpdLead">Kijk live mee via de camera's op de bouwplaats en bekijk de nieuwste foto's van de bouw, met een korte uitleg bij elke update.</p>
+        <!-- Live bouwcamera (Steven, 9 oktober 2026): de beelden komen van de edge function bouwcamera, die het camerawachtwoord
+             buiten de browser houdt. Bewegend beeld alleen zolang dit blok in beeld is. Sinds 11 november 2026 in het tabblad Project Updates. -->
+        <div class="plan-block cam-block" id="bouwcamera">
+          <div class="subhead"><span class="cam-dot" aria-hidden="true"></span><span data-t="camSub">Live vanaf de bouwplaats</span></div>
+          <p class="pane-lead" style="margin-bottom:12px" data-t="camLead">Twee camera's op de bouwplaats in Pererenan, bewegend beeld zolang je kijkt. De tijd in beeld is Balinese tijd.</p>
+          <div class="cam-grid">
+            <figure><img id="cam1" alt="" decoding="async" onload="camOk(this)" onerror="camError(this)"><figcaption><span data-t="camLbl1">Camera 1</span> · <span class="cam-live" data-t="camLive">live</span></figcaption></figure>
+            <figure><img id="cam2" alt="" decoding="async" onload="camOk(this)" onerror="camError(this)"><figcaption><span data-t="camLbl2">Camera 2</span> · <span class="cam-live" data-t="camLive">live</span></figcaption></figure>
+          </div>
+          <div class="cam-pauze" id="camPauze" hidden><p data-t="camPauzeNote">Gepauzeerd na tien minuten kijken.</p><button type="button" class="cam-btn" onclick="camStart()" data-t="camPauzeBtn">Verder kijken</button></div>
+        </div>
+        <div class="build-updates" id="bouwUpd" hidden data-updates="alle" data-fotos="alle" data-lightbox></div>
       </div>
 
       <!-- 05 · BEHEER -->
@@ -2508,7 +2513,7 @@ function bPct(v){ return new Intl.NumberFormat(lang==='nl'?'nl-NL':'en-GB',{styl
 function bFmtNum(v){ return lang==='nl' ? v.toFixed(1).replace('.', ',') : v.toFixed(1); }
 function yearsLabel(n){ return lang==='nl' ? (n+' jaar') : (n+' year'+(n===1?'':'s')); }
 
-// Live bouwcamera: het blok staat bovenaan de pagina, boven de tabbalk (Steven, 11 november 2026); de link in de rail springt ernaartoe.
+// Live bouwcamera: het blok staat in het tabblad Project Updates (Steven, 11 november 2026); de link in de rail springt ernaartoe.
 const CAM_BASE='https://gcpachivrwalsneuvlsa.supabase.co/functions/v1/bouwcamera?project=the-maison';
 let camTimer=null;
 function camRefresh(){ const t=Date.now(); [1,2].forEach(function(n){ const im=el('cam'+n); if(im){ im.dataset.pogingen='0'; im.src=CAM_BASE+'&cam='+n+'&t='+t+'-'+n; } }); }
@@ -2527,14 +2532,15 @@ function camStop(){ if(camSpeler) camSpeler.stop(); if(camTimer){ clearInterval(
 // Scrollen tot net onder de vaste tabbalk, zodat de kop van het blok in beeld blijft.
 // html heeft scroll-behavior:smooth, dus 'auto' scrolt óók zacht, en een zachte scroll vlak na
 // het laden wordt afgebroken (gemeten 9 oktober 2026: scrollY bleef 0). Daarom 'instant'.
-function camScroll(smooth){ const b=el('bouwcamera'); if(!b) return; const bn=document.querySelector('.bnav'); const off=(bn?bn.offsetHeight:0)+14; window.scrollTo({top:b.getBoundingClientRect().top+window.pageYOffset-off, behavior:smooth?'smooth':'instant'}); }
+function camScroll(smooth){ const b=el('bouwcamera'); if(!b) return; const nav=document.querySelector('.tabs-nav'); const off=(nav?nav.getBoundingClientRect().bottom:0)+14; window.scrollTo({top:b.getBoundingClientRect().top+window.pageYOffset-off, behavior:smooth?'smooth':'instant'}); }
 (function(){ const b=el('bouwcamera'); if(!b) return; if(!('IntersectionObserver' in window)){ camStart(); return; }
   new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) camStart(); else camStop(); }); },{threshold:.15}).observe(b);
-  // #bouwcamera in de adresbalk: naar het blok scrollen (het staat bovenaan, bij elk tabblad);
-  // nog een keer zodra alles geladen is.
-  function camHashJump(){ if(location.hash!=='#bouwcamera') return; const g=el('gate'); if(g && getComputedStyle(g).display!=='none') return; camScroll(false); }
+  // #bouwcamera in de adresbalk: tabblad Project Updates tonen zonder de eigen scroll van showTab
+  // (die vecht met de sprong naar het blok), dan naar het blok; nog een keer zodra alles geladen is.
+  function camHashJump(){ if(location.hash!=='#bouwcamera') return; const g=el('gate'); if(g && getComputedStyle(g).display!=='none') return; camShowPane(); camScroll(false); }
   setTimeout(camHashJump,400); setTimeout(camHashJump,1500); })();
-if(el('bbCam')){ el('bbCam').href="#bouwcamera"; el('bbCam').removeAttribute('target'); el('bbCam').onclick=function(e){ e.preventDefault(); try{ history.replaceState(null,'','#bouwcamera'); }catch(err){} setTimeout(function(){ camScroll(true); },60);
+function camShowPane(){ document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.toggle('active', p.id==='pane-updates'); }); document.querySelectorAll('#tabsNav button').forEach(function(b){ b.classList.toggle('active', b.dataset.tab==='updates'); }); }
+if(el('bbCam')){ el('bbCam').href="#bouwcamera"; el('bbCam').removeAttribute('target'); el('bbCam').onclick=function(e){ e.preventDefault(); camShowPane(); try{ history.replaceState(null,'','#bouwcamera'); }catch(err){} setTimeout(function(){ camScroll(true); },60);
   // Zachte scroll niet aangekomen? Dan alsnog direct.
   setTimeout(function(){ const b=el('bouwcamera'); if(!b) return; const r=b.getBoundingClientRect(); if(r.top<0 || r.top>innerHeight*0.6) camScroll(false); },900); }; }
 
@@ -2814,7 +2820,7 @@ function showTab(id, skipHash){
 document.querySelectorAll('#tabsNav button').forEach(function(b){ b.addEventListener('click', function(){ showTab(b.dataset.tab); }); });
 (function(){
   const initial = (location.hash||'').replace('#','');
-  const valid = ['project','plattegronden','locatie','rendement','planning','team','beheer','vertrouwen','vragen'];
+  const valid = ['project','plattegronden','locatie','rendement','planning','team','updates','beheer','vertrouwen','vragen'];
   if(valid.includes(initial)) showTab(initial, true);
 })();
 
@@ -2830,6 +2836,7 @@ document.querySelectorAll('#tabsNav button').forEach(function(b){ b.addEventList
     const panes = document.querySelectorAll('.tab-pane');
     let id = panes.length ? panes[0].id.replace('pane-','') : null;
     for(let i=0;i<panes.length;i++){
+      if(panes[i].hidden) continue;
       if(panes[i].getBoundingClientRect().top <= refY) id = panes[i].id.replace('pane-','');
       else break;
     }

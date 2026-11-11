@@ -191,7 +191,6 @@
   .rail-note a{color:var(--ink)}
 
   .tabs-wrap{position:sticky;top:61px;z-index:60;background:var(--sand);padding:12px 0 10px;margin-bottom:2px}
-  #bouwUpd.build-updates{margin:0 0 8px}
   @media(min-width:980px){.tabs-wrap{top:66px;padding:12px 0 14px}}
   .tabs-nav{display:flex;gap:7px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
   .tabs-nav::-webkit-scrollbar{display:none}
@@ -206,6 +205,7 @@
   .tab-pane{display:none;padding:22px 18px}
   @media(min-width:640px){.tab-pane{padding:34px 36px}}
   .tab-pane.active{display:block;animation:fadein .2s ease}
+  .tab-pane[hidden]{display:none !important}
   @keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
   /* Mobiel: geen los klikbaar tabblad, maar één doorlopende pagina - alle
      secties staan onder elkaar en de tab-balk hierboven (sticky) highlight
@@ -649,7 +649,7 @@
     .bnav, .gate, .tabs-nav, .sticky-cta, .lb, .rmodal, .print-btn,
     .deal-cta, .rail-note, .footer-cta .fc-ctas,
     input[type="range"], .slider-pins,
-    .earn-cap .zoom-hint{ display:none !important }
+    .earn-cap .zoom-hint, #pane-updates{ display:none !important }
     .loc-map{ display:none !important }
     main.portal{ display:block !important }
     .rail{ position:static !important; width:100% !important; margin-bottom:22px; break-inside:avoid }
@@ -819,10 +819,6 @@
 
   <!-- ============ TABBED WORKSPACE (laag 2 + 3) ============ -->
   <div>
-    <!-- Project Updates (Steven, 11 november 2026): de nieuwste update van dit project met alle foto's, groot bij een klik.
-         Zonder update blijft het blok verborgen. Zelfde koppeling als bij elk project. -->
-    <div class="build-updates" id="bouwUpd" hidden data-fotos="alle" data-lightbox></div>
-
     <div class="tabs-wrap">
       <div class="tabs-nav" id="tabsNav">
         <button data-tab="project" class="active"><span class="tn">01</span><span data-t="tabProject">Het project</span></button>
@@ -831,6 +827,7 @@
         <button data-tab="rendement"><span class="tn">03</span><span data-t="tabRendement">Rendement &amp; prijs</span></button>
         <button data-tab="planning"><span class="tn">04</span><span data-t="tabPlanning">Planning</span></button>
         <button data-tab="team"><span class="tn">05</span><span data-t="tabTeam">Bouwmanagement</span></button>
+        <button data-tab="updates" style="display:none"><span class="tn">07</span><span>Project Updates</span></button>
         <button data-tab="beheer"><span class="tn">06</span><span data-t="tabBeheer">Beheer</span></button>
         <button data-tab="vertrouwen"><span class="tn">07</span><span data-t="tabVertrouwen">Zekerheden</span></button>
         <button data-tab="vragen"><span class="tn">08</span><span data-t="tabVragen">Vragen</span></button>
@@ -1271,6 +1268,16 @@
             <div class="ch-item"><span class="ck">✓</span><b data-t="p05Ch3b">10 jaar garantie</b> <span data-t="p05Ch3">op de bouwkundige schil van de villa</span></div>
           </div>
         </div>
+      </div>
+
+      <!-- PROJECT UPDATES (Steven, 11 november 2026: "Maak maar een aparte tab met Project Updates en voeg de live camera en project updates daar aan toe"):
+           dit tabblad staat in elke brochure en blijft verborgen zolang het project geen updates en geen camera heeft. /project-updates.js toont het,
+           vult de kop en de inleiding in de taal van de pagina en nummert de hoofdstukken opnieuw. -->
+      <div class="tab-pane" id="pane-updates" hidden>
+        <div class="pk-row"><span class="pk-icon"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M22 8l-6 4 6 4z"/></svg></span><div class="pane-kicker">Project Updates</div></div>
+        <h2 class="pane-h" id="bouwUpdKop">Kijk mee op de bouwplaats</h2>
+        <p class="pane-lead" id="bouwUpdLead">De nieuwste foto's van de bouw, met een korte uitleg bij elke update.</p>
+        <div class="build-updates" id="bouwUpd" hidden data-updates="alle" data-fotos="alle" data-lightbox></div>
       </div>
 
       <!-- 06 · BEHEER -->
@@ -3028,7 +3035,7 @@ function showTab(id, skipHash){
 document.querySelectorAll('#tabsNav button').forEach(function(b){ b.addEventListener('click', function(){ showTab(b.dataset.tab); }); });
 (function(){
   const initial = (location.hash||'').replace('#','');
-  const valid = ['project','plattegronden','locatie','rendement','planning','team','beheer','vertrouwen','vragen'];
+  const valid = ['project','plattegronden','locatie','rendement','planning','team','updates','beheer','vertrouwen','vragen'];
   if(valid.includes(initial)) showTab(initial, true);
 })();
 
@@ -3044,6 +3051,7 @@ document.querySelectorAll('#tabsNav button').forEach(function(b){ b.addEventList
     const panes = document.querySelectorAll('.tab-pane');
     let id = panes.length ? panes[0].id.replace('pane-','') : null;
     for(let i=0;i<panes.length;i++){
+      if(panes[i].hidden) continue;
       if(panes[i].getBoundingClientRect().top <= refY) id = panes[i].id.replace('pane-','');
       else break;
     }
