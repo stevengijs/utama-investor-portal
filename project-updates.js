@@ -58,7 +58,8 @@
     '.bu-datum{font-size:14.5px;font-weight:700;color:var(--ink,#17140F)}' +
     '.bu-tab .bu-datum{font-size:17px;font-family:var(--display,inherit);letter-spacing:-.02em}' +
     '.bu-tab .bu-head{margin-bottom:6px}' +
-    '.bu-tekst{margin:0 0 12px;font-size:14.5px;line-height:1.55;color:var(--ink,#17140F)}' +
+    '.bu-tekst{margin:0 0 12px;padding:12px 14px;border-radius:10px;background:rgba(139,90,60,.14);box-shadow:inset 3px 0 0 var(--terra,#8B5A3C);font-size:14.5px;line-height:1.55}' +
+    '.build-updates .bu-tekst{color:var(--ink,#17140F)}' +
     '.bu-groep+.bu-groep{margin-top:22px;padding-top:18px;border-top:1px solid var(--line,#E7DECD)}' +
     '.bu-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}' +
     '.bu-strip.bu-alle-fotos{grid-template-columns:repeat(4,minmax(0,1fr))}' +
