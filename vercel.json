@@ -31,6 +31,21 @@
       "permanent": false
     },
     {
+      "source": "/the-reload/dataroom",
+      "destination": "/project-x",
+      "permanent": false
+    },
+    {
+      "source": "/the-reload/dataroom/",
+      "destination": "/project-x",
+      "permanent": false
+    },
+    {
+      "source": "/the-reload/dataroom/:path*",
+      "destination": "/project-x",
+      "permanent": false
+    },
+    {
       "source": "/the-maison/bouwcamera",
       "destination": "/the-maison/camera/",
       "permanent": true
