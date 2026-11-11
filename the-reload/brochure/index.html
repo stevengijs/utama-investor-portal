@@ -191,6 +191,7 @@
   .rail-note a{color:var(--ink)}
 
   .tabs-wrap{position:sticky;top:61px;z-index:60;background:var(--sand);padding:12px 0 10px;margin-bottom:2px}
+  #bouwUpd.build-updates{margin:0 0 8px}
   @media(min-width:980px){.tabs-wrap{top:66px;padding:12px 0 14px}}
   .tabs-nav{display:flex;gap:7px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
   .tabs-nav::-webkit-scrollbar{display:none}
@@ -818,6 +819,10 @@
 
   <!-- ============ TABBED WORKSPACE (laag 2 + 3) ============ -->
   <div>
+    <!-- Project Updates (Steven, 11 november 2026): de nieuwste update van dit project met alle foto's, groot bij een klik.
+         Zonder update blijft het blok verborgen. Zelfde koppeling als bij elk project. -->
+    <div class="build-updates" id="bouwUpd" hidden data-fotos="alle" data-lightbox></div>
+
     <div class="tabs-wrap">
       <div class="tabs-nav" id="tabsNav">
         <button data-tab="project" class="active"><span class="tn">01</span><span data-t="tabProject">Het project</span></button>
@@ -1647,6 +1652,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="/supabase-client.js"></script>
 <script src="/brochure-media.js"></script>
+<script src="/maison-updates.js" defer></script>
+<script src="/project-updates.js" defer></script>
 <script src="/calc-shared.js"></script>
 <script>
 const CONFIG = { whatsapp:"31624845014", email:"steven@utamabali.com" };
