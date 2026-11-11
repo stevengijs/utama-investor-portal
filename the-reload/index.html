@@ -16,6 +16,8 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png">
 <link rel="apple-touch-icon" href="/images/favicon-180.png">
 <link rel="stylesheet" href="/styles.css">
+<!-- Persoonlijke brochurelink (?key=...). Moet voor de trackers staan: de sleutel gaat uit de adresbalk voordat de pixel of t.js de URL leest. -->
+<script src="/brochure-poort.js"></script>
 <script src="/meta-pixel.js"></script>
   <script src="/t.js" defer></script>
 </head>
@@ -95,6 +97,9 @@
             <span data-t="bbCam">Live bouwcamera volgt binnenkort</span>
           </span>
         </div>
+        <div class="build-updates" id="bouwUpd" hidden></div>
+        <script src="/maison-updates.js" defer></script>
+        <script src="/project-updates.js" defer></script>
         <button type="button" class="cta-combo" onclick="openBrochure()">
           <span class="cta-combo-main" data-t="mHeroCta2">Bekijk volledige brochure</span>
           <span class="cta-combo-roi"><b>12–17%</b> <span data-t="roiBadgeLbl">rendement</span></span>

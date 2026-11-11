@@ -42,6 +42,26 @@
   .cam-grid .live{color:#2E7D5B}
   .cam-meta{font-size:13px;color:var(--muted);margin:14px 0 28px;line-height:1.5}
   .cam-ctas{display:flex;gap:10px;flex-wrap:wrap}
+  /* Project Updates (Steven, 11 november 2026): luchtfoto's per datum, dezelfde bron als het agentenportaal (/maison-updates.js). */
+  .upd{margin:8px 0 34px}
+  .upd h2{font-size:clamp(22px,3.2vw,30px);letter-spacing:-.015em;margin:0 0 6px}
+  .upd .lead{font-size:16px;margin:0 0 18px}
+  .upd-groep+.upd-groep{margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+  .upd-groep h3{font-size:18px;margin:0 0 4px}
+  .upd-tekst{margin:0 0 12px;font-size:14.5px;color:var(--muted)}
+  .upd-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+  @media(min-width:700px){.upd-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .upd-foto{display:block;width:100%;padding:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#17140F;cursor:zoom-in}
+  .upd-foto img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;transition:transform .4s ease}
+  .upd-foto:hover img{transform:scale(1.03)}
+  .rdlg{border:0;padding:0;background:transparent;width:min(96vw,1180px);max-width:96vw;max-height:96vh;overflow:visible}
+  .rdlg::backdrop{background:rgba(23,20,15,.9)}
+  .rdlg-in{display:flex;flex-direction:column;align-items:center;gap:12px}
+  .rdlg img{display:block;width:auto;height:auto;max-width:100%;max-height:78vh;border-radius:12px;background:#17140F}
+  .rd-bar{display:flex;align-items:center;justify-content:center;gap:10px;width:100%}
+  .rd-bar p{margin:0;flex:1;text-align:center;color:#fff;font-size:14px;line-height:1.35}
+  .rd-b{flex:0 0 auto;width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;font:600 24px/1 Inter,sans-serif;cursor:pointer}
+  .rd-b:hover{background:rgba(255,255,255,.3)}
 </style>
 </head>
 <body>
@@ -70,11 +90,29 @@
     <div class="cam-pauze" id="camPauze" hidden><p data-t="pauzeNote">Gepauzeerd na tien minuten kijken.</p><button type="button" class="btn" onclick="camStart()" data-t="pauzeBtn">Verder kijken</button></div>
   </div>
   <p class="cam-meta"><span data-t="updated">Bijgewerkt om</span> <span id="camTime">…</span> · <span data-t="hint">Geen beeld? Dan is de camera even niet bereikbaar. Probeer het over een minuut opnieuw.</span></p>
+
+  <section class="upd" id="updates" hidden>
+    <h2 data-t="updKop">Project Updates</h2>
+    <p class="lead" data-t="updLead">Luchtfoto's van de bouwplaats, met de datum van elke update. De nieuwste staat bovenaan.</p>
+    <div id="updLijst"></div>
+  </section>
   <div class="cam-ctas">
     <a class="btn" href="/the-maison/brochure/" data-t="ctaBrochure">Open de brochure</a>
     <a class="btn ghost" href="/the-maison/" data-t="ctaProject">Bekijk het project</a>
   </div>
 </main>
+
+<dialog class="rdlg" id="rdDlg" aria-label="Foto">
+  <div class="rdlg-in">
+    <img id="rdImg" alt="">
+    <div class="rd-bar">
+      <button type="button" class="rd-b" id="rdP" aria-label="Vorige">&#8249;</button>
+      <p id="rdCap"></p>
+      <button type="button" class="rd-b" id="rdN" aria-label="Volgende">&#8250;</button>
+      <button type="button" class="rd-b" id="rdX" aria-label="Sluiten">&times;</button>
+    </div>
+  </div>
+</dialog>
 
 <footer>
   <div class="wrap">
@@ -84,10 +122,11 @@
 </footer>
 
 <script src="/bouwcamera.js"></script>
+<script src="/maison-updates.js"></script>
 <script>
 const T={
-  nl:{title:"Live bouwcamera The Maison | UTAMA",navProject:"The Maison",navBrochure:"Brochure",h1:"Live vanaf de bouwplaats",lead:"Twee camera's op de bouwplaats van The Maison, bewegend beeld zolang je kijkt. De tijd in beeld is Balinese tijd.",cam1:"Camera 1",cam2:"Camera 2",live:"live",offline:"even niet bereikbaar",laden:"verbinden",pauzeNote:"Gepauzeerd na tien minuten kijken.",pauzeBtn:"Verder kijken",updated:"Bijgewerkt om",hint:"Geen beeld? Dan is de camera even niet bereikbaar. Probeer het over een minuut opnieuw.",ctaBrochure:"Open de brochure",ctaProject:"Bekijk het project",footer:"Investeren in Bali-vastgoed, transparant en zorgeloos.",disc:"Live beelden van de bouwplaats, bedoeld ter informatie. Rendementen en opleverdata staan in de brochure en zijn schattingen, geen garanties."},
-  en:{title:"Live construction camera The Maison | UTAMA",navProject:"The Maison",navBrochure:"Brochure",h1:"Live from the building site",lead:"Two cameras on the building site of The Maison, moving images while you watch. The time in the image is Bali time.",cam1:"Camera 1",cam2:"Camera 2",live:"live",offline:"temporarily unreachable",laden:"connecting",pauzeNote:"Paused after ten minutes of watching.",pauzeBtn:"Keep watching",updated:"Updated at",hint:"No image? The camera is temporarily unreachable. Try again in a minute.",ctaBrochure:"Open the brochure",ctaProject:"View the project",footer:"Investing in Bali real estate, transparent and carefree.",disc:"Live images of the building site, for information only. Returns and delivery dates are in the brochure and are estimates, not guarantees."}
+  nl:{updKop:"Project Updates",updLead:"Luchtfoto's van de bouwplaats, met de datum van elke update. De nieuwste staat bovenaan.",updVan:"Update van {datum}",updFoto:"Foto {n} van {m}",rdSluit:"Sluiten",rdVorige:"Vorige",rdVolgende:"Volgende",title:"Live bouwcamera The Maison | UTAMA",navProject:"The Maison",navBrochure:"Brochure",h1:"Live vanaf de bouwplaats",lead:"Twee camera's op de bouwplaats van The Maison, bewegend beeld zolang je kijkt. De tijd in beeld is Balinese tijd.",cam1:"Camera 1",cam2:"Camera 2",live:"live",offline:"even niet bereikbaar",laden:"verbinden",pauzeNote:"Gepauzeerd na tien minuten kijken.",pauzeBtn:"Verder kijken",updated:"Bijgewerkt om",hint:"Geen beeld? Dan is de camera even niet bereikbaar. Probeer het over een minuut opnieuw.",ctaBrochure:"Open de brochure",ctaProject:"Bekijk het project",footer:"Investeren in Bali-vastgoed, transparant en zorgeloos.",disc:"Live beelden van de bouwplaats, bedoeld ter informatie. Rendementen en opleverdata staan in de brochure en zijn schattingen, geen garanties."},
+  en:{updKop:"Project Updates",updLead:"Aerial photos of the building site, with the date of each update. The newest is at the top.",updVan:"Update of {datum}",updFoto:"Photo {n} of {m}",rdSluit:"Close",rdVorige:"Previous",rdVolgende:"Next",title:"Live construction camera The Maison | UTAMA",navProject:"The Maison",navBrochure:"Brochure",h1:"Live from the building site",lead:"Two cameras on the building site of The Maison, moving images while you watch. The time in the image is Bali time.",cam1:"Camera 1",cam2:"Camera 2",live:"live",offline:"temporarily unreachable",laden:"connecting",pauzeNote:"Paused after ten minutes of watching.",pauzeBtn:"Keep watching",updated:"Updated at",hint:"No image? The camera is temporarily unreachable. Try again in a minute.",ctaBrochure:"Open the brochure",ctaProject:"View the project",footer:"Investing in Bali real estate, transparent and carefree.",disc:"Live images of the building site, for information only. Returns and delivery dates are in the brochure and are estimates, not guarantees."}
 };
 let lang='nl';
 function el(id){ return document.getElementById(id); }
@@ -102,6 +141,7 @@ function setLang(l){
   try{ localStorage.setItem('utama_lang', l); }catch(e){}
   document.querySelectorAll('[data-t]').forEach(function(e){ var k=e.getAttribute('data-t'); if(T[l][k]!==undefined) e.textContent=T[l][k]; });
   camLabels();
+  renderUpdates();
 }
 setLang(_pickInitialLang());
 
@@ -125,6 +165,34 @@ function camStart(){
 function camStop(){ if(speler) speler.stop(); if(camTimer){ clearInterval(camTimer); camTimer=null; } }
 document.addEventListener('visibilitychange', function(){ if(document.hidden) camStop(); else camStart(); });
 camStart();
+// ---- Project updates: luchtfoto's per datum, uit /maison-updates.js (zelfde bron als het agentenportaal) ----
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function updDatum(d){ var x=new Date(d+'T12:00:00'); return isNaN(x)?d:x.toLocaleDateString(lang==='nl'?'nl-NL':'en-GB',{day:'numeric',month:'long',year:'numeric'}); }
+function renderUpdates(){
+  var sec=el('updates'), lijst=el('updLijst'); if(!sec||!lijst) return;
+  var ups=((window.UTAMA_UPDATES&&window.UTAMA_UPDATES.maison)||[]).slice().sort(function(a,b){ return a.datum<b.datum?1:-1; });
+  if(!ups.length){ sec.hidden=true; return; }
+  sec.hidden=false;
+  el('rdP').setAttribute('aria-label',T[lang].rdVorige); el('rdN').setAttribute('aria-label',T[lang].rdVolgende); el('rdX').setAttribute('aria-label',T[lang].rdSluit);
+  lijst.innerHTML=ups.map(function(u){
+    var titel=T[lang].updVan.replace('{datum}',updDatum(u.datum)), n=u.fotos.length;
+    var tekst=(u.tekst&&(u.tekst[lang]||u.tekst.nl))||'';
+    var fotos=u.fotos.map(function(id,i){
+      var cap=titel+' \u00b7 '+T[lang].updFoto.replace('{n}',i+1).replace('{m}',n);
+      return '<button type="button" class="upd-foto" data-cap="'+esc(cap)+'" data-groot="/updates/maison/'+esc(id)+'.webp" aria-label="'+esc(cap)+'"><img src="/updates/maison/'+esc(id)+'-s.webp" width="640" height="360" alt="" loading="lazy" decoding="async"></button>';
+    }).join('');
+    return '<div class="upd-groep"><h3>'+esc(titel)+'</h3>'+(tekst?'<p class="upd-tekst">'+esc(tekst)+'</p>':'')+'<div class="upd-grid" data-galerij>'+fotos+'</div></div>';
+  }).join('');
+}
+(function(){
+  var dlg=el('rdDlg'), figs=[], nu=0;
+  if(!dlg||typeof dlg.showModal!=='function') return;
+  function toon(i){ if(!figs.length) return; nu=(i+figs.length)%figs.length; var f=figs[nu]; el('rdImg').src=f.getAttribute('data-groot'); el('rdCap').textContent=f.getAttribute('data-cap')||''; if(!dlg.open) dlg.showModal(); }
+  document.addEventListener('click',function(e){ var f=e.target.closest('.upd-foto'); if(!f) return; var g=f.closest('[data-galerij]'); if(!g) return; figs=Array.prototype.slice.call(g.querySelectorAll('.upd-foto')); toon(figs.indexOf(f)); });
+  el('rdP').onclick=function(){ toon(nu-1); }; el('rdN').onclick=function(){ toon(nu+1); }; el('rdX').onclick=function(){ dlg.close(); };
+  dlg.addEventListener('click',function(e){ if(e.target===dlg) dlg.close(); });
+  dlg.addEventListener('keydown',function(e){ if(e.key==='ArrowLeft') toon(nu-1); else if(e.key==='ArrowRight') toon(nu+1); });
+})();
 </script>
 </body>
 </html>
